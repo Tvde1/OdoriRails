@@ -8,5 +8,6 @@ namespace Beheersysteem
 {
     class User
     {
+        
     }
 }

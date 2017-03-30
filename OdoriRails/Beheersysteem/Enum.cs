@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Beheersysteem
 {
-    public enum EnumTramStatus
+    public enum TramStatus
     {
         Normal,
         Cleaning,
         Maintenance,
         NotInUse 
     }
-    public enum EnumSectorStatus
+    public enum SectorStatus
     {
         Open,
         Closed,
