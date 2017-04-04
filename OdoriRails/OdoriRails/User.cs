@@ -18,12 +18,25 @@ namespace OdoriRails
         public string Name { get; private set; }
         public string Email { get; private set; }
         public Role Role { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
+        public string ManagerUsername { get; private set; }
 
         public User(string name, string email, Role role)
         {
             Name = name;
             Email = email;
             Role = role;
+        }
+
+        public User (string name, string email, Role role, string username, string password, string managedByUsername)
+        {
+            Name = name;
+            Email = email;
+            Role = role;
+            Username = username;
+            Password = password;
+            ManagerUsername = managedByUsername;
         }
     }
 }
