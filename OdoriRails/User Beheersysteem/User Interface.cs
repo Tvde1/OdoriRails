@@ -16,5 +16,25 @@ namespace User_Beheersysteem
         {
             InitializeComponent();
         }
+
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
