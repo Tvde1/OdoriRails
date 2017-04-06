@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Beheersysteem
 {
-    public partial class Form1 : Form
+    public partial class FormUserInterface : Form
     {
-        public Form1()
+        public FormUserInterface()
         {
             InitializeComponent();
         }

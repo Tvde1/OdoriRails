@@ -9,11 +9,9 @@ namespace In_Uitrit_Systeem
 {
     class InUitRitUser : User
     {
-        public string UserName { get; private set; }
-
-        public InUitRitUser(string username, string name, string email, Role role): base(name, email, role)
+        public InUitRitUser(int id, string name) : base(id, name)
         {
-            username = UserName;
+            // er moet een constructor aangemaakt worden in OdoriRails/User met bovenstaande parameters.
         }
     }
 }
