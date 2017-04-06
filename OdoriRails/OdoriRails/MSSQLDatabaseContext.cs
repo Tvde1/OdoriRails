@@ -15,6 +15,7 @@ namespace OdoriRails
     public class MSSQLDatabaseContext : IDatabaseConnector
     {
         private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        //private string _connectionString = @"Server=84.30.16.219;Database=OdoriRails;User=OdoriRails;Password=12345678;";
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private int _remiseNumber = 0;
 
@@ -178,37 +179,108 @@ namespace OdoriRails
         #region service
         public List<Service> GetAllServicesFromUser(User user)
         {
-            string text = @"SELECT Service.ServicePk
+            string repairs = @"SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk";
-            var query = new SqlCommand(text);
-            var data = GetData(query);
-            List<int> IDList = GetList<int>(data);
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
-            //var cleanQuery = @"SELECT Service";
+            string cleans = @"SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM Service INNER JOIN
+(SELECT ServiceUser.ServiceCk
+FROM ServiceUser INNER JOIN
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
-            return null;
+            var repairQuery = new SqlCommand(repairs);
+            repairQuery.Parameters.AddWithValue("@id", user.ID);
+            var repairData = GetData(repairQuery);
 
+            var cleanQuery = new SqlCommand(cleans);
+            cleanQuery.Parameters.AddWithValue("@id", user.ID);
+            var cleanData = GetData(cleanQuery);
+
+            List<Service> returnList = new List<Service>();
+
+            foreach (DataRow row in repairData.Rows)
+            {
+                returnList.Add(CreateRepair(row));
+            }
+            foreach (DataRow row in cleanData.Rows)
+            {
+                returnList.Add(CreateCleaning(row));
+            }
+            return returnList;
         }
 
         public List<Service> GetAllServicesWithoutUser(User user)
         {
-            return null;
+            var repairQuery = new SqlCommand(@"SELECT        Repair.*
+FROM            Repair INNER JOIN
+                             (SELECT        Service.ServicePk
+                               FROM            ServiceUser RIGHT OUTER JOIN
+                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
+                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+
+            var cleanQuery = new SqlCommand(@"SELECT        Clean.*
+FROM            Clean INNER JOIN
+                             (SELECT        Service.ServicePk
+                               FROM            ServiceUser RIGHT OUTER JOIN
+                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
+                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
+            var repairData = GetData(repairQuery);
+            var cleanData = GetData(cleanQuery);
+
+            var returnList = new List<Service>();
+
+            foreach (DataRow row in repairData.Rows)
+            {
+                returnList.Add(CreateRepair(row));
+            }
+            foreach (DataRow row in cleanData.Rows)
+            {
+                returnList.Add(CreateCleaning(row));
+            }
+
+            return returnList;
         }
 
 
         private Cleaning CreateCleaning(DataRow row)
         {
-            return null;
+            var array = row.ItemArray;
+            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]));
         }
 
         private Repair CreateRepair(DataRow row)
         {
-            return null;
+            var array = row.ItemArray;
+            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]));
         }
+
+        private List<User> GetUsersInService(int serviceId)
+        {
+            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var data = GetData(query);
+            var returnList = new List<User>();
+            foreach (DataRow row in data.Rows)
+            {
+                returnList.Add(CreateUser(row));
+            }
+            return returnList;
+        }
+
         #endregion
 
         #region login
