@@ -8,42 +8,49 @@ namespace OdoriRails
 {
     public enum Role
     {
+        Administrator,
+        Logistic,
+        Driver,
         Cleaner,
-        Admin,
-        Homeless
+        Engineer
     }
 
     public class User
     {
         /// <summary>
+        /// Database ID van de User.
+        /// </summary>
+        public int ID { get; private set; }
+
+        /// <summary>
         /// Ophalen naam van User
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Ophalen emailadres van User
         /// </summary>
-        public string Email { get; private set; }
+        public string Email { get; protected set; }
 
         /// <summary>
         /// Ophalen rol van User
         /// </summary>
-        public Role Role { get; private set; }
+        public Role Role { get; protected set; }
 
         /// <summary>
         /// Ophalen username van User
         /// </summary>
-        public string Username { get; private set; }
+        public string Username { get; protected set; }
 
         /// <summary>
         /// Ophalen password van User
         /// </summary>
-        public string Password { get; private set; }
+        public string Password { get; protected set; }
 
         /// <summary>
         /// Ophalen manager van User
         /// </summary>
-        public string ManagerUsername { get; private set; }
+        public string ManagerUsername { get; protected set; }
 
         /// <summary>
         /// Toevoegen User, minimale hoeveelheid benodigde data.
@@ -58,8 +65,9 @@ namespace OdoriRails
         /// <summary>
         /// Toevoegen User, alle benodigde data.
         /// </summary>
-        public User (string name, string email, Role role, string username, string password, string managedByUsername)
+        public User(int id, string name, string username, string email, string password, Role role, string managedByUsername)
         {
+            ID = id;
             Name = name;
             Email = email;
             Role = role;

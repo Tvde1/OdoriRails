@@ -18,27 +18,27 @@
         /// <summary>
         /// Ophalen tramnummer
         /// </summary>
-        public int Number { get; private set; }
+        public int Number { get; protected set; }
 
         /// <summary>
         /// Ophalen Tramstatus
         /// </summary>
-        public TramStatus Status { get; private set; }
+        public TramStatus Status { get; protected set; }
 
         /// <summary>
         /// Get/Set lijn waar de tram opstaat
         /// </summary>
-        public int Line { get; set; }
+        public int Line { get; protected set; }
 
         /// <summary>
         /// Get/Set bestuurder van de tram
         /// </summary>
-        public User Driver { get; set; }
+        public User Driver { get; protected set; }
 
         /// <summary>
         /// Ophalen model van de tram
         /// </summary>
-        public Model Model { get; private set; }
+        public Model Model { get; protected set; }
 
         /// <summary>
         /// Aanmaken nieuwe tram met bestuurder

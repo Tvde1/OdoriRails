@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace OdoriRails
 {
-    interface IDatabaseConnector
+    public interface IDatabaseConnector
     {
+        #region users
         /// <summary>
         /// Voegt een User toe aan de database.
         /// </summary>
@@ -33,6 +34,15 @@ namespace OdoriRails
         User GetUser(string userName);
 
         /// <summary>
+        /// Haalt alle users op die deze rol hebben.
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        List<User> GetAllUsersWithRole(Role role);
+        #endregion
+
+        #region trams
+        /// <summary>
         /// Voegt een nieuwe tram toe aan de database.
         /// </summary>
         /// <param name="tram"></param>
@@ -49,7 +59,9 @@ namespace OdoriRails
         /// </summary>
         /// <param name="id"></param>
         Tram GetTram(int id);
+        #endregion
 
+        #region tracks and sector
         /// <summary>
         /// Haalt alle tracks, sectoren en trams op sectoren op.
         /// </summary>
@@ -61,5 +73,38 @@ namespace OdoriRails
         /// </summary>
         /// <returns></returns>
         List<Tram> GetAllTramsOnATrack();
+        #endregion
+
+        #region services
+        /// <summary>
+        /// Haal alle services op (reparatie en schoonmaak) die deze user hebben.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        List<Service> GetAllServicesFromUser(User user);
+
+        /// <summary>
+        /// Haalt een lijst op van services zonder users.
+        /// </summary>
+        /// <returns></returns>
+        List<Service> GetAllServicesWithoutUsers();
+        #endregion
+
+        #region login
+        /// <summary>
+        /// Kijkt of de username bestaat in de database.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        bool ValidateUsername(string username);
+
+        /// <summary>
+        /// Een bool om de gebruikersnaam en wachtwoord te controleren.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool MatchUsernameAndPassword(string username, string password);
+        #endregion
     }
 }

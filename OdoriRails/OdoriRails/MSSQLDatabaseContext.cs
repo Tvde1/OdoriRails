@@ -13,8 +13,9 @@ namespace OdoriRails
     /// De DAL-Klasse
     /// </summary>
     public class MSSQLDatabaseContext : IDatabaseConnector
-    { 
+    {
         private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private int _remiseNumber = 0;
 
         //public MSSQLDatabaseContext()
@@ -57,12 +58,24 @@ namespace OdoriRails
             return CreateUser(table.Rows[0]);
         }
 
+        public List<User> GetAllUsersWithRole(Role role)
+        {
+            var command = new SqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
+            var data = GetData(command);
+            var returnList = new List<User>();
+            foreach (DataRow row in data.Rows)
+            {
+                returnList.Add(CreateUser(row));
+            }
+            return returnList;
+        }
+
         private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
-            //name gebr usern wachtw rol 
+            //name gebr wachtw email rol 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
-            return new User((string)array[1],(string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
+            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
@@ -98,10 +111,6 @@ namespace OdoriRails
             return CreateTram(table.Rows[0]);
         }
 
-        /// <summary>
-        /// Een lijst met trams die op een track staan.
-        /// </summary>
-        /// <returns></returns>
         public List<Tram> GetAllTramsOnATrack()
         {
             var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
@@ -166,6 +175,69 @@ namespace OdoriRails
         }
         #endregion
 
+        #region service
+        public List<Service> GetAllServicesFromUser(User user)
+        {
+            string text = @"SELECT Service.ServicePk
+FROM Service INNER JOIN
+(SELECT ServiceUser.ServiceCk
+FROM ServiceUser INNER JOIN
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk";
+            var query = new SqlCommand(text);
+            var data = GetData(query);
+            
+            List<int> IDList = GetList<int>(data);
+
+            //var cleanQuery = @"SELECT Service";
+
+            return null;
+
+        }
+
+        public List<Service> GetAllServicesWithoutUser(User user)
+        {
+            return null;
+        }
+
+
+        private Cleaning CreateCleaning(DataRow row)
+        {
+            return null;
+        }
+
+        private Repair CreateRepair(DataRow row)
+        {
+            return null;
+        }
+        #endregion
+
+        #region login
+        public bool ValidateUsername(string username)
+        {
+            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
+            query.Parameters.AddWithValue("@usrname", username);
+            var data = GetData(query);
+            return data.Rows.Count != 0;
+        }
+
+        public bool MatchUsernameAndPassword(string username, string password)
+        {
+            var query = new SqlCommand("SELECT Password FROM [User] WHERE Username = @usrname");
+            query.Parameters.AddWithValue("@usrname", username);
+
+            var data = GetData(query);
+            try
+            {
+                return (string)data.Rows[0][0] == password;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
         /// <summary>
         /// Haal een datatable op vanuit een query.
         /// </summary>
@@ -194,6 +266,21 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0][0];
+        }
+
+        private List<T> GetList<T>(DataTable table)
+        {
+            var returnList = new List<T>();
+            foreach (DataRow row in table.Rows)
+            {
+                returnList.Add((T)row[0]);
+            }
+            return returnList;
+        }
+
+        public List<Service> GetAllServicesWithoutUsers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

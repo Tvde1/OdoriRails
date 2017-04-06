@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchoonmaakReparatieSysteem.Properties
+namespace Beheersysteem.Properties
 {
 
 
