@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseConnector.Properties
+namespace SchoonmaakReparatieSysteem.Properties
 {
 
 
