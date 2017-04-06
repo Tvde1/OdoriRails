@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoonmaakReparatieSysteem
 {
-    class Cleaning : Service
+    class Schoonmaak
     {
+<<<<<<< HEAD
         private string comment;
 
         public Cleaning(int day, int month, int year, string cmt, string stype) : base(day, month, year)
@@ -26,5 +27,7 @@ namespace SchoonmaakReparatieSysteem
             // edits current entry of cleaning log
         }
         
+=======
+>>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
     }
 }

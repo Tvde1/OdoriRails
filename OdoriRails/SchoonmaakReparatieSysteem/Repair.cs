@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoonmaakReparatieSysteem
 {
-    class Repair : Service
+    class Class1
     {
+<<<<<<< HEAD
         private string defect;
         private string solution;
         private string  reparationType;
@@ -27,5 +28,7 @@ namespace SchoonmaakReparatieSysteem
         {
             // edits current entry of cleaning log
         }
+=======
+>>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
     }
 }

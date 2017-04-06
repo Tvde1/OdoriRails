@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="AddService.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +63,9 @@
     <Compile Include="Cleaning.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="MainService.cs">
+=======
+    <Compile Include="Form1.cs">
+>>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainService.Designer.cs">
@@ -69,6 +73,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="User.cs" />
     <EmbeddedResource Include="AddService.resx">
       <DependentUpon>AddService.cs</DependentUpon>
@@ -79,6 +84,8 @@
     <EmbeddedResource Include="MainService.resx">
       <DependentUpon>MainService.cs</DependentUpon>
     </EmbeddedResource>
+=======
+>>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
