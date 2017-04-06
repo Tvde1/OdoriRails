@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Beheersysteem
+namespace SchoonmaakReparatieSysteem
 {
-    class User
+    class Schoonmaak
     {
-        
     }
 }

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Beheersysteem")]
+[assembly: AssemblyTitle("SchoonmaakReparatieSysteem")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("Beheersysteem")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2017")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SchoonmaakReparatieSysteem")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("30a5d8eb-3167-41b7-8804-6d7ec8fe52d1")]
+[assembly: Guid("d16e11c4-9389-4abb-a71a-bc28bfc90cc2")]
 
 // Version information for an assembly consists of the following four values:
 //
