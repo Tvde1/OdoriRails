@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sector.cs" />
-    <Compile Include="Track.cs" />
+    <Compile Include="BeheerSector.cs" />
+    <Compile Include="BeheerTrack.cs" />
+    <Compile Include="BeheerTram.cs" />
     <Compile Include="User Interface.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,7 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="BeheerUser.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

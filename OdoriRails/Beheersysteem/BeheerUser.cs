@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beheersysteem
 {
-    class User
+    class BeheerUser
     {
         
     }

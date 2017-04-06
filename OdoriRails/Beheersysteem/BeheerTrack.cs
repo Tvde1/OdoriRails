@@ -7,11 +7,11 @@ using OdoriRails;
 
 namespace Beheersysteem
 {
-    class Track : OdoriRails.Track
+    class BeheerTrack : Track
     {
-        public List<Sector> BeheerSectors = new List<Sector>();
+        public List<BeheerSector> BeheerSectors = new List<BeheerSector>();
 
-        public Track(int tracknumber) : base(tracknumber)
+        public BeheerTrack(int tracknumber) : base(tracknumber)
         { }
 
         /// <summary>

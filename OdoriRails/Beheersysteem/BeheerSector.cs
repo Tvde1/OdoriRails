@@ -7,9 +7,9 @@ using OdoriRails;
 
 namespace Beheersysteem
 {
-    class Sector : OdoriRails.Sector
+    class BeheerSector : Sector
     {
-        public Sector(int number, int trackNumber, SectorStatus status, Tram tram) : base(number, trackNumber, status, tram)
+        public BeheerSector(int number, int trackNumber, SectorStatus status, Tram tram) : base(number, trackNumber, status, tram)
         { }
 
         /// <summary>
