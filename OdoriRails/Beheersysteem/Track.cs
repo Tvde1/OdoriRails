@@ -9,7 +9,7 @@ namespace Beheersysteem
 {
     class Track : OdoriRails.Track
     {
-        public List<Sector> Sectors = new List<Sector>();
+        public List<Sector> BeheerSectors = new List<Sector>();
 
         public Track(int tracknumber) : base(tracknumber)
         { }
@@ -19,7 +19,7 @@ namespace Beheersysteem
         /// </summary>
         public void LockTrack()
         {
-            foreach (var sector in Sectors)
+            foreach (var sector in BeheerSectors)
             {
                 sector.Lock();
             }
@@ -30,28 +30,10 @@ namespace Beheersysteem
         /// </summary>
         public void UnlockTrack()
         {
-            foreach (var sector in Sectors)
+            foreach (var sector in BeheerSectors)
             {
                 sector.Unlock();
             }
-        }
-
-        /// <summary>
-        /// Voegt een nieuwe sector toe aan het track.
-        /// </summary>
-        /// <param name="sector"></param>
-        public void AddSector(Sector sector)
-        {
-            Sectors.Add(sector);
-        }
-
-        /// <summary>
-        /// Haalt sector n weg uit de track.
-        /// </summary>
-        /// <param name="sectorNumber"></param>
-        public void RemoveSector(int sectorNumber)
-        {
-
         }
     }
 }
