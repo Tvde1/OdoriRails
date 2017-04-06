@@ -44,11 +44,12 @@
             this.listUsers = new System.Windows.Forms.ListBox();
             this.tabUsers = new System.Windows.Forms.TabControl();
             this.tabUserList = new System.Windows.Forms.TabPage();
-            this.tabManageUser = new System.Windows.Forms.TabPage();
-            this.btnAddUser = new System.Windows.Forms.Button();
-            this.btnEditUser = new System.Windows.Forms.Button();
             this.btnDeleteUser = new System.Windows.Forms.Button();
+            this.btnEditUser = new System.Windows.Forms.Button();
+            this.btnAddUser = new System.Windows.Forms.Button();
+            this.tabManageUser = new System.Windows.Forms.TabPage();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -197,8 +198,39 @@
             this.tabUserList.Text = "User List";
             this.tabUserList.UseVisualStyleBackColor = true;
             // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.Location = new System.Drawing.Point(464, 476);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(223, 69);
+            this.btnDeleteUser.TabIndex = 3;
+            this.btnDeleteUser.Text = "Delete selected user";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
+            // 
+            // btnEditUser
+            // 
+            this.btnEditUser.Location = new System.Drawing.Point(235, 476);
+            this.btnEditUser.Name = "btnEditUser";
+            this.btnEditUser.Size = new System.Drawing.Size(223, 69);
+            this.btnEditUser.TabIndex = 2;
+            this.btnEditUser.Text = "Edit selected user";
+            this.btnEditUser.UseVisualStyleBackColor = true;
+            this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
+            // 
+            // btnAddUser
+            // 
+            this.btnAddUser.Location = new System.Drawing.Point(6, 476);
+            this.btnAddUser.Name = "btnAddUser";
+            this.btnAddUser.Size = new System.Drawing.Size(223, 69);
+            this.btnAddUser.TabIndex = 1;
+            this.btnAddUser.Text = "Add new user";
+            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
+            // 
             // tabManageUser
             // 
+            this.tabManageUser.Controls.Add(this.lbStatus);
             this.tabManageUser.Controls.Add(this.btnSubmit);
             this.tabManageUser.Controls.Add(this.lbName);
             this.tabManageUser.Controls.Add(this.lbEmail);
@@ -220,45 +252,25 @@
             this.tabManageUser.Text = "Manage User";
             this.tabManageUser.UseVisualStyleBackColor = true;
             // 
-            // btnAddUser
-            // 
-            this.btnAddUser.Location = new System.Drawing.Point(6, 476);
-            this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(223, 69);
-            this.btnAddUser.TabIndex = 1;
-            this.btnAddUser.Text = "Add new user";
-            this.btnAddUser.UseVisualStyleBackColor = true;
-            this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
-            // 
-            // btnEditUser
-            // 
-            this.btnEditUser.Location = new System.Drawing.Point(235, 476);
-            this.btnEditUser.Name = "btnEditUser";
-            this.btnEditUser.Size = new System.Drawing.Size(223, 69);
-            this.btnEditUser.TabIndex = 2;
-            this.btnEditUser.Text = "Edit selected user";
-            this.btnEditUser.UseVisualStyleBackColor = true;
-            this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
-            // 
-            // btnDeleteUser
-            // 
-            this.btnDeleteUser.Location = new System.Drawing.Point(464, 476);
-            this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(223, 69);
-            this.btnDeleteUser.TabIndex = 3;
-            this.btnDeleteUser.Text = "Delete selected user";
-            this.btnDeleteUser.UseVisualStyleBackColor = true;
-            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
-            // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(192, 327);
+            this.btnSubmit.Location = new System.Drawing.Point(360, 318);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(297, 54);
             this.btnSubmit.TabIndex = 12;
             this.btnSubmit.Text = "Submit User";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // lbStatus
+            // 
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Location = new System.Drawing.Point(21, 335);
+            this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(275, 20);
+            this.lbStatus.TabIndex = 13;
+            this.lbStatus.Text = "Currently: [Insert Status] + IdNummer ";
             // 
             // UserInterface
             // 
@@ -300,6 +312,7 @@
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.TabPage tabManageUser;
         private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.Label lbStatus;
     }
 }
 
