@@ -29,7 +29,7 @@ namespace OdoriRails
             Role = role;
         }
 
-        public User (string name, string email, Role role, string username, string password, string managedByUsername)
+        public User (string name, string username, string email, string password, Role role, string managedByUsername)
         {
             Name = name;
             Email = email;
