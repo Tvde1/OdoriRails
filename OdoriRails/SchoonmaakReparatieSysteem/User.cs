@@ -8,5 +8,12 @@ namespace SchoonmaakReparatieSysteem
 {
     class User
     {
+        private string userName;
+        private string tramNumber;
+
+        private void checkLogin()
+        {
+            // checks role of logged in user and brings out correct GUI
+        }
     }
 }

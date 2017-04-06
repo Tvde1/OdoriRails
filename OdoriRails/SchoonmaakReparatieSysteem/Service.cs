@@ -16,27 +16,21 @@ namespace SchoonmaakReparatieSysteem
     {
         private DateTime startDate;
         private DateTime endDate;
+        private List<User> assignedWorkers;
 
         public Service(int day, int month, int year)
         {
             startDate = new DateTime(day, month, year);
         }
 
-        private void AddCleaningLog(List<string> userlist, string comment, ServiceType cleaningtype)
+        public virtual void AddLog()
         {
             // adds database entry of cleaning service log
         }
-        private void AddReparationLog(List<string> userlist, string deffect, string solution, ServiceType reparationtype)
+
+        public virtual void EditLog()
         {
-            // adds database entry of reparation service log
-        }
-        private void EditLog(List<string> userlist, string comment, ServiceType cleaningtype)
-        {
-            // edits current entry of cleaning log
-        }
-        private void EditLog(List<User> userlist, string deffect, string solution, ServiceType reparationtype)
-        {
-            // edits current entry of cleaning log
+            // edits a entry of log
         }
         private void DeleteLog(int logID)
         {
