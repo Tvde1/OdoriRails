@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OdoriRails
 {
-    abstract class Service
+    public abstract class Service
     {
         public List<User> AssignedUsers { get; protected set; }  
         public DateTime StartDate { get; protected set; }

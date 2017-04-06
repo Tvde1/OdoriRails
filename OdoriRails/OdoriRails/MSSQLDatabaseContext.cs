@@ -73,9 +73,9 @@ namespace OdoriRails
         private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
-            //name gebr usern wachtw rol 
+            //name gebr wachtw email rol 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
-            return new User((string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
+            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
@@ -186,19 +186,29 @@ FROM ServiceUser INNER JOIN
 WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk";
             var query = new SqlCommand(text);
             var data = GetData(query);
+            
+            List<int> IDList = GetList<int>(data);
 
+            //var cleanQuery = @"SELECT Service";
 
+            return null;
+
+        }
+
+        public List<Service> GetAllServicesWithoutUser(User user)
+        {
+            return null;
         }
 
 
         private Cleaning CreateCleaning(DataRow row)
         {
-
+            return null;
         }
 
         private Repair CreateRepair(DataRow row)
         {
-
+            return null;
         }
         #endregion
 
@@ -260,7 +270,17 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
 
         private List<T> GetList<T>(DataTable table)
         {
+            var returnList = new List<T>();
+            foreach (DataRow row in table.Rows)
+            {
+                returnList.Add((T)row[0]);
+            }
+            return returnList;
+        }
 
+        public List<Service> GetAllServicesWithoutUsers()
+        {
+            throw new NotImplementedException();
         }
     }
 }
