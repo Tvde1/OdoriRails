@@ -12,17 +12,15 @@ namespace OdoriRails
     /// <summary>
     /// De DAL-Klasse
     /// </summary>
-    public static class DatabaseAdapter
-    {
-        private static string _connectionString = @"";
-        private static int _remiseNumber = 0;
+    public class MSSQLDatabaseContext : IDatabaseConnector
+    { 
+        private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        private int _remiseNumber = 0;
+
+        //public MSSQLDatabaseContext()
 
         #region user
-        /// <summary>
-        /// Voegt een User toe aan de database.
-        /// </summary>
-        /// <param name="user"></param>
-        public static void Adduser(User user)
+        public void AddUser(User user)
         {
 
             var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Email,Role,ManagedBy), VALUES({name},{pass},{email},{role},{managedBy})");
@@ -38,52 +36,38 @@ namespace OdoriRails
             GetData(query);
         }
 
-        /// <summary>
-        /// Verwijdert een User uit de database.
-        /// </summary>
-        /// <param name="user"></param>
-        public static void RemoveUser(User user)
+        public void RemoveUser(User user)
         {
             if (user.Username == null || user.Username == "") throw new Exception("The User to delete does not have a username.");
             var query = new SqlCommand("DELETE FROM [User] WHERE UserPk = " + GetUserId(user.Username));
         }
 
-        /// <summary>
-        /// Haal een User op aan de hand van de userid.
-        /// </summary>
-        /// <param name="id"></param>
-        public static User GetUser(int id)
+        public User GetUser(int id)
         {
             var command = new SqlCommand($"SELECT * FROM [User] WHERE UserPk = {id}");
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
         }
 
-        /// <summary>
-        /// Haal een User op aan de hand van de naam.
-        /// </summary>
-        /// <param name="userName"></param>
-        public static User GetUser(string userName)
+        public User GetUser(string userName)
         {
-            var command = new SqlCommand("SELECT * FROM [User] WHERE UserPk = {id}");
-            command.Parameters.AddWithValue("{id}", GetUserId(userName));
+            var command = new SqlCommand("SELECT * FROM [User] WHERE UserPk = @id");
+            command.Parameters.AddWithValue("@id", GetUserId(userName));
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
         }
 
-        private static User CreateUser(DataRow row)
+        private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
-            return new User((string)array[0], (string)array[1], (Role)(int)array[2]);
+            //name gebr usern wachtw rol 
+            string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
+            return new User((string)array[1],(string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
         #region tram
-        /// <summary>
-        /// Voegt een nieuwe tram toe aan de database.
-        /// </summary>
-        /// <param name="tram"></param>
-        public static void AddTram(Tram tram)
+        public void AddTram(Tram tram)
         {
             var query = new SqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk), VALUES({id},{line},{status},{model},{driver})");
             query.Parameters.AddWithValue("{id}", tram.Number);
@@ -102,20 +86,12 @@ namespace OdoriRails
             GetData(query);
         }
 
-        /// <summary>
-        /// Verwijdert een Tram uit de database.
-        /// </summary>
-        /// <param name="tram"></param>
-        public static void RemoveTram(Tram tram)
+        public void RemoveTram(Tram tram)
         {
             var query = new SqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}");
         }
 
-        /// <summary>
-        /// Haal een Tram op aan de hand van de tramid.
-        /// </summary>
-        /// <param name="id"></param>
-        public static Tram GetTram(int id)
+        public Tram GetTram(int id)
         {
             var command = new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}");
             var table = GetData(command);
@@ -126,7 +102,7 @@ namespace OdoriRails
         /// Een lijst met trams die op een track staan.
         /// </summary>
         /// <returns></returns>
-        public static List<Tram> GetAllTramsOnTrack()
+        public List<Tram> GetAllTramsOnATrack()
         {
             var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
             var data = GetData(command);
@@ -139,7 +115,7 @@ namespace OdoriRails
             return returnList;
         }
 
-        private static Tram CreateTram(DataRow row)
+        private Tram CreateTram(DataRow row)
         {
             var array = row.ItemArray;
             return new Tram((int)array[0], (TramStatus)array[2], (int)array[1], GetUser((int)array[4]), (Model)array[3]);
@@ -147,12 +123,7 @@ namespace OdoriRails
         #endregion
 
         #region track and sector
-
-        /// <summary>
-        /// Haalt alle tracks, sectoren en trams op sectoren op.
-        /// </summary>
-        /// <returns></returns>
-        public static List<Track> GetTracksAndSectors()
+        public List<Track> GetTracksAndSectors()
         {
             var returnList = new List<Track>();
             var trackQuery = new SqlCommand($"SELECT * FROM Track WHERE RemiseFk = {_remiseNumber}");
@@ -179,7 +150,7 @@ namespace OdoriRails
             return returnList;
         }
 
-        private static Sector CreateSector(DataRow row)
+        private Sector CreateSector(DataRow row)
         {
             var array = row.ItemArray;
             Tram tram = null;
@@ -188,7 +159,7 @@ namespace OdoriRails
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }
 
-        private static Track CreateTrack(DataRow row)
+        private Track CreateTrack(DataRow row)
         {
             var array = row.ItemArray;
             return new Track((int)array[0]);
@@ -200,7 +171,7 @@ namespace OdoriRails
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Een Datatable van alle rows.</returns>
-        private static DataTable GetData(SqlCommand command)
+        private DataTable GetData(SqlCommand command)
         {
             var dataTable = new DataTable();
             using (var conn = new SqlConnection(_connectionString))
@@ -217,10 +188,10 @@ namespace OdoriRails
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        private static int GetUserId(string username)
+        private int GetUserId(string username)
         {
-            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = {username}");
-            query.Parameters.AddWithValue("{username}", username);
+            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
+            query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0][0];
         }

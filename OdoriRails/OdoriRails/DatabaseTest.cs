@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OdoriRails
 {
     class DatabaseTest
     {
-        private string GetAdminName()
+        public static void OnLoad()
         {
-            var admin = DatabaseAdapter.GetUser("Jan");
+            MessageBox.Show(GetAdminName());
+        }
+
+        private static string GetAdminName()
+        {
+            IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+            var admin = databaseConnector.GetUser("admin");
             return admin.Name;
         }
     }
