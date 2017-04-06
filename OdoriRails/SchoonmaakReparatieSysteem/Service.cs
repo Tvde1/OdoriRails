@@ -22,10 +22,10 @@ namespace SchoonmaakReparatieSysteem
         {
             startDate = new DateTime(day, month, year);
         }
-
+// adds database entry of cleaning service log
         public virtual void AddLog()
         {
-            // adds database entry of cleaning service log
+            
         }
 
         public virtual void EditLog()

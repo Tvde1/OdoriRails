@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace SchoonmaakReparatieSysteem
 {
-    public partial class Form1 : Form
+    public partial class EditService : Form
     {
-        public Form1()
+        public EditService(User activeuser)
         {
+
             InitializeComponent();
         }
+
     }
 }

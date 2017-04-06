@@ -9,12 +9,11 @@ namespace SchoonmaakReparatieSysteem
     class Cleaning : Service
     {
         private string comment;
-        private ServiceType cleaningType;
 
-        public Cleaning(int day, int month, int year, string cmt, ServiceType stype) : base(day, month, year)
+        public Cleaning(int day, int month, int year, string cmt, string stype) : base(day, month, year)
         {
             comment = cmt;
-            cleaningType = stype;
+            //cleaningType = stype;
         }
 
         public override void AddLog()
@@ -26,5 +25,6 @@ namespace SchoonmaakReparatieSysteem
         {
             // edits current entry of cleaning log
         }
+        
     }
 }

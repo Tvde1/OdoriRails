@@ -10,9 +10,9 @@ namespace SchoonmaakReparatieSysteem
     {
         private string defect;
         private string solution;
-        private ServiceType reparationType;
+        private string  reparationType;
 
-        public Repair(int day, int month, int year, string def, string sol, ServiceType stype) : base(day, month, year)
+        public Repair(int day, int month, int year, string def, string sol, string stype) : base(day, month, year)
         {
             defect = def;
             solution = sol;
