@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using In_Uitrit_Systeem;
 
 namespace In_Uitrit_Systeem
 {
@@ -16,7 +17,7 @@ namespace In_Uitrit_Systeem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FormUserInterface());
         }
     }
 }

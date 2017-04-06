@@ -1,4 +1,4 @@
-﻿namespace Beheersysteem
+﻿namespace In_Uitrit_Systeem
 {
     partial class FormUserInterface
     {

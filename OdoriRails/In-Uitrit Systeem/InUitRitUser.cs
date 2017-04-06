@@ -7,11 +7,11 @@ using OdoriRails;
 
 namespace In_Uitrit_Systeem
 {
-    class InUitRitUser : User
+    class InUitRitUser 
     {
-        public InUitRitUser(int id, string name) : base(id, name)
-        {
-            // er moet een constructor aangemaakt worden in OdoriRails/User met bovenstaande parameters.
-        }
+        //public InUitRitUser(int id, string name) : base(id, name)
+        //{
+        //    // er moet een constructor aangemaakt worden in OdoriRails/User met bovenstaande parameters.
+        //}
     }
 }
