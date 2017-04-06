@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OdoriRails
 {
-    interface IDatabaseConnector
+    public interface IDatabaseConnector
     {
         #region users
         /// <summary>

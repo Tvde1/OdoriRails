@@ -18,6 +18,11 @@ namespace OdoriRails
     public class User
     {
         /// <summary>
+        /// Database ID van de User.
+        /// </summary>
+        public int ID { get; private set; }
+
+        /// <summary>
         /// Ophalen naam van User
         /// </summary>
         public string Name { get; protected set; }
@@ -60,8 +65,9 @@ namespace OdoriRails
         /// <summary>
         /// Toevoegen User, alle benodigde data.
         /// </summary>
-        public User (string name, string email, Role role, string username, string password, string managedByUsername)
+        public User(int id, string name, string username, string email, string password, Role role, string managedByUsername)
         {
+            ID = id;
             Name = name;
             Email = email;
             Role = role;
