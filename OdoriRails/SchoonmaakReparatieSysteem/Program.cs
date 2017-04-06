@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OdoriRails
+namespace SchoonmaakReparatieSysteem
 {
     static class Program
     {
@@ -14,7 +14,9 @@ namespace OdoriRails
         [STAThread]
         static void Main()
         {
-            DatabaseTest.OnLoad();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
