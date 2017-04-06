@@ -176,7 +176,56 @@ namespace OdoriRails
         #endregion
 
         #region service
+        public List<Service> GetAllServicesFromUser(User user)
+        {
+            string text = @"SELECT Service.ServicePk
+FROM Service INNER JOIN
+(SELECT ServiceUser.ServiceCk
+FROM ServiceUser INNER JOIN
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk";
+            var query = new SqlCommand(text);
+            var data = GetData(query);
 
+
+        }
+
+
+        private Cleaning CreateCleaning(DataRow row)
+        {
+
+        }
+
+        private Repair CreateRepair(DataRow row)
+        {
+
+        }
+        #endregion
+
+        #region login
+        public bool ValidateUsername(string username)
+        {
+            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
+            query.Parameters.AddWithValue("@usrname", username);
+            var data = GetData(query);
+            return data.Rows.Count != 0;
+        }
+
+        public bool MatchUsernameAndPassword(string username, string password)
+        {
+            var query = new SqlCommand("SELECT Password FROM [User] WHERE Username = @usrname");
+            query.Parameters.AddWithValue("@usrname", username);
+
+            var data = GetData(query);
+            try
+            {
+                return (string)data.Rows[0][0] == password;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -207,6 +256,11 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0][0];
+        }
+
+        private List<T> GetList<T>(DataTable table)
+        {
+
         }
     }
 }

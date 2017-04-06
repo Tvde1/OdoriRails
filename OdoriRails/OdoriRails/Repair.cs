@@ -22,8 +22,8 @@ namespace OdoriRails
             AssignedUsers = users;
         }
 
-        public RepairType Type { get; private set; }
-        public string Defect { get; private set; }
-        public string Solution { get; private set; }
+        public RepairType Type { get; protected set; }
+        public string Defect { get; protected set; }
+        public string Solution { get; protected set; }
     }
 }

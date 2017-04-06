@@ -8,8 +8,14 @@ namespace OdoriRails
 {
     public class Track
     {
-        List<Sector> Sectors = new List<Sector>();
-        public int Number { get; private set; }
+        private List<Sector> sectors = new List<Sector>();
+        public List<Sector> Sectors
+        {
+            get { return sectors; }
+            protected set { sectors = value; }
+        }
+
+        public int Number { get; protected set; }
 
         /// <summary>
         /// Constructor, requires number.
