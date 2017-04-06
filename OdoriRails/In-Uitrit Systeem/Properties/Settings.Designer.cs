@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Beheersysteem.Properties
+namespace In_Uitrit_Systeem.Properties
 {
 
 
