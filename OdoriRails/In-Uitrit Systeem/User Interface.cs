@@ -19,7 +19,18 @@ namespace Beheersysteem
 
         private void btnService_Click(object sender, EventArgs e)
         {
+            if (cbCleaning.Checked)
+            {
 
+            }
+            if (cbMaintenance.Checked)
+            {
+
+            }
+            if (cbCleaning.Checked && cbMaintenance.Checked)
+            {
+
+            }
         }
     }
 }
