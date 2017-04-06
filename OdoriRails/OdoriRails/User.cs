@@ -17,12 +17,12 @@ namespace OdoriRails
 
     public class User
     {
-        public string Name { get; private set; }
-        public string Email { get; private set; }
-        public Role Role { get; private set; }
-        public string Username { get; private set; }
-        public string Password { get; private set; }
-        public string ManagerUsername { get; private set; }
+        public string Name { get; protected set; }
+        public string Email { get; protected set; }
+        public Role Role { get; protected set; }
+        public string Username { get; protected set; }
+        public string Password { get; protected set; }
+        public string ManagerUsername { get; protected set; }
 
         public User(string name, string email, Role role)
         {

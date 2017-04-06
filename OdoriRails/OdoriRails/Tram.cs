@@ -15,11 +15,11 @@
 
     public class Tram
     {
-        public int Number { get; private set; }
-        public TramStatus Status { get; private set; }
-        public int Line { get; private set; }
-        public User Driver { get; private set; }
-        public Model Model { get; private set; }
+        public int Number { get; protected set; }
+        public TramStatus Status { get; protected set; }
+        public int Line { get; protected set; }
+        public User Driver { get; protected set; }
+        public Model Model { get; protected set; }
 
         public Tram(int number, TramStatus status, int line, User driver, Model model)
         {
