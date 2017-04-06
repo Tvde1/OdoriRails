@@ -21,7 +21,7 @@ namespace OdoriRails
             AssignedUsers = users;
         }
 
-        public CleaningSize Size { get; private set; }
-        public string Comments { get; private set; }
+        public CleaningSize Size { get; protected set; }
+        public string Comments { get; protected set; }
     }
 }

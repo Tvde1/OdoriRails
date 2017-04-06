@@ -15,10 +15,10 @@ namespace OdoriRails
 
     public class Sector
     {
-        public int Number { get; private set; }
-        public SectorStatus Status { get; private set; }
-        public Tram OccupyingTram { get; private set; }
-        public int TrackNumber { get; private set; }
+        public int Number { get; protected set; }
+        public SectorStatus Status { get; protected set; }
+        public Tram OccupyingTram { get; protected set; }
+        public int TrackNumber { get; protected set; }
 
         /// <summary>
         /// Constructor

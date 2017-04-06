@@ -20,32 +20,32 @@ namespace OdoriRails
         /// <summary>
         /// Ophalen naam van User
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Ophalen emailadres van User
         /// </summary>
-        public string Email { get; private set; }
+        public string Email { get; protected set; }
 
         /// <summary>
         /// Ophalen rol van User
         /// </summary>
-        public Role Role { get; private set; }
+        public Role Role { get; protected set; }
 
         /// <summary>
         /// Ophalen username van User
         /// </summary>
-        public string Username { get; private set; }
+        public string Username { get; protected set; }
 
         /// <summary>
         /// Ophalen password van User
         /// </summary>
-        public string Password { get; private set; }
+        public string Password { get; protected set; }
 
         /// <summary>
         /// Ophalen manager van User
         /// </summary>
-        public string ManagerUsername { get; private set; }
+        public string ManagerUsername { get; protected set; }
 
         /// <summary>
         /// Toevoegen User, minimale hoeveelheid benodigde data.
