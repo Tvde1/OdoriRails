@@ -16,7 +16,7 @@ namespace OdoriRails
 
         private static string GetAdminName()
         {
-            IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+            IDatabaseConnector databaseConnector = new MySqlContext();
             var admin = databaseConnector.GetUser("admin");
             return admin.Name;
         }
