@@ -3,37 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OdoriRails;
 
 namespace Beheersysteem
 {
-    class Track
+    class Track : OdoriRails.Track
     {
-        List<Sector> sectors = new List<Sector>();
-        public int trackNumber { get; private set; }
+        public List<Sector> Sectors = new List<Sector>();
 
-        public Track()
-        {
-            //Constuctor van Track
-        }
-        
+        public Track(int tracknumber) : base(tracknumber)
+        { }
+
+        /// <summary>
+        /// Zet elke sectoren's status op 'Locked'
+        /// </summary>
         public void LockTrack()
         {
-            //Gaat door alle sectoren en verandert de status naar Closed
+            foreach (var sector in Sectors)
+            {
+                sector.Lock();
+            }
         }
 
-        public void OpenTrack()
+        /// <summary>
+        /// Zet alle sectoren's status op 'Open'.
+        /// </summary>
+        public void UnlockTrack()
         {
-            //Gaat door alle sectoren en verandert de status naar Open
+            foreach (var sector in Sectors)
+            {
+                sector.Unlock();
+            }
         }
 
+        /// <summary>
+        /// Voegt een nieuwe sector toe aan het track.
+        /// </summary>
+        /// <param name="sector"></param>
         public void AddSector(Sector sector)
         {
-            //Toevoegen van een sector aan een track
+            Sectors.Add(sector);
         }
 
+        /// <summary>
+        /// Haalt sector n weg uit de track.
+        /// </summary>
+        /// <param name="sectorNumber"></param>
         public void RemoveSector(int sectorNumber)
         {
-            //Verwijderen van een sector in een track
+
         }
     }
 }

@@ -3,38 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OdoriRails;
 
 namespace Beheersysteem
 {
-    class Sector
+    class Sector : OdoriRails.Sector
     {
-        Tram tram;
-        public SectorStatus status { get; private set; }
-        public int sectorNumber { get; private set; }
+        public Sector(int number, int trackNumber, SectorStatus status, Tram tram) : base(number, trackNumber, status, tram)
+        { }
 
-        public Sector()
+        /// <summary>
+        /// Zet de status van de tram naar locked.
+        /// </summary>
+        public void Lock()
         {
-            //Constuctor van Sector
+            Status = SectorStatus.Locked;
         }
 
-        public void LockSector()
+        /// <summary>
+        /// Zet de status van de tram naar open.
+        /// </summary>
+        public void Unlock()
         {
-            //Verandert de status van sector naar locked
+            Status = SectorStatus.Open;
         }
 
-        public void OpenSector()
+        /// <summary>
+        /// Zet de status van de tram naar occupied.
+        /// </summary>
+        public void Occupy()
         {
-            //Verandert de status van sector naar open
+            if (Status == SectorStatus.Locked) throw new InvalidOperationException("Can't occupy a locked sector. Please unlock it first.");
+            Status = SectorStatus.Occupied;
         }
 
-        public void AddTram(Tram tram)
+        /// <summary>
+        /// Zet de status van de tram naar open.
+        /// </summary>
+        public void UnOccupy()
         {
-            //Voegt een tram aan de sector toe
+            if (Status != SectorStatus.Occupied) throw new InvalidOperationException("Can't unoccupy a sector with a state other than Occupied. Current state is " + Status + ".");
+            Status = SectorStatus.Open;
         }
 
-        public void RemoveTram()
+        /// <summary>
+        /// Zet de occupying tram. Gebruik `null` om de tram leeg te maken.
+        /// </summary>
+        /// <param name="tram"></param>
+        public void SetOccupyingTram(Tram tram)
         {
-            //Verwijderen van een tram die op een sector staat
+            OccupyingTram = tram;
         }
     }
 }
