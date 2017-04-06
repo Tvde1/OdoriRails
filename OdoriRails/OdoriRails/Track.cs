@@ -8,6 +8,7 @@ namespace OdoriRails
 {
     public class Track
     {
+        List<Sector> Sectors = new List<Sector>();
         public int Number { get; private set; }
 
         /// <summary>
@@ -18,8 +19,6 @@ namespace OdoriRails
         {
             Number = trackNumber;
         }
-<<<<<<< HEAD
-=======
 
         /// <summary>
         /// Voegt een nieuwe sector toe aan het track.
@@ -29,6 +28,5 @@ namespace OdoriRails
         {
             Sectors.Add(sector);
         }
->>>>>>> refs/remotes/origin/master
     }
 }

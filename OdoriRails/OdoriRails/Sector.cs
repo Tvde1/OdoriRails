@@ -16,8 +16,8 @@ namespace OdoriRails
     public class Sector
     {
         public int Number { get; private set; }
-        public SectorStatus Status { get; set; }
-        public Tram OccupyingTram { get; set; }
+        public SectorStatus Status { get; private set; }
+        public Tram OccupyingTram { get; private set; }
         public int TrackNumber { get; private set; }
 
         /// <summary>
