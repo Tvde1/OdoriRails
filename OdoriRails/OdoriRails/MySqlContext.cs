@@ -56,7 +56,7 @@ namespace OdoriRails
 
         public User GetUser(string userName)
         {
-            var command = new MySqlCommand($"SELECT * FROM User WHERE Username LIKE '%@username%'");
+            var command = new MySqlCommand($"SELECT * FROM User WHERE Username LIKE @username");
             command.Parameters.AddWithValue("@username", userName);
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
