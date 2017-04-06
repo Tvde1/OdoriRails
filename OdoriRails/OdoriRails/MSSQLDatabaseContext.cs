@@ -186,6 +186,7 @@ FROM ServiceUser INNER JOIN
 WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk";
             var query = new SqlCommand(text);
             var data = GetData(query);
+            
             List<int> IDList = GetList<int>(data);
 
             //var cleanQuery = @"SELECT Service";
