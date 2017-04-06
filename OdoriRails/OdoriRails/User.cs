@@ -8,9 +8,11 @@ namespace OdoriRails
 {
     public enum Role
     {
+        Administrator,
+        Logistic,
+        Driver,
         Cleaner,
-        Admin,
-        Homeless
+        Engineer
     }
 
     public class User

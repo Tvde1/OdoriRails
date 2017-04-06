@@ -13,8 +13,9 @@ namespace OdoriRails
     /// De DAL-Klasse
     /// </summary>
     public class MSSQLDatabaseContext : IDatabaseConnector
-    { 
+    {
         private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private int _remiseNumber = 0;
 
         //public MSSQLDatabaseContext()
@@ -57,12 +58,24 @@ namespace OdoriRails
             return CreateUser(table.Rows[0]);
         }
 
+        public List<User> GetAllUsersWithRole(Role role)
+        {
+            var command = new SqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
+            var data = GetData(command);
+            var returnList = new List<User>();
+            foreach (DataRow row in data.Rows)
+            {
+                returnList.Add(CreateUser(row));
+            }
+            return returnList;
+        }
+
         private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
             //name gebr usern wachtw rol 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
-            return new User((string)array[1],(string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
+            return new User((string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
@@ -98,10 +111,6 @@ namespace OdoriRails
             return CreateTram(table.Rows[0]);
         }
 
-        /// <summary>
-        /// Een lijst met trams die op een track staan.
-        /// </summary>
-        /// <returns></returns>
         public List<Tram> GetAllTramsOnATrack()
         {
             var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
@@ -164,6 +173,10 @@ namespace OdoriRails
             var array = row.ItemArray;
             return new Track((int)array[0]);
         }
+        #endregion
+
+        #region service
+
         #endregion
 
         /// <summary>

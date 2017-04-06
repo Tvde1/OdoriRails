@@ -18,5 +18,17 @@ namespace OdoriRails
         {
             Number = trackNumber;
         }
+<<<<<<< HEAD
+=======
+
+        /// <summary>
+        /// Voegt een nieuwe sector toe aan het track.
+        /// </summary>
+        /// <param name="sector"></param>
+        public void AddSector(Sector sector)
+        {
+            Sectors.Add(sector);
+        }
+>>>>>>> refs/remotes/origin/master
     }
 }
