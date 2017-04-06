@@ -67,7 +67,6 @@ namespace OdoriRails
         /// </summary>
         public User(int id, string name, string username, string email, string password, Role role, string managedByUsername)
         {
-            ID = id;
             Name = name;
             Email = email;
             Role = role;

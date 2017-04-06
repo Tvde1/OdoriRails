@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Beheersysteem
+namespace User_Beheersysteem
 {
     public partial class UserInterface : Form
     {

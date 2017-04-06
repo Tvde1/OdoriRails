@@ -7,17 +7,35 @@ using OdoriRails;
 
 namespace Beheersysteem
 {
-    class BeheerUser : User, IDatabaseConnector
+    class BeheerUser : User
     {
-        public BeheerUser(string name, string email, Role role, string username, string password, string managedByUsername) : base(name, email, role, username, password, managedByUsername)
+        IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+        
+        /// <summary>
+        /// Load existing user from database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="role"></param>
+        /// <param name="managedByUsername"></param>
+        public BeheerUser(int id, string name, string username, string email, string password, Role role, string managedByUsername) : base(id, name, username, email, password, role, managedByUsername)
         { }
 
-        public BeheerUser(string name, string email, Role role): base(name, email, role)
-        { }
-
-        public int AddUser(BeheerUser Beheerser)
+        /// <summary>
+        /// Create new User and add to database
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="role"></param>
+        /// <param name="managedByUsername"></param>
+        public BeheerUser(string name, string username, string email, string password, Role role, string managedByUsername) : base(name, username, email, password, role, managedByUsername)
         {
-            return 1;
+
         }
 
     }
