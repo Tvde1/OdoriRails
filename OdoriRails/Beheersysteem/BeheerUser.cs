@@ -33,10 +33,10 @@ namespace Beheersysteem
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <param name="managedByUsername"></param>
-        public BeheerUser(string name, string username, string email, string password, Role role, string managedByUsername) : base(name, username, email, password, role, managedByUsername)
-        {
+        //public BeheerUser(string name, string username, string email, string password, Role role, string managedByUsername) : base(name, username, email, password, role, managedByUsername)
+        //{
 
-        }
+        //}
 
     }
 }

@@ -48,8 +48,10 @@
             this.btnEditUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
-            this.btnSubmit = new System.Windows.Forms.Button();
             this.lbStatus = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.cbSearchRole = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -169,9 +171,9 @@
             // 
             this.listUsers.FormattingEnabled = true;
             this.listUsers.ItemHeight = 20;
-            this.listUsers.Location = new System.Drawing.Point(6, 6);
+            this.listUsers.Location = new System.Drawing.Point(6, 46);
             this.listUsers.Name = "listUsers";
-            this.listUsers.Size = new System.Drawing.Size(681, 464);
+            this.listUsers.Size = new System.Drawing.Size(681, 424);
             this.listUsers.TabIndex = 0;
             // 
             // tabUsers
@@ -186,6 +188,8 @@
             // 
             // tabUserList
             // 
+            this.tabUserList.Controls.Add(this.btnSearch);
+            this.tabUserList.Controls.Add(this.cbSearchRole);
             this.tabUserList.Controls.Add(this.btnDeleteUser);
             this.tabUserList.Controls.Add(this.btnEditUser);
             this.tabUserList.Controls.Add(this.btnAddUser);
@@ -252,6 +256,16 @@
             this.tabManageUser.Text = "Manage User";
             this.tabManageUser.UseVisualStyleBackColor = true;
             // 
+            // lbStatus
+            // 
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Location = new System.Drawing.Point(21, 335);
+            this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(275, 20);
+            this.lbStatus.TabIndex = 13;
+            this.lbStatus.Text = "Currently: [Insert Status] + IdNummer ";
+            // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(360, 318);
@@ -262,15 +276,30 @@
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
-            // lbStatus
+            // cbSearchRole
             // 
-            this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(21, 335);
-            this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(275, 20);
-            this.lbStatus.TabIndex = 13;
-            this.lbStatus.Text = "Currently: [Insert Status] + IdNummer ";
+            this.cbSearchRole.FormattingEnabled = true;
+            this.cbSearchRole.Items.AddRange(new object[] {
+            "Administrator",
+            "Logistic",
+            "Driver",
+            "Cleaner",
+            "Engineer",
+            "All"});
+            this.cbSearchRole.Location = new System.Drawing.Point(7, 10);
+            this.cbSearchRole.Name = "cbSearchRole";
+            this.cbSearchRole.Size = new System.Drawing.Size(451, 28);
+            this.cbSearchRole.TabIndex = 4;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(464, 7);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(223, 33);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // UserInterface
             // 
@@ -313,6 +342,8 @@
         private System.Windows.Forms.TabPage tabManageUser;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label lbStatus;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ComboBox cbSearchRole;
     }
 }
 
