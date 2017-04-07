@@ -13,7 +13,7 @@ namespace User_Beheersysteem
 {
     public partial class UserInterface : Form
     {
-        IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+        //IDatabaseConnector databaseConnector = new MySqlContect();
         private List<User> Users = new List<User>();
 
         public UserInterface()
