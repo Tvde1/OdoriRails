@@ -62,6 +62,12 @@ namespace OdoriRails
             Role = role;
         }
 
+        public User(int id, string name)
+        {
+            ID = id;
+            Name = name;
+        }
+
         /// <summary>
         /// Toevoegen User, alle benodigde data.
         /// </summary>
