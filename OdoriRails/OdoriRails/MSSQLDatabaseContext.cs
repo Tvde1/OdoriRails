@@ -38,6 +38,13 @@ namespace OdoriRails
             GetData(query);
         }
 
+        public List<User> GetAllUsers()
+        {
+            var query = new SqlCommand("SELECT * FROM [User]");
+            var data = GetData(query);
+            return GenerateListWithFunction(data, CreateUser);
+        }
+
         public void RemoveUser(User user)
         {
             if (user.Username == null || user.Username == "") throw new Exception("The User to delete does not have a username.");
@@ -63,12 +70,7 @@ namespace OdoriRails
         {
             var command = new SqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
             var data = GetData(command);
-            var returnList = new List<User>();
-            foreach (DataRow row in data.Rows)
-            {
-                returnList.Add(CreateUser(row));
-            }
-            return returnList;
+            return GenerateListWithFunction(data, CreateUser);
         }
 
         private User CreateUser(DataRow row)
@@ -116,13 +118,7 @@ namespace OdoriRails
         {
             var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
             var data = GetData(command);
-
-            List<Tram> returnList = new List<Tram>();
-            foreach (DataRow row in data.Rows)
-            {
-                returnList.Add(CreateTram(row));
-            }
-            return returnList;
+            return GenerateListWithFunction(data, CreateTram);
         }
 
         private Tram CreateTram(DataRow row)
@@ -142,13 +138,7 @@ namespace OdoriRails
             var sectorData = GetData(sectorQuery);
             //var tramList = GetAllTramsOnTrack();
 
-            var sectorList = new List<Sector>();
-            foreach (DataRow row in sectorData.Rows)
-            {
-                var array = row.ItemArray;
-                Sector tempSector = CreateSector(row);
-
-            }
+            var sectorList = GenerateListWithFunction(sectorData, CreateSector);
 
             foreach (DataRow row in trackData.Rows)
             {
@@ -207,14 +197,9 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
 
             List<Service> returnList = new List<Service>();
 
-            foreach (DataRow row in repairData.Rows)
-            {
-                returnList.Add(CreateRepair(row));
-            }
-            foreach (DataRow row in cleanData.Rows)
-            {
-                returnList.Add(CreateCleaning(row));
-            }
+            returnList.AddRange(GenerateListWithFunction(repairData, CreateRepair));
+            returnList.AddRange(GenerateListWithFunction(cleanData, CreateCleaning));
+
             return returnList;
         }
 
@@ -238,14 +223,8 @@ FROM            Clean INNER JOIN
 
             var returnList = new List<Service>();
 
-            foreach (DataRow row in repairData.Rows)
-            {
-                returnList.Add(CreateRepair(row));
-            }
-            foreach (DataRow row in cleanData.Rows)
-            {
-                returnList.Add(CreateCleaning(row));
-            }
+            returnList.AddRange(GenerateListWithFunction(repairData, CreateRepair));
+            returnList.AddRange(GenerateListWithFunction(cleanData, CreateCleaning));
 
             return returnList;
         }
@@ -273,12 +252,7 @@ FROM            Clean INNER JOIN
         {
             var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
             var data = GetData(query);
-            var returnList = new List<User>();
-            foreach (DataRow row in data.Rows)
-            {
-                returnList.Add(CreateUser(row));
-            }
-            return returnList;
+            return GenerateListWithFunction(data, CreateUser);
         }
 
         #endregion
@@ -345,6 +319,16 @@ FROM            Clean INNER JOIN
             foreach (DataRow row in table.Rows)
             {
                 returnList.Add((T)row[0]);
+            }
+            return returnList;
+        }
+
+        private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
+        {
+            var returnList = new List<T>();
+            foreach(DataRow row in data.Rows)
+            {
+                returnList.Add(func(row));
             }
             return returnList;
         }
