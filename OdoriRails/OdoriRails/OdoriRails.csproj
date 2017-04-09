@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cleaning.cs" />
-    <Compile Include="MySqlContext.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="MSSQLDatabaseContext.cs" />
     <Compile Include="DatabaseTest.cs" />
