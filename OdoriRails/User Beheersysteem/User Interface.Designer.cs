@@ -44,14 +44,14 @@
             this.listUsers = new System.Windows.Forms.ListBox();
             this.tabUsers = new System.Windows.Forms.TabControl();
             this.tabUserList = new System.Windows.Forms.TabPage();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.cbSearchRole = new System.Windows.Forms.ComboBox();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.btnEditUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
             this.lbStatus = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.cbSearchRole = new System.Windows.Forms.ComboBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -124,6 +124,13 @@
             // cbRole
             // 
             this.cbRole.FormattingEnabled = true;
+            this.cbRole.Items.AddRange(new object[] {
+            "Administrator",
+            "Logistic",
+            "Driver",
+            "Cleaner",
+            "Engineer",
+            " All"});
             this.cbRole.Location = new System.Drawing.Point(131, 231);
             this.cbRole.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbRole.Name = "cbRole";
@@ -202,6 +209,31 @@
             this.tabUserList.Text = "User List";
             this.tabUserList.UseVisualStyleBackColor = true;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(464, 7);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(223, 33);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // cbSearchRole
+            // 
+            this.cbSearchRole.FormattingEnabled = true;
+            this.cbSearchRole.Items.AddRange(new object[] {
+            "Administrator",
+            "Logistic",
+            "Driver",
+            "Cleaner",
+            "Engineer",
+            "All"});
+            this.cbSearchRole.Location = new System.Drawing.Point(7, 10);
+            this.cbSearchRole.Name = "cbSearchRole";
+            this.cbSearchRole.Size = new System.Drawing.Size(451, 28);
+            this.cbSearchRole.TabIndex = 4;
+            // 
             // btnDeleteUser
             // 
             this.btnDeleteUser.Location = new System.Drawing.Point(464, 476);
@@ -262,9 +294,9 @@
             this.lbStatus.Location = new System.Drawing.Point(21, 335);
             this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(275, 20);
+            this.lbStatus.Size = new System.Drawing.Size(180, 20);
             this.lbStatus.TabIndex = 13;
-            this.lbStatus.Text = "Currently: [Insert Status] + IdNummer ";
+            this.lbStatus.Text = "Currently: [Insert Status]";
             // 
             // btnSubmit
             // 
@@ -275,31 +307,6 @@
             this.btnSubmit.Text = "Submit User";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
-            // cbSearchRole
-            // 
-            this.cbSearchRole.FormattingEnabled = true;
-            this.cbSearchRole.Items.AddRange(new object[] {
-            "Administrator",
-            "Logistic",
-            "Driver",
-            "Cleaner",
-            "Engineer",
-            "All"});
-            this.cbSearchRole.Location = new System.Drawing.Point(7, 10);
-            this.cbSearchRole.Name = "cbSearchRole";
-            this.cbSearchRole.Size = new System.Drawing.Size(451, 28);
-            this.cbSearchRole.TabIndex = 4;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(464, 7);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(223, 33);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // UserInterface
             // 
