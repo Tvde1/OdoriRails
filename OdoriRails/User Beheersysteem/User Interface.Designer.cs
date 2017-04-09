@@ -180,6 +180,7 @@
             this.listUsers.ItemHeight = 20;
             this.listUsers.Location = new System.Drawing.Point(6, 46);
             this.listUsers.Name = "listUsers";
+            this.listUsers.ScrollAlwaysVisible = true;
             this.listUsers.Size = new System.Drawing.Size(681, 424);
             this.listUsers.TabIndex = 0;
             // 
@@ -294,15 +295,14 @@
             this.lbStatus.Location = new System.Drawing.Point(21, 335);
             this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(180, 20);
+            this.lbStatus.Size = new System.Drawing.Size(0, 20);
             this.lbStatus.TabIndex = 13;
-            this.lbStatus.Text = "Currently: [Insert Status]";
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(360, 318);
+            this.btnSubmit.Location = new System.Drawing.Point(21, 318);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(297, 54);
+            this.btnSubmit.Size = new System.Drawing.Size(636, 54);
             this.btnSubmit.TabIndex = 12;
             this.btnSubmit.Text = "Submit User";
             this.btnSubmit.UseVisualStyleBackColor = true;
