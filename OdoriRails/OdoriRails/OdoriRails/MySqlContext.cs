@@ -59,7 +59,7 @@ namespace OdoriRails
             var command = new MySqlCommand($"SELECT * FROM User WHERE Username LIKE @username");
             command.Parameters.AddWithValue("@username", userName);
             var table = GetData(command);
-            return CreateUser(table.Rows[0]);
+            return table.Rows.Count == 0 ? null : CreateUser(table.Rows[0]);
         }
 
         public User GetUser(int id)
