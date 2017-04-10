@@ -11,7 +11,7 @@ namespace In_Uitrit_Systeem
     {
         //public InUitRitUser(int id, string name) : base(id, name)
         //{
-        //    // er moet een constructor aangemaakt worden in OdoriRails/User met bovenstaande parameters.
+        //   // er moet een constructor aangemaakt worden in OdoriRails/User met bovenstaande parameters.
         //}
     }
 }

@@ -12,25 +12,32 @@ namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
+        InUitRitTram Tram;
+
         public FormUserInterface()
         {
             InitializeComponent();
+            lblTramNumber.Text = Tram.Number.ToString();
         }
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            if (cbCleaning.Checked)
-            {
-
-            }
-            if (cbMaintenance.Checked)
-            {
-
-            }
+            string details = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-
+                //Tram.EditTramStatus(OdoriRails.TramStatus.CleaningMaintenance)
             }
+            else if (cbCleaning.Checked)
+            {
+                Tram.EditTramStatus(OdoriRails.TramStatus.Cleaning);
+            }
+            else if (cbMaintenance.Checked)
+            {
+                Tram.EditTramStatus(OdoriRails.TramStatus.Maintenance); 
+            }
+            rtbDetails.Text = "";
+            btnService.Enabled = false;
+            lblStandplaats.Text = Tram.Line.ToString();
         }
     }
 }
