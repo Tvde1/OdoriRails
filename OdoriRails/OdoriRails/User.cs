@@ -62,6 +62,12 @@ namespace OdoriRails
             Role = role;
         }
 
+        public User(int id, string name)
+        {
+            ID = id;
+            Name = name;
+        }
+
         /// <summary>
         /// Toevoegen User, alle benodigde data.
         /// </summary>
@@ -74,6 +80,11 @@ namespace OdoriRails
             Username = username;
             Password = password;
             ManagerUsername = managedByUsername;
+        }
+
+        public void SetID(int id)
+        {
+            ID = id;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OdoriRails
 {
@@ -13,7 +9,13 @@ namespace OdoriRails
         /// Voegt een User toe aan de database.
         /// </summary>
         /// <param name="user"></param>
-        void AddUser(User user);
+        User AddUser(User user);
+
+        /// <summary>
+        /// Haalt alle users op.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetAllUsers();
 
         /// <summary>
         /// Verwijdert een User uit de database.
@@ -106,5 +108,12 @@ namespace OdoriRails
         /// <returns></returns>
         bool MatchUsernameAndPassword(string username, string password);
         #endregion
+
+        //Erbij
+        /*
+         * Wijzigen trams.
+         * 
+         * 
+         */
     }
 }
