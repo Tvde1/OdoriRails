@@ -18,7 +18,7 @@ namespace OdoriRails
         #region user
         public User AddUser(User user)
         {
-            var query = new MySqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Email,Role,ManagedBy), VALUES({name},{pass},{email},{role},{managedBy}); SELECT LAST_INSERT_ID();");
+            var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Email,Role,ManagedBy), VALUES({name},{pass},{email},{role},{managedBy}); SELECT LAST_INSERT_ID();");
             query.Parameters.AddWithValue("{name}", user.Username);
             query.Parameters.AddWithValue("{pass}", user.Password);
             query.Parameters.AddWithValue("{email}", user.Email);
@@ -33,7 +33,7 @@ namespace OdoriRails
 
         public List<User> GetAllUsers()
         {
-            var query = new MySqlCommand("SELECT * FROM [User]");
+            var query = new MySqlCommand("SELECT * FROM User");
             var data = GetData(query);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -41,20 +41,20 @@ namespace OdoriRails
         public void RemoveUser(User user)
         {
             if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
-            var query = new MySqlCommand("DELETE FROM [User] WHERE UserPk = " + GetUserId(user.Username));
+            var query = new MySqlCommand("DELETE FROM User WHERE UserPk = " + GetUserId(user.Username));
             GetData(query);
         }
 
         public User GetUser(int id)
         {
-            var command = new MySqlCommand($"SELECT * FROM [User] WHERE UserPk = {id}");
+            var command = new MySqlCommand($"SELECT * FROM User WHERE UserPk = {id}");
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
         }
 
         public User GetUser(string userName)
         {
-            var command = new MySqlCommand("SELECT * FROM [User] WHERE UserPk = @id");
+            var command = new MySqlCommand("SELECT * FROM User WHERE UserPk = @id");
             command.Parameters.AddWithValue("@id", GetUserId(userName));
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
@@ -62,7 +62,7 @@ namespace OdoriRails
 
         public List<User> GetAllUsersWithRole(Role role)
         {
-            var command = new MySqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
+            var command = new MySqlCommand($"SELECT * FROM User WHERE Role = {(int)role}");
             var data = GetData(command);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -168,8 +168,8 @@ FROM Repair INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             string cleans = @"SELECT Clean.*
 FROM Clean INNER JOIN
@@ -177,8 +177,8 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new MySqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -253,7 +253,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         #region login
         public bool ValidateUsername(string username)
         {
-            var query = new MySqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
+            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
             var data = GetData(query);
             return data.Rows.Count != 0;
@@ -261,7 +261,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public bool MatchUsernameAndPassword(string username, string password)
         {
-            var query = new MySqlCommand("SELECT Password FROM [User] WHERE Username = @usrname");
+            var query = new MySqlCommand("SELECT Password FROM User WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
 
             var data = GetData(query);
@@ -300,7 +300,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         /// <returns></returns>
         private int GetUserId(string username)
         {
-            var query = new MySqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
+            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0][0];
