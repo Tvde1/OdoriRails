@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OdoriRails
+﻿namespace OdoriRails
 {
     public enum Role
     {
@@ -20,7 +14,7 @@ namespace OdoriRails
         /// <summary>
         /// Database ID van de User.
         /// </summary>
-        public int ID { get; private set; }
+        public int Id { get; private set; }
 
         /// <summary>
         /// Ophalen naam van User
@@ -64,7 +58,7 @@ namespace OdoriRails
 
         public User(int id, string name)
         {
-            ID = id;
+            Id = id;
             Name = name;
         }
 
@@ -73,7 +67,7 @@ namespace OdoriRails
         /// </summary>
         public User(int id, string name, string username, string email, string password, Role role, string managedByUsername)
         {
-            ID = id;
+            Id = id;
             Name = name;
             Email = email;
             Role = role;
@@ -82,9 +76,9 @@ namespace OdoriRails
             ManagerUsername = managedByUsername;
         }
 
-        public void SetID(int id)
+        public void SetId(int id)
         {
-            ID = id;
+            Id = id;
         }
     }
 }
