@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails
 {
@@ -14,7 +11,7 @@ namespace OdoriRails
             Repair
         }
 
-        public Repair(RepairType type, string defect, string solution, List<User> users)
+        public Repair(int id, DateTime startDate, DateTime endDate, RepairType type, string defect, string solution, List<User> users) : base(id, startDate, endDate)
         {
             Type = type;
             Defect = defect;
@@ -25,14 +22,5 @@ namespace OdoriRails
         public RepairType Type { get; protected set; }
         public string Defect { get; protected set; }
         public string Solution { get; protected set; }
-
-        public override void AddLog()
-        {
-            base.AddLog();
-        }
-        public override void EditLog()
-        {
-            // edits current entry of cleaning log
-        }
     }
 }

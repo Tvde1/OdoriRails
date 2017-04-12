@@ -59,6 +59,7 @@
       <DependentUpon>EditService.cs</DependentUpon>
     </Compile>
     <Compile Include="Cleaning.cs" />
+    <Compile Include="ENUMS.cs" />
     <Compile Include="MainService.cs">
       <SubType>Form</SubType>
     </Compile>

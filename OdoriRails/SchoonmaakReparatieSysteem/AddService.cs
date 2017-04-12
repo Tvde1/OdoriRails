@@ -7,26 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OdoriRails;
 
 namespace SchoonmaakReparatieSysteem
 {
     public partial class AddService : Form
     {
         User activeUser;
+
         public AddService(User activeuser)
         {
             activeUser = activeuser;
             InitializeComponent();
-            if (!activeUser.IsAdmin)
+            if (activeUser.Role != Role.Administrator)
             {
                 MessageBox.Show("No Priviledges, get the fuck out");
                 this.Close();
             }
-            if (activeUser.Role == "Technicus")
+            if (activeUser.Role == Role.Engineer)
             {
                 commentlbl.Text = "Defect omschrijving";
             }
-            if (activeUser.Role == "Schoonmaak")
+            if (activeUser.Role == Role.Cleaner)
             {
                 commentlbl.Text = "Opmerkingen";
             }
