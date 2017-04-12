@@ -192,7 +192,6 @@
             this.tabUsers.SelectedIndex = 0;
             this.tabUsers.Size = new System.Drawing.Size(703, 585);
             this.tabUsers.TabIndex = 13;
-            this.tabUsers.TabIndexChanged += new System.EventHandler(this.tabUsers_TabIndexChanged);
             // 
             // tabUserList
             // 

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BeheerUser.cs" />
     <Compile Include="Enum.cs" />
+    <Compile Include="Logic.cs" />
     <Compile Include="User Interface.cs">
       <SubType>Form</SubType>
     </Compile>
