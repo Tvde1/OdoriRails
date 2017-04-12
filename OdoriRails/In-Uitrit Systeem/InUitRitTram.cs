@@ -19,6 +19,14 @@ namespace In_Uitrit_Systeem
             Status = tramstatus;
         }
 
-        
+        public void AddRepair(string details)
+        {
+
+        }
+
+        public void AddCleaning(string details)
+        {
+
+        }
     }
 }

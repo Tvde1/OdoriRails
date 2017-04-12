@@ -30,15 +30,18 @@ namespace In_Uitrit_Systeem
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
                 //Tram.EditTramStatus(OdoriRails.TramStatus.CleaningMaintenance)
-                
+                Tram.AddRepair(details);
+                Tram.AddCleaning(details);
             }
             else if (cbCleaning.Checked)
             {
                 Tram.EditTramStatus(OdoriRails.TramStatus.Cleaning);
+                Tram.AddCleaning(details);
             }
             else if (cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(OdoriRails.TramStatus.Maintenance); 
+                Tram.EditTramStatus(OdoriRails.TramStatus.Maintenance);
+                Tram.AddRepair(details);
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
