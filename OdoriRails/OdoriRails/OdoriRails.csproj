@@ -55,7 +55,7 @@
     <Compile Include="Cleaning.cs" />
     <Compile Include="MySqlContext.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="MSSQLDatabaseContext.cs" />
+    <Compile Include="MssqlDatabaseContext.cs" />
     <Compile Include="DatabaseTest.cs" />
     <Compile Include="IDatabaseConnector.cs" />
     <Compile Include="Program.cs" />

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails
 {
@@ -13,7 +10,7 @@ namespace OdoriRails
         public DateTime StartDate { get; protected set; }
         public DateTime EndDate { get; protected set; }
 
-        public Service(int id, DateTime startDate, DateTime endDate)
+        protected Service(int id, DateTime startDate, DateTime endDate)
         {
             ID = id;
             StartDate = startDate;
