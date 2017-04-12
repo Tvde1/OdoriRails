@@ -14,14 +14,14 @@ namespace User_Beheersysteem
     public partial class UserInterface : Form
     {
         IDatabaseConnector databaseConnector = new MySqlContext();
-        private List<User> Users = new List<User>();
+        private List<BeheerUser> UsersAll = new List<BeheerUser>();
+        private List<BeheerUser> UsersSearch = new List<BeheerUser>();
         int index;
 
         public UserInterface()
         {
             InitializeComponent();
-            listUsers.DataSource = databaseConnector.GetAllUsers();
-            cbManaged.DataSource = databaseConnector.GetAllUsers();
+            GetUsersFromDatabase(SearchRole.All);
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
@@ -32,20 +32,27 @@ namespace User_Beheersysteem
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
-            tabUsers.SelectTab(1);
-            lbStatus.Text = UserStatus.Edit.ToString();
-            index = listUsers.SelectedIndex;
-            tbName.Text = Users[index].Name;
-            tbUserName.Text = Users[index].Username;
-            tbEmail.Text = Users[index].Email;
-            cbRole.SelectedItem = Users[index].Role.ToString();
-            cbManaged.SelectedItem = Users[index].ManagerUsername;
+            if (listUsers.SelectedItem != null)
+            {
+                tabUsers.SelectTab(1);
+                lbStatus.Text = UserStatus.Edit.ToString();
+                index = listUsers.SelectedIndex;
+                tbName.Text = UsersSearch[index].Name;
+                tbUserName.Text = UsersSearch[index].Username;
+                tbEmail.Text = UsersSearch[index].Email;
+                cbRole.SelectedItem = UsersSearch[index].Role.ToString();
+                cbManaged.SelectedItem = UsersSearch[index].ManagerUsername;
+            }
+            else
+            {
+                MessageBox.Show("Geen User Geselecteerd");
+            }
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
             index = listUsers.SelectedIndex;
-            databaseConnector.RemoveUser(Users[index]);
+            databaseConnector.RemoveUser(UsersSearch[index]);
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -61,7 +68,6 @@ namespace User_Beheersysteem
             }
             else
             {
-                // Of constructor zonder id of een manier om de nieuwe id op te vragen uit de database
                 submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
                 databaseConnector.AddUser(submitUser);
             }
@@ -71,28 +77,63 @@ namespace User_Beheersysteem
         {
             SearchRole role;
             Enum.TryParse(cbSearchRole.Text, out role);
+            GetUsersFromDatabase(role);
+        }
+
+        private void GetUsersFromDatabase(SearchRole role)
+        {
+            UsersSearch.Clear();
+            UsersAll.Clear();
+            listUsers.Items.Clear();
+            cbManaged.Items.Clear();
+
+            List<User> TempUsersAll = databaseConnector.GetAllUsers(); ;
+            List<User> TempUsersSearch = null;
 
             switch (role)
             {
                 case SearchRole.All:
-                    listUsers.DataSource = databaseConnector.GetAllUsers();
+                    TempUsersSearch = databaseConnector.GetAllUsers();
                     break;
                 case SearchRole.Administrator:
-                    listUsers.DataSource = databaseConnector.GetAllUsersWithRole(Role.Administrator);
+                    TempUsersSearch = databaseConnector.GetAllUsersWithRole(Role.Administrator);
                     break;
                 case SearchRole.Cleaner:
-                    listUsers.DataSource = databaseConnector.GetAllUsersWithRole(Role.Cleaner);
+                    TempUsersSearch = databaseConnector.GetAllUsersWithRole(Role.Cleaner);
                     break;
                 case SearchRole.Driver:
-                    listUsers.DataSource = databaseConnector.GetAllUsersWithRole(Role.Driver);
+                    TempUsersSearch = databaseConnector.GetAllUsersWithRole(Role.Driver);
                     break;
                 case SearchRole.Engineer:
-                    listUsers.DataSource = databaseConnector.GetAllUsersWithRole(Role.Engineer);
+                    TempUsersSearch = databaseConnector.GetAllUsersWithRole(Role.Engineer);
                     break;
                 case SearchRole.Logistic:
-                    listUsers.DataSource = databaseConnector.GetAllUsersWithRole(Role.Logistic);
+                    TempUsersSearch = databaseConnector.GetAllUsersWithRole(Role.Logistic);
                     break;
             }
+
+            foreach (User TempUser in TempUsersSearch)
+            {
+                UsersSearch.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
+            }
+            foreach (User TempUser in TempUsersAll)
+            {
+                UsersAll.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
+            }
+
+            foreach (BeheerUser User in UsersSearch)
+            {
+                listUsers.Items.Add(User.ToString());
+            }
+            foreach (BeheerUser User in UsersAll)
+            {
+                cbManaged.Items.Add(User.ToString());
+            }
+        }
+
+        private void tabUsers_TabIndexChanged(object sender, EventArgs e)
+        {
+            GetUsersFromDatabase(SearchRole.All);
         }
     }
 }

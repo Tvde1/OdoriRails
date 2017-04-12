@@ -193,6 +193,7 @@
             this.tabUsers.SelectedIndex = 0;
             this.tabUsers.Size = new System.Drawing.Size(703, 585);
             this.tabUsers.TabIndex = 13;
+            this.tabUsers.TabIndexChanged += new System.EventHandler(this.tabUsers_TabIndexChanged);
             // 
             // tabUserList
             // 
@@ -292,7 +293,7 @@
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(21, 335);
+            this.lbStatus.Location = new System.Drawing.Point(32, 384);
             this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(0, 20);

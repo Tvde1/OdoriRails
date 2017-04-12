@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeheerUser.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="User Interface.cs">
       <SubType>Form</SubType>
