@@ -20,7 +20,7 @@ namespace OdoriRails
         public User AddUser(User user)
         {
             var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
-            query.Parameters.AddWithValue("@name", user.Username);
+            query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
@@ -30,7 +30,7 @@ namespace OdoriRails
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (UInt64)data.Rows[0][0];
+            var id = (ulong)data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;
@@ -59,11 +59,20 @@ namespace OdoriRails
 
         public void UpdateUser(User user)
         {
-            var query = new SqlCommand("UPDATE User SET Name = @name, Password = @password, Email = @email, Role = @role WHERE UserPk = @id");
+            var query = new SqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@password", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
+            if (string.IsNullOrEmpty(user.ManagerUsername))
+            {
+                query.Parameters.AddWithValue("@managedby", null);
+            }
+            else
+            {
+                query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
+            }
             query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }

@@ -22,7 +22,7 @@ namespace OdoriRails
         public User AddUser(User user)
         {
             var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
-            query.Parameters.AddWithValue("@name", user.Username);
+            query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
@@ -32,7 +32,7 @@ namespace OdoriRails
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (UInt64)data.Rows[0][0];
+            var id = (ulong)data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;
@@ -54,11 +54,20 @@ namespace OdoriRails
 
         public void UpdateUser(User user)
         {
-            var query = new MySqlCommand("UPDATE User SET Name = @name, Password = @password, Email = @email, Role = @role WHERE UserPk = @id");
+            var query = new MySqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@password", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
-            query.Parameters.AddWithValue("@role", (int) user.Role);
+            query.Parameters.AddWithValue("@role", (int)user.Role);
+            if (string.IsNullOrEmpty(user.ManagerUsername))
+            {
+                query.Parameters.AddWithValue("@managedby", null);
+            }
+            else
+            {
+                query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
+            }
             query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }
@@ -88,9 +97,9 @@ namespace OdoriRails
         private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
-            //name gebr wachtw email rol 
+            //PK, Name, Usename, Password, Email, Role, ManagedBy, 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((int)array[6]).Username;
-            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
+            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[4], (string)array[3], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
@@ -216,14 +225,14 @@ WHERE (User.Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derived
 
         public List<Service> GetAllServicesWithoutUser(User user)
         {
- var repairQuery = new MySqlCommand(@"SELECT Repair.*
+            var repairQuery = new MySqlCommand(@"SELECT Repair.*
 FROM Repair INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
 
- var cleanQuery = new MySqlCommand(@"SELECT Clean.*
+            var cleanQuery = new MySqlCommand(@"SELECT Clean.*
 FROM Clean INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
@@ -315,7 +324,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             }
             catch (Exception ex)
             {
-                throw new Exception("De uitgevoerde query is niet correct: \r\n"+command.CommandText+"\r\n\r\n"+ex);
+                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText + "\r\n\r\n" + ex);
             }
         }
 
