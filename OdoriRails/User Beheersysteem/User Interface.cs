@@ -63,12 +63,27 @@ namespace User_Beheersysteem
 
             if (lbStatus.Text == "Edit")
             {
-                submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
+                if (cbManaged.SelectedText != "")
+                {
+                    submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
+                }
+                else
+                {
+                    submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
+                }
+                
                 //Edit user ergens????????
             }
             else
             {
-                submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
+                if (cbManaged.SelectedText != "")
+                {
+                    submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
+                }
+                else
+                {
+                    submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
+                }
                 databaseConnector.AddUser(submitUser);
             }
         }
