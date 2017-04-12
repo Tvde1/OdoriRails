@@ -28,7 +28,7 @@ namespace OdoriRails
             if (user.ManagerUsername == null) query.Parameters.AddWithValue("{managedBy}", null);
             else query.Parameters.AddWithValue("{managedBy}", GetUserId(user.ManagerUsername));
 
-            user.SetID((int)GetData(query).Rows[0][0]);
+            user.SetId((int)GetData(query).Rows[0][0]);
             return user;
         }
     
@@ -182,11 +182,11 @@ FROM ServiceUser INNER JOIN
 WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
-            repairQuery.Parameters.AddWithValue("@id", user.ID);
+            repairQuery.Parameters.AddWithValue("@id", user.Id);
             var repairData = GetData(repairQuery);
 
             var cleanQuery = new SqlCommand(cleans);
-            cleanQuery.Parameters.AddWithValue("@id", user.ID);
+            cleanQuery.Parameters.AddWithValue("@id", user.Id);
             var cleanData = GetData(cleanQuery);
 
             List<Service> returnList = new List<Service>();

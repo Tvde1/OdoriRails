@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OdoriRails
 {
     public class Track
     {
-        private List<Sector> sectors = new List<Sector>();
-        public List<Sector> Sectors
-        {
-            get { return sectors; }
-            protected set { sectors = value; }
-        }
+        public List<Sector> Sectors { get; protected set; } = new List<Sector>();
 
         public int Number { get; protected set; }
 
