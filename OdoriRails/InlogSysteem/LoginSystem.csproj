@@ -7,8 +7,8 @@
     <ProjectGuid>{3D58B85F-D1A1-4442-A09C-5A325AE386A2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InlogSysteem</RootNamespace>
-    <AssemblyName>InlogSysteem</AssemblyName>
+    <RootNamespace>LoginSystem</RootNamespace>
+    <AssemblyName>LoginSystem</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,6 +52,7 @@
     <Compile Include="InlogScreen.Designer.cs">
       <DependentUpon>InlogScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="LogInSystemCode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="InlogScreen.resx">
@@ -82,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\temp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
+      <Project>{FC6CE72A-A2F9-4E02-8888-11AEDD18C72B}</Project>
+      <Name>OdoriRails</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

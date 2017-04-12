@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LoginSystem;
 
 namespace InlogSysteem
 {
@@ -16,7 +17,7 @@ namespace InlogSysteem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InlogScreen());
+            Application.Run(new LoginScreen());
         }
     }
 }
