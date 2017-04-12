@@ -6,14 +6,12 @@ using System.Linq;
 
 namespace OdoriRails
 {
-    class MySqlContext : IDatabaseConnector
+    public class MySqlContext : IDatabaseConnector
     {
         private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
 
 
         private int _remiseNumber = 0;
-
-        //public MySqlDatabaseContext()
 
         #region user
         public User AddUser(User user)
