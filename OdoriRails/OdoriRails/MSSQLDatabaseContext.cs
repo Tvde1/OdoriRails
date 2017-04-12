@@ -8,7 +8,7 @@ using System.Linq;
 namespace OdoriRails
 {
     /// <summary>
-    /// De DAL-Klasse
+    /// Database Adapter voor de mssql datatabase.
     /// </summary>
     public class MssqlDatabaseContext : IDatabaseConnector
     {
@@ -19,19 +19,23 @@ namespace OdoriRails
         #region user
         public User AddUser(User user)
         {
-            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Email,Role,ManagedBy), VALUES({name},{pass},{email},{role},{managedBy}); SELECT LAST_INSERT_ID();");
-            query.Parameters.AddWithValue("{name}", user.Username);
-            query.Parameters.AddWithValue("{pass}", user.Password);
-            query.Parameters.AddWithValue("{email}", user.Email);
-            query.Parameters.AddWithValue("{role}", (int)user.Role);
+            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            query.Parameters.AddWithValue("@name", user.Name);
+            query.Parameters.AddWithValue("@username", user.Username);
+            query.Parameters.AddWithValue("@pass", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (user.ManagerUsername == null) query.Parameters.AddWithValue("{managedBy}", null);
-            else query.Parameters.AddWithValue("{managedBy}", GetUserId(user.ManagerUsername));
+            if (user.ManagerUsername == null) query.Parameters.AddWithValue("@managedBy", null);
+            else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
-            user.SetID((int)GetData(query).Rows[0][0]);
+            var data = GetData(query);
+            var id = (ulong)data.Rows[0][0];
+
+            user.SetId(Convert.ToInt32(id));
             return user;
         }
-    
+
         public List<User> GetAllUsers()
         {
             var query = new SqlCommand("SELECT * FROM [User]");
@@ -53,6 +57,26 @@ namespace OdoriRails
             return CreateUser(table.Rows[0]);
         }
 
+        public void UpdateUser(User user)
+        {
+            var query = new SqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@username", user.Username);
+            query.Parameters.AddWithValue("@name", user.Name);
+            query.Parameters.AddWithValue("@password", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int)user.Role);
+            if (string.IsNullOrEmpty(user.ManagerUsername))
+            {
+                query.Parameters.AddWithValue("@managedby", null);
+            }
+            else
+            {
+                query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
+            }
+            query.Parameters.AddWithValue("@id", user.Id);
+            GetData(query);
+        }
+
         public User GetUser(string userName)
         {
             var command = new SqlCommand("SELECT * FROM [User] WHERE UserPk = @id");
@@ -72,7 +96,7 @@ namespace OdoriRails
         {
             var array = row.ItemArray;
             //name gebr wachtw email rol 
-            string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
+            string parentUserString = array[6] == DBNull.Value ? "" : GetUser((int)array[6]).Username;
             return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
@@ -80,18 +104,18 @@ namespace OdoriRails
         #region tram
         public void AddTram(Tram tram)
         {
-            var query = new SqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk), VALUES({id},{line},{status},{model},{driver})");
-            query.Parameters.AddWithValue("{id}", tram.Number);
-            query.Parameters.AddWithValue("{line}", tram.Line);
-            query.Parameters.AddWithValue("{status}", (int)tram.Status);
-            query.Parameters.AddWithValue("{model}", (int)tram.Model);
+            var query = new SqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk), VALUES(@id,@line,@status,@model,@driver)");
+            query.Parameters.AddWithValue("@id", tram.Number);
+            query.Parameters.AddWithValue("@line", tram.Line);
+            query.Parameters.AddWithValue("@status", (int)tram.Status);
+            query.Parameters.AddWithValue("@model", (int)tram.Model);
             if (tram.Driver != null)
             {
-                query.Parameters.AddWithValue("{driver}", GetUserId(tram.Driver.Username));
+                query.Parameters.AddWithValue("@driver", GetUserId(tram.Driver.Username));
             }
             else
             {
-                query.Parameters.AddWithValue("{driver}", null);
+                query.Parameters.AddWithValue("@driver", null);
             }
 
             GetData(query);
@@ -182,11 +206,11 @@ FROM ServiceUser INNER JOIN
 WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
-            repairQuery.Parameters.AddWithValue("@id", user.ID);
+            repairQuery.Parameters.AddWithValue("@id", user.Id);
             var repairData = GetData(repairQuery);
 
             var cleanQuery = new SqlCommand(cleans);
-            cleanQuery.Parameters.AddWithValue("@id", user.ID);
+            cleanQuery.Parameters.AddWithValue("@id", user.Id);
             var cleanData = GetData(cleanQuery);
 
             List<Service> returnList = new List<Service>();
@@ -284,13 +308,20 @@ FROM            Clean INNER JOIN
         /// <returns>Een Datatable van alle rows.</returns>
         private DataTable GetData(SqlCommand command)
         {
-            var dataTable = new DataTable();
-            using (var conn = new SqlConnection(_connectionString))
+            try
             {
-                command.Connection = conn;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
-                return dataTable;
+                var dataTable = new DataTable();
+                using (var conn = new SqlConnection(_connectionString))
+                {
+                    command.Connection = conn;
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dataTable);
+                    return dataTable;
+                }
+            }
+            catch
+            {
+                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
             }
         }
 
@@ -310,7 +341,7 @@ FROM            Clean INNER JOIN
         private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
         {
             var returnList = new List<T>();
-            foreach(DataRow row in data.Rows)
+            foreach (DataRow row in data.Rows)
             {
                 returnList.Add(func(row));
             }
