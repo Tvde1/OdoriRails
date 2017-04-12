@@ -15,20 +15,20 @@ namespace User_Beheersysteem
     {
         Logic logic = new Logic();
         int index;
+        string status;
 
         public UserInterface()
         {
             InitializeComponent();
-            logic.GetUsersFromDatabase(true);
-            FillLists();
             cbSearchRole.SelectedIndex = 5;
+            Search();
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(1);
-            logic.status = UserStatus.Add.ToString();
-            btnSubmit.Text = logic.status + " User";
+            status = UserStatus.Add.ToString();
+            btnSubmit.Text = status + " User";
         }
 
         private void btnEditUser_Click(object sender, EventArgs e)
@@ -36,8 +36,8 @@ namespace User_Beheersysteem
             if (listUsers.SelectedItem != null)
             {
                 tabUsers.SelectTab(1);
-                logic.status = UserStatus.Edit.ToString();
-                btnSubmit.Text = logic.status + " User";
+                status = UserStatus.Edit.ToString();
+                btnSubmit.Text = status + " User";
                 index = listUsers.SelectedIndex;
                 tbName.Text = logic.UsersSearch[index].Name;
                 tbUserName.Text = logic.UsersSearch[index].Username;
@@ -49,11 +49,13 @@ namespace User_Beheersysteem
             {
                 MessageBox.Show("Geen User Geselecteerd");
             }
+            Search();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
             logic.DeleteUser(listUsers.SelectedIndex);
+            Search();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -63,7 +65,7 @@ namespace User_Beheersysteem
             Role role;
             Enum.TryParse(cbRole.SelectedText, out role);
 
-            if (logic.status == "Edit")
+            if (status == "Edit")
             {
                 if (cbManaged.SelectedText != "")
                 {
@@ -88,14 +90,20 @@ namespace User_Beheersysteem
                 }
                 logic.AddUser(submitUser);
             }
+            Search();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            Search();
+        }
+
+        private void Search()
+        {
             SearchRole role;
             Enum.TryParse(cbSearchRole.Text, out role);
-            logic.GetUsersFromDatabase(false);
-            logic.GetUsersFromDatabase(role);
+            logic.GetAllUsersFromDatabase();
+            logic.GetSelectUsersFromDatabase(role);
             FillLists();
         }
 
@@ -112,6 +120,11 @@ namespace User_Beheersysteem
                 cbManaged.Items.Add(User.ToString(true));
             }
         }
+
+
+
+
+
     }
 }
 
