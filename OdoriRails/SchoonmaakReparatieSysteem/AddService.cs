@@ -13,28 +13,30 @@ namespace SchoonmaakReparatieSysteem
 {
     public partial class AddService : Form
     {
-        User activeUser;
+        private User activeUser;
 
-        public AddService(User activeuser)
+        public AddService()
         {
-            activeUser = activeuser;
+            
             InitializeComponent();
-            if (activeUser.Role != Role.Administrator)
+            if (activeUser.Role != Role.HeadCleaner || activeUser.Role == Role.HeadEngineer)
             {
-                MessageBox.Show("No Priviledges, get the fuck out");
+                MessageBox.Show("No Privileges");
                 this.Close();
             }
-            if (activeUser.Role == Role.Engineer)
+            if (activeUser.Role == Role.HeadEngineer)
             {
                 commentlbl.Text = "Defect omschrijving";
+                sortsrvc_cb.Items.Add(RepairType.Maintenance);
+                sortsrvc_cb.Items.Add(RepairType.Repair);
             }
-            if (activeUser.Role == Role.Cleaner)
+            if (activeUser.Role == Role.HeadCleaner)
             {
                 commentlbl.Text = "Opmerkingen";
+                sortsrvc_cb.Items.Add(CleaningSize.Big);
+                sortsrvc_cb.Items.Add(CleaningSize.Small);
             }
-            sortsrvc_cb.Items.Add(ServiceType.SMALL);
-            sortsrvc_cb.Items.Add(ServiceType.LARGE);
-            sortsrvc_cb.Items.Add(ServiceType.CUSTOM);
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -42,15 +44,15 @@ namespace SchoonmaakReparatieSysteem
             List<User> userList = new List<User>();
             string  sType = Convert.ToString(sortsrvc_cb.SelectedItem);
             string comment = commenttb.Text;
-            
 
-            if (activeUser.Role == "Schoonmaak")
+
+            if (activeUser.Role == Role.HeadCleaner)
             {
-                Cleaning cleaningLog = new Cleaning(Convert.ToInt32(datetb1.Text), Convert.ToInt32(datetb2.Text), Convert.ToInt32(datetb3.Text), comment, sType);    //TODO add repairlog
+                // TODO: POST CLEAN LOG CODE
             }
-            if(activeUser.Role == "Technicus")
+            if (activeUser.Role == Role.HeadEngineer)
             {
-                Repair repair = new Repair(Convert.ToInt32(datetb1.Text), Convert.ToInt32(datetb2.Text), Convert.ToInt32(datetb3.Text), comment ,"", sType);   //TODO add schoonmaaklog
+                // TODO: POST REPAIR LOG CODE
             }
             else { }
             

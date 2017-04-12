@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace OdoriRails
 {
+    public enum RepairType
+    {
+        Maintenance,
+        Repair
+    }
+
     class Repair : Service
     {
-        public enum RepairType
-        {
-            Maintenance,
-            Repair
-        }
+       
 
         public Repair(int id, DateTime startDate, DateTime endDate, RepairType type, string defect, string solution, List<User> users) : base(id, startDate, endDate)
         {
