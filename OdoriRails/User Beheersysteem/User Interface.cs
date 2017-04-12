@@ -138,11 +138,11 @@ namespace User_Beheersysteem
 
             foreach (BeheerUser User in UsersSearch)
             {
-                listUsers.Items.Add(User.ToString());
+                listUsers.Items.Add(User.ToString(false));
             }
             foreach (BeheerUser User in UsersAll)
             {
-                cbManaged.Items.Add(User.ToString());
+                cbManaged.Items.Add(User.ToString(true));
             }
         }
 

@@ -14,8 +14,15 @@ namespace User_Beheersysteem
 
         public string ToString(bool manager)
         {
+            if (manager == false)
+            {
+                return Name;
+            }
+            else
+            {
+                return Username;
+            }
 
-            return Name;
         }
     }
 }
