@@ -4,44 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoonmaakReparatieSysteem
+namespace OdoriRails
 {
-    enum ServiceType
+    public abstract class Service
     {
-        SMALL,
-        LARGE,
-        CUSTOM
-    }
-    abstract class Service
-    {
-        private DateTime startDate;
-        private DateTime endDate;
+        
+        public List<User> AssignedUsers { get; protected set; }  
+        public DateTime StartDate { get; protected set; }
+        public DateTime EndDate { get; protected set; }
 
         public Service(int day, int month, int year)
         {
-            startDate = new DateTime(day, month, year);
+            StartDate = new DateTime(day, month, year);
         }
-<<<<<<< HEAD
-// adds database entry of cleaning service log
-        public virtual void AddLog()
-=======
 
-        private void AddCleaningLog(List<string> userlist, string comment, ServiceType cleaningtype)
->>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
+        public virtual void AddLog()
         {
-            
+            // adds database entry of cleaning service log
         }
-        private void AddReparationLog(List<string> userlist, string deffect, string solution, ServiceType reparationtype)
+
+        public virtual void EditLog()
         {
-            // adds database entry of reparation service log
-        }
-        private void EditLog(List<string> userlist, string comment, ServiceType cleaningtype)
-        {
-            // edits current entry of cleaning log
-        }
-        private void EditLog(List<User> userlist, string deffect, string solution, ServiceType reparationtype)
-        {
-            // edits current entry of cleaning log
+            // edits a entry of log
         }
         private void DeleteLog(int logID)
         {

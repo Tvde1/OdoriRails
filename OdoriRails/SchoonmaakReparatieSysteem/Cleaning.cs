@@ -4,30 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoonmaakReparatieSysteem
+namespace OdoriRails
 {
-    class Schoonmaak
+    class Cleaning : Service
     {
-<<<<<<< HEAD
-        private string comment;
-
-        public Cleaning(int day, int month, int year, string cmt, string stype) : base(day, month, year)
+        public enum CleaningSize
         {
-            comment = cmt;
-            //cleaningType = stype;
+            Big,
+            Small
         }
+
+        public Cleaning(CleaningSize size, string comments, List<User> users)
+        {
+            Size = size;
+            Comments = comments;
+            AssignedUsers = users;
+        }
+
+        public CleaningSize Size { get; protected set; }
+        public string Comments { get; protected set; }
 
         public override void AddLog()
         {
-           // adds entry of this instance of service
+            // adds entry of this instance of service
 
         }
         public override void EditLog()
         {
             // edits current entry of cleaning log
         }
-        
-=======
->>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
+
+
     }
 }

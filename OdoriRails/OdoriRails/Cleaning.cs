@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails
 {
@@ -13,8 +10,8 @@ namespace OdoriRails
             Big,
             Small
         }
-
-        public Cleaning(CleaningSize size, string comments, List<User> users)
+        
+        public Cleaning(int id, DateTime startDate, DateTime endDate, CleaningSize size, string comments, List<User> users) : base(id, startDate, endDate)
         {
             Size = size;
             Comments = comments;

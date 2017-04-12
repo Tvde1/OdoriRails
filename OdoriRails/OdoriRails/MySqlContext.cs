@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-
 
 namespace OdoriRails
 {
     /// <summary>
-    /// Database Adapter voor de mssql datatabase.
+    /// Tijdelijke databaseadapter.
     /// </summary>
-    public class MssqlDatabaseContext : IDatabaseConnector
+    public class MySqlContext : IDatabaseConnector
     {
-        private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
-        //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
+        private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
+
+
         private int _remiseNumber = 0;
+
+        //public MySqlDatabaseContext()
 
         #region user
         public User AddUser(User user)
         {
-            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
             query.Parameters.AddWithValue("@name", user.Username);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
@@ -38,7 +40,7 @@ namespace OdoriRails
 
         public List<User> GetAllUsers()
         {
-            var query = new SqlCommand("SELECT * FROM [User]");
+            var query = new MySqlCommand("SELECT * FROM User");
             var data = GetData(query);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -46,31 +48,31 @@ namespace OdoriRails
         public void RemoveUser(User user)
         {
             if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
-            var query = new SqlCommand("DELETE FROM [User] WHERE UserPk = " + GetUserId(user.Username));
+            var query = new MySqlCommand("DELETE FROM User WHERE UserPk = " + GetUserId(user.Username));
+            GetData(query);
+        }
+
+        public void UpdateUser(User user)
+        {
+            var query = new MySqlCommand("UPDATE User SET Name = @name, Password = @password, Email = @email, Role = @role WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@name", user.Name);
+            query.Parameters.AddWithValue("@password", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int) user.Role);
+            query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }
 
         public User GetUser(int id)
         {
-            var command = new SqlCommand($"SELECT * FROM [User] WHERE UserPk = {id}");
+            var command = new MySqlCommand($"SELECT * FROM User WHERE UserPk = {id}");
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
         }
 
-        public void UpdateUser(User user)
-        {
-            var query = new SqlCommand("UPDATE User SET Name = @name, Password = @password, Email = @email, Role = @role WHERE UserPk = @id");
-            query.Parameters.AddWithValue("@name", user.Name);
-            query.Parameters.AddWithValue("@password", user.Password);
-            query.Parameters.AddWithValue("@email", user.Email);
-            query.Parameters.AddWithValue("@role", (int)user.Role);
-            query.Parameters.AddWithValue("@id", user.Id);
-            GetData(query);
-        }
-
         public User GetUser(string userName)
         {
-            var command = new SqlCommand("SELECT * FROM [User] WHERE UserPk = @id");
+            var command = new MySqlCommand("SELECT * FROM User WHERE UserPk = @id");
             command.Parameters.AddWithValue("@id", GetUserId(userName));
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
@@ -78,7 +80,7 @@ namespace OdoriRails
 
         public List<User> GetAllUsersWithRole(Role role)
         {
-            var command = new SqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
+            var command = new MySqlCommand($"SELECT * FROM User WHERE Role = {(int)role}");
             var data = GetData(command);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -95,7 +97,7 @@ namespace OdoriRails
         #region tram
         public void AddTram(Tram tram)
         {
-            var query = new SqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk), VALUES(@id,@line,@status,@model,@driver)");
+            var query = new MySqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk), VALUES(@id,@line,@status,@model,@driver)");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
@@ -114,20 +116,20 @@ namespace OdoriRails
 
         public void RemoveTram(Tram tram)
         {
-            var query = new SqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}");
+            var query = new MySqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}");
             GetData(query);
         }
 
         public Tram GetTram(int id)
         {
-            var command = new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}");
+            var command = new MySqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}");
             var table = GetData(command);
             return CreateTram(table.Rows[0]);
         }
 
         public List<Tram> GetAllTramsOnATrack()
         {
-            var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
+            var command = new MySqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
             var data = GetData(command);
             return GenerateListWithFunction(data, CreateTram);
         }
@@ -143,8 +145,8 @@ namespace OdoriRails
         public List<Track> GetTracksAndSectors()
         {
             var returnList = new List<Track>();
-            var trackQuery = new SqlCommand($"SELECT * FROM Track WHERE RemiseFk = {_remiseNumber}");
-            var sectorQuery = new SqlCommand($"SELECT * FROM Sector WHERE RemiseFk = {_remiseNumber}");
+            var trackQuery = new MySqlCommand($"SELECT * FROM Track WHERE RemiseFk = {_remiseNumber}");
+            var sectorQuery = new MySqlCommand($"SELECT * FROM Sector WHERE RemiseFk = {_remiseNumber}");
             var trackData = GetData(trackQuery);
             var sectorData = GetData(sectorQuery);
 
@@ -184,8 +186,8 @@ FROM Repair INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             string cleans = @"SELECT Clean.*
 FROM Clean INNER JOIN
@@ -193,14 +195,14 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
-            var repairQuery = new SqlCommand(repairs);
+            var repairQuery = new MySqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
             var repairData = GetData(repairQuery);
 
-            var cleanQuery = new SqlCommand(cleans);
+            var cleanQuery = new MySqlCommand(cleans);
             cleanQuery.Parameters.AddWithValue("@id", user.Id);
             var cleanData = GetData(cleanQuery);
 
@@ -214,19 +216,19 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
 
         public List<Service> GetAllServicesWithoutUser(User user)
         {
-            var repairQuery = new SqlCommand(@"SELECT        Repair.*
-FROM            Repair INNER JOIN
-                             (SELECT        Service.ServicePk
-                               FROM            ServiceUser RIGHT OUTER JOIN
-                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
-                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+ var repairQuery = new MySqlCommand(@"SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
 
-            var cleanQuery = new SqlCommand(@"SELECT        Clean.*
-FROM            Clean INNER JOIN
-                             (SELECT        Service.ServicePk
-                               FROM            ServiceUser RIGHT OUTER JOIN
-                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
-                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
+ var cleanQuery = new MySqlCommand(@"SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
             var repairData = GetData(repairQuery);
             var cleanData = GetData(cleanQuery);
 
@@ -242,7 +244,7 @@ FROM            Clean INNER JOIN
         private Cleaning CreateCleaning(DataRow row)
         {
             var array = row.ItemArray;
-            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
             return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]));
@@ -251,15 +253,16 @@ FROM            Clean INNER JOIN
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
+            // ReSharper disable once PossibleInvalidCastException
             return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]));
         }
 
         private List<User> GetUsersInService(int serviceId)
         {
-            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var query = new MySqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
             var data = GetData(query);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -269,7 +272,7 @@ FROM            Clean INNER JOIN
         #region login
         public bool ValidateUsername(string username)
         {
-            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
+            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
             var data = GetData(query);
             return data.Rows.Count != 0;
@@ -277,7 +280,7 @@ FROM            Clean INNER JOIN
 
         public bool MatchUsernameAndPassword(string username, string password)
         {
-            var query = new SqlCommand("SELECT Password FROM [User] WHERE Username = @usrname");
+            var query = new MySqlCommand("SELECT Password FROM User WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
 
             var data = GetData(query);
@@ -297,22 +300,22 @@ FROM            Clean INNER JOIN
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Een Datatable van alle rows.</returns>
-        private DataTable GetData(SqlCommand command)
+        private DataTable GetData(MySqlCommand command)
         {
             try
             {
                 var dataTable = new DataTable();
-                using (var conn = new SqlConnection(_connectionString))
+                using (var conn = new MySqlConnection(_connectionString))
                 {
                     command.Connection = conn;
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    var adapter = new MySqlDataAdapter(command);
                     adapter.Fill(dataTable);
                     return dataTable;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
+                throw new Exception("De uitgevoerde query is niet correct: \r\n"+command.CommandText+"\r\n\r\n"+ex);
             }
         }
 
@@ -323,7 +326,7 @@ FROM            Clean INNER JOIN
         /// <returns></returns>
         private int GetUserId(string username)
         {
-            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
+            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0][0];

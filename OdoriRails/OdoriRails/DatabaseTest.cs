@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace OdoriRails
 {
@@ -16,7 +11,7 @@ namespace OdoriRails
 
         private static string GetAdminName()
         {
-            IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+            IDatabaseConnector databaseConnector = new MySqlContext();
             var admin = databaseConnector.GetUser("admin");
             return admin.Name;
         }

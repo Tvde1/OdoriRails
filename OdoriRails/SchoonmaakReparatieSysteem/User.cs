@@ -8,7 +8,6 @@ namespace SchoonmaakReparatieSysteem
 {
     public class User
     {
-<<<<<<< HEAD
         private string userName;
         private bool isAdmin = true;
         private string role;
@@ -48,7 +47,5 @@ namespace SchoonmaakReparatieSysteem
             userName = username;
             Role = rol;
         }
-=======
->>>>>>> cf1466da50b22f825ea10f8ee70f5551e5271063
     }
 }
