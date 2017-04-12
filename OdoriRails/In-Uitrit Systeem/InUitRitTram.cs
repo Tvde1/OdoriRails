@@ -18,5 +18,7 @@ namespace In_Uitrit_Systeem
         {
             Status = tramstatus;
         }
+
+        
     }
 }

@@ -7,16 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OdoriRails;
 
 namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
         InUitRitTram Tram;
+        User Driver;
 
-        public FormUserInterface()
+        public FormUserInterface(User driver)
         {
             InitializeComponent();
+            Driver = driver;
+            //Tram = Driver.Tram; 
             lblTramNumber.Text = Tram.Number.ToString();
         }
 
@@ -26,6 +30,7 @@ namespace In_Uitrit_Systeem
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
                 //Tram.EditTramStatus(OdoriRails.TramStatus.CleaningMaintenance)
+                
             }
             else if (cbCleaning.Checked)
             {
