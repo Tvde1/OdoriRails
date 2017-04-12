@@ -16,5 +16,10 @@ namespace Beheersysteem
         {
             InitializeComponent();
         }
+
+        private void btnAddService_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
