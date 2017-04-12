@@ -6,7 +6,10 @@ using System.Linq;
 
 namespace OdoriRails
 {
-    class MySqlContext : IDatabaseConnector
+    /// <summary>
+    /// Tijdelijke databaseadapter.
+    /// </summary>
+    public class MySqlContext : IDatabaseConnector
     {
         private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
 
@@ -18,16 +21,19 @@ namespace OdoriRails
         #region user
         public User AddUser(User user)
         {
-            var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Email,Role,ManagedBy), VALUES({name},{pass},{email},{role},{managedBy}); SELECT LAST_INSERT_ID();");
-            query.Parameters.AddWithValue("{name}", user.Username);
-            query.Parameters.AddWithValue("{pass}", user.Password);
-            query.Parameters.AddWithValue("{email}", user.Email);
-            query.Parameters.AddWithValue("{role}", (int)user.Role);
+            var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            query.Parameters.AddWithValue("@name", user.Username);
+            query.Parameters.AddWithValue("@username", user.Username);
+            query.Parameters.AddWithValue("@pass", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (user.ManagerUsername == null) query.Parameters.AddWithValue("{managedBy}", null);
-            else query.Parameters.AddWithValue("{managedBy}", GetUserId(user.ManagerUsername));
+            if (user.ManagerUsername == null) query.Parameters.AddWithValue("@managedBy", null);
+            else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
-            user.SetId((int)GetData(query).Rows[0][0]);
+            var data = GetData(query);
+
+            user.SetId(int.Parse((string)data.Rows[0][0]));
             return user;
         }
 
@@ -42,6 +48,17 @@ namespace OdoriRails
         {
             if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
             var query = new MySqlCommand("DELETE FROM User WHERE UserPk = " + GetUserId(user.Username));
+            GetData(query);
+        }
+
+        public void UpdateUser(User user)
+        {
+            var query = new MySqlCommand("UPDATE User SET Name = @name, Password = @password, Email = @email, Role = @role WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@name", user.Name);
+            query.Parameters.AddWithValue("@password", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int) user.Role);
+            query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }
 
@@ -79,18 +96,18 @@ namespace OdoriRails
         #region tram
         public void AddTram(Tram tram)
         {
-            var query = new MySqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk), VALUES({id},{line},{status},{model},{driver})");
-            query.Parameters.AddWithValue("{id}", tram.Number);
-            query.Parameters.AddWithValue("{line}", tram.Line);
-            query.Parameters.AddWithValue("{status}", (int)tram.Status);
-            query.Parameters.AddWithValue("{model}", (int)tram.Model);
+            var query = new MySqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk), VALUES(@id,@line,@status,@model,@driver)");
+            query.Parameters.AddWithValue("@id", tram.Number);
+            query.Parameters.AddWithValue("@line", tram.Line);
+            query.Parameters.AddWithValue("@status", (int)tram.Status);
+            query.Parameters.AddWithValue("@model", (int)tram.Model);
             if (tram.Driver != null)
             {
-                query.Parameters.AddWithValue("{driver}", GetUserId(tram.Driver.Username));
+                query.Parameters.AddWithValue("@driver", GetUserId(tram.Driver.Username));
             }
             else
             {
-                query.Parameters.AddWithValue("{driver}", null);
+                query.Parameters.AddWithValue("@driver", null);
             }
 
             GetData(query);
@@ -238,6 +255,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
+            // ReSharper disable once PossibleInvalidCastException
             return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]));
         }
 
@@ -283,13 +301,20 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         /// <returns>Een Datatable van alle rows.</returns>
         private DataTable GetData(MySqlCommand command)
         {
-            var dataTable = new DataTable();
-            using (var conn = new MySqlConnection(_connectionString))
+            try
             {
-                command.Connection = conn;
-                var adapter = new MySqlDataAdapter(command);
-                adapter.Fill(dataTable);
-                return dataTable;
+                var dataTable = new DataTable();
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    command.Connection = conn;
+                    var adapter = new MySqlDataAdapter(command);
+                    adapter.Fill(dataTable);
+                    return dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("De uitgevoerde query is niet correct: \r\n"+command.CommandText+"\r\n\r\n"+ex);
             }
         }
 
