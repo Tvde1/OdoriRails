@@ -30,8 +30,9 @@ namespace OdoriRails
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
+            var id = (UInt64)data.Rows[0][0];
 
-            user.SetId(int.Parse((string)data.Rows[0][0]));
+            user.SetId(Convert.ToInt32(id));
             return user;
         }
 
@@ -86,7 +87,7 @@ namespace OdoriRails
         {
             var array = row.ItemArray;
             //name gebr wachtw email rol 
-            string parentUserString = array[6] == DBNull.Value ? "" : GetUser((string)array[6]).Username;
+            string parentUserString = array[6] == DBNull.Value ? "" : GetUser((int)array[6]).Username;
             return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
         }
         #endregion
