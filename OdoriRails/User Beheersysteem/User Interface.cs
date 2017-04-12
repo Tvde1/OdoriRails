@@ -17,17 +17,20 @@ namespace User_Beheersysteem
         private List<BeheerUser> UsersAll = new List<BeheerUser>();
         private List<BeheerUser> UsersSearch = new List<BeheerUser>();
         int index;
+        string status;
 
         public UserInterface()
         {
             InitializeComponent();
             GetUsersFromDatabase(SearchRole.All);
+            cbSearchRole.SelectedIndex = 5;
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(1);
-            lbStatus.Text = UserStatus.Add.ToString();
+            status = UserStatus.Add.ToString();
+            btnSubmit.Text = status + " User";
         }
 
         private void btnEditUser_Click(object sender, EventArgs e)
@@ -35,7 +38,8 @@ namespace User_Beheersysteem
             if (listUsers.SelectedItem != null)
             {
                 tabUsers.SelectTab(1);
-                lbStatus.Text = UserStatus.Edit.ToString();
+                status = UserStatus.Edit.ToString();
+                btnSubmit.Text = status + " User";
                 index = listUsers.SelectedIndex;
                 tbName.Text = UsersSearch[index].Name;
                 tbUserName.Text = UsersSearch[index].Username;
@@ -57,11 +61,12 @@ namespace User_Beheersysteem
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            tabUsers.SelectTab(0);
             User submitUser;
             Role role;
             Enum.TryParse(cbRole.SelectedText, out role);
 
-            if (lbStatus.Text == "Edit")
+            if (status == "Edit")
             {
                 if (cbManaged.SelectedText != "")
                 {
@@ -71,8 +76,8 @@ namespace User_Beheersysteem
                 {
                     submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
                 }
+                databaseConnector.UpdateUser(submitUser);
                 
-                //Edit user ergens????????
             }
             else
             {

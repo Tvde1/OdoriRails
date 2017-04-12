@@ -50,7 +50,6 @@
             this.btnEditUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
-            this.lbStatus = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
@@ -268,7 +267,6 @@
             // 
             // tabManageUser
             // 
-            this.tabManageUser.Controls.Add(this.lbStatus);
             this.tabManageUser.Controls.Add(this.btnSubmit);
             this.tabManageUser.Controls.Add(this.lbName);
             this.tabManageUser.Controls.Add(this.lbEmail);
@@ -289,15 +287,6 @@
             this.tabManageUser.TabIndex = 1;
             this.tabManageUser.Text = "Manage User";
             this.tabManageUser.UseVisualStyleBackColor = true;
-            // 
-            // lbStatus
-            // 
-            this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(32, 384);
-            this.lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(0, 20);
-            this.lbStatus.TabIndex = 13;
             // 
             // btnSubmit
             // 
@@ -349,7 +338,6 @@
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.TabPage tabManageUser;
         private System.Windows.Forms.Button btnSubmit;
-        private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ComboBox cbSearchRole;
     }

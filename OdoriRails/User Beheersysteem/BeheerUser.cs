@@ -16,7 +16,7 @@ namespace User_Beheersysteem
         {
             if (manager == false)
             {
-                return Name;
+                return Name + " : " + Username + " : " + Role.ToString();
             }
             else
             {
