@@ -81,5 +81,10 @@ namespace OdoriRails
             Password = password;
             ManagerUsername = managedByUsername;
         }
+
+        public void SetID(int id)
+        {
+            ID = id;
+        }
     }
 }
