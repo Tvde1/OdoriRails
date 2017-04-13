@@ -97,7 +97,7 @@ namespace OdoriRails
             var array = row.ItemArray;
             //name gebr wachtw email rol 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((int)array[6]).Username;
-            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[3], (string)array[4], (Role)(int)array[5], parentUserString);
+            return new User((int)array[0], (string)array[1], (string)array[2], (string)array[4], (string)array[3], (Role)(int)array[5], parentUserString);
         }
         #endregion
 
