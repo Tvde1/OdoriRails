@@ -11,12 +11,11 @@ namespace OdoriRails
             Repair
         }
 
-        public Repair(int id, DateTime startDate, DateTime endDate, RepairType type, string defect, string solution, List<User> users) : base(id, startDate, endDate)
+        public Repair(int id, DateTime startDate, DateTime endDate, RepairType type, string defect, string solution, List<User> users, int tramId) : base(id, users, startDate, endDate, tramId)
         {
             Type = type;
             Defect = defect;
             Solution = solution;
-            AssignedUsers = users;
         }
 
         public RepairType Type { get; protected set; }
