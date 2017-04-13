@@ -14,7 +14,7 @@ namespace OdoriRails
     {
         private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
         private int _remiseNumber = 0;
-        
+
         #region user
         public User AddUser(User user)
         {
@@ -25,7 +25,7 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (user.ManagerUsername == null) query.Parameters.AddWithValue("@managedBy", null);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", null);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
@@ -57,14 +57,10 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@password", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
-            if (string.IsNullOrEmpty(user.ManagerUsername))
-            {
-                query.Parameters.AddWithValue("@managedby", null);
-            }
-            else
-            {
-                query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
-            }
+
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", null);
+            else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
+
             query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }
@@ -263,8 +259,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var data = GetData(serviceQuery);
 
             var cleaningQuery = new SqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
-            cleaningQuery.Parameters.AddWithValue("@id", (int) data.Rows[0].ItemArray[0]);
-            cleaningQuery.Parameters.AddWithValue("@size", (int) cleaning.Size);
+            cleaningQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
             cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
             GetData(serviceQuery);
 
@@ -420,7 +416,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
-            return (int)table.Rows[0][0];
+            return (int)table.Rows[0].ItemArray[0];
         }
 
         private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)

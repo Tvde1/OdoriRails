@@ -26,7 +26,7 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (user.ManagerUsername == null) query.Parameters.AddWithValue("@managedBy", null);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", null);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
@@ -65,14 +65,8 @@ namespace OdoriRails
             query.Parameters.AddWithValue("@password", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
-            if (string.IsNullOrEmpty(user.ManagerUsername))
-            {
-                query.Parameters.AddWithValue("@managedby", null);
-            }
-            else
-            {
-                query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
-            }
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", null);
+            else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
             query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
         }
@@ -269,14 +263,14 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
 
         public List<Service> GetAllServicesWithoutUsers()
         {
- var repairQuery = new SqlCommand(@"SELECT Repair.*
+            var repairQuery = new SqlCommand(@"SELECT Repair.*
 FROM Repair INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
 
- var cleanQuery = new SqlCommand(@"SELECT Clean.*
+            var cleanQuery = new SqlCommand(@"SELECT Clean.*
 FROM Clean INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
@@ -325,24 +319,24 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             switch (service.GetType().Name)
             {
                 case "Repair":
-                {
-                    var repair = (Repair)service;
-                    var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
-                    repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
-                    repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
-                    repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
-                    repairQuery.Parameters.AddWithValue("@id", repair.Id);
-                    GetData(repairQuery);
-                    break;
-                }
+                    {
+                        var repair = (Repair)service;
+                        var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                        repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+                        repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                        GetData(repairQuery);
+                        break;
+                    }
                 case "Cleaning":
-                {
-                    var cleaning = (Cleaning)service;
-                    var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
-                    cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
-                    cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
-                    break;
-                }
+                    {
+                        var cleaning = (Cleaning)service;
+                        var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
+                        cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        break;
+                    }
             }
             var query = new SqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
             query.Parameters.AddWithValue("@startdate", service.StartDate);
@@ -421,7 +415,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
-            return (int)table.Rows[0][0];
+            return (int)table.Rows[0].ItemArray[0];
         }
 
         private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
