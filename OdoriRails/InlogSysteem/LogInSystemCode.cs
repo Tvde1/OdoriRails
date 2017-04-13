@@ -15,14 +15,18 @@ namespace LoginSystem
         {
             if (!_databaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
             if (!_databaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
-            StartProgram(_databaseConnector.GetUser(username).Role);
+            StartProgram(_databaseConnector.GetUser(username));
         }
 
-        private void StartProgram(Role role)
+        private void StartProgram(User user)
         {
-            Assembly assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), role) + ".dll");
-            Type type = assembly.GetType(Enum.GetName(typeof(Role), role));
-            type.GetMethod("Main").Invoke(null, null);
+            Assembly assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
+            Type type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
+            switch (user.Role)
+            {
+                    case Role.HeadEngineer
+            }
+            type.GetMethod("Main").Invoke(user, null);
         }
     }
 }

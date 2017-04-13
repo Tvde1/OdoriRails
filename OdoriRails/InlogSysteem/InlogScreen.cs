@@ -7,7 +7,7 @@ namespace LoginSystem
     {
         private readonly LogInSystemCode _loginSystem = new LogInSystemCode();
 
-        public Loginscreen()
+        public LoginScreen()
         {
             InitializeComponent();
         }
