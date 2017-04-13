@@ -30,6 +30,13 @@ namespace OdoriRails
         User GetUser(int id);
 
         /// <summary>
+        /// Get de user ID via de username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        int GetUserId(string username);
+
+        /// <summary>
         /// Slaat de bestaande user op in de database.
         /// </summary>
         /// <param name="user"></param>

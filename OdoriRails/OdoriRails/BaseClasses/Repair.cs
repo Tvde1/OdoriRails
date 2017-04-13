@@ -28,5 +28,9 @@ namespace OdoriRails
             Defect = defect;
             Solution = solution;
         }
+
+        public Repair() : base(null, null, DateTime.Now, null, null)
+        {
+        }
     }
 }
