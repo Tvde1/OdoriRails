@@ -249,6 +249,37 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return returnList;
         }
 
+        public void EditService(Service service)
+        {
+            switch (service.GetType().Name)
+            {
+                case "Repair":
+                    {
+                        var repair = (Repair)service;
+                        var repairQuery = new MySqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                        repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+                        repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                        GetData(repairQuery);
+                        break;
+                    }
+                case "Cleaning":
+                    {
+                        var cleaning = (Cleaning)service;
+                        var cleaningQuery = new MySqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
+                        cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        break;
+                    }
+            }
+            var query = new MySqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
+            query.Parameters.AddWithValue("@startdate", service.StartDate);
+            query.Parameters.AddWithValue("@enddate", service.EndDate);
+            query.Parameters.AddWithValue("@tramfk", service.TramId);
+            GetData(query);
+        }
+
 
         private Cleaning CreateCleaning(DataRow row)
         {
@@ -256,7 +287,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
-            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]));
+            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
         }
 
         private Repair CreateRepair(DataRow row)
@@ -266,7 +297,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
             // ReSharper disable once PossibleInvalidCastException
-            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]));
+            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
         }
 
         private List<User> GetUsersInService(int serviceId)
@@ -279,6 +310,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         #endregion
 
         #region login
+
         public bool ValidateUsername(string username)
         {
             var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @usrname");

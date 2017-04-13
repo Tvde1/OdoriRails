@@ -96,6 +96,12 @@ namespace OdoriRails
         /// </summary>
         /// <returns></returns>
         List<Service> GetAllServicesWithoutUsers();
+
+        /// <summary>
+        /// Past de service aan in de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void EditService(Service service);
         #endregion
 
         #region login

@@ -254,7 +254,7 @@ FROM            Clean INNER JOIN
             var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
-            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]));
+            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (Cleaning.CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
         }
 
         private Repair CreateRepair(DataRow row)
@@ -263,7 +263,7 @@ FROM            Clean INNER JOIN
             var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
-            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]));
+            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (Repair.RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
         }
 
         private List<User> GetUsersInService(int serviceId)
@@ -273,9 +273,40 @@ FROM            Clean INNER JOIN
             return GenerateListWithFunction(data, CreateUser);
         }
 
+        public void EditService(Service service)
+        {
+            switch (service.GetType().Name)
+            {
+                case "Repair":
+                {
+                    var repair = (Repair)service;
+                    var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                    repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+                    repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                    repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+                    repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                    GetData(repairQuery);
+                    break;
+                }
+                case "Cleaning":
+                {
+                    var cleaning = (Cleaning)service;
+                    var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
+                    cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+                    cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                    break;
+                }
+            }
+            var query = new SqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
+            query.Parameters.AddWithValue("@startdate", service.StartDate);
+            query.Parameters.AddWithValue("@enddate", service.EndDate);
+            query.Parameters.AddWithValue("@tramfk", service.TramId);
+            GetData(query);
+        }
         #endregion
 
         #region login
+
         public bool ValidateUsername(string username)
         {
             var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
