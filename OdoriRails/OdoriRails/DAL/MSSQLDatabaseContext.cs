@@ -221,21 +221,60 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
             return returnList;
         }
 
-        public List<Service> GetAllServicesWithoutUser(User user)
+        public Cleaning AddCleaning(Cleaning cleaning)
         {
-            var repairQuery = new SqlCommand(@"SELECT        Repair.*
-FROM            Repair INNER JOIN
-                             (SELECT        Service.ServicePk
-                               FROM            ServiceUser RIGHT OUTER JOIN
-                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
-                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+            var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
+            serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
-            var cleanQuery = new SqlCommand(@"SELECT        Clean.*
-FROM            Clean INNER JOIN
-                             (SELECT        Service.ServicePk
-                               FROM            ServiceUser RIGHT OUTER JOIN
-                                                         Service ON ServiceUser.ServiceCk = Service.ServicePk
-                               WHERE        (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
+            var data = GetData(serviceQuery);
+
+            var cleaningQuery = new SqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
+            cleaningQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            GetData(serviceQuery);
+
+            cleaning.SetId((int)data.Rows[0].ItemArray[0]);
+            return cleaning;
+        }
+
+        public Repair AddRepair(Repair repair)
+        {
+            var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
+            serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
+            serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
+
+            var data = GetData(serviceQuery);
+
+            var repairQuery = new SqlCommand(@"INSERT INTO Repair (ServiceFk, Solution, Defect, Type) VALUES (@id, @solution, @defect, @type)");
+            repairQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+            repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+            repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+            GetData(serviceQuery);
+
+            repair.SetId((int)data.Rows[0].ItemArray[0]);
+            return repair;
+        }
+
+        public List<Service> GetAllServicesWithoutUsers()
+        {
+ var repairQuery = new SqlCommand(@"SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+
+ var cleanQuery = new SqlCommand(@"SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
             var repairData = GetData(repairQuery);
             var cleanData = GetData(cleanQuery);
 
@@ -378,11 +417,6 @@ FROM            Clean INNER JOIN
                 returnList.Add(func(row));
             }
             return returnList;
-        }
-
-        public List<Service> GetAllServicesWithoutUsers()
-        {
-            throw new NotImplementedException();
         }
     }
 }
