@@ -21,16 +21,18 @@ namespace In_Uitrit_Systeem
             Status = tramstatus;
         }
 
-        public void AddRepair(string details)
+        public void AddRepair(string defect)
         {
-            //Repair repair;
-            //repair = new Repair(); 
-            //Logic._databaseConnector.AddRepair(repair);
+            Repair repair;
+            repair = new Repair(Number, defect);
+            Logic._databaseConnector.AddRepair(repair);
         }
 
-        public void AddCleaning(string details)
+        public void AddCleaning()
         {
-
+            Cleaning cleaning;
+            cleaning = new Cleaning(Number);
+            Logic._databaseConnector.AddCleaning(cleaning);
         }
     }
 }

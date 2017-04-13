@@ -25,5 +25,9 @@ namespace OdoriRails
             Size = size;
             Comments = comments;
         }
+
+        public Cleaning(int tramId) : base(null, null, DateTime.Now, null, tramId)
+        {
+        }
     }
 }

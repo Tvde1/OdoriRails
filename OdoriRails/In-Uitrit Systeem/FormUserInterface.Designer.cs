@@ -65,6 +65,7 @@
             this.cbMaintenance.TabStop = false;
             this.cbMaintenance.Text = "Reparatie";
             this.cbMaintenance.UseVisualStyleBackColor = true;
+            this.cbMaintenance.CheckedChanged += new System.EventHandler(this.cbMaintenance_CheckedChanged);
             // 
             // gbService
             // 
@@ -126,6 +127,7 @@
             // rtbDetails
             // 
             this.rtbDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbDetails.Enabled = false;
             this.rtbDetails.Location = new System.Drawing.Point(6, 25);
             this.rtbDetails.Name = "rtbDetails";
             this.rtbDetails.Size = new System.Drawing.Size(343, 96);

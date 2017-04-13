@@ -28,26 +28,34 @@ namespace In_Uitrit_Systeem
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            string details = rtbDetails.Text; 
+            string defect = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(TramStatus.CleaningAndMaintenance);
-                Tram.AddRepair(details);
-                Tram.AddCleaning(details);
+                Tram.EditTramStatus(TramStatus.CleaningAndRepair);
+                Tram.AddRepair(defect);
+                Tram.AddCleaning();
             }
             else if (cbCleaning.Checked)
             {
                 Tram.EditTramStatus(TramStatus.Cleaning);
-                Tram.AddCleaning(details);
+                Tram.AddCleaning();
             }
             else if (cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(TramStatus.Maintenance);
-                Tram.AddRepair(details);
+                Tram.EditTramStatus(TramStatus.Repair);
+                Tram.AddRepair(defect);
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
             lblStandplaats.Text = Tram.Line.ToString();
+        }
+
+        private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCleaning.Checked)
+            {
+                rtbDetails.Enabled = true;
+            }
         }
     }
 }
