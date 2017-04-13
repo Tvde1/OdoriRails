@@ -43,13 +43,6 @@ namespace OdoriRails
             return GenerateListWithFunction(data, CreateUser);
         }
 
-        public List<User> GetAllUsers()
-        {
-            var query = new SqlCommand("SELECT * FROM [User]");
-            var data = GetData(query);
-            return GenerateListWithFunction(data, CreateUser);
-        }
-
         public void RemoveUser(User user)
         {
             if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
@@ -164,8 +157,6 @@ namespace OdoriRails
             var trackData = GetData(trackQuery);
             var sectorData = GetData(sectorQuery);
             //var tramList = GetAllTramsOnTrack();
-
-            var sectorList = GenerateListWithFunction(sectorData, CreateSector);
 
             var sectorList = GenerateListWithFunction(sectorData, CreateSector);
             var trackList = GenerateListWithFunction(trackData, CreateTrack);
@@ -352,16 +343,6 @@ FROM            Clean INNER JOIN
         {
             var returnList = new List<T>();
             foreach (DataRow row in data.Rows)
-            {
-                returnList.Add(func(row));
-            }
-            return returnList;
-        }
-
-        private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
-        {
-            var returnList = new List<T>();
-            foreach(DataRow row in data.Rows)
             {
                 returnList.Add(func(row));
             }

@@ -21,5 +21,17 @@ namespace Beheersysteem
         {
 
         }
+
+        private void btnChangeDisplayView_Click(object sender, EventArgs e)
+        {
+            if (btnChangeDisplayView.Text == "Display table")
+            {
+                btnChangeDisplayView.Text = "Display map";
+            }
+            else
+            {
+                btnChangeDisplayView.Text = "Display table";
+            }
+        }
     }
 }

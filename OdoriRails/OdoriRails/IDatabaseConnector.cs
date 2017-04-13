@@ -18,12 +18,6 @@ namespace OdoriRails
         List<User> GetAllUsers();
 
         /// <summary>
-        /// Haalt alle users op.
-        /// </summary>
-        /// <returns></returns>
-        List<User> GetAllUsers();
-
-        /// <summary>
         /// Verwijdert een User uit de database.
         /// </summary>
         /// <param name="user"></param>
