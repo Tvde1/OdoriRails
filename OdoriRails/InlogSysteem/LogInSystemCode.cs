@@ -20,11 +20,28 @@ namespace LoginSystem
 
         private void StartProgram(User user)
         {
-            Assembly assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
-            Type type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
+            Assembly assembly;
+            Type type;
             switch (user.Role)
             {
-                    case Role.HeadEngineer
+                case Role.HeadEngineer:
+                    {
+                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Engineer) + ".dll");
+                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Engineer));
+                        break;
+                    }
+                case Role.HeadCleaner:
+                    {
+                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Cleaner) + ".dll");
+                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Cleaner));
+                        break;
+                    }
+                default:
+                    {
+                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
+                        type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
+                        break;
+                    }
             }
             type.GetMethod("Main").Invoke(user, null);
         }
