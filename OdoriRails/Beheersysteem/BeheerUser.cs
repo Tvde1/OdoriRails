@@ -9,7 +9,7 @@ namespace Beheersysteem
 {
     class BeheerUser : User
     {
-        IDatabaseConnector databaseConnector = new MSSQLDatabaseContext();
+        IDatabaseConnector databaseConnector = new MySqlContext();
         
         /// <summary>
         /// Load existing user from database
