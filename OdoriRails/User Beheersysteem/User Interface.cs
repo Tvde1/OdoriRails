@@ -120,11 +120,6 @@ namespace User_Beheersysteem
                 cbManaged.Items.Add(User.ToString(true));
             }
         }
-
-
-
-
-
     }
 }
 
