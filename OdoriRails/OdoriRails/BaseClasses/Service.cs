@@ -11,13 +11,13 @@ namespace OdoriRails
         public DateTime EndDate { get; protected set; }
         public int TramId { get; protected set; }
 
-        protected Service(int id, List<User> assignedUsers, DateTime startDate, DateTime endDate, int tramId)
+        protected Service(int? id, List<User> assignedUsers, DateTime startDate, DateTime? endDate, int? tramId)
         {
-            Id = id;
+            Id = id ?? -1;
             AssignedUsers = assignedUsers;
             StartDate = startDate;
-            EndDate = endDate;
-            TramId = tramId;
+            EndDate = endDate ?? DateTime.MinValue;
+            TramId = tramId ?? -1;
         }
 
         protected Service(List<User> assignedUsers, DateTime startDate, DateTime endDate, int tramId)
