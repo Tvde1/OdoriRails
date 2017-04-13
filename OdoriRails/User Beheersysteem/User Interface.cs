@@ -66,10 +66,11 @@ namespace User_Beheersysteem
             int test = cbRole.SelectedIndex;
             User submitUser;
             Role role = (Role)test;
-            int id = logic.GetIndex(tbName.Text);
-            
+
             if (status == "Edit")
             {
+                string username = logic.UsersSearch[index].Name;
+                int id = logic.GetIndex(username);
                 if (cbManaged.SelectedText != "")
                 {
                     submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);

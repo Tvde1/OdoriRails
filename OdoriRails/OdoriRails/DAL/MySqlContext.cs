@@ -420,7 +420,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
-            return (int)table.Rows[0][0];
+            return (int)table.Rows[0].ItemArray[0];
         }
 
         private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
