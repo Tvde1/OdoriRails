@@ -30,6 +30,13 @@ namespace OdoriRails
         User GetUser(int id);
 
         /// <summary>
+        /// Get de user ID via de username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        int GetUserId(string username);
+
+        /// <summary>
         /// Slaat de bestaande user op in de database.
         /// </summary>
         /// <param name="user"></param>
@@ -96,6 +103,32 @@ namespace OdoriRails
         /// </summary>
         /// <returns></returns>
         List<Service> GetAllServicesWithoutUsers();
+
+        /// <summary>
+        /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
+        /// </summary>
+        /// <param name="cleaning"></param>
+        /// <returns></returns>
+        Cleaning AddCleaning(Cleaning cleaning);
+
+        /// <summary>
+        /// Voegt een Repair toe en geeft de repair met ID terug.
+        /// </summary>
+        /// <param name="repair"></param>
+        /// <returns></returns>
+        Repair AddRepair(Repair repair);
+
+        /// <summary>
+        /// Past de service aan in de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void EditService(Service service);
+
+        /// <summary>
+        /// Verweider een service uit de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void DeleteService(Service service);
         #endregion
 
         #region login

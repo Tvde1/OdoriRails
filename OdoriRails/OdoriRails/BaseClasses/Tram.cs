@@ -5,7 +5,8 @@
         Idle,
         InUse,
         Cleaning,
-        Maintenance
+        Repair,
+        CleaningAndRepair
     }
 
     public enum Model
