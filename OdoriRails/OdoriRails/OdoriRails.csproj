@@ -52,19 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cleaning.cs" />
-    <Compile Include="MySqlContext.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="MssqlDatabaseContext.cs" />
-    <Compile Include="DatabaseTest.cs" />
-    <Compile Include="IDatabaseConnector.cs" />
+    <Compile Include="BaseClasses\Cleaning.cs" />
+    <Compile Include="BaseClasses\Repair.cs" />
+    <Compile Include="BaseClasses\Sector.cs" />
+    <Compile Include="BaseClasses\Service.cs" />
+    <Compile Include="BaseClasses\Track.cs" />
+    <Compile Include="BaseClasses\Tram.cs" />
+    <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="DAL\DatabaseTest.cs" />
+    <Compile Include="DAL\IDatabaseConnector.cs" />
+    <Compile Include="DAL\MSSQLDatabaseContext.cs" />
+    <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repair.cs" />
-    <Compile Include="Sector.cs" />
-    <Compile Include="Track.cs" />
-    <Compile Include="Tram.cs" />
-    <Compile Include="User.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
