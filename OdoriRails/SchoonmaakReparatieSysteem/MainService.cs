@@ -13,40 +13,63 @@ namespace SchoonmaakReparatieSysteem
 {
     public partial class MainService : Form
     {
-        private string username = "durr";
-        private string role = "Technicus";
-        public User activeUser;
+        private int username = 1; // testing purposes
+        private OdoriRails.Role role = OdoriRails.Role.HeadEngineer; // testing purposes
 
-        public string Role
-        {
-            get
-            {
-                return role;
-            }
+        public OdoriRails.User activeUser;
 
-            set
-            {
-                role = value;
-            }
-        }
 
         public MainService()
         {
             InitializeComponent();
-            activeUser = new User(username, Role);
+            activeUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", OdoriRails.Role.HeadEngineer, "");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddService adsvc = new AddService(this.activeUser);
+            AddService adsvc = new AddService(activeUser);
             adsvc.Show();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            EditService edsrvc = new EditService(this.activeUser);
+            EditService edsrvc = new EditService(activeUser);
             edsrvc.Show();
+        }
+
+        private void MainService_Load(object sender, EventArgs e)
+        {
+            // TODO: SELECT ALL FROM SERVICE, DIFFERS DEPENDING ON USER ROLE
+            if (activeUser.Role == OdoriRails.Role.Engineer)
+            {
+                //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
+            }
+            if (activeUser.Role == OdoriRails.Role.Cleaner)
+            {
+                //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
+            }
+
+
+            if (activeUser.Role == OdoriRails.Role.HeadEngineer || activeUser.Role == OdoriRails.Role.HeadCleaner)
+            {
+                //TODO: LOAD ALL SERVICES FOR THE DAY-
+                button1.Visible = true;
+                button2.Visible = true;
+            }
+            else
+            {
+                //TODO: LOAD ALL SERVICES FOR THE DAY
+                button1.Visible = false;
+                button2.Visible = false;
+            }
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            dataGridView2.SelectedRows[0];
         }
     }
 }

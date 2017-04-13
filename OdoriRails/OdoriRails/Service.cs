@@ -16,5 +16,10 @@ namespace OdoriRails
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public void deleteService(Service service) 
+        {
+            // TODO: GET DELETE METHOD HERE
+        }
     }
 }
