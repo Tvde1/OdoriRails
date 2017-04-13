@@ -19,5 +19,13 @@ namespace OdoriRails
             EndDate = endDate;
             TramId = tramId;
         }
+
+        protected Service(List<User> assignedUsers, DateTime startDate, DateTime endDate, int tramId)
+        {
+            AssignedUsers = assignedUsers;
+            StartDate = startDate;
+            EndDate = endDate;
+            TramId = tramId;
+        }
     }
 }
