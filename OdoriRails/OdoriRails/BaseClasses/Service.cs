@@ -27,5 +27,10 @@ namespace OdoriRails
             EndDate = endDate;
             TramId = tramId;
         }
+
+        public void SetId(int id)
+        {
+            Id = id;
+        }
     }
 }

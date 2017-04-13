@@ -9,7 +9,7 @@ namespace OdoriRails
         Repair
     }
 
-    class Repair : Service
+    public class Repair : Service
     {
         public RepairType Type { get; protected set; }
         public string Defect { get; protected set; }
