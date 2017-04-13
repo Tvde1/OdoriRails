@@ -13,49 +13,55 @@ namespace SchoonmaakReparatieSysteem
 {
     public partial class AddService : Form
     {
-        private User activeUser;
+        private OdoriRails.User activeUser;
 
-        public AddService()
+        public AddService(OdoriRails.User activeuser)
         {
-            
+            activeUser = activeuser;
             InitializeComponent();
-            if (activeUser.Role != Role.HeadCleaner || activeUser.Role == Role.HeadEngineer)
+            if (activeUser.Role != OdoriRails.Role.HeadCleaner || activeUser.Role == Role.HeadEngineer)
             {
                 MessageBox.Show("No Privileges");
                 this.Close();
             }
-            if (activeUser.Role == Role.HeadEngineer)
+            if (activeUser.Role == OdoriRails.Role.HeadEngineer)
             {
                 commentlbl.Text = "Defect omschrijving";
-                sortsrvc_cb.Items.Add(RepairType.Maintenance);
-                sortsrvc_cb.Items.Add(RepairType.Repair);
+                sortsrvc_cb.Items.Add(OdoriRails.RepairType.Maintenance);
+                sortsrvc_cb.Items.Add(OdoriRails.RepairType.Repair);
             }
-            if (activeUser.Role == Role.HeadCleaner)
+            if (activeUser.Role == OdoriRails.Role.HeadCleaner)
             {
                 commentlbl.Text = "Opmerkingen";
-                sortsrvc_cb.Items.Add(CleaningSize.Big);
-                sortsrvc_cb.Items.Add(CleaningSize.Small);
+                sortsrvc_cb.Items.Add(OdoriRails.CleaningSize.Big);
+                sortsrvc_cb.Items.Add(OdoriRails.CleaningSize.Small);
             }
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<User> userList = new List<User>();
+            List<OdoriRails.User> userList = new List<User>();
             string  sType = Convert.ToString(sortsrvc_cb.SelectedItem);
             string comment = commenttb.Text;
 
 
-            if (activeUser.Role == Role.HeadCleaner)
+            if (activeUser.Role == OdoriRails.Role.HeadCleaner)
             {
-                // TODO: POST CLEAN LOG CODE
+                
+                // TODO: POST CLEAN LOG CODE: INSERT A CLEANING SERVICE INTO DATABASE
             }
-            if (activeUser.Role == Role.HeadEngineer)
+            if (activeUser.Role == OdoriRails.Role.HeadEngineer)
             {
-                // TODO: POST REPAIR LOG CODE
+                // TODO: POST REPAIR LOG CODE: INSERT A REPAIR SERVICE INTO DATABASE
             }
             else { }
             
+        }
+
+        private void AddService_Load(object sender, EventArgs e)
+        {
+           
         }
     }
 }
