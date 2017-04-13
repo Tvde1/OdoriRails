@@ -13,7 +13,6 @@ namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
-        IDatabaseConnector _databaseConnector = new MySqlContext();
         Logic Logic;
         InUitRitTram Tram;
         User Driver;
@@ -22,8 +21,8 @@ namespace In_Uitrit_Systeem
         {
             InitializeComponent();
             Driver = driver;
-            Tram = (InUitRitTram)_databaseConnector.GetTram(0);
             Logic = new Logic();
+            Tram = (InUitRitTram)Logic._databaseConnector.GetTram(driver.Id);
             lblTramNumber.Text = Tram.Number.ToString();
         }
 
@@ -32,7 +31,7 @@ namespace In_Uitrit_Systeem
             string details = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                //Tram.EditTramStatus(OdoriRails.TramStatus.CleaningMaintenance)
+                //Tram.EditTramStatus(OdoriRails.TramStatus.)
                 Tram.AddRepair(details);
                 Tram.AddCleaning(details);
             }

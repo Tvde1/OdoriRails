@@ -126,7 +126,7 @@
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 505);
+            this.ClientSize = new System.Drawing.Size(949, 505);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
