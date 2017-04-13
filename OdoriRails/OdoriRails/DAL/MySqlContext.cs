@@ -316,6 +316,13 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             GetData(query);
         }
 
+        public void DeleteService(Service service)
+        {
+            var query = new MySqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            query.Parameters.AddWithValue("@id", service.Id);
+            GetData(query);
+        }
+
 
         private Cleaning CreateCleaning(DataRow row)
         {

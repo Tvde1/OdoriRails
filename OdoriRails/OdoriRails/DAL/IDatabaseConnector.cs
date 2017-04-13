@@ -95,7 +95,7 @@ namespace OdoriRails
         /// Haalt een lijst op van services zonder users.
         /// </summary>
         /// <returns></returns>
-        List<Service> GetAllServicesWithoutUsers()
+        List<Service> GetAllServicesWithoutUsers();
 
         /// <summary>
         /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
@@ -116,6 +116,12 @@ namespace OdoriRails
         /// </summary>
         /// <param name="service"></param>
         void EditService(Service service);
+
+        /// <summary>
+        /// Verweider een service uit de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void DeleteService(Service service);
         #endregion
 
         #region login

@@ -343,6 +343,14 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@tramfk", service.TramId);
             GetData(query);
         }
+
+        public void DeleteService(Service service)
+        {
+            var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            query.Parameters.AddWithValue("@id", service.Id);
+            GetData(query);
+        }
+
         #endregion
 
         #region login
