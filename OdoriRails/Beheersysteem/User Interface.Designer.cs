@@ -30,6 +30,7 @@
         {
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.gbOther = new System.Windows.Forms.GroupBox();
+            this.btnChangeDisplayView = new System.Windows.Forms.Button();
             this.btnSimulation = new System.Windows.Forms.Button();
             this.gbTram = new System.Windows.Forms.GroupBox();
             this.btnAddService = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
-            this.btnChangeDisplayView = new System.Windows.Forms.Button();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
@@ -77,6 +77,16 @@
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
             // 
+            // btnChangeDisplayView
+            // 
+            this.btnChangeDisplayView.Location = new System.Drawing.Point(12, 66);
+            this.btnChangeDisplayView.Name = "btnChangeDisplayView";
+            this.btnChangeDisplayView.Size = new System.Drawing.Size(236, 33);
+            this.btnChangeDisplayView.TabIndex = 2;
+            this.btnChangeDisplayView.Text = "Display table";
+            this.btnChangeDisplayView.UseVisualStyleBackColor = true;
+            this.btnChangeDisplayView.Click += new System.EventHandler(this.btnChangeDisplayView_Click);
+            // 
             // btnSimulation
             // 
             this.btnSimulation.Location = new System.Drawing.Point(12, 27);
@@ -85,6 +95,7 @@
             this.btnSimulation.TabIndex = 1;
             this.btnSimulation.Text = "Start Simulation";
             this.btnSimulation.UseVisualStyleBackColor = true;
+            this.btnSimulation.Click += new System.EventHandler(this.btnSimulation_Click);
             // 
             // gbTram
             // 
@@ -120,6 +131,7 @@
             this.btnMove.TabIndex = 1;
             this.btnMove.Text = "Manual Move";
             this.btnMove.UseVisualStyleBackColor = true;
+            this.btnMove.Click += new System.EventHandler(this.btnMove_Click);
             // 
             // tbSelectedTram
             // 
@@ -145,6 +157,7 @@
             this.btnSetDisabled.TabIndex = 0;
             this.btnSetDisabled.Text = "Toggle Diabled";
             this.btnSetDisabled.UseVisualStyleBackColor = true;
+            this.btnSetDisabled.Click += new System.EventHandler(this.btnSetDisabled_Click);
             // 
             // gbSector
             // 
@@ -185,6 +198,7 @@
             this.btnOpen.TabIndex = 1;
             this.btnOpen.Text = "Unlock";
             this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnLock
             // 
@@ -194,6 +208,7 @@
             this.btnLock.TabIndex = 0;
             this.btnLock.Text = "Lock";
             this.btnLock.UseVisualStyleBackColor = true;
+            this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
             // 
             // gbDisplay
             // 
@@ -205,16 +220,6 @@
             this.gbDisplay.TabIndex = 1;
             this.gbDisplay.TabStop = false;
             this.gbDisplay.Text = "Display";
-            // 
-            // btnChangeDisplayView
-            // 
-            this.btnChangeDisplayView.Location = new System.Drawing.Point(12, 66);
-            this.btnChangeDisplayView.Name = "btnChangeDisplayView";
-            this.btnChangeDisplayView.Size = new System.Drawing.Size(236, 33);
-            this.btnChangeDisplayView.TabIndex = 2;
-            this.btnChangeDisplayView.Text = "Display table";
-            this.btnChangeDisplayView.UseVisualStyleBackColor = true;
-            this.btnChangeDisplayView.Click += new System.EventHandler(this.btnChangeDisplayView_Click);
             // 
             // UserInterface
             // 

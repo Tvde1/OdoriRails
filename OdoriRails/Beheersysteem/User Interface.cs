@@ -22,6 +22,31 @@ namespace Beheersysteem
 
         }
 
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSetDisabled_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSimulation_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
         {
             if (btnChangeDisplayView.Text == "Display table")
