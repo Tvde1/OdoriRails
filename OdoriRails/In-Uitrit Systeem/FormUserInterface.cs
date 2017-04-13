@@ -13,6 +13,7 @@ namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
+        IDatabaseConnector _databaseConnector = new MySqlContext();
         Logic Logic;
         InUitRitTram Tram;
         User Driver;
@@ -21,7 +22,7 @@ namespace In_Uitrit_Systeem
         {
             InitializeComponent();
             Driver = driver;
-            //Tram = Driver.Tram; 
+            Tram = (InUitRitTram)_databaseConnector.GetTram(0);
             Logic = new Logic();
             lblTramNumber.Text = Tram.Number.ToString();
         }
