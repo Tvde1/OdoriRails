@@ -6,7 +6,9 @@
         Logistic,
         Driver,
         Cleaner,
-        Engineer
+        HeadCleaner,
+        Engineer,
+        HeadEngineer
     }
 
     public class User
