@@ -225,7 +225,14 @@ WHERE ([User].Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = deriv
         {
             var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            if (cleaning.StartDate == DateTime.MinValue)
+            {
+                serviceQuery.Parameters.AddWithValue("@enddate", null);
+            }
+            else
+            {
+                serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            }
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
@@ -343,6 +350,14 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@tramfk", service.TramId);
             GetData(query);
         }
+
+        public void DeleteService(Service service)
+        {
+            var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            query.Parameters.AddWithValue("@id", service.Id);
+            GetData(query);
+        }
+
         #endregion
 
         #region login
@@ -401,7 +416,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        private int GetUserId(string username)
+        public int GetUserId(string username)
         {
             var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);

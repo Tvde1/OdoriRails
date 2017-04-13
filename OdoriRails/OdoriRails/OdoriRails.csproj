@@ -59,9 +59,9 @@
     <Compile Include="BaseClasses\Track.cs" />
     <Compile Include="BaseClasses\Tram.cs" />
     <Compile Include="BaseClasses\User.cs" />
-    <Compile Include="DAL\DatabaseTest.cs" />
+    <Compile Include="DatabaseTest.cs" />
     <Compile Include="DAL\IDatabaseConnector.cs" />
-    <Compile Include="DAL\MSSQLDatabaseContext.cs" />
+    <Compile Include="DAL\MssqlDatabaseContext.cs" />
     <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
