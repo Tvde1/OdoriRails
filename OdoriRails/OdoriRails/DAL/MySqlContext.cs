@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace OdoriRails
@@ -12,12 +13,8 @@ namespace OdoriRails
     public class MySqlContext : IDatabaseConnector
     {
         private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
-
-
         private int _remiseNumber = 0;
-
-        //public MySqlDatabaseContext()
-
+        
         #region user
         public User AddUser(User user)
         {
@@ -223,7 +220,7 @@ WHERE (User.Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derived
             return returnList;
         }
 
-        public List<Service> GetAllServicesWithoutUser(User user)
+        public List<Service> GetAllServicesWithoutUsers()
         {
             var repairQuery = new MySqlCommand(@"SELECT Repair.*
 FROM Repair INNER JOIN
@@ -247,6 +244,45 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             returnList.AddRange(GenerateListWithFunction(cleanData, CreateCleaning));
 
             return returnList;
+        }
+
+        public Cleaning AddCleaning(Cleaning cleaning)
+        {
+            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
+            serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
+
+            var data = GetData(serviceQuery);
+
+            var cleaningQuery = new SqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
+            cleaningQuery.Parameters.AddWithValue("@id", (int) data.Rows[0].ItemArray[0]);
+            cleaningQuery.Parameters.AddWithValue("@size", (int) cleaning.Size);
+            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            GetData(serviceQuery);
+
+            cleaning.SetId((int)data.Rows[0].ItemArray[0]);
+            return cleaning;
+        }
+
+        public Repair AddRepair(Repair repair)
+        {
+            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
+            serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
+            serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
+
+            var data = GetData(serviceQuery);
+
+            var repairQuery = new SqlCommand(@"INSERT INTO Repair (ServiceFk, Solution, Defect, Type) VALUES (@id, @solution, @defect, @type)");
+            repairQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+            repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+            repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+            GetData(serviceQuery);
+
+            repair.SetId((int)data.Rows[0].ItemArray[0]);
+            return repair;
         }
 
         public void EditService(Service service)
@@ -381,11 +417,6 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                 returnList.Add(func(row));
             }
             return returnList;
-        }
-
-        public List<Service> GetAllServicesWithoutUsers()
-        {
-            throw new NotImplementedException();
         }
     }
 }

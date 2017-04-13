@@ -31,7 +31,7 @@ namespace In_Uitrit_Systeem
             string details = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                //Tram.EditTramStatus(OdoriRails.TramStatus.)
+                Tram.EditTramStatus(OdoriRails.TramStatus.CleaningAndMaintenance);
                 Tram.AddRepair(details);
                 Tram.AddCleaning(details);
             }
