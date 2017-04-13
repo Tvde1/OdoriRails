@@ -31,18 +31,18 @@ namespace In_Uitrit_Systeem
             string details = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(OdoriRails.TramStatus.CleaningAndMaintenance);
+                Tram.EditTramStatus(TramStatus.CleaningAndMaintenance);
                 Tram.AddRepair(details);
                 Tram.AddCleaning(details);
             }
             else if (cbCleaning.Checked)
             {
-                Tram.EditTramStatus(OdoriRails.TramStatus.Cleaning);
+                Tram.EditTramStatus(TramStatus.Cleaning);
                 Tram.AddCleaning(details);
             }
             else if (cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(OdoriRails.TramStatus.Maintenance);
+                Tram.EditTramStatus(TramStatus.Maintenance);
                 Tram.AddRepair(details);
             }
             rtbDetails.Text = "";

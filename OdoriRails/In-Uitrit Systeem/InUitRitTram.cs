@@ -9,9 +9,11 @@ namespace In_Uitrit_Systeem
 {
     class InUitRitTram : Tram
     {
-        public InUitRitTram(int number, TramStatus status, int line, User driver, Model model) : base(number, status, line, driver, model)
+        Logic Logic;
+
+        public InUitRitTram(int number, Logic logic, TramStatus status, int line, User driver, Model model) : base(number, status, line, driver, model)
         {
-            
+            Logic = logic;
         }
 
         public void EditTramStatus(TramStatus tramstatus)
@@ -21,7 +23,9 @@ namespace In_Uitrit_Systeem
 
         public void AddRepair(string details)
         {
-
+            //Repair repair;
+            //repair = new Repair(); 
+            //Logic._databaseConnector.AddRepair(repair);
         }
 
         public void AddCleaning(string details)
