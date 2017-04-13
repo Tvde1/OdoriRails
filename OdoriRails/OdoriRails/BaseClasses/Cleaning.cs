@@ -9,7 +9,7 @@ namespace OdoriRails
         Small
     }
 
-    class Cleaning : Service
+    public class Cleaning : Service
     {
         public CleaningSize Size { get; protected set; }
         public string Comments { get; protected set; }

@@ -95,7 +95,21 @@ namespace OdoriRails
         /// Haalt een lijst op van services zonder users.
         /// </summary>
         /// <returns></returns>
-        List<Service> GetAllServicesWithoutUsers();
+        List<Service> GetAllServicesWithoutUsers()
+
+        /// <summary>
+        /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
+        /// </summary>
+        /// <param name="cleaning"></param>
+        /// <returns></returns>
+        Cleaning AddCleaning(Cleaning cleaning);
+
+        /// <summary>
+        /// Voegt een Repair toe en geeft de repair met ID terug.
+        /// </summary>
+        /// <param name="repair"></param>
+        /// <returns></returns>
+        Repair AddRepair(Repair repair);
 
         /// <summary>
         /// Past de service aan in de database.
