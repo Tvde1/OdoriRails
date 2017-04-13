@@ -20,7 +20,9 @@ namespace User_Beheersysteem
         public UserInterface()
         {
             InitializeComponent();
-            cbSearchRole.SelectedIndex = 5;
+            InitializeListView();
+            cbSearchRole.SelectedIndex = 7;
+            cbRole.DataSource = Enum.GetValues(typeof(Role));
             Search();
         }
 
@@ -33,12 +35,12 @@ namespace User_Beheersysteem
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
-            if (listUsers.SelectedItem != null)
+            if (listViewUsers.SelectedItems != null)
             {
                 tabUsers.SelectTab(1);
                 status = UserStatus.Edit.ToString();
                 btnSubmit.Text = status + " User";
-                index = listUsers.SelectedIndex;
+                index = listViewUsers.SelectedIndices[0];
                 tbName.Text = logic.UsersSearch[index].Name;
                 tbUserName.Text = logic.UsersSearch[index].Username;
                 tbEmail.Text = logic.UsersSearch[index].Email;
@@ -54,26 +56,27 @@ namespace User_Beheersysteem
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            logic.DeleteUser(listUsers.SelectedIndex);
+            logic.DeleteUser(listViewUsers.SelectedIndices[0]);
             Search();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(0);
+            int test = cbRole.SelectedIndex;
             User submitUser;
-            Role role;
-            Enum.TryParse(cbRole.SelectedText, out role);
-
+            Role role = (Role)test;
+            int id = logic.GetIndex(tbName.Text);
+            
             if (status == "Edit")
             {
                 if (cbManaged.SelectedText != "")
                 {
-                    submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
+                    submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
                 }
                 else
                 {
-                    submitUser = new User(index, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
+                    submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
                 }
                 logic.UpdateUser(submitUser);
                 
@@ -100,24 +103,42 @@ namespace User_Beheersysteem
 
         private void Search()
         {
-            SearchRole role;
-            Enum.TryParse(cbSearchRole.Text, out role);
             logic.GetAllUsersFromDatabase();
-            logic.GetSelectUsersFromDatabase(role);
+            logic.GetSelectUsersFromDatabase(cbSearchRole.SelectedIndex);
             FillLists();
         }
 
+        private void InitializeListView()
+        {
+            ColumnHeader Cname = new ColumnHeader();
+            Cname.Text = "Name";
+            ColumnHeader CuserName = new ColumnHeader();
+            CuserName.Text = "Username";
+            ColumnHeader Crole = new ColumnHeader();
+            Crole.Text = "Role";
+            listViewUsers.Columns.Add(Cname);
+            listViewUsers.Columns.Add(CuserName);
+            listViewUsers.Columns.Add(Crole);
+            listViewUsers.View = View.Details;
+        }
+
+
         private void FillLists()
         {
-            listUsers.Items.Clear();
+            listViewUsers.Items.Clear();
             cbManaged.Items.Clear();
             foreach (BeheerUser User in logic.UsersSearch)
             {
-                listUsers.Items.Add(User.ToString(false));
+                ListViewItem item = new ListViewItem(new string[3] { User.Name, User.Username, User.Role.ToString() });
+                listViewUsers.Items.Add(item);
             }
             foreach (BeheerUser User in logic.UsersAll)
             {
-                cbManaged.Items.Add(User.ToString(true));
+                cbManaged.Items.Add(User.Username);
+            }
+            foreach (ColumnHeader col in listViewUsers.Columns)
+            {
+                col.Width = -2;
             }
         }
     }

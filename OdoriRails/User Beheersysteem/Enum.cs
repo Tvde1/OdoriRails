@@ -7,16 +7,6 @@ using OdoriRails;
 
 namespace User_Beheersysteem
 {
-    public enum SearchRole
-    {
-        Administrator,
-        Logistic,
-        Driver,
-        Cleaner,
-        Engineer,
-        All
-    }
-
     public enum UserStatus
     {
         Add,

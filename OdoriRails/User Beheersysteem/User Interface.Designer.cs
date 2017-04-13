@@ -41,7 +41,6 @@
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.cbManaged = new System.Windows.Forms.ComboBox();
             this.lbManaged = new System.Windows.Forms.Label();
-            this.listUsers = new System.Windows.Forms.ListBox();
             this.tabUsers = new System.Windows.Forms.TabControl();
             this.tabUserList = new System.Windows.Forms.TabPage();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.listViewUsers = new System.Windows.Forms.ListView();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -173,16 +173,6 @@
             this.lbManaged.TabIndex = 11;
             this.lbManaged.Text = "Managed By:";
             // 
-            // listUsers
-            // 
-            this.listUsers.FormattingEnabled = true;
-            this.listUsers.ItemHeight = 20;
-            this.listUsers.Location = new System.Drawing.Point(6, 46);
-            this.listUsers.Name = "listUsers";
-            this.listUsers.ScrollAlwaysVisible = true;
-            this.listUsers.Size = new System.Drawing.Size(681, 424);
-            this.listUsers.TabIndex = 0;
-            // 
             // tabUsers
             // 
             this.tabUsers.Controls.Add(this.tabUserList);
@@ -195,12 +185,12 @@
             // 
             // tabUserList
             // 
+            this.tabUserList.Controls.Add(this.listViewUsers);
             this.tabUserList.Controls.Add(this.btnSearch);
             this.tabUserList.Controls.Add(this.cbSearchRole);
             this.tabUserList.Controls.Add(this.btnDeleteUser);
             this.tabUserList.Controls.Add(this.btnEditUser);
             this.tabUserList.Controls.Add(this.btnAddUser);
-            this.tabUserList.Controls.Add(this.listUsers);
             this.tabUserList.Location = new System.Drawing.Point(4, 29);
             this.tabUserList.Name = "tabUserList";
             this.tabUserList.Padding = new System.Windows.Forms.Padding(3);
@@ -227,7 +217,9 @@
             "Logistic",
             "Driver",
             "Cleaner",
+            "HeadCleaner",
             "Engineer",
+            "HeadEngineer",
             "All"});
             this.cbSearchRole.Location = new System.Drawing.Point(7, 10);
             this.cbSearchRole.Name = "cbSearchRole";
@@ -297,6 +289,16 @@
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
+            // listViewUsers
+            // 
+            this.listViewUsers.FullRowSelect = true;
+            this.listViewUsers.Location = new System.Drawing.Point(7, 44);
+            this.listViewUsers.MultiSelect = false;
+            this.listViewUsers.Name = "listViewUsers";
+            this.listViewUsers.Size = new System.Drawing.Size(680, 426);
+            this.listViewUsers.TabIndex = 6;
+            this.listViewUsers.UseCompatibleStateImageBehavior = false;
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -329,7 +331,6 @@
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label lbManaged;
         private System.Windows.Forms.ComboBox cbManaged;
-        private System.Windows.Forms.ListBox listUsers;
         private System.Windows.Forms.TabControl tabUsers;
         private System.Windows.Forms.TabPage tabUserList;
         private System.Windows.Forms.Button btnDeleteUser;
@@ -339,6 +340,7 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ComboBox cbSearchRole;
+        private System.Windows.Forms.ListView listViewUsers;
     }
 }
 

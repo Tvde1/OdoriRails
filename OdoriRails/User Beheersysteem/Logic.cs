@@ -23,32 +23,19 @@ namespace User_Beheersysteem
             }
         }
 
-        public void GetSelectUsersFromDatabase(SearchRole role)
+        public void GetSelectUsersFromDatabase(int index)
         {
             UsersSearch.Clear();
 
             List<User> TempUsers = null;
 
-            switch (role)
+            if (index == 7)
             {
-                case SearchRole.All:
-                    TempUsers = databaseConnector.GetAllUsers();
-                    break;
-                case SearchRole.Administrator:
-                    TempUsers = databaseConnector.GetAllUsersWithRole(Role.Administrator);
-                    break;
-                case SearchRole.Cleaner:
-                    TempUsers = databaseConnector.GetAllUsersWithRole(Role.Cleaner);
-                    break;
-                case SearchRole.Driver:
-                    TempUsers = databaseConnector.GetAllUsersWithRole(Role.Driver);
-                    break;
-                case SearchRole.Engineer:
-                    TempUsers = databaseConnector.GetAllUsersWithRole(Role.Engineer);
-                    break;
-                case SearchRole.Logistic:
-                    TempUsers = databaseConnector.GetAllUsersWithRole(Role.Logistic);
-                    break;
+                TempUsers = databaseConnector.GetAllUsers();
+            }
+            else
+            {
+                TempUsers = databaseConnector.GetAllUsersWithRole((Role)index);
             }
 
             foreach (User TempUser in TempUsers)
@@ -71,6 +58,11 @@ namespace User_Beheersysteem
         public void AddUser(User user)
         {
             databaseConnector.AddUser(user);
+        }
+
+        public int GetIndex(string username)
+        {
+            return databaseConnector.GetUserId(username);
         }
 
 
