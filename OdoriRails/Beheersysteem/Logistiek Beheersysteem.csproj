@@ -46,9 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\CSVContext.cs" />
+    <Compile Include="DAL\ICSVContext.cs" />
+    <Compile Include="Logic.cs" />
     <Compile Include="ObjectClasses\BeheerSector.cs" />
     <Compile Include="ObjectClasses\BeheerTrack.cs" />
     <Compile Include="ObjectClasses\BeheerTram.cs" />
+    <Compile Include="InUitRijSchema.cs" />
     <Compile Include="User Interface.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +74,7 @@
     <EmbeddedResource Include="User Interface.resx">
       <DependentUpon>User Interface.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DAL\InUitRijSchema.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
