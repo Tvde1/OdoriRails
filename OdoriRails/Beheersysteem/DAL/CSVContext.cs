@@ -11,7 +11,8 @@ namespace Beheersysteem.DAL
 {
     class CSVContext : ICSVContext
     {
-        string path = @"..\..\DAL\InUitRijSchema.csv";
+        //string path = @"..\..\DAL\InUitRijSchema.csv";
+        string path = @"InUitRijSchema.csv";
 
         public List<InUitRijSchema> getSchema()
         {
@@ -20,19 +21,20 @@ namespace Beheersysteem.DAL
             {
                 using (StreamReader reader = new StreamReader(path))
                 {
-                    string[] Schema;
+                    string[] schemaArray;
 
                     while (!reader.EndOfStream)
                     {
                         string schemaLine = reader.ReadLine();
-                        Schema = schemaLine.Split(',');
-                        schema.Add(new InUitRijSchema(Schema[0], Schema[1], Convert.ToInt32(Schema[6])));
+                        schemaArray = schemaLine.Split(',');
+                        schema.Add(new InUitRijSchema(schemaArray[0], schemaArray[6], Convert.ToInt32(schemaArray[1])));
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Kon file niet laden", ex.Message);
+                throw ex;
+                //MessageBox.Show("Kon file niet laden", ex.Message);
             }
             return schema;
         }

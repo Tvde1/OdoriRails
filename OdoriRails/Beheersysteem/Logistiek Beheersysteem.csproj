@@ -74,7 +74,6 @@
     <EmbeddedResource Include="User Interface.resx">
       <DependentUpon>User Interface.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DAL\InUitRijSchema.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

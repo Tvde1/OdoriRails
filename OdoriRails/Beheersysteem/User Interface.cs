@@ -12,6 +12,8 @@ namespace Beheersysteem
 {
     public partial class UserInterface : Form
     {
+        Logic logic = new Logic();
+
         public UserInterface()
         {
             InitializeComponent();
@@ -19,7 +21,8 @@ namespace Beheersysteem
 
         private void btnAddService_Click(object sender, EventArgs e)
         {
-
+            //Test
+            logic.GetSchema();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
