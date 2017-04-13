@@ -22,7 +22,7 @@ namespace OdoriRails
 
             MessageBox.Show(user.Email);
 
-            user.Email = "new-email";
+            //user.Email = "new-email";
             databaseConnector.UpdateUser(user);
 
             var user2 = databaseConnector.GetUser(user.Id);

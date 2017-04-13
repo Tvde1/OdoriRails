@@ -12,26 +12,20 @@ namespace User_Beheersysteem
         IDatabaseConnector databaseConnector = new MySqlContext();
         public List<BeheerUser> UsersAll = new List<BeheerUser>();
         public List<BeheerUser> UsersSearch = new List<BeheerUser>();
-        public string status;
 
-        public void GetUsersFromDatabase(bool search)
+        public void GetAllUsersFromDatabase()
         {
             UsersAll.Clear();
             List<User> TempUsers = databaseConnector.GetAllUsers();
             foreach (User TempUser in TempUsers)
             {
                 UsersAll.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
-                if (search == true)
-                {
-                    UsersSearch.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
-                }
             }
         }
 
-        public void GetUsersFromDatabase(SearchRole role)
+        public void GetSelectUsersFromDatabase(SearchRole role)
         {
             UsersSearch.Clear();
-            UsersAll.Clear();
 
             List<User> TempUsers = null;
 
