@@ -13,6 +13,7 @@ namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
+        Logic Logic;
         InUitRitTram Tram;
         User Driver;
 
@@ -21,6 +22,7 @@ namespace In_Uitrit_Systeem
             InitializeComponent();
             Driver = driver;
             //Tram = Driver.Tram; 
+            Logic = new Logic();
             lblTramNumber.Text = Tram.Number.ToString();
         }
 
