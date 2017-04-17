@@ -6,15 +6,10 @@
         Logistic,
         Driver,
         Cleaner,
-<<<<<<< HEAD:OdoriRails/OdoriRails/User.cs
         Engineer,
         HeadEngineer,
         HeadCleaner
-=======
-        HeadCleaner,
-        Engineer,
-        HeadEngineer
->>>>>>> master:OdoriRails/OdoriRails/BaseClasses/User.cs
+
     }
 
     public class User

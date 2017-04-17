@@ -14,44 +14,44 @@ namespace SchoonmaakReparatieSysteem
     public partial class MainService : Form
     {
         private int username = 1; // testing purposes
-        private OdoriRails.Role role = OdoriRails.Role.HeadEngineer; // testing purposes
+        private Role role = Role.HeadEngineer; // testing purposes
 
-        public OdoriRails.User activeUser;
+        public OdoriRails.User ActiveUser;
 
 
         public MainService()
         {
             InitializeComponent();
-            activeUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", OdoriRails.Role.HeadEngineer, "");
+            ActiveUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", Role.HeadEngineer, "");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddService adsvc = new AddService(activeUser);
+            AddService adsvc = new AddService(ActiveUser);
             adsvc.Show();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            EditService edsrvc = new EditService(activeUser);
+            EditService edsrvc = new EditService(ActiveUser);
             edsrvc.Show();
         }
 
         private void MainService_Load(object sender, EventArgs e)
         {
             // TODO: SELECT ALL FROM SERVICE, DIFFERS DEPENDING ON USER ROLE
-            if (activeUser.Role == OdoriRails.Role.Engineer)
+            if (ActiveUser.Role == Role.Engineer)
             {
                 //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
             }
-            if (activeUser.Role == OdoriRails.Role.Cleaner)
+            if (ActiveUser.Role == Role.Cleaner)
             {
                 //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
             }
 
 
-            if (activeUser.Role == OdoriRails.Role.HeadEngineer || activeUser.Role == OdoriRails.Role.HeadCleaner)
+            if (ActiveUser.Role == OdoriRails.Role.HeadEngineer || ActiveUser.Role == OdoriRails.Role.HeadCleaner)
             {
                 //TODO: LOAD ALL SERVICES FOR THE DAY-
                 button1.Visible = true;
@@ -69,7 +69,17 @@ namespace SchoonmaakReparatieSysteem
 
         private void button4_Click(object sender, EventArgs e)
         {
-            dataGridView2.SelectedRows[0];
+            if (dataGridView2.SelectedRows.Count != 0)
+            {
+                DataGridViewRow row = dataGridView2.SelectedRows[0];
+                //row.Cells["collumn name"].Value
+                //TODO: DELETE SELECTED ROW
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO: ADD DIFFERENT ORDER BY'S TO FILTER ENTRIES
         }
     }
 }
