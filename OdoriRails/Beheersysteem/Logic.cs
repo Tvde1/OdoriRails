@@ -3,6 +3,7 @@ using Beheersysteem.ObjectClasses;
 using OdoriRails.DAL;
 using OdoriRails.BaseClasses;
 using System.Collections.Generic;
+using System;
 
 namespace Beheersysteem
 {
@@ -18,10 +19,10 @@ namespace Beheersysteem
             csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
-            sorter = new SortingAlgoritm();
+            sorter = new SortingAlgoritm(database.GetTracksAndSectors());
         }
 
-        public string GetTime(Tram tram)
+        public DateTime? GetExitTime(Tram tram)
         {
             foreach (InUitRijSchema entry in schema)
             {
@@ -30,7 +31,7 @@ namespace Beheersysteem
                     if (entry.TramNumber == null)
                     {
                         entry.TramNumber = tram.Number;
-                        return entry.InRijTijd;
+                        return entry.ExitTime;
                     }
                 }
             }
@@ -39,7 +40,7 @@ namespace Beheersysteem
 
         public void SortTram(Tram tram)
         {
-            if (sorter.GetSector(tram, database.GetTracksAndSectors(), schema) == null)
+            if (sorter.GetSector(tram, GetExitTime(tram)) == null)
             {
                 System.Windows.Forms.MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
             }

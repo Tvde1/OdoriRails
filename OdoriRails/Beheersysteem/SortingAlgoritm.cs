@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
-using Beheersysteem.ObjectClasses;
+using System;
+using System.Linq;
 
 namespace Beheersysteem
 {
     class SortingAlgoritm
     {
-        public SortingAlgoritm()
-        {
+        private List<Track> allTracks;
 
+        public SortingAlgoritm(List<Track> allTracks)
+        {
+            this.allTracks = allTracks;
         }
 
-        public Sector GetSector(Tram tram, List<Track> allTracks, List<InUitRijSchema> schema)
+        public Sector GetSector(Tram tram, DateTime? exitTime)
         {
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {
@@ -59,11 +62,11 @@ namespace Beheersysteem
                     }
                 }
             }
-            return GetSector(tram, allTracks);
+            return GetSector(tram);
         }
 
         //Algoritme versie waar de eerste lege plek gebruikt wordt (backup als het andere niet blijkt te werken)
-        public Sector GetSector(Tram tram, List<Track> allTracks)
+        public Sector GetSector(Tram tram)
         {
             foreach (Track track in allTracks)
             {
