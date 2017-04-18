@@ -83,9 +83,8 @@
             // 
             this.filtercbox.FormattingEnabled = true;
             this.filtercbox.Items.AddRange(new object[] {
-            "All Services",
-            "Done Services",
-            "My Services"});
+            "My Services",
+            "Unassigned Services"});
             this.filtercbox.Location = new System.Drawing.Point(511, 29);
             this.filtercbox.Name = "filtercbox";
             this.filtercbox.Size = new System.Drawing.Size(121, 21);

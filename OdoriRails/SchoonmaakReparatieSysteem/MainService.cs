@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails;
-
+using OdoriRails.BaseClasses;
+using OdoriRails.DAL;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -19,14 +20,14 @@ namespace SchoonmaakReparatieSysteem
 
         private Role role = Role.HeadEngineer; // testing purposes
 
-        public OdoriRails.User ActiveUser;
+        public User ActiveUser;
 
 
         public MainService()
         {
 
             InitializeComponent();
-            ActiveUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", role, "");
+            ActiveUser = new User(username, "Jimmy", "jimmy", "","", role, "");
             usernamelbl.Text = ActiveUser.Username;
 
             dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
@@ -52,7 +53,7 @@ namespace SchoonmaakReparatieSysteem
 
             dbconnector.GetAllServicesFromUser(ActiveUser);
 
-            if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == OdoriRails.Role.HeadCleaner)
+            if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == Role.HeadCleaner)
             {
                 
                 button1.Visible = true;
@@ -72,13 +73,31 @@ namespace SchoonmaakReparatieSysteem
         {
             if (dataGridView1.SelectedRows.Count != 0)
             {
-                DataGridViewRow row = dataGridView1.SelectedRows[0];
-                // TODO: DELETE SELECTED ROW
+                
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            if (filtercbox.SelectedIndex == 1)
+            {
+                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                }
+                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                }
+                else
+                {
+                }
+            }
+            if (filtercbox.SelectedIndex == 0)
+            {
+                dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
+            }
             
         }
     }

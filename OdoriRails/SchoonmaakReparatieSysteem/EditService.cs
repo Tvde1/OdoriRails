@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails;
+using OdoriRails.BaseClasses;
 
 namespace SchoonmaakReparatieSysteem
 {
     public partial class EditService : Form
     {
-        private OdoriRails.User activeUser;
+        private User activeUser;
         public EditService(User activeuser)
         {
             activeUser = activeuser;
@@ -22,11 +23,11 @@ namespace SchoonmaakReparatieSysteem
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (activeUser.Role == OdoriRails.Role.HeadCleaner)
+            if (activeUser.Role == Role.HeadCleaner)
             {
                 // TODO: POST CLEAN LOG CODE
             }
-            if (activeUser.Role == OdoriRails.Role.HeadEngineer)
+            if (activeUser.Role == Role.HeadEngineer)
             {
                 // TODO: POST REPAIR LOG CODE
             }
