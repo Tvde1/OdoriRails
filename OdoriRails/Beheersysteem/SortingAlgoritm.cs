@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OdoriRails;
+using OdoriRails.BaseClasses;
 using Beheersysteem.ObjectClasses;
 
 namespace Beheersysteem
@@ -27,7 +27,7 @@ namespace Beheersysteem
             {
                 foreach (Track track in allTracks)
                 {
-                    if (track.TrackType == TrackType.Service)
+                    if (track.Type == TrackType.Service)
                     {
                         foreach (Sector sector in track.Sectors)
                         {
@@ -43,7 +43,7 @@ namespace Beheersysteem
             {
                 foreach (Track track in allTracks)
                 {
-                    if (track.Line == tram.Line && track.TrackType == TrackType.Normal)
+                    if (track.Line == tram.Line && track.Type == TrackType.Normal)
                     {
                         foreach (Sector sector in track.Sectors)
                         {
@@ -57,7 +57,7 @@ namespace Beheersysteem
 
                 foreach (Track track in allTracks)
                 {
-                    if (track.Line == tram.Line && track.TrackType == TrackType.Exit)
+                    if (track.Line == tram.Line && track.Type == TrackType.Exit)
                     {
                         foreach (Sector sector in track.Sectors)
                         {
