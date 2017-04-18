@@ -12,7 +12,7 @@ namespace OdoriRails.DAL
     /// </summary>
     public class MssqlDatabaseContext : IDatabaseConnector
     {
-        private string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private int _remiseNumber = 0;
 

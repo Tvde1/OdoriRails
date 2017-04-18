@@ -20,6 +20,7 @@ namespace OdoriRails
             //User user = new User(4, "Mark Rutte", "markiee1", "mark@hotmail.com", "ikwordgeilvanwilders", Role.Logistic, "admin");
             //return databaseConnector.AddUser(user).ToString();
 
+            // ReSharper disable once UnusedVariable
             var users = databaseConnector.GetAllUsers();
             // ReSharper disable once UnusedVariable
             var schoonmakersTest = users.Where(x => x.Role == Role.Cleaner).ToList();

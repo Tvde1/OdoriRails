@@ -13,7 +13,8 @@ namespace OdoriRails.DAL
     /// </summary>
     public class MySqlContext : IDatabaseConnector
     {
-        private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
+        //private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
+        private readonly string _connectionString = @"Server=192.168.20.167;Database=OdoriRails;Uid=OdoriRails;Pwd=OdoriRails123;";
         private int _remiseNumber = 0;
 
         #region user
