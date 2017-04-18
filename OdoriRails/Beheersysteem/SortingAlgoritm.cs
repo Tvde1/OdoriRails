@@ -16,6 +16,7 @@ namespace Beheersysteem
 
         public Sector GetSector(Tram tram, DateTime? exitTime)
         {
+            //With a service needed, put on the first free slot
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {
                 foreach (Track track in allTracks)
@@ -32,8 +33,10 @@ namespace Beheersysteem
                     }
                 }
             }
+            //Else uses normal algorithem
             else
             {
+                //Put tram on track thats connected to the line the tram is on
                 foreach (Track track in allTracks)
                 {
                     if (track.Line == tram.Line && track.Type == TrackType.Normal)
@@ -48,6 +51,22 @@ namespace Beheersysteem
                     }
                 }
 
+                //If not successful put tram on any other normal track (that doesn't have another line connected to it)
+                foreach (Track track in allTracks)
+                {
+                    if (track.Type == TrackType.Normal)
+                    {
+                        foreach (Sector sector in track.Sectors)
+                        {
+                            if (sector.Status == SectorStatus.Open)
+                            {
+                                return sector;
+                            }
+                        }
+                    }
+                }
+
+                //If not successful put on an exit line
                 foreach (Track track in allTracks)
                 {
                     if (track.Line == tram.Line && track.Type == TrackType.Exit)
@@ -62,6 +81,7 @@ namespace Beheersysteem
                     }
                 }
             }
+            //If not successful let user place tram
             return GetSector(tram);
         }
 
