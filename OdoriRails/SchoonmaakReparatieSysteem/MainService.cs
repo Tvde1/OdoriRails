@@ -25,14 +25,11 @@ namespace SchoonmaakReparatieSysteem
 
         public MainService()
         {
-
             InitializeComponent();
             ActiveUser = new User(username, "Jimmy", "jimmy", "","", role, "");
             usernamelbl.Text = ActiveUser.Username;
-
             dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
-            
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,6 +70,15 @@ namespace SchoonmaakReparatieSysteem
         {
             if (dataGridView1.SelectedRows.Count != 0)
             {
+                try
+                {
+                    var servicetodelete = (Service) dataGridView1.CurrentRow.DataBoundItem;
+                    dbconnector.DeleteService(servicetodelete);
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong with deleting the service");
+                }
                 
             }
         }
