@@ -21,11 +21,16 @@ namespace Beheersysteem
         {
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
+            sorter = new SortingAlgoritm();
+        }
+
+        public void GetTime(Tram tram)
+        {
+
         }
 
         public void SortTram(BeheerTram tram)
         {
-            sorter = new SortingAlgoritm();
             if (sorter.GetSector(tram, database.GetTracksAndSectors(), schema) == null)
             {
                 System.Windows.Forms.MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");

@@ -10,15 +10,9 @@ namespace Beheersysteem
 {
     class SortingAlgoritm
     {
-        //private Tram tram;
-        //private List<Track> allTracks;
-        //private List<InUitRijSchema> schema;
-
         public SortingAlgoritm()
         {
-            //this.tram = tram;
-            //this.allTracks = allTracks;
-            //this.schema = schema;
+
         }
 
         public Sector GetSector(Tram tram, List<Track> allTracks, List<InUitRijSchema> schema)
@@ -65,6 +59,39 @@ namespace Beheersysteem
                             {
                                 return sector;
                             }
+                        }
+                    }
+                }
+            }
+            return GetSector(tram, allTracks);
+        }
+
+        //Algoritme versie waar de eerste lege plek gebruikt wordt (backup als het andere niet blijkt te werken)
+        public Sector GetSector(Tram tram, List<Track> allTracks)
+        {
+            foreach (Track track in allTracks)
+            {
+                if (track.Type == TrackType.Normal)
+                {
+                    foreach (Sector sector in track.Sectors)
+                    {
+                        if (sector.Status == SectorStatus.Open)
+                        {
+                            return sector;
+                        }
+                    }
+                }
+            }
+
+            foreach (Track track in allTracks)
+            {
+                if (track.Type == TrackType.Exit)
+                {
+                    foreach (Sector sector in track.Sectors)
+                    {
+                        if (sector.Status == SectorStatus.Open)
+                        {
+                            return sector;
                         }
                     }
                 }
