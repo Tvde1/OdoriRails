@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OdoriRails
+namespace OdoriRails.BaseClasses
 {
     public enum RepairType
     {
@@ -9,7 +9,7 @@ namespace OdoriRails
         Repair
     }
 
-    class Repair : Service
+    public class Repair : Service
     {
         public RepairType Type { get; protected set; }
         public string Defect { get; protected set; }
@@ -27,6 +27,11 @@ namespace OdoriRails
             Type = type;
             Defect = defect;
             Solution = solution;
+        }
+
+        public Repair(int tramId, string defect) : base(null, null, DateTime.Now, null, tramId)
+        {
+            Defect = defect;
         }
     }
 }

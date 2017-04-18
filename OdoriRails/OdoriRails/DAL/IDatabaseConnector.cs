@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using OdoriRails.BaseClasses;
 
-namespace OdoriRails
+namespace OdoriRails.DAL
 {
     public interface IDatabaseConnector
     {
@@ -28,6 +29,13 @@ namespace OdoriRails
         /// </summary>
         /// <param name="id"></param>
         User GetUser(int id);
+
+        /// <summary>
+        /// Get de user ID via de username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        int GetUserId(string username);
 
         /// <summary>
         /// Slaat de bestaande user op in de database.
@@ -92,16 +100,42 @@ namespace OdoriRails
         List<Service> GetAllServicesFromUser(User user);
 
         /// <summary>
-        /// Haalt een lijst op van services zonder users.
+        /// Haalt een lijst op van repairs zonder users.
         /// </summary>
         /// <returns></returns>
-        List<Service> GetAllServicesWithoutUsers();
+        List<Repair> GetAllRepairsWithoutUsers();
+
+        /// <summary>
+        /// Haalt een lijst op van cleanings zonder users.
+        /// </summary>
+        /// <returns></returns>
+        List<Cleaning> GetAllCleansWithoutUsers();
+
+        /// <summary>
+        /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
+        /// </summary>
+        /// <param name="cleaning"></param>
+        /// <returns></returns>
+        Cleaning AddCleaning(Cleaning cleaning);
+
+        /// <summary>
+        /// Voegt een Repair toe en geeft de repair met ID terug.
+        /// </summary>
+        /// <param name="repair"></param>
+        /// <returns></returns>
+        Repair AddRepair(Repair repair);
 
         /// <summary>
         /// Past de service aan in de database.
         /// </summary>
         /// <param name="service"></param>
         void EditService(Service service);
+
+        /// <summary>
+        /// Verweider een service uit de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void DeleteService(Service service);
         #endregion
 
         #region login
@@ -120,12 +154,5 @@ namespace OdoriRails
         /// <returns></returns>
         bool MatchUsernameAndPassword(string username, string password);
         #endregion
-
-        //Erbij
-        /*
-         * Wijzigen trams.
-         * 
-         * 
-         */
     }
 }

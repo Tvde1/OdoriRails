@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OdoriRails
+namespace OdoriRails.BaseClasses
 {
     public enum CleaningSize
     {
@@ -9,7 +9,7 @@ namespace OdoriRails
         Small
     }
 
-    class Cleaning : Service
+    public class Cleaning : Service
     {
         public CleaningSize Size { get; protected set; }
         public string Comments { get; protected set; }
@@ -24,6 +24,10 @@ namespace OdoriRails
         {
             Size = size;
             Comments = comments;
+        }
+
+        public Cleaning(int tramId) : base(null, null, DateTime.Now, null, tramId)
+        {
         }
     }
 }
