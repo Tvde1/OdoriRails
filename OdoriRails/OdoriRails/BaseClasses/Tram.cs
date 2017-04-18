@@ -3,10 +3,17 @@
     public enum TramStatus
     {
         Idle,
-        InUse,
         Cleaning,
-        Repair,
-        CleaningAndRepair
+        Maintenance,
+        CleaningMaintenance,
+        Defect
+    }
+
+    public enum TramLocation
+    {
+        Home,
+        Away,
+        Entering
     }
 
     public enum Model
