@@ -27,7 +27,8 @@ namespace SchoonmaakReparatieSysteem
 
             InitializeComponent();
             ActiveUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", role, "");
-            
+            usernamelbl.Text = ActiveUser.Username;
+
             dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
             
             
@@ -42,7 +43,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void button2_Click(object sender, EventArgs e)
         {
-            EditService edsrvc = new EditService(ActiveUser);
+            var edsrvc = new EditService(ActiveUser);
             edsrvc.Show();
         }
 
@@ -51,15 +52,15 @@ namespace SchoonmaakReparatieSysteem
 
             dbconnector.GetAllServicesFromUser(ActiveUser);
 
-            if (ActiveUser.Role == OdoriRails.Role.HeadEngineer || ActiveUser.Role == OdoriRails.Role.HeadCleaner)
+            if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == OdoriRails.Role.HeadCleaner)
             {
-                //TODO: LOAD ALL SERVICES FOR THE DAY-
+                
                 button1.Visible = true;
                 button2.Visible = true;
             }
             else
             {
-                //TODO: LOAD ALL SERVICES FOR THE DAY
+                
                 button1.Visible = false;
                 button2.Visible = false;
             }
@@ -72,13 +73,13 @@ namespace SchoonmaakReparatieSysteem
             if (dataGridView1.SelectedRows.Count != 0)
             {
                 DataGridViewRow row = dataGridView1.SelectedRows[0];
-                
+                // TODO: DELETE SELECTED ROW
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: ADD DIFFERENT ORDER BY'S TO FILTER ENTRIES
+            
         }
     }
 }
