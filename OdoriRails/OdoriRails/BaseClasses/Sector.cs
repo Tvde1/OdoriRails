@@ -1,4 +1,4 @@
-﻿namespace OdoriRails
+﻿namespace OdoriRails.BaseClasses
 {
     public enum SectorStatus
     {
@@ -12,7 +12,7 @@
         public int Number { get; protected set; }
         public SectorStatus Status { get; protected set; }
         public Tram OccupyingTram { get; protected set; }
-        public int TrackNumber { get; protected set; }
+        public int TrackNumber { get; private set; }
 
         /// <summary>
         /// Constructor

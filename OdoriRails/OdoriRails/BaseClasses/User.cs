@@ -1,4 +1,4 @@
-﻿namespace OdoriRails
+﻿namespace OdoriRails.BaseClasses
 {
     public enum Role
     {

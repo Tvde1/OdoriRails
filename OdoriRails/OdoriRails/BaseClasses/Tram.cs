@@ -1,12 +1,12 @@
-﻿namespace OdoriRails
+﻿namespace OdoriRails.BaseClasses
 {
     public enum TramStatus
     {
         Idle,
         InUse,
         Cleaning,
-        Maintenance,
-        CleaningAndMaintenance
+        Repair,
+        CleaningAndRepair
     }
 
     public enum Model
