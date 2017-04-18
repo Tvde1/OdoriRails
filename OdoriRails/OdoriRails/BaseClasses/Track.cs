@@ -4,9 +4,10 @@ namespace OdoriRails.BaseClasses
 {
     public class Track
     {
-        public List<Sector> Sectors { get; protected set; } = new List<Sector>();
+        public List<Sector> Sectors { get; } = new List<Sector>();
 
         public int Number { get; private set; }
+        public List<Model> AcceptedModels { get; protected set; }
 
         /// <summary>
         /// Constructor, requires number.
