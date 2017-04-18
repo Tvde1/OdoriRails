@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OdoriRails
+namespace OdoriRails.BaseClasses
 {
     public enum RepairType
     {
