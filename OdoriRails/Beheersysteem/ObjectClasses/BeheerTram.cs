@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OdoriRails;
+using OdoriRails.BaseClasses;
 
 namespace Beheersysteem
 {
@@ -14,7 +14,5 @@ namespace Beheersysteem
 
         public BeheerTram(int number, Model model) : base(number, model)
         { }
-
-
     }
 }

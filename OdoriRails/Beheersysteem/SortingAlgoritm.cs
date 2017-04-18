@@ -10,18 +10,18 @@ namespace Beheersysteem
 {
     class SortingAlgoritm
     {
-        private Tram tram;
-        private List<Track> allTracks;
-        private List<InUitRijSchema> schema;
+        //private Tram tram;
+        //private List<Track> allTracks;
+        //private List<InUitRijSchema> schema;
 
-        public SortingAlgoritm(Tram tram, List<Track> allTracks, List<InUitRijSchema> schema)
+        public SortingAlgoritm()
         {
-            this.tram = tram;
-            this.allTracks = allTracks;
-            this.schema = schema;
+            //this.tram = tram;
+            //this.allTracks = allTracks;
+            //this.schema = schema;
         }
 
-        public Sector GetSector()
+        public Sector GetSector(Tram tram, List<Track> allTracks, List<InUitRijSchema> schema)
         {
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {

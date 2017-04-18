@@ -1,6 +1,7 @@
 ﻿using Beheersysteem.DAL;
 using Beheersysteem.ObjectClasses;
-using OdoriRails;
+using OdoriRails.DAL;
+using OdoriRails.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,8 @@ namespace Beheersysteem
 
         public void SortTram(BeheerTram tram)
         {
-            sorter = new SortingAlgoritm(tram, database.GetTracksAndSectors(), schema);
-            if (sorter.GetSector() == null)
+            sorter = new SortingAlgoritm();
+            if (sorter.GetSector(tram, database.GetTracksAndSectors(), schema) == null)
             {
                 System.Windows.Forms.MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
             }

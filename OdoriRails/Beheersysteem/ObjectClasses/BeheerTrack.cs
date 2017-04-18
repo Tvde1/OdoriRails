@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OdoriRails;
+using OdoriRails.BaseClasses;
 
 namespace Beheersysteem
 {
@@ -11,8 +11,9 @@ namespace Beheersysteem
     {
         public List<BeheerSector> BeheerSectors = new List<BeheerSector>();
 
-        public BeheerTrack(int tracknumber) : base(tracknumber)
-        { }
+        public BeheerTrack(int number, int line, TrackType type) : base(number, line, type)
+        {
+        }
 
         /// <summary>
         /// Zet elke sectoren's status op 'Locked'
