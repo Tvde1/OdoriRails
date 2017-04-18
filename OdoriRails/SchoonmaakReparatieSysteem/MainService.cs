@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails;
 
+
 namespace SchoonmaakReparatieSysteem
 {
     public partial class MainService : Form
     {
-        private int username = 1; // testing purposes
+        private int username = 1; // testing purposes\
+        private IDatabaseConnector dbconnector = new MySqlContext();
+
         private Role role = Role.HeadEngineer; // testing purposes
 
         public OdoriRails.User ActiveUser;
@@ -21,8 +24,13 @@ namespace SchoonmaakReparatieSysteem
 
         public MainService()
         {
+
             InitializeComponent();
-            ActiveUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", Role.HeadEngineer, "");
+            ActiveUser = new OdoriRails.User(username, "Jimmy", "jimmy", "","", role, "");
+            
+            dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
+            
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,16 +48,8 @@ namespace SchoonmaakReparatieSysteem
 
         private void MainService_Load(object sender, EventArgs e)
         {
-            // TODO: SELECT ALL FROM SERVICE, DIFFERS DEPENDING ON USER ROLE
-            if (ActiveUser.Role == Role.Engineer)
-            {
-                //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
-            }
-            if (ActiveUser.Role == Role.Cleaner)
-            {
-                //TODO: LOAD ALL SERVICES FOR LOGGED IN USER
-            }
 
+            dbconnector.GetAllServicesFromUser(ActiveUser);
 
             if (ActiveUser.Role == OdoriRails.Role.HeadEngineer || ActiveUser.Role == OdoriRails.Role.HeadCleaner)
             {
@@ -69,11 +69,10 @@ namespace SchoonmaakReparatieSysteem
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (dataGridView2.SelectedRows.Count != 0)
+            if (dataGridView1.SelectedRows.Count != 0)
             {
-                DataGridViewRow row = dataGridView2.SelectedRows[0];
-                //row.Cells["collumn name"].Value
-                //TODO: DELETE SELECTED ROW
+                DataGridViewRow row = dataGridView1.SelectedRows[0];
+                
             }
         }
 

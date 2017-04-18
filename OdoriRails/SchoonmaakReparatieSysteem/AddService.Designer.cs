@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.usercbox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.usersListBox = new System.Windows.Forms.ListBox();
             this.sortsrvc_cb = new System.Windows.Forms.ComboBox();
@@ -38,15 +38,17 @@
             this.commenttb = new System.Windows.Forms.RichTextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.tramnrtb = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // usercbox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(118, 21);
-            this.comboBox1.TabIndex = 0;
+            this.usercbox.FormattingEnabled = true;
+            this.usercbox.Location = new System.Drawing.Point(12, 30);
+            this.usercbox.Name = "usercbox";
+            this.usercbox.Size = new System.Drawing.Size(118, 21);
+            this.usercbox.TabIndex = 0;
             // 
             // button1
             // 
@@ -56,6 +58,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // usersListBox
             // 
@@ -94,7 +97,7 @@
             // commentlbl
             // 
             this.commentlbl.AutoSize = true;
-            this.commentlbl.Location = new System.Drawing.Point(20, 210);
+            this.commentlbl.Location = new System.Drawing.Point(20, 245);
             this.commentlbl.Name = "commentlbl";
             this.commentlbl.Size = new System.Drawing.Size(110, 13);
             this.commentlbl.TabIndex = 11;
@@ -102,9 +105,9 @@
             // 
             // commenttb
             // 
-            this.commenttb.Location = new System.Drawing.Point(141, 210);
+            this.commenttb.Location = new System.Drawing.Point(141, 245);
             this.commenttb.Name = "commenttb";
-            this.commenttb.Size = new System.Drawing.Size(135, 96);
+            this.commenttb.Size = new System.Drawing.Size(135, 68);
             this.commenttb.TabIndex = 12;
             this.commenttb.Text = "";
             // 
@@ -125,11 +128,29 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(196, 20);
             this.dateTimePicker1.TabIndex = 14;
             // 
+            // tramnrtb
+            // 
+            this.tramnrtb.Location = new System.Drawing.Point(141, 200);
+            this.tramnrtb.Name = "tramnrtb";
+            this.tramnrtb.Size = new System.Drawing.Size(135, 20);
+            this.tramnrtb.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 203);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "TRAMID";
+            // 
             // AddService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(297, 367);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tramnrtb);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.commenttb);
@@ -139,7 +160,7 @@
             this.Controls.Add(this.sortsrvc_cb);
             this.Controls.Add(this.usersListBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.usercbox);
             this.Name = "AddService";
             this.Text = "Add Service";
             this.Load += new System.EventHandler(this.AddService_Load);
@@ -150,7 +171,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox usercbox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox usersListBox;
         private System.Windows.Forms.ComboBox sortsrvc_cb;
@@ -160,5 +181,7 @@
         private System.Windows.Forms.RichTextBox commenttb;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.TextBox tramnrtb;
+        private System.Windows.Forms.Label label1;
     }
 }
