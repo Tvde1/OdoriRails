@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,8 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void MatchUsernameAndPasswordTest()
         {
-            Assert.Fail();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com","TEST",Role.Administrator,"Test");
+
         }
         #endregion
     }
