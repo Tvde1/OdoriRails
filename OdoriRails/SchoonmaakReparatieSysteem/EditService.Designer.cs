@@ -142,6 +142,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "EditService";
             this.Text = "Edit Service";
+            this.Load += new System.EventHandler(this.EditService_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

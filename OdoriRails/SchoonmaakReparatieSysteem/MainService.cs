@@ -41,8 +41,23 @@ namespace SchoonmaakReparatieSysteem
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var edsrvc = new EditService(ActiveUser);
-            edsrvc.Show();
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                try
+
+                {
+                    var servicetoupdate = (Service)dataGridView1.CurrentRow.DataBoundItem;
+                    var edsrvc = new EditService(ActiveUser, servicetoupdate);
+                    edsrvc.Show();
+                    
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong with deleting the service");
+                }
+
+            }
+            
         }
 
         private void MainService_Load(object sender, EventArgs e)
