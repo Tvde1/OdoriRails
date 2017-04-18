@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Beheersysteem.ObjectClasses;
 using System.Windows.Forms;
 using System.IO;
@@ -33,8 +30,8 @@ namespace Beheersysteem.DAL
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Kon file niet laden", ex.Message);
                 throw ex;
-                //MessageBox.Show("Kon file niet laden", ex.Message);
             }
             return schema;
         }

@@ -2,11 +2,7 @@
 using Beheersysteem.ObjectClasses;
 using OdoriRails.DAL;
 using OdoriRails.BaseClasses;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Beheersysteem
 {
@@ -25,19 +21,20 @@ namespace Beheersysteem
             sorter = new SortingAlgoritm();
         }
 
-        public void GetTime(Tram tram)
+        public string GetTime(Tram tram)
         {
             foreach (InUitRijSchema entry in schema)
             {
                 if (tram.Line == entry.Line)
                 {
-                    if (entry.wagenNr == null)
+                    if (entry.TramNumber == null)
                     {
-                        entry.wagenNr = tram.Number;
-                        SortTram(tram);
+                        entry.TramNumber = tram.Number;
+                        return entry.InRijTijd;
                     }
                 }
             }
+            return null;
         }
 
         public void SortTram(Tram tram)
