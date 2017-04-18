@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace OdoriRails
+namespace OdoriRails.BaseClasses
 {
     public class Track
     {
         public List<Sector> Sectors { get; protected set; } = new List<Sector>();
 
-        public int Number { get; protected set; }
+        public int Number { get; private set; }
 
         /// <summary>
         /// Constructor, requires number.

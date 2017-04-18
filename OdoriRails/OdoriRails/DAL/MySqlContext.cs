@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using MySql.Data.MySqlClient;
+using OdoriRails.BaseClasses;
 
-namespace OdoriRails
+namespace OdoriRails.DAL
 {
     /// <summary>
     /// Tijdelijke databaseadapter.
@@ -216,7 +217,7 @@ WHERE (User.Username = @usrname)) AS derivedtbl_1 ON Service.ServicePk = derived
             return returnList;
         }
 
-        public List<Service> GetAllServicesWithoutUsers()
+        public List<Repair> GetAllRepairsWithoutUsers()
         {
             var repairQuery = new MySqlCommand(@"SELECT Repair.*
 FROM Repair INNER JOIN
@@ -224,22 +225,21 @@ FROM Repair INNER JOIN
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+            var repairData = GetData(repairQuery);
+            return GenerateListWithFunction(repairData, CreateRepair);
 
+        }
+
+        public List<Cleaning> GetAllCleansWithoutUsers()
+        {
             var cleanQuery = new MySqlCommand(@"SELECT Clean.*
 FROM Clean INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
-            var repairData = GetData(repairQuery);
             var cleanData = GetData(cleanQuery);
-
-            var returnList = new List<Service>();
-
-            returnList.AddRange(GenerateListWithFunction(repairData, CreateRepair));
-            returnList.AddRange(GenerateListWithFunction(cleanData, CreateCleaning));
-
-            return returnList;
+            return GenerateListWithFunction(cleanData, CreateCleaning);
         }
 
         public Cleaning AddCleaning(Cleaning cleaning)
