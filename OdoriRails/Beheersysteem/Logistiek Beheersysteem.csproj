@@ -51,7 +51,6 @@
     <Compile Include="Logic.cs" />
     <Compile Include="ObjectClasses\BeheerSector.cs" />
     <Compile Include="ObjectClasses\BeheerTrack.cs" />
-    <Compile Include="ObjectClasses\BeheerTram.cs" />
     <Compile Include="InUitRijSchema.cs" />
     <Compile Include="SortingAlgoritm.cs" />
     <Compile Include="User Interface.cs">
@@ -62,7 +61,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ObjectClasses\BeheerUser.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -12,13 +12,14 @@ namespace Beheersysteem
 {
     class Logic
     {
-        ICSVContext csv = new CSVContext();
+        ICSVContext csv;
         MssqlDatabaseContext database;
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
 
         public void GetSchema()
         {
+            csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
             sorter = new SortingAlgoritm();
@@ -26,10 +27,20 @@ namespace Beheersysteem
 
         public void GetTime(Tram tram)
         {
-
+            foreach (InUitRijSchema entry in schema)
+            {
+                if (tram.Line == entry.Line)
+                {
+                    if (entry.wagenNr == null)
+                    {
+                        entry.wagenNr = tram.Number;
+                        SortTram(tram);
+                    }
+                }
+            }
         }
 
-        public void SortTram(BeheerTram tram)
+        public void SortTram(Tram tram)
         {
             if (sorter.GetSector(tram, database.GetTracksAndSectors(), schema) == null)
             {
