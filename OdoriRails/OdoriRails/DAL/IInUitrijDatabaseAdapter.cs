@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OdoriRails.DAL
 {
-    interface IInUitrijDatabaseAdapter
+    public interface IInUitrijDatabaseAdapter
     {
 
     }
