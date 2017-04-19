@@ -7,13 +7,10 @@ using OdoriRails.BaseClasses;
 
 namespace In_Uitrit_Systeem
 {
-    class InUitRitTram : Tram
+    public class InUitRitTram : Tram
     {
-        Logic Logic;
-
-        public InUitRitTram(int number, Logic logic, TramStatus status, int line, User driver, Model model) : base(number, status, line, driver, model)
+        public InUitRitTram(int number, Model model) : base(number, model)
         {
-            Logic = logic;
         }
 
         public void EditTramStatus(TramStatus tramStatus)
@@ -24,20 +21,6 @@ namespace In_Uitrit_Systeem
         public void EditTramLocation(TramLocation tramLocation)
         {
             Location = tramLocation;
-        }
-
-        public void AddRepair(string defect)
-        {
-            Repair repair;
-            repair = new Repair(Number, defect);
-            Logic._databaseConnector.AddRepair(repair);
-        }
-
-        public void AddCleaning()
-        {
-            Cleaning cleaning;
-            cleaning = new Cleaning(Number);
-            Logic._databaseConnector.AddCleaning(cleaning);
         }
     }
 }
