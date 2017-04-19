@@ -10,7 +10,7 @@ namespace Beheersysteem
     class Logic
     {
         ICSVContext csv;
-        MssqlDatabaseContext database;
+        IDatabaseConnector database;
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
@@ -28,7 +28,8 @@ namespace Beheersysteem
 
         public void RefreshEnteringTrams()
         {
-            enteringTrams = database.GetEnteringTrams();
+            //TODO: Pas in master de query aan
+            enteringTrams = database.GetAllTramsWithLocation(TramLocation.Entering);
             foreach (Tram tram in enteringTrams)
             {
                 if (tram.DepartureTime == null)
@@ -37,6 +38,12 @@ namespace Beheersysteem
                 }
                 SortTram(tram);
             }
+        }
+
+        public void WipeDepartureTimes()
+        {
+            //TODO: Voeg toe aan master
+            database.WipeTramDepartureTime();
         }
 
         public DateTime? GetExitTime(Tram tram)
