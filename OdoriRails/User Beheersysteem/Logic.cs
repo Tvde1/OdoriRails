@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace User_Beheersysteem
 {
-    public  class Logic
+    class Logic
     {
         IDatabaseConnector databaseConnector = new MySqlContext();
         public List<BeheerUser> UsersAll = new List<BeheerUser>();
