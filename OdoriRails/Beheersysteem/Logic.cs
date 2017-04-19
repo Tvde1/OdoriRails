@@ -10,7 +10,7 @@ namespace Beheersysteem
     class Logic
     {
         ICSVContext csv;
-        IDatabaseConnector database;
+        ILogisticDatabaseAdapter database;
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
