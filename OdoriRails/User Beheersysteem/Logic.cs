@@ -10,7 +10,7 @@ namespace User_Beheersysteem
 {
     class Logic
     {
-        IDatabaseConnector databaseConnector = new MssqlDatabaseContext();
+        IBeheerDatabaseAdapter databaseConnector = new MssqlDatabaseContext();
         public List<BeheerUser> UsersAll = new List<BeheerUser>();
         public List<BeheerUser> UsersSearch = new List<BeheerUser>();
 
