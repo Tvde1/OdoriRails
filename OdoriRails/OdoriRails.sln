@@ -8,6 +8,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistiek Beheersysteem", "Beheersysteem\Logistiek Beheersysteem.csproj", "{30A5D8EB-3167-41B7-8804-6D7EC8FE52D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdoriRailsTests", "OdoriRailsTests\OdoriRailsTests.csproj", "{AEBA9CBC-936B-4F06-8FC3-C9B1A6C9138F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginSystem", "InlogSysteem\LoginSystem.csproj", "{3D58B85F-D1A1-4442-A09C-5A325AE386A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

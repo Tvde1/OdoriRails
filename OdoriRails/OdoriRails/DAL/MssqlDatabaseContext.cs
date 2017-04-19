@@ -10,7 +10,7 @@ namespace OdoriRails.DAL
     /// <summary>
     /// Database Adapter voor de mssql datatabase.
     /// </summary>
-    public class MssqlDatabaseContext : IDatabaseConnector
+    public class MssqlDatabaseContext : IBeheerDatabaseAdapter, IInUitrijDatabaseAdapter, ILoginDatabaseAdapter, ILogisticDatabaseAdapter, ISchoonmaakReparatieDatabaseAdapter
     {
         //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
         private readonly string _connectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
