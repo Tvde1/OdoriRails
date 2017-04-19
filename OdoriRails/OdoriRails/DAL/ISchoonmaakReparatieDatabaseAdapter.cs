@@ -49,5 +49,19 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <param name="service"></param>
         void DeleteService(Service service);
+
+        /// <summary>
+        /// Get de user ID via de username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        int GetUserId(string username);
+
+        /// <summary>
+        /// Haalt alle users op die deze rol hebben.
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        List<User> GetAllUsersWithRole(Role role);
     }
 }
