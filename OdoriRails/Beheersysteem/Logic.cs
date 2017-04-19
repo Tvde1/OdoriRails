@@ -28,7 +28,7 @@ namespace Beheersysteem
         public void SortAllEnteringTrams()
         {
             //TODO: Pas in master de query aan/
-            enteringTrams = database.GetAllTramsWithLocation(TramLocation.Entering);
+            enteringTrams = database.GetAllTramsWithlocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
                 if (tram.DepartureTime == null)
@@ -42,7 +42,7 @@ namespace Beheersysteem
         public void WipeDepartureTimes()
         {
             //TODO: Voeg toe aan master
-            database.WipeTramDepartureTime();
+            //database.WipeTramDepartureTime();
         }
 
         public DateTime? GetExitTime(Tram tram)
