@@ -11,7 +11,7 @@ namespace LoginSystem
     {
         private readonly IDatabaseConnector _databaseConnector = new MySqlContext();
         //Dit moet later MssqlDatabaseContext worden.
-        private readonly string _dataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OdoriRails\";
+        private readonly string _dataLocation = @"D:\"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OdoriRails\";
 
         public void Login(string username, string password)
         {
