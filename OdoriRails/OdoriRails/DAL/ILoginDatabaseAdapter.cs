@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using OdoriRails.BaseClasses;
-
-namespace OdoriRails.DAL
+﻿namespace OdoriRails.DAL
 {
-    public interface IDatabaseConnector
+    public interface ILoginDatabaseAdapter
     {
         /// <summary>
         /// Kijkt of de username bestaat in de database.
