@@ -163,7 +163,15 @@ namespace OdoriRails.DAL
             var model = (Model)array[4];
             var remise = (int)array[5];
             var location = (TramLocation)array[6];
-            var depart = (DateTime)array[7];
+            DateTime? depart;
+            if (array[7] == null)
+            {
+                depart = null;
+            }
+            else
+            {
+                depart = (DateTime)array[7];
+            }
             return new Tram(id, status, line, driver, model, location, depart);
         }
         #endregion
