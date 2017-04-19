@@ -63,7 +63,7 @@ namespace SchoonmaakReparatieSysteem
         private void MainService_Load(object sender, EventArgs e)
         {
 
-            dbconnector.GetAllServicesFromUser(ActiveUser);
+            //dbconnector.GetAllServicesFromUser(ActiveUser);
 
             if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == Role.HeadCleaner)
             {

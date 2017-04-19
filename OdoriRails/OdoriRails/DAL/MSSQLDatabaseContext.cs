@@ -213,7 +213,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -315,10 +315,11 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            SqlCommand serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}");
             var serviceData = GetData(serviceQuery);
             var service = serviceData.Rows[0].ItemArray;
             // ReSharper disable once PossibleInvalidCastException
+            
             return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
         }
 

@@ -32,8 +32,7 @@ namespace SchoonmaakReparatieSysteem
         {
             
             dbconnector.EditService(service);
-
-               
+   
         }
 
         private void EditService_Load(object sender, EventArgs e)
