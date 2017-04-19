@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using MySql.Data.MySqlClient;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
 {
     /// <summary>
-    /// Tijdelijke databaseadapter.
+    /// Database Adapter voor de mssql datatabase.
     /// </summary>
-    public class MySqlContext : IDatabaseConnector
+    public class MssqlDatabaseContext : IDatabaseConnector
     {
-        //private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
-        private readonly string _connectionString = @"Server=192.168.20.167;Database=OdoriRails;Uid=OdoriRails;Pwd=OdoriRails123;";
+        //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        private readonly string _connectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
+        //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private int _remiseNumber = 0;
 
         #region user
         public User AddUser(User user)
         {
-            var query = new MySqlCommand("INSERT INTO User (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT SCOPE_IDENTITY();");
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
@@ -31,7 +31,7 @@ namespace OdoriRails.DAL
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (ulong)data.Rows[0][0];
+            var id = data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;
@@ -39,7 +39,7 @@ namespace OdoriRails.DAL
 
         public List<User> GetAllUsers()
         {
-            var query = new MySqlCommand("SELECT * FROM User");
+            var query = new SqlCommand("SELECT * FROM [User]");
             var data = GetData(query);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -47,36 +47,34 @@ namespace OdoriRails.DAL
         public void RemoveUser(User user)
         {
             if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
-            var query = new MySqlCommand("DELETE FROM User WHERE UserPk = " + GetUserId(user.Username));
-            GetData(query);
-        }
-
-        public void UpdateUser(User user)
-        {
-            var query = new MySqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
-            query.Parameters.AddWithValue("@username", user.Username);
-            query.Parameters.AddWithValue("@name", user.Name);
-            query.Parameters.AddWithValue("@password", user.Password);
-            query.Parameters.AddWithValue("@email", user.Email);
-            query.Parameters.AddWithValue("@role", (int)user.Role);
-
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", DBNull.Value);
-            else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
-
-            query.Parameters.AddWithValue("@id", user.Id);
+            var query = new SqlCommand("DELETE FROM [User] WHERE UserPk = " + GetUserId(user.Username));
             GetData(query);
         }
 
         public User GetUser(int id)
         {
-            var command = new MySqlCommand($"SELECT * FROM User WHERE UserPk = {id}");
+            var command = new SqlCommand($"SELECT * FROM [User] WHERE UserPk = {id}");
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
         }
 
+        public void UpdateUser(User user)
+        {
+            var query = new SqlCommand("UPDATE [User] SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            query.Parameters.AddWithValue("@username", user.Username);
+            query.Parameters.AddWithValue("@name", user.Name);
+            query.Parameters.AddWithValue("@password", user.Password);
+            query.Parameters.AddWithValue("@email", user.Email);
+            query.Parameters.AddWithValue("@role", (int)user.Role);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", DBNull.Value);
+            else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
+            query.Parameters.AddWithValue("@id", user.Id);
+            GetData(query);
+        }
+
         public User GetUser(string userName)
         {
-            var command = new MySqlCommand("SELECT * FROM User WHERE UserPk = @id");
+            var command = new SqlCommand("SELECT * FROM [User] WHERE UserPk = @id");
             command.Parameters.AddWithValue("@id", GetUserId(userName));
             var table = GetData(command);
             return CreateUser(table.Rows[0]);
@@ -84,7 +82,7 @@ namespace OdoriRails.DAL
 
         public List<User> GetAllUsersWithRole(Role role)
         {
-            var command = new MySqlCommand($"SELECT * FROM User WHERE Role = {(int)role}");
+            var command = new SqlCommand($"SELECT * FROM [User] WHERE Role = {(int)role}");
             var data = GetData(command);
             return GenerateListWithFunction(data, CreateUser);
         }
@@ -92,7 +90,7 @@ namespace OdoriRails.DAL
         private User CreateUser(DataRow row)
         {
             var array = row.ItemArray;
-            //PK, Name, Usename, Password, Email, Role, ManagedBy, 
+            //name gebr wachtw email rol 
             string parentUserString = array[6] == DBNull.Value ? "" : GetUser((int)array[6]).Username;
             return new User((int)array[0], (string)array[1], (string)array[2], (string)array[4], (string)array[3], (Role)(int)array[5], parentUserString);
         }
@@ -101,7 +99,7 @@ namespace OdoriRails.DAL
         #region tram
         public void AddTram(Tram tram)
         {
-            var query = new MySqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@departure)");
+            var query = new SqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@departure)");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
@@ -116,40 +114,40 @@ namespace OdoriRails.DAL
 
         public void RemoveTram(Tram tram)
         {
-            var query = new MySqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}");
+            var query = new SqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}");
             GetData(query);
         }
 
         public Tram GetTram(int id)
         {
-            var command = new MySqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}");
+            var command = new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}");
             var table = GetData(command);
             return CreateTram(table.Rows[0]);
         }
 
         public List<Tram> GetAllTrams()
         {
-            return GenerateListWithFunction(GetData(new MySqlCommand("SELECT * FROM Tram")), CreateTram);
+            return GenerateListWithFunction(GetData(new SqlCommand("SELECT * FROM Tram")), CreateTram);
         }
 
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
         {
-            return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
+            return GenerateListWithFunction(GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
         }
 
         public List<Tram> GetAllTramsWithlocation(TramLocation location)
         {
-            return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
+            return GenerateListWithFunction(GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
         }
 
         public Tram GetTramByDriver(User driver)
         {
-            return CreateTram(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
+            return CreateTram(GetData(new SqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
         }
 
         public List<Tram> GetAllTramsOnATrack()
         {
-            var command = new MySqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
+            var command = new SqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
             var data = GetData(command);
             return GenerateListWithFunction(data, CreateTram);
         }
@@ -162,11 +160,11 @@ namespace OdoriRails.DAL
             var line = (int)array[1];
             var status = (TramStatus)array[2];
             var driver = GetUser((int)array[3]);
-            var model = (Model) array[4];
-            var remise = (int) array[5];
-            var location = (TramLocation) array[6];
+            var model = (Model)array[4];
+            var remise = (int)array[5];
+            var location = (TramLocation)array[6];
             DateTime? depart = null;
-            if (array[7] != DBNull.Value) depart = (DateTime)array[7];
+            if (array[7] == DBNull.Value) depart = (DateTime)array[7];
             return new Tram(id, status, line, driver, model, location, depart);
         }
         #endregion
@@ -175,8 +173,8 @@ namespace OdoriRails.DAL
         public List<Track> GetTracksAndSectors()
         {
             var returnList = new List<Track>();
-            var trackQuery = new MySqlCommand($"SELECT * FROM Track WHERE RemiseFk = {_remiseNumber}");
-            var sectorQuery = new MySqlCommand($"SELECT * FROM Sector WHERE RemiseFk = {_remiseNumber}");
+            var trackQuery = new SqlCommand($"SELECT * FROM Track WHERE RemiseFk = {_remiseNumber}");
+            var sectorQuery = new SqlCommand($"SELECT * FROM Sector WHERE RemiseFk = {_remiseNumber}");
             var trackData = GetData(trackQuery);
             var sectorData = GetData(sectorQuery);
 
@@ -216,8 +214,8 @@ FROM Repair INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             string cleans = @"SELECT Clean.*
 FROM Clean INNER JOIN
@@ -225,14 +223,14 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
-            var repairQuery = new MySqlCommand(repairs);
+            var repairQuery = new SqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
             var repairData = GetData(repairQuery);
 
-            var cleanQuery = new MySqlCommand(cleans);
+            var cleanQuery = new SqlCommand(cleans);
             cleanQuery.Parameters.AddWithValue("@id", user.Id);
             var cleanData = GetData(cleanQuery);
 
@@ -244,37 +242,13 @@ WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.S
             return returnList;
         }
 
-        public List<Repair> GetAllRepairsWithoutUsers()
-        {
-            var repairQuery = new MySqlCommand(@"SELECT Repair.*
-FROM Repair INNER JOIN
-(SELECT Service.ServicePk
-FROM ServiceUser RIGHT OUTER JOIN
-Service ON ServiceUser.ServiceCk = Service.ServicePk
-WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
-            var repairData = GetData(repairQuery);
-            return GenerateListWithFunction(repairData, CreateRepair);
-
-        }
-
-        public List<Cleaning> GetAllCleansWithoutUsers()
-        {
-            var cleanQuery = new MySqlCommand(@"SELECT Clean.*
-FROM Clean INNER JOIN
-(SELECT Service.ServicePk
-FROM ServiceUser RIGHT OUTER JOIN
-Service ON ServiceUser.ServiceCk = Service.ServicePk
-WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
-            var cleanData = GetData(cleanQuery);
-            return GenerateListWithFunction(cleanData, CreateCleaning);
-        }
-
         public Cleaning AddCleaning(Cleaning cleaning)
         {
-            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.StartDate == DateTime.MinValue)serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (cleaning.StartDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
@@ -291,7 +265,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public Repair AddRepair(Repair repair)
         {
-            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
             serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
             serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
@@ -309,6 +283,58 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return repair;
         }
 
+        public List<Repair> GetAllRepairsWithoutUsers()
+        {
+            var repairQuery = new SqlCommand(@"SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+            var repairData = GetData(repairQuery);
+            return GenerateListWithFunction(repairData, CreateRepair);
+
+        }
+
+        public List<Cleaning> GetAllCleansWithoutUsers()
+        {
+            var cleanQuery = new SqlCommand(@"SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
+            var cleanData = GetData(cleanQuery);
+            return GenerateListWithFunction(cleanData, CreateCleaning);
+        }
+
+
+        private Cleaning CreateCleaning(DataRow row)
+        {
+            var array = row.ItemArray;
+            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
+        }
+
+        private Repair CreateRepair(DataRow row)
+        {
+            var array = row.ItemArray;
+            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            // ReSharper disable once PossibleInvalidCastException
+            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
+        }
+
+        private List<User> GetUsersInService(int serviceId)
+        {
+            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var data = GetData(query);
+            return GenerateListWithFunction(data, CreateUser);
+        }
+
         public void EditService(Service service)
         {
             switch (service.GetType().Name)
@@ -316,7 +342,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                 case "Repair":
                     {
                         var repair = (Repair)service;
-                        var repairQuery = new MySqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                        var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
                         repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
                         repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
                         repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
@@ -327,13 +353,13 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                 case "Cleaning":
                     {
                         var cleaning = (Cleaning)service;
-                        var cleaningQuery = new MySqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
+                        var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
                         cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
                         cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
                         break;
                     }
             }
-            var query = new MySqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
+            var query = new SqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
             query.Parameters.AddWithValue("@startdate", service.StartDate);
             query.Parameters.AddWithValue("@enddate", service.EndDate);
             query.Parameters.AddWithValue("@tramfk", service.TramId);
@@ -342,36 +368,9 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public void DeleteService(Service service)
         {
-            var query = new MySqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
             query.Parameters.AddWithValue("@id", service.Id);
             GetData(query);
-        }
-
-
-        private Cleaning CreateCleaning(DataRow row)
-        {
-            var array = row.ItemArray;
-            var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
-            var serviceData = GetData(serviceQuery);
-            var service = serviceData.Rows[0].ItemArray;
-            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
-        }
-
-        private Repair CreateRepair(DataRow row)
-        {
-            var array = row.ItemArray;
-            var serviceQuery = new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
-            var serviceData = GetData(serviceQuery);
-            var service = serviceData.Rows[0].ItemArray;
-            // ReSharper disable once PossibleInvalidCastException
-            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
-        }
-
-        private List<User> GetUsersInService(int serviceId)
-        {
-            var query = new MySqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
-            var data = GetData(query);
-            return GenerateListWithFunction(data, CreateUser);
         }
 
         #endregion
@@ -380,7 +379,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public bool ValidateUsername(string username)
         {
-            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @usrname");
+            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
             var data = GetData(query);
             return data.Rows.Count != 0;
@@ -388,7 +387,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public bool MatchUsernameAndPassword(string username, string password)
         {
-            var query = new MySqlCommand("SELECT Password FROM User WHERE Username = @usrname");
+            var query = new SqlCommand("SELECT Password FROM [User] WHERE Username = @usrname");
             query.Parameters.AddWithValue("@usrname", username);
 
             var data = GetData(query);
@@ -408,22 +407,23 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Een Datatable van alle rows.</returns>
-        private DataTable GetData(MySqlCommand command)
+        private DataTable GetData(SqlCommand command)
         {
             try
             {
                 var dataTable = new DataTable();
-                using (var conn = new MySqlConnection(_connectionString))
+                using (var conn = new SqlConnection(_connectionString))
                 {
                     command.Connection = conn;
-                    var adapter = new MySqlDataAdapter(command);
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
                     adapter.Fill(dataTable);
                     return dataTable;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText + "\r\n\r\n" + ex);
+                throw;
+                //throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
             }
         }
 
@@ -434,7 +434,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         /// <returns></returns>
         public int GetUserId(string username)
         {
-            var query = new MySqlCommand("SELECT UserPk FROM User WHERE Username = @username");
+            var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @username");
             query.Parameters.AddWithValue("@username", username);
             var table = GetData(query);
             return (int)table.Rows[0].ItemArray[0];
