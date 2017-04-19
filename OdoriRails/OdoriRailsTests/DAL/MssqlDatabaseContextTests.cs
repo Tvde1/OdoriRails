@@ -13,28 +13,33 @@ namespace OdoriRails.DAL.Tests
     public class MssqlDatabaseContextTests
     {
         MssqlDatabaseContext ms = new MssqlDatabaseContext();
+
         #region User
         [TestMethod()]
         public void AddUserTest()
         {
             User us = new User(1, "Roel", "roelvdboom", "roelvdboom@gmail.com", "roel1234", Role.Administrator, "");
-            ms.AddUser(us);
+            us = ms.AddUser(us);
 
-            if (ms.GetAllUsers().Contains(us))
+            bool working = false;
+            foreach (User user in ms.GetAllUsers())
             {
-                Assert.AreEqual(true, true);
+                if (user.Username == us.Username)
+                {
+                    working = true;
+                    ms.RemoveUser(user);
+                }
             }
-            else
-            {
-                Assert.Fail();
-            }
+            Assert.IsTrue(working);
+
+            
 
         }
 
         [TestMethod()]
         public void GetAllUsersTest()
         {
-            Assert.Fail();
+            ms.GetAllUsers();
         }
 
         [TestMethod()]
@@ -43,22 +48,17 @@ namespace OdoriRails.DAL.Tests
             User us = new User(1, "Roel", "roelvdboom", "roelvdboom@gmail.com", "roel1234", Role.Administrator, "");
             ms.AddUser(us);
 
-            if (ms.GetAllUsers().Contains(us))
+            bool working = false;
+
+            foreach (User user in ms.GetAllUsers())
             {
-                ms.RemoveUser(us);
-                if (!ms.GetAllUsers().Contains(us))
+                if (user.Username == us.Username)
                 {
-                    Assert.AreEqual(true, true);
-                }
-                else
-                {
-                    Assert.Fail();
+                    working = true;
+                    ms.RemoveUser(user);
                 }
             }
-            else
-            {
-                Assert.Fail();
-            }
+            Assert.IsTrue(working);
         }
 
         [TestMethod()]
@@ -72,25 +72,29 @@ namespace OdoriRails.DAL.Tests
         {
             User us = ms.GetUser(1);
             User us2 = new User(us.Id, us.Name, us.Username, us.Email, us.Password, Role.Logistic, us.ManagerUsername);
-            ms.UpdateUser(us);
+            ms.UpdateUser(us2);
 
-            Assert.AreEqual(us2, ms.GetUser(1));
+            bool working = false;
 
-            User us3 = ms.GetUser(1);
-            User us4 = new User(us3.Id, us3.Name, us3.Username, us3.Email, us3.Password, Role.Administrator, us3.ManagerUsername);
-            ms.UpdateUser(us3);
-        }
+            foreach (User user in ms.GetAllUsers())
+            {
+                if (user.Username == us2.Username && user.Role == Role.Logistic)
+                {
+                    working = true;
 
-        [TestMethod()]
-        public void GetUserTest1()
-        {
-            Assert.Fail();
+                    User us3 = ms.GetUser(1);
+                    User us4 = new User(us3.Id, us3.Name, us3.Username, us3.Email, us3.Password, Role.Administrator, us3.ManagerUsername);
+                    ms.UpdateUser(us3);
+                }
+            }
+
+            Assert.IsTrue(working);
         }
 
         [TestMethod()]
         public void GetAllUsersWithRoleTest()
         {
-            Assert.Fail();
+            ms.GetAllUsersWithRole(Role.Administrator);
         }
 
         [TestMethod()]
