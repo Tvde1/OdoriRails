@@ -195,8 +195,8 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+[User] ON ServiceUser.UserCk = [User].UserP
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -269,6 +269,59 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
             repair.SetId((int)data.Rows[0].ItemArray[0]);
             return repair;
+        }
+
+        public List<Repair> GetAllRepairsWithoutUsers()
+        {
+            var repairQuery = new SqlCommand(@"SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk");
+            var repairData = GetData(repairQuery);
+            return GenerateListWithFunction(repairData, CreateRepair);
+
+        }
+
+        public List<Cleaning> GetAllCleansWithoutUsers()
+        {
+            var cleanQuery = new SqlCommand(@"SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM ServiceUser RIGHT OUTER JOIN
+Service ON ServiceUser.ServiceCk = Service.ServicePk
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk");
+            var cleanData = GetData(cleanQuery);
+            return GenerateListWithFunction(cleanData, CreateCleaning);
+        }
+
+
+        private Cleaning CreateCleaning(DataRow row)
+        {
+            var array = row.ItemArray;
+            var serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            return new Cleaning((int)service[0], (DateTime)service[1], (DateTime)service[2], (CleaningSize)array[1], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
+        }
+
+        private Repair CreateRepair(DataRow row)
+        {
+            var array = row.ItemArray;
+            SqlCommand serviceQuery = new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}");
+            var serviceData = GetData(serviceQuery);
+            var service = serviceData.Rows[0].ItemArray;
+            // ReSharper disable once PossibleInvalidCastException
+            
+            return new Repair((int)service[0], (DateTime)service[1], (DateTime)service[2], (RepairType)array[3], (string)array[3], (string)array[2], GetUsersInService((int)service[0]), (int)service[3]);
+        }
+
+        private List<User> GetUsersInService(int serviceId)
+        {
+            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var data = GetData(query);
+            return GenerateListWithFunction(data, CreateUser);
         }
 
         public void EditService(Service service)
