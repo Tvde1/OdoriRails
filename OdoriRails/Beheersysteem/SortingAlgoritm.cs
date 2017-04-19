@@ -27,6 +27,7 @@ namespace Beheersysteem
                         {
                             if (sector.Status == SectorStatus.Open)
                             {
+
                                 return sector;
                             }
                         }
@@ -46,7 +47,7 @@ namespace Beheersysteem
                     }
                 }
 
-                Sector tempSector = GetPotentialSector(potentialTracks);
+                Sector tempSector = GetPotentialSector(potentialTracks, tram);
                 if (tempSector != null)
                 {
                     return tempSector;
@@ -63,7 +64,7 @@ namespace Beheersysteem
                     }
                 }
 
-                tempSector = GetPotentialSector(potentialTracks);
+                tempSector = GetPotentialSector(potentialTracks, tram);
                 if (tempSector != null)
                 {
                     return tempSector;
@@ -78,7 +79,7 @@ namespace Beheersysteem
                     }
                 }
 
-                tempSector = GetPotentialSector(potentialTracks);
+                tempSector = GetPotentialSector(potentialTracks, tram);
                 if (tempSector != null)
                 {
                     return tempSector;
@@ -122,7 +123,7 @@ namespace Beheersysteem
             return null;
         }
 
-        private Sector GetPotentialSector(List<Track> potentialTracks)
+        private Sector GetPotentialSector(List<Track> potentialTracks, Tram tram)
         {
             foreach (Track track in potentialTracks)
             {

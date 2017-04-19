@@ -47,7 +47,7 @@ namespace Beheersysteem
 
         private void btnSimulation_Click(object sender, EventArgs e)
         {
-
+            logic.Simulation();
         }
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
@@ -60,6 +60,11 @@ namespace Beheersysteem
             {
                 btnChangeDisplayView.Text = "Display table";
             }
+        }
+
+        private void BeheerPanel_Paint(object sender, PaintEventArgs e)
+        {
+            //e.Graphics.dr
         }
     }
 }

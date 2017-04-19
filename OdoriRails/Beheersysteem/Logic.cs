@@ -13,13 +13,30 @@ namespace Beheersysteem
         MssqlDatabaseContext database;
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
-
+        List<Tram> allTrams;
+        List<Tram> enteringTrams;
+ 
         public void GetSchema()
         {
             csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
             sorter = new SortingAlgoritm(database.GetTracksAndSectors());
+            allTrams = database.GetAllTrams();
+            RefreshEnteringTrams();
+        }
+
+        public void RefreshEnteringTrams()
+        {
+            enteringTrams = database.GetEnteringTrams();
+            foreach (Tram tram in enteringTrams)
+            {
+                if (tram.DepartureTime == null)
+                {
+                    GetExitTime(tram);
+                }
+                SortTram(tram);
+            }
         }
 
         public DateTime? GetExitTime(Tram tram)
@@ -46,7 +63,7 @@ namespace Beheersysteem
             }
         }
 
-        public void Simulation(List<Tram> allTrams)
+        public void Simulation()
         {
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));

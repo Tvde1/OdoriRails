@@ -44,10 +44,12 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
+            this.BeheerPanel = new System.Windows.Forms.Panel();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
+            this.gbDisplay.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbControl
@@ -212,6 +214,7 @@
             // 
             // gbDisplay
             // 
+            this.gbDisplay.Controls.Add(this.BeheerPanel);
             this.gbDisplay.Location = new System.Drawing.Point(313, 20);
             this.gbDisplay.Margin = new System.Windows.Forms.Padding(5);
             this.gbDisplay.Name = "gbDisplay";
@@ -220,6 +223,14 @@
             this.gbDisplay.TabIndex = 1;
             this.gbDisplay.TabStop = false;
             this.gbDisplay.Text = "Display";
+            // 
+            // BeheerPanel
+            // 
+            this.BeheerPanel.Location = new System.Drawing.Point(9, 28);
+            this.BeheerPanel.Name = "BeheerPanel";
+            this.BeheerPanel.Size = new System.Drawing.Size(756, 538);
+            this.BeheerPanel.TabIndex = 0;
+            this.BeheerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.BeheerPanel_Paint);
             // 
             // UserInterface
             // 
@@ -238,6 +249,7 @@
             this.gbTram.PerformLayout();
             this.gbSector.ResumeLayout(false);
             this.gbSector.PerformLayout();
+            this.gbDisplay.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -260,6 +272,7 @@
         private System.Windows.Forms.Label lbSelectedSector;
         private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Button btnChangeDisplayView;
+        private System.Windows.Forms.Panel BeheerPanel;
     }
 }
 
