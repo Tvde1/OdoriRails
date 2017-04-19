@@ -55,7 +55,7 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        int GetUserId(string username);
+        int GetUser(string username);
 
         /// <summary>
         /// Haalt alle users op die deze rol hebben.
