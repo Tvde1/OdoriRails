@@ -51,11 +51,10 @@ namespace OdoriRails.DAL
         void DeleteService(Service service);
 
         /// <summary>
-        /// Get de user ID via de username.
+        /// Haal een User op aan de hand van de username.
         /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        int GetUser(string username);
+        /// <param name="userName"></param>
+        User GetUser(string userName);
 
         /// <summary>
         /// Haalt alle users op die deze rol hebben.
