@@ -44,8 +44,7 @@ namespace OdoriRails.DAL
 
         public void RemoveUser(User user)
         {
-            if (string.IsNullOrEmpty(user.Username)) throw new Exception("The User to delete does not have a username.");
-            GetData(new MySqlCommand("DELETE FROM User WHERE UserPk = " + GetUserId(user.Username)));
+            GetData(new MySqlCommand("DELETE FROM User WHERE UserPk = " + user.Id));
         }
 
         public User GetUser(int id)
@@ -407,7 +406,7 @@ WHERE (Service.ServicePk = @id)");
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Een Datatable van alle rows.</returns>
-        private DataTable GetData(MySqlCommand command)
+        private static DataTable GetData(MySqlCommand command)
         {
             var dataTable = new DataTable();
             using (var conn = new MySqlConnection(ConnectionString))
@@ -419,7 +418,7 @@ WHERE (Service.ServicePk = @id)");
             }
         }
 
-        private List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
+        private static List<T> GenerateListWithFunction<T>(DataTable data, Func<DataRow, T> func)
         {
             var returnList = new List<T>();
             foreach (DataRow row in data.Rows)
