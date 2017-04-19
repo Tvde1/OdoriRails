@@ -47,12 +47,13 @@ namespace In_Uitrit_Systeem
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
+            //Tram.EditTramStatus
             lblStandplaats.Text = Tram.Line.ToString();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbCleaning.Checked)
+            if (cbCleaning.Checked || cbMaintenance.Checked)
             {
                 rtbDetails.Enabled = true;
             }

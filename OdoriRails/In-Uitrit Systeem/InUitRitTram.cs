@@ -16,10 +16,15 @@ namespace In_Uitrit_Systeem
             Logic = logic;
         }
 
-        public void EditTramStatus(TramStatus tramstatus)
+        public void EditTramStatus(TramStatus tramStatus)
         {
-            Status = tramstatus;
+            Status = tramStatus;
         }
+
+        //public void EditTramLocation(TramLocation tramLocation)
+        //{
+        //    TramLocation = tramLocation;
+        //}
 
         public void AddRepair(string defect)
         {
