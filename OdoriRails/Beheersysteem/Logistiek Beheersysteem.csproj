@@ -52,6 +52,7 @@
     <Compile Include="ObjectClasses\BeheerSector.cs" />
     <Compile Include="ObjectClasses\BeheerTrack.cs" />
     <Compile Include="InUitRijSchema.cs" />
+    <Compile Include="ObjectClasses\BeheerTram.cs" />
     <Compile Include="SortingAlgoritm.cs" />
     <Compile Include="User Interface.cs">
       <SubType>Form</SubType>

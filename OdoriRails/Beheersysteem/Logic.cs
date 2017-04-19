@@ -15,7 +15,9 @@ namespace Beheersysteem
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
         List<Tram> enteringTrams;
- 
+        List<BeheerTram> allBeheerTrams;
+
+
         public void GetSchema()
         {
             csv = new CSVContext();
@@ -23,6 +25,11 @@ namespace Beheersysteem
             database = new MssqlDatabaseContext();
             sorter = new SortingAlgoritm(database.GetTracksAndSectors());
             allTrams = database.GetAllTrams();
+            allBeheerTrams = new List<BeheerTram>();
+            foreach (var Tram in allTrams)
+            {
+                allBeheerTrams.Add(Tram as BeheerTram);
+            }
         }
 
         public void SortAllEnteringTrams()
@@ -79,12 +86,13 @@ namespace Beheersysteem
             {
                 if (entry.TramNumber == null)
                 {
-                    foreach (Tram tram in allTrams)
+                    foreach (BeheerTram tram in allBeheerTrams)
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
                             entry.TramNumber = tram.Number;
-                            tram.DepartureTime = entry.ExitTime;
+
+                            tram.EditTram = entry.ExitTime;
                             continue;
                         }
                     }
