@@ -35,7 +35,7 @@ namespace User_Beheersysteem
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
-            if (listViewUsers.SelectedItems != null)
+            try
             {
                 tabUsers.SelectTab(1);
                 status = UserStatus.Edit.ToString();
@@ -47,8 +47,9 @@ namespace User_Beheersysteem
                 cbRole.SelectedItem = logic.UsersSearch[index].Role.ToString();
                 cbManaged.SelectedItem = logic.UsersSearch[index].ManagerUsername;
             }
-            else
+            catch
             {
+                tabUsers.SelectTab(0);
                 MessageBox.Show("Geen User Geselecteerd");
             }
             Search();
@@ -117,9 +118,12 @@ namespace User_Beheersysteem
             CuserName.Text = "Username";
             ColumnHeader Crole = new ColumnHeader();
             Crole.Text = "Role";
+            ColumnHeader Cmanager = new ColumnHeader();
+            Cmanager.Text = "Manager";
             listViewUsers.Columns.Add(Cname);
             listViewUsers.Columns.Add(CuserName);
             listViewUsers.Columns.Add(Crole);
+            listViewUsers.Columns.Add(Cmanager);
             listViewUsers.View = View.Details;
         }
 
@@ -130,7 +134,7 @@ namespace User_Beheersysteem
             cbManaged.Items.Clear();
             foreach (BeheerUser User in logic.UsersSearch)
             {
-                ListViewItem item = new ListViewItem(new string[3] { User.Name, User.Username, User.Role.ToString() });
+                ListViewItem item = new ListViewItem(new string[4] { User.Name, User.Username, User.Role.ToString(), User.ManagerUsername });
                 listViewUsers.Items.Add(item);
             }
             foreach (BeheerUser User in logic.UsersAll)
