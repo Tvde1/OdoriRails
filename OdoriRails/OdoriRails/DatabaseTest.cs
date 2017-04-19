@@ -14,7 +14,7 @@ namespace OdoriRails
 
         private static string GetAdminName()
         {
-            IDatabaseConnector databaseConnector = new MySqlContext();
+            IBeheerDatabaseAdapter databaseConnector = new MssqlDatabaseContext();
             //var admin = databaseConnector.GetUser("admin");
 
             //User user = new User(4, "Mark Rutte", "markiee1", "mark@hotmail.com", "ikwordgeilvanwilders", Role.Logistic, "admin");
@@ -23,7 +23,7 @@ namespace OdoriRails
             // ReSharper disable once UnusedVariable
             var users = databaseConnector.GetAllUsers();
             // ReSharper disable once UnusedVariable
-            var schoonmakersTest = users.Where(x => x.Role == Role.Cleaner).ToList();
+            //var schoonmakersTest = users.Where(x => x.Role == Role.Cleaner).ToList();
 
             return null;
         }
