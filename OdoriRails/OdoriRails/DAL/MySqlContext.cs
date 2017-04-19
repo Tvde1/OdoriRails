@@ -131,6 +131,21 @@ namespace OdoriRails.DAL
             return CreateTram(table.Rows[0]);
         }
 
+        public List<Tram> GetAllTrams()
+        {
+            return GenerateListWithFunction(GetData(new MySqlCommand("SELECT * FROM Tram")), CreateTram);
+        }
+
+        public List<Tram> GetAllTramsWithStatus(TramStatus status)
+        {
+            return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
+        }
+
+        public Tram GetTramByDriver(User driver)
+        {
+            return CreateTram(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
+        }
+
         public List<Tram> GetAllTramsOnATrack()
         {
             var command = new MySqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
@@ -169,7 +184,7 @@ namespace OdoriRails.DAL
         {
             var array = row.ItemArray;
             Tram tram = null;
-            if (array[3] != null) tram = GetTram((int)array[3]);
+            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = GetTram((int)array[3]);
 
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }
