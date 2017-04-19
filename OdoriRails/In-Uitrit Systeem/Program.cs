@@ -17,9 +17,10 @@ namespace In_Uitrit_Systeem
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(User user)
+        static void Main(string[] args)
         {
-            if (user == null) user = _databaseConnector.GetUser("admin");
+            if (args.Length < 1) { MessageBox.Show(@"Are you sure you logged in?"); return; }
+            User user = _databaseConnector.GetUser(args[0]);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormUserInterface(user));
