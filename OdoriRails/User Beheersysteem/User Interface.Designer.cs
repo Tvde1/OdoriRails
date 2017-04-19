@@ -43,6 +43,7 @@
             this.lbManaged = new System.Windows.Forms.Label();
             this.tabUsers = new System.Windows.Forms.TabControl();
             this.tabUserList = new System.Windows.Forms.TabPage();
+            this.listViewUsers = new System.Windows.Forms.ListView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.cbSearchRole = new System.Windows.Forms.ComboBox();
             this.btnDeleteUser = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.listViewUsers = new System.Windows.Forms.ListView();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -92,7 +92,7 @@
             this.tbUserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(535, 26);
-            this.tbUserName.TabIndex = 2;
+            this.tbUserName.TabIndex = 1;
             // 
             // tbEmail
             // 
@@ -100,7 +100,7 @@
             this.tbEmail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(535, 26);
-            this.tbEmail.TabIndex = 1;
+            this.tbEmail.TabIndex = 2;
             // 
             // tbName
             // 
@@ -134,7 +134,7 @@
             this.cbRole.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(535, 28);
-            this.cbRole.TabIndex = 7;
+            this.cbRole.TabIndex = 4;
             // 
             // lbPassword
             // 
@@ -152,7 +152,7 @@
             this.tbPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(535, 26);
-            this.tbPassword.TabIndex = 9;
+            this.tbPassword.TabIndex = 3;
             // 
             // cbManaged
             // 
@@ -161,7 +161,7 @@
             this.cbManaged.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbManaged.Name = "cbManaged";
             this.cbManaged.Size = new System.Drawing.Size(535, 28);
-            this.cbManaged.TabIndex = 10;
+            this.cbManaged.TabIndex = 5;
             // 
             // lbManaged
             // 
@@ -198,6 +198,16 @@
             this.tabUserList.TabIndex = 0;
             this.tabUserList.Text = "User List";
             this.tabUserList.UseVisualStyleBackColor = true;
+            // 
+            // listViewUsers
+            // 
+            this.listViewUsers.FullRowSelect = true;
+            this.listViewUsers.Location = new System.Drawing.Point(7, 44);
+            this.listViewUsers.MultiSelect = false;
+            this.listViewUsers.Name = "listViewUsers";
+            this.listViewUsers.Size = new System.Drawing.Size(680, 426);
+            this.listViewUsers.TabIndex = 6;
+            this.listViewUsers.UseCompatibleStateImageBehavior = false;
             // 
             // btnSearch
             // 
@@ -284,20 +294,10 @@
             this.btnSubmit.Location = new System.Drawing.Point(21, 318);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(636, 54);
-            this.btnSubmit.TabIndex = 12;
+            this.btnSubmit.TabIndex = 6;
             this.btnSubmit.Text = "Submit User";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
-            // listViewUsers
-            // 
-            this.listViewUsers.FullRowSelect = true;
-            this.listViewUsers.Location = new System.Drawing.Point(7, 44);
-            this.listViewUsers.MultiSelect = false;
-            this.listViewUsers.Name = "listViewUsers";
-            this.listViewUsers.Size = new System.Drawing.Size(680, 426);
-            this.listViewUsers.TabIndex = 6;
-            this.listViewUsers.UseCompatibleStateImageBehavior = false;
             // 
             // UserInterface
             // 
