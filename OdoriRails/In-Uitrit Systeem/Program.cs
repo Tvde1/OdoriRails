@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using In_Uitrit_Systeem;
-using OdoriRails;
+using OdoriRails.DAL;
 
 namespace In_Uitrit_Systeem
 {
     static class Program
     {
-        static readonly IDatabaseConnector _databaseConnector = new MySqlContext();
+        static readonly IDatabaseConnector _databaseConnector = new MssqlDatabaseContext();
 
         /// <summary>
         /// The main entry point for the application.
