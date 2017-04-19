@@ -11,13 +11,11 @@ namespace In_Uitrit_Systeem
     public class Logic
     {
         public InUitRitTram Tram { get; private set; }
-
-        private IDatabaseConnector _databaseConnector;
+        private IDatabaseConnector _databaseConnector = new MssqlDatabaseContext();
 
         public Logic(User driver)
         {
-            _databaseConnector = new MssqlDatabaseContext();
-            Tram = (InUitRitTram)_databaseConnector.GetTramByDriver(driver);
+            Tram = _databaseConnector.GetTramByDriver(driver) as InUitRitTram;
         }
 
         public void AddRepair(string defect)

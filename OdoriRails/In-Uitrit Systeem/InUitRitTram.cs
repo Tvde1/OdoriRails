@@ -10,8 +10,7 @@ namespace In_Uitrit_Systeem
     public class InUitRitTram : Tram
     {
         public InUitRitTram(int number, Model model) : base(number, model)
-        {
-        }
+        { }
 
         public void EditTramStatus(TramStatus tramStatus)
         {
