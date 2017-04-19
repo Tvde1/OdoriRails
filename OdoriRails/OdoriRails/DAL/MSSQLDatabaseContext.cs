@@ -164,7 +164,7 @@ namespace OdoriRails.DAL
             var remise = (int)array[5];
             var location = (TramLocation)array[6];
             DateTime? depart;
-            if (array[7] == null)
+            if (array[7] == DBNull.Value)
             {
                 depart = null;
             }
