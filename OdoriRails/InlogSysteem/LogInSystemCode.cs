@@ -53,7 +53,8 @@ namespace LoginSystem
             Assembly ass = Assembly.LoadFrom(Path.Combine(_dataLocation, assembly));
             MethodInfo target = ass.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            target.Invoke(null, new object[1] { user });
+            var args = new string[1] {user.Username};
+            target.Invoke(null, new object[1] {args});
         }
 
 

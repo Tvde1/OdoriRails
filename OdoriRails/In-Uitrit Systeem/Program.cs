@@ -11,7 +11,8 @@ namespace In_Uitrit_Systeem
 {
     static class Program
     {
-        static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
+        private static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
+        private static readonly bool _gebruikInlogSysteem = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -19,11 +20,34 @@ namespace In_Uitrit_Systeem
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length < 1) { MessageBox.Show(@"Zorg dat je inlogt via de inlogapllicatie."); return; }
-            User user = _databaseConnector.GetUser(args[0]);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormUserInterface(user));
+            User user = null;
+
+            if (_gebruikInlogSysteem)
+            {
+                if (args.Length < 1)
+                {
+                    MessageBox.Show(@"Zorg dat je inlogt via de inlogapllicatie.");
+                    return;
+                }
+                user = _databaseConnector.GetUser(args[0]);
+
+            }
+            else
+            {
+                //Haal hier de user op:
+                user = _databaseConnector.GetUser("admin");
+            }
+
+            //Dit moet in een try.
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+            }
+            finally
+            {
+                Application.Run(new FormUserInterface(user));
+            }
         }
     }
 }
