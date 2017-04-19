@@ -20,18 +20,18 @@ namespace OdoriRails.DAL
         #region user
         public User AddUser(User user)
         {
-            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT SCOPE_IDENTITY();");
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", null);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", DBNull.Value);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (ulong)data.Rows[0][0];
+            var id = (int)data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;
@@ -60,7 +60,7 @@ namespace OdoriRails.DAL
 
         public void UpdateUser(User user)
         {
-            var query = new SqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            var query = new SqlCommand("UPDATE [User] SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@password", user.Password);
@@ -399,9 +399,10 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                     return dataTable;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
+                throw;
+                //throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
             }
         }
 
