@@ -14,7 +14,7 @@ namespace OdoriRails
         [STAThread]
         static void Main()
         {
-            DatabaseTest.OnLoad();
+            //DatabaseTest.OnLoad();
         }
     }
 }

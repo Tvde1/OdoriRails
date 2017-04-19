@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using OdoriRails.BaseClasses;
 
-namespace OdoriRails
+namespace OdoriRails.DAL
 {
     public interface IDatabaseConnector
     {
@@ -99,10 +100,16 @@ namespace OdoriRails
         List<Service> GetAllServicesFromUser(User user);
 
         /// <summary>
-        /// Haalt een lijst op van services zonder users.
+        /// Haalt een lijst op van repairs zonder users.
         /// </summary>
         /// <returns></returns>
-        List<Service> GetAllServicesWithoutUsers();
+        List<Repair> GetAllRepairsWithoutUsers();
+
+        /// <summary>
+        /// Haalt een lijst op van cleanings zonder users.
+        /// </summary>
+        /// <returns></returns>
+        List<Cleaning> GetAllCleansWithoutUsers();
 
         /// <summary>
         /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
@@ -147,12 +154,5 @@ namespace OdoriRails
         /// <returns></returns>
         bool MatchUsernameAndPassword(string username, string password);
         #endregion
-
-        //Erbij
-        /*
-         * Wijzigen trams.
-         * 
-         * 
-         */
     }
 }

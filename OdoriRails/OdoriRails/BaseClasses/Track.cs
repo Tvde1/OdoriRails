@@ -1,20 +1,35 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
-namespace OdoriRails
+namespace OdoriRails.BaseClasses
 {
+    public enum TrackType
+    {
+        Normal,
+        Service,
+        Exit
+    }
+
     public class Track
     {
-        public List<Sector> Sectors { get; protected set; } = new List<Sector>();
+        public List<Sector> Sectors { get; } = new List<Sector>();
 
-        public int Number { get; protected set; }
+        public int Number { get; private set; }
+        public int? Line { get; private set; }
+
+        public TrackType Type { get; private set; }
 
         /// <summary>
-        /// Constructor, requires number.
+        /// Voledige constructor.
         /// </summary>
-        /// <param name="trackNumber"></param>
-        public Track(int trackNumber)
+        /// <param name="number"></param>
+        /// <param name="line"></param>
+        /// <param name="type"></param>
+        public Track(int number, int line, TrackType type)
         {
-            Number = trackNumber;
+            Number = number;
+            Line = line;
+            Type = type;
         }
 
         /// <summary>

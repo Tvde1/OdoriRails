@@ -1,8 +1,11 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
+using OdoriRails.BaseClasses;
+using OdoriRails.DAL;
 
 namespace OdoriRails
 {
-    class DatabaseTest
+    internal static class DatabaseTest
     {
         public static void OnLoad()
         {
@@ -11,22 +14,16 @@ namespace OdoriRails
 
         private static string GetAdminName()
         {
-            IDatabaseConnector databaseConnector = new MySqlContext();
+            IDatabaseConnector databaseConnector = new MssqlDatabaseContext();
             //var admin = databaseConnector.GetUser("admin");
 
             //User user = new User(4, "Mark Rutte", "markiee1", "mark@hotmail.com", "ikwordgeilvanwilders", Role.Logistic, "admin");
             //return databaseConnector.AddUser(user).ToString();
 
+            // ReSharper disable once UnusedVariable
             var users = databaseConnector.GetAllUsers();
-            var user = users[2];
-
-            MessageBox.Show(user.Email);
-
-            //user.Email = "new-email";
-            databaseConnector.UpdateUser(user);
-
-            var user2 = databaseConnector.GetUser(user.Id);
-            MessageBox.Show(user2.Email);
+            // ReSharper disable once UnusedVariable
+            //var schoonmakersTest = users.Where(x => x.Role == Role.Cleaner).ToList();
 
             return null;
         }

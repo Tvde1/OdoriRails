@@ -1,12 +1,21 @@
-﻿namespace OdoriRails
+﻿using System;
+
+namespace OdoriRails.BaseClasses
 {
     public enum TramStatus
     {
         Idle,
-        InUse,
         Cleaning,
-        Repair,
-        CleaningAndRepair
+        Maintenance,
+        CleaningMaintenance,
+        Defect
+    }
+
+    public enum TramLocation
+    {
+        Home,
+        Away,
+        Entering
     }
 
     public enum Model
@@ -40,6 +49,8 @@
         /// Ophalen model van de tram
         /// </summary>
         public Model Model { get; protected set; }
+
+        public DateTime DepartureTime { get; set; }
 
         /// <summary>
         /// Aanmaken nieuwe tram met bestuurder
