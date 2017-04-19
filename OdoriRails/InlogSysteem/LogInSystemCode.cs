@@ -45,7 +45,7 @@ namespace LoginSystem
                         break;
                     }
             }
-            type.GetMethod("Main").Invoke(user, null);
+            type.GetMethod("Main").Invoke(new object[1] { user }, null);
         }
     }
 }
