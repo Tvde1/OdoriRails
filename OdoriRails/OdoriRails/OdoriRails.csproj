@@ -65,7 +65,6 @@
     <Compile Include="DAL\ILogisticDatabaseAdapter.cs" />
     <Compile Include="DAL\ISchoonmaakReparatieDatabaseAdapter.cs" />
     <Compile Include="DatabaseTest.cs" />
-    <Compile Include="DAL\MssqlDatabaseContext.cs" />
     <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
