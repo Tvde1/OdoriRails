@@ -66,6 +66,22 @@ namespace In_Uitrit_Systeem
             {
                 rtbDetails.Enabled = true;
             }
+            else
+            {
+                rtbDetails.Enabled = false;
+            }
+        }
+
+        private void cbCleaning_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCleaning.Checked || cbMaintenance.Checked)
+            {
+                rtbDetails.Enabled = true;
+            }
+            else
+            {
+                rtbDetails.Enabled = false;
+            }
         }
     }
 }

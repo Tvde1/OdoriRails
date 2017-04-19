@@ -54,6 +54,7 @@
             this.cbCleaning.TabStop = false;
             this.cbCleaning.Text = "Schoonmaak";
             this.cbCleaning.UseVisualStyleBackColor = true;
+            this.cbCleaning.CheckedChanged += new System.EventHandler(this.cbCleaning_CheckedChanged);
             // 
             // cbMaintenance
             // 
@@ -155,7 +156,7 @@
             this.btnService.Name = "btnService";
             this.btnService.Size = new System.Drawing.Size(91, 130);
             this.btnService.TabIndex = 1;
-            this.btnService.Text = "Meld tram aan voor service";
+            this.btnService.Text = "Meld tram aan bij remise";
             this.btnService.UseVisualStyleBackColor = false;
             this.btnService.Click += new System.EventHandler(this.btnService_Click);
             // 
