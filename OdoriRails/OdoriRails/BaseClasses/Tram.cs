@@ -10,14 +10,7 @@ namespace OdoriRails.BaseClasses
         CleaningMaintenance,
         Defect
     }
-
-    public enum TramLocation
-    {
-        Home,
-        Away,
-        Entering
-    }
-
+    
     public enum Model
     {
         Classic
@@ -41,12 +34,7 @@ namespace OdoriRails.BaseClasses
         /// Ophalen Tramstatus
         /// </summary>
         public TramStatus Status { get; protected set; }
-
-        /// <summary>
-        /// Ophalen TramLocation
-        /// </summary>
-        public TramLocation Location { get; protected set; }
-
+        
         /// <summary>
         /// Get/Set lijn waar de tram opstaat
         /// </summary>
