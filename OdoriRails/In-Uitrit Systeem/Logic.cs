@@ -11,7 +11,7 @@ namespace In_Uitrit_Systeem
     public class Logic
     {
         public InUitRitTram Tram { get; private set; }
-        private IDatabaseConnector _databaseConnector = new MssqlDatabaseContext();
+        private IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
 
         public Logic(User driver)
         {
