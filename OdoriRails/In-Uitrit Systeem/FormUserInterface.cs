@@ -31,7 +31,7 @@ namespace In_Uitrit_Systeem
             string defect = rtbDetails.Text; 
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(TramStatus.CleaningAndRepair);
+                Tram.EditTramStatus(TramStatus.CleaningMaintenance);
                 Tram.AddRepair(defect);
                 Tram.AddCleaning();
             }
@@ -42,7 +42,7 @@ namespace In_Uitrit_Systeem
             }
             else if (cbMaintenance.Checked)
             {
-                Tram.EditTramStatus(TramStatus.Repair);
+                Tram.EditTramStatus(TramStatus.Maintenance);
                 Tram.AddRepair(defect);
             }
             rtbDetails.Text = "";
