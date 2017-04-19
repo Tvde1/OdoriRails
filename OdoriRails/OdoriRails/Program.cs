@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OdoriRails.BaseClasses;
+using OdoriRails.DAL;
 
 namespace OdoriRails
 {
     static class Program
     {
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+<<<<<<< HEAD:OdoriRails/OdoriRails/Program.cs
             //DatabaseTest.OnLoad();
+=======
+            IDatabaseConnector dbconnector = new MssqlDatabaseContext();
+            User user =  dbconnector.GetUser(4);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainService(user));
+>>>>>>> Fixed some stuff, ready to merge:OdoriRails/SchoonmaakReparatieSysteem/Program.cs
         }
     }
 }

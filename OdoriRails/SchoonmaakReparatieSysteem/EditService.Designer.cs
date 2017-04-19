@@ -42,9 +42,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(106, 366);
+            this.button2.Location = new System.Drawing.Point(159, 563);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 23);
+            this.button2.Size = new System.Drawing.Size(192, 35);
             this.button2.TabIndex = 25;
             this.button2.Text = "Edit Service";
             this.button2.UseVisualStyleBackColor = true;
@@ -52,60 +53,68 @@
             // 
             // commenttb
             // 
-            this.commenttb.Location = new System.Drawing.Point(166, 236);
+            this.commenttb.Location = new System.Drawing.Point(249, 363);
+            this.commenttb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.commenttb.Name = "commenttb";
-            this.commenttb.Size = new System.Drawing.Size(135, 96);
+            this.commenttb.Size = new System.Drawing.Size(200, 146);
             this.commenttb.TabIndex = 24;
             this.commenttb.Text = "";
             // 
             // commentlbl
             // 
             this.commentlbl.AutoSize = true;
-            this.commentlbl.Location = new System.Drawing.Point(37, 236);
+            this.commentlbl.Location = new System.Drawing.Point(56, 363);
+            this.commentlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.commentlbl.Name = "commentlbl";
-            this.commentlbl.Size = new System.Drawing.Size(110, 13);
+            this.commentlbl.Size = new System.Drawing.Size(170, 20);
             this.commentlbl.TabIndex = 23;
             this.commentlbl.Text = "ChangeBasedOnRole";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 182);
+            this.label3.Location = new System.Drawing.Point(56, 280);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.Size = new System.Drawing.Size(45, 20);
             this.label3.TabIndex = 20;
             this.label3.Text = "Date";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 142);
+            this.label2.Location = new System.Drawing.Point(56, 218);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(110, 20);
             this.label2.TabIndex = 19;
             this.label2.Text = "Soort Service";
             // 
             // sortsrvc_cb
             // 
             this.sortsrvc_cb.FormattingEnabled = true;
-            this.sortsrvc_cb.Location = new System.Drawing.Point(200, 139);
+            this.sortsrvc_cb.Location = new System.Drawing.Point(300, 214);
+            this.sortsrvc_cb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sortsrvc_cb.Name = "sortsrvc_cb";
-            this.sortsrvc_cb.Size = new System.Drawing.Size(101, 21);
+            this.sortsrvc_cb.Size = new System.Drawing.Size(150, 28);
             this.sortsrvc_cb.TabIndex = 18;
             // 
             // usersListBox
             // 
             this.usersListBox.FormattingEnabled = true;
-            this.usersListBox.Location = new System.Drawing.Point(166, 35);
+            this.usersListBox.ItemHeight = 20;
+            this.usersListBox.Location = new System.Drawing.Point(249, 54);
+            this.usersListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usersListBox.Name = "usersListBox";
-            this.usersListBox.Size = new System.Drawing.Size(135, 82);
+            this.usersListBox.Size = new System.Drawing.Size(200, 124);
             this.usersListBox.TabIndex = 16;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(40, 72);
+            this.button1.Location = new System.Drawing.Point(60, 111);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(112, 35);
             this.button1.TabIndex = 15;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
@@ -113,23 +122,25 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(40, 35);
+            this.comboBox1.Location = new System.Drawing.Point(60, 54);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(118, 21);
+            this.comboBox1.Size = new System.Drawing.Size(175, 28);
             this.comboBox1.TabIndex = 14;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(101, 182);
+            this.dateTimePicker1.Location = new System.Drawing.Point(152, 280);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(298, 26);
             this.dateTimePicker1.TabIndex = 26;
             // 
             // EditService
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 407);
+            this.ClientSize = new System.Drawing.Size(519, 626);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.commenttb);
@@ -140,6 +151,8 @@
             this.Controls.Add(this.usersListBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EditService";
             this.Text = "Edit Service";
             this.Load += new System.EventHandler(this.EditService_Load);

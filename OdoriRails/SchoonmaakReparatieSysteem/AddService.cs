@@ -17,7 +17,7 @@ namespace SchoonmaakReparatieSysteem
     public partial class AddService : Form
     {
         private User activeUser;
-        private IDatabaseConnector dbconnector = new MySqlContext();
+        private IDatabaseConnector dbconnector = new MssqlDatabaseContext();
         private List<User> users = new List<User>();
         public AddService(User activeuser)
         {
@@ -52,7 +52,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void AddService_Load(object sender, EventArgs e)
         {
-            if (activeUser.Role != Role.HeadCleaner && activeUser.Role != Role.HeadEngineer)
+            if (activeUser.Role != Role.HeadCleaner || activeUser.Role != Role.HeadEngineer)
             {
                 MessageBox.Show("No Privileges");
                 this.Close();

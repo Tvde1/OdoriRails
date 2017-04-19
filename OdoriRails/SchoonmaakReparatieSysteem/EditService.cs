@@ -17,7 +17,7 @@ namespace SchoonmaakReparatieSysteem
     {
         private User activeUser;
         private Service service;
-        private IDatabaseConnector dbconnector = new MySqlContext();
+        private IDatabaseConnector dbconnector = new MssqlDatabaseContext();
         List<User> users = new List<User>();
         public EditService(User activeuser, Service svc)
         {
@@ -38,7 +38,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void EditService_Load(object sender, EventArgs e)
         {
-            if (activeUser.Role != Role.HeadCleaner && activeUser.Role != Role.HeadEngineer)
+            if (activeUser.Role != Role.HeadCleaner || activeUser.Role != Role.HeadEngineer)
             {
                 MessageBox.Show("No Privileges");
                 this.Close();
