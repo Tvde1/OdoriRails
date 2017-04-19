@@ -87,12 +87,20 @@ namespace OdoriRails.DAL
         /// <param name="driver"></param>
         /// <returns></returns>
         Tram GetTramByDriver(User driver);
-            /// <summary>
+
+        /// <summary>
         /// Gets alle trams met een bepaalde status.
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
         List<Tram> GetAllTramsWithStatus(TramStatus status);
+
+        /// <summary>
+        /// Haal trams op met locatie.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        List<Tram> GetAllTramsWithlocation(TramLocation location);
 
             #endregion
 
