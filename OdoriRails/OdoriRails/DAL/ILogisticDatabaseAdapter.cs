@@ -7,7 +7,7 @@ using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
 {
-    interface ILogisticDatabaseAdapter
+    public interface ILogisticDatabaseAdapter
     {
         /// <summary>
         /// Voegt een nieuwe tram toe aan de database.

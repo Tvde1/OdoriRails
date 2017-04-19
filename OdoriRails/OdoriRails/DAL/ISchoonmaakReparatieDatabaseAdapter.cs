@@ -7,7 +7,7 @@ using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
 {
-    interface ISchoonmaakReparatieDatabaseAdapter
+    public interface ISchoonmaakReparatieDatabaseAdapter
     {
         /// <summary>
         /// Haal alle services op (reparatie en schoonmaak) die deze user hebben.
