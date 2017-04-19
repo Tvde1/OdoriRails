@@ -28,14 +28,14 @@ namespace Beheersysteem
 
         public void SortAllEnteringTrams()
         {
-            //TODO: Pas in master de query aan/
             enteringTrams = database.GetAllTramsWithlocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
-                if (tram.DepartureTime == null)
-                {
-                    GetExitTime(tram);
-                }
+                //Vgm niet nodig maar toch voor de zekerheid nog even laten staan
+                //if (tram.DepartureTime == null)
+                //{
+                //    GetExitTime(tram);
+                //}
                 SortTram(tram);
             }
         }
@@ -50,13 +50,10 @@ namespace Beheersysteem
         {
             foreach (InUitRijSchema entry in schema)
             {
-                if (tram.Line == entry.Line)
+                if (tram.Line == entry.Line && entry.TramNumber == null)
                 {
-                    if (entry.TramNumber == null)
-                    {
-                        entry.TramNumber = tram.Number;
-                        return entry.ExitTime;
-                    }
+                    entry.TramNumber = tram.Number;
+                    return entry.ExitTime;
                 }
             }
             return null;
