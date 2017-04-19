@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Security.Authentication;
+using System.Security.Permissions;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 
@@ -19,8 +20,43 @@ namespace LoginSystem
             StartProgram(_databaseConnector.GetUser(username));
         }
 
-        private void StartProgram(
-            User user)
+        private void StartProgram(User user)
+        {
+
+            string assembly = "";
+            switch (user.Role)
+            {
+                case Role.Administrator:
+                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    break;
+                case Role.Logistic:
+                    assembly = "LogistiekSysteem.dll";
+                    break;
+                case Role.Driver:
+                    assembly = "InUitritSysteem.dll";
+                    break;
+                case Role.Cleaner:
+                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    break;
+                case Role.HeadCleaner:
+                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    break;
+                case Role.Engineer:
+                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    break;
+                case Role.HeadEngineer:
+                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    break;
+            }
+
+            MethodInfo target = Assembly.Load(_dataLocation + assembly).EntryPoint;
+            (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
+            target.Invoke(null, new object[1] { user });
+        }
+
+
+        /*
+        private void StartProgram(User user)
         {
             Assembly assembly;
             Type type;
@@ -46,6 +82,6 @@ namespace LoginSystem
                     }
             }
             type.GetMethod("Main").Invoke(new object[1] { user }, null);
-        }
+        }*/
     }
 }
