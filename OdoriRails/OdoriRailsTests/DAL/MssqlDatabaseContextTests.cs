@@ -1,21 +1,35 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL.Tests
 {
     [TestClass()]
     public class MssqlDatabaseContextTests
     {
+        MssqlDatabaseContext ms = new MssqlDatabaseContext();
         #region User
         [TestMethod()]
         public void AddUserTest()
         {
-            Assert.Fail();
+            User us = new User("Roel", "roelvdboom@gmail.com", Role.Administrator);
+            ms.AddUser(us);
+
+            if (ms.GetAllUsers().Contains(us))
+            {
+                Assert.AreEqual(1,1);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+
         }
 
         [TestMethod()]
@@ -149,11 +163,9 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void MatchUsernameAndPasswordTest()
         {
-            Assert.Fail();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com","TEST",Role.Administrator,"Test");
+
         }
-
-
-
         #endregion
     }
 }
