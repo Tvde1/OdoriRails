@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 
@@ -13,24 +6,24 @@ namespace In_Uitrit_Systeem
 {
     public partial class FormUserInterface : Form
     {
-        Logic Logic;
-        Timer LineFetcher;
+        private Logic _logic;
+        private Timer _lineFetcher;
 
         public FormUserInterface(User driver)
         {
             InitializeComponent();
-            Logic = new Logic(driver);
-            LineFetcher = new Timer();
-            LineFetcher.Interval = 10000;
-            lblTramNumber.Text = Logic.Tram.Number.ToString();
+            _logic = new Logic(driver);
+            _lineFetcher = new Timer {Interval = 10000};
+            _lineFetcher.Tick += LineFetcher_Tick;
+            lblTramNumber.Text = _logic.Tram.Number.ToString();
         }
 
-        private void LineFetcher_Tick()
+        private void LineFetcher_Tick(object sender, EventArgs e)
         {
-            if (Logic.Tram.Line.ToString() != lblStandplaats.Text)
+            if (_logic.Tram.Line.ToString() != lblStandplaats.Text)
             {
-                lblStandplaats.Text = Logic.Tram.Line.ToString();
-                LineFetcher.Stop();
+                lblStandplaats.Text = _logic.Tram.Line.ToString();
+                _lineFetcher.Stop();
             }
         }
 
@@ -39,25 +32,25 @@ namespace In_Uitrit_Systeem
             string defect = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
-                Logic.Tram.EditTramStatus(TramStatus.CleaningMaintenance);
-                Logic.AddRepair(defect);
-                Logic.AddCleaning();
+                _logic.Tram.EditTramStatus(TramStatus.CleaningMaintenance);
+                _logic.AddRepair(defect);
+                _logic.AddCleaning();
             }
             else if (cbCleaning.Checked)
             {
-                Logic.Tram.EditTramStatus(TramStatus.Cleaning);
-                Logic.AddCleaning();
+                _logic.Tram.EditTramStatus(TramStatus.Cleaning);
+                _logic.AddCleaning();
             }
             else if (cbMaintenance.Checked)
             {
-                Logic.Tram.EditTramStatus(TramStatus.Maintenance);
-                Logic.AddRepair(defect);
+                _logic.Tram.EditTramStatus(TramStatus.Maintenance);
+                _logic.AddRepair(defect);
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
-            Logic.Tram.EditTramLocation(TramLocation.ComingIn);
-            lblStandplaats.Text = Logic.Tram.Line.ToString();
-            LineFetcher.Start();
+            _logic.Tram.EditTramLocation(TramLocation.ComingIn);
+            lblStandplaats.Text = _logic.Tram.Line.ToString();
+            _lineFetcher.Start();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
