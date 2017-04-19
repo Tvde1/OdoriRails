@@ -16,17 +16,17 @@ namespace SchoonmaakReparatieSysteem
     public partial class MainService : Form
     {
         private int username = 1; // testing purposes\
-        private IDatabaseConnector dbconnector = new MySqlContext();
+        private IDatabaseConnector dbconnector = new MssqlDatabaseContext();
 
         private Role role = Role.HeadEngineer; // testing purposes
 
         public User ActiveUser;
 
 
-        public MainService()
+        public MainService(User user)
         {
             InitializeComponent();
-            ActiveUser = new User(username, "Jimmy", "jimmy", "","", role, "");
+            ActiveUser = user;
             usernamelbl.Text = ActiveUser.Username;
             dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
 

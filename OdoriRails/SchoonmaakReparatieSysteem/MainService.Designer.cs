@@ -42,9 +42,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(476, 468);
+            this.button1.Location = new System.Drawing.Point(714, 720);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(112, 35);
             this.button1.TabIndex = 2;
             this.button1.Text = "Add Service";
             this.button1.UseVisualStyleBackColor = true;
@@ -52,9 +53,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(557, 468);
+            this.button2.Location = new System.Drawing.Point(836, 720);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(112, 35);
             this.button2.TabIndex = 3;
             this.button2.Text = "Edit Service";
             this.button2.UseVisualStyleBackColor = true;
@@ -62,9 +64,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(385, 468);
+            this.button4.Location = new System.Drawing.Point(578, 720);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(85, 23);
+            this.button4.Size = new System.Drawing.Size(128, 35);
             this.button4.TabIndex = 5;
             this.button4.Text = "Delete Service";
             this.button4.UseVisualStyleBackColor = true;
@@ -72,9 +75,10 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(21, 468);
+            this.button5.Location = new System.Drawing.Point(32, 720);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.Size = new System.Drawing.Size(150, 35);
             this.button5.TabIndex = 6;
             this.button5.Text = "Mark as Done";
             this.button5.UseVisualStyleBackColor = true;
@@ -85,52 +89,57 @@
             this.filtercbox.Items.AddRange(new object[] {
             "My Services",
             "Unassigned Services"});
-            this.filtercbox.Location = new System.Drawing.Point(511, 29);
+            this.filtercbox.Location = new System.Drawing.Point(766, 45);
+            this.filtercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.filtercbox.Name = "filtercbox";
-            this.filtercbox.Size = new System.Drawing.Size(121, 21);
+            this.filtercbox.Size = new System.Drawing.Size(180, 28);
             this.filtercbox.TabIndex = 7;
             this.filtercbox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(446, 32);
+            this.label1.Location = new System.Drawing.Point(669, 49);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(77, 20);
             this.label1.TabIndex = 8;
             this.label1.Text = "Filter By:";
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 59);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 91);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(639, 389);
+            this.dataGridView1.Size = new System.Drawing.Size(958, 598);
             this.dataGridView1.TabIndex = 9;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 29);
+            this.label2.Location = new System.Drawing.Point(18, 45);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.Size = new System.Drawing.Size(101, 20);
             this.label2.TabIndex = 10;
             this.label2.Text = "Active User:";
             // 
             // usernamelbl
             // 
             this.usernamelbl.AutoSize = true;
-            this.usernamelbl.Location = new System.Drawing.Point(83, 29);
+            this.usernamelbl.Location = new System.Drawing.Point(124, 45);
+            this.usernamelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.usernamelbl.Name = "usernamelbl";
-            this.usernamelbl.Size = new System.Drawing.Size(55, 13);
+            this.usernamelbl.Size = new System.Drawing.Size(86, 20);
             this.usernamelbl.TabIndex = 11;
             this.usernamelbl.Text = "Username";
             // 
             // MainService
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 509);
+            this.ClientSize = new System.Drawing.Size(994, 783);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -140,6 +149,8 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainService";
             this.Text = "Odorirails Service Management";
             this.Load += new System.EventHandler(this.MainService_Load);
