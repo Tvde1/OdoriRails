@@ -8,8 +8,9 @@ using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
 {
-    interface IBeheerDatabaseAdapter
+    public interface IBeheerDatabaseAdapter
     {
+
         /// <summary>
         /// Voegt een User toe aan de database.
         /// </summary>
