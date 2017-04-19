@@ -20,7 +20,7 @@ namespace OdoriRails.DAL
         #region user
         public User AddUser(User user)
         {
-            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT LAST_INSERT_ID();");
+            var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT SCOPE_IDENTITY();");
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@pass", user.Password);
@@ -401,7 +401,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             }
             catch(Exception ex)
             {
-                throw ex;
+                throw;
                 //throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
             }
         }
