@@ -23,6 +23,13 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        int GetUserId(string username);
+        User GetUser(string username);
+
+        /// <summary>
+        /// Haal de tram op waar deze meneer in rijdt.
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <returns></returns>
+        Tram GetTramByDriver(User driver);
     }
 }
