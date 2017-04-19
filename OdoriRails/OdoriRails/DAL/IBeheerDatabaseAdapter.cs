@@ -10,6 +10,7 @@ namespace OdoriRails.DAL
 {
     public interface IBeheerDatabaseAdapter
     {
+
         /// <summary>
         /// Voegt een User toe aan de database.
         /// </summary>
