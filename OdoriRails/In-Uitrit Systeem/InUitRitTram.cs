@@ -21,10 +21,10 @@ namespace In_Uitrit_Systeem
             Status = tramStatus;
         }
 
-        //public void EditTramLocation(TramLocation tramLocation)
-        //{
-        //    TramLocation = tramLocation;
-        //}
+        public void EditTramLocation(TramLocation tramLocation)
+        {
+            Location = tramLocation;
+        }
 
         public void AddRepair(string defect)
         {

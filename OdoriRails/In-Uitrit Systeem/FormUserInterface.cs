@@ -16,6 +16,7 @@ namespace In_Uitrit_Systeem
         Logic Logic;
         InUitRitTram Tram;
         User Driver;
+        Timer LineFetcher;
 
         public FormUserInterface(User driver)
         {
@@ -23,12 +24,23 @@ namespace In_Uitrit_Systeem
             Driver = driver;
             Logic = new Logic();
             Tram = (InUitRitTram)Logic._databaseConnector.GetTram(driver.Id);
+            LineFetcher = new Timer();
+            LineFetcher.Interval = 10000;
             lblTramNumber.Text = Tram.Number.ToString();
+        }
+
+        private void LineFetcher_Tick()
+        {
+            if (Tram.Line.ToString() != lblStandplaats.Text)
+            {
+                lblStandplaats.Text = Tram.Line.ToString();
+                LineFetcher.Stop();
+            }
         }
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            string defect = rtbDetails.Text; 
+            string defect = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
                 Tram.EditTramStatus(TramStatus.CleaningMaintenance);
@@ -47,8 +59,9 @@ namespace In_Uitrit_Systeem
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
-            //Tram.EditTramStatus
+            Tram.EditTramLocation(TramLocation.Entering);
             lblStandplaats.Text = Tram.Line.ToString();
+            LineFetcher.Start();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
