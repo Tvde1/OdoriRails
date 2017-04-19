@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{59824247-11C9-4084-A959-69F2358EC142}</ProjectGuid>
+    <ProjectGuid>{FC6CE72A-A2F9-4E02-8888-11AEDD18C72B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>In_Uitrit_Systeem</RootNamespace>
-    <AssemblyName>In_Uitrit_Systeem</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OdoriRails</RootNamespace>
+    <AssemblyName>OdoriRails</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -21,6 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,10 +34,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,17 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InUitRitTram.cs" />
-    <Compile Include="InUitRitUser.cs" />
-    <Compile Include="Logic.cs" />
+    <Compile Include="BaseClasses\Cleaning.cs" />
+    <Compile Include="BaseClasses\Repair.cs" />
+    <Compile Include="BaseClasses\Sector.cs" />
+    <Compile Include="BaseClasses\Service.cs" />
+    <Compile Include="BaseClasses\Track.cs" />
+    <Compile Include="BaseClasses\Tram.cs" />
+    <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="DatabaseTest.cs" />
+    <Compile Include="DAL\IDatabaseConnector.cs" />
+    <Compile Include="DAL\MssqlDatabaseContext.cs" />
+    <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FormUserInterface.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormUserInterface.Designer.cs">
-      <DependentUpon>FormUserInterface.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -68,9 +74,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FormUserInterface.resx">
-      <DependentUpon>FormUserInterface.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,14 +88,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
-      <Project>{fc6ce72a-a2f9-4e02-8888-11aedd18c72b}</Project>
-      <Name>OdoriRails</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
