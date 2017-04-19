@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using OdoriRails.BaseClasses;
+﻿using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
 {
-    public interface IDatabaseConnector
+    public interface ILoginDatabaseAdapter
     {
         /// <summary>
         /// Kijkt of de username bestaat in de database.
@@ -19,5 +18,12 @@ namespace OdoriRails.DAL
         /// <param name="password"></param>
         /// <returns></returns>
         bool MatchUsernameAndPassword(string username, string password);
+
+        /// <summary>
+        /// Gets user by username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        User GetUser(string userName);
     }
 }
