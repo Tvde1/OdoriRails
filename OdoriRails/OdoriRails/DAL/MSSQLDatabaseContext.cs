@@ -27,11 +27,11 @@ namespace OdoriRails.DAL
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", null);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", DBNull.Value);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (ulong)data.Rows[0][0];
+            var id = (int)data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;

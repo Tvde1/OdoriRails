@@ -36,6 +36,11 @@ namespace OdoriRails.BaseClasses
         public TramStatus Status { get; protected set; }
 
         /// <summary>
+        /// Ophalen TramLocation
+        /// </summary>
+        public TramLocation Location { get; protected set; }
+
+        /// <summary>
         /// Get/Set lijn waar de tram opstaat
         /// </summary>
         public int Line { get; protected set; }
