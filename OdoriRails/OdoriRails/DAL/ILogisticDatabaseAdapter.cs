@@ -54,5 +54,11 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <returns></returns>
         List<Track> GetTracksAndSectors();
+
+        /// <summary>
+        /// Haal een User op aan de hand van de username.
+        /// </summary>
+        /// <param name="userName"></param>
+        User GetUser(string userName);
     }
 }
