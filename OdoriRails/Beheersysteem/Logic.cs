@@ -23,12 +23,11 @@ namespace Beheersysteem
             database = new MssqlDatabaseContext();
             sorter = new SortingAlgoritm(database.GetTracksAndSectors());
             allTrams = database.GetAllTrams();
-            RefreshEnteringTrams();
         }
 
-        public void RefreshEnteringTrams()
+        public void SortAllEnteringTrams()
         {
-            //TODO: Pas in master de query aan
+            //TODO: Pas in master de query aan/
             enteringTrams = database.GetAllTramsWithLocation(TramLocation.Entering);
             foreach (Tram tram in enteringTrams)
             {
