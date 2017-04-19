@@ -60,7 +60,7 @@ namespace OdoriRails.DAL
 
         public void UpdateUser(User user)
         {
-            var query = new SqlCommand("UPDATE User SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
+            var query = new SqlCommand("UPDATE [User] SET Name = @name, Username = @username, Password = @password, Email = @email, Role = @role, ManagedBy = @managedby WHERE UserPk = @id");
             query.Parameters.AddWithValue("@username", user.Username);
             query.Parameters.AddWithValue("@name", user.Name);
             query.Parameters.AddWithValue("@password", user.Password);
@@ -399,9 +399,10 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                     return dataTable;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
+                throw ex;
+                //throw new Exception("De uitgevoerde query is niet correct: \r\n" + command.CommandText);
             }
         }
 
