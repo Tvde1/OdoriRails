@@ -165,7 +165,8 @@ namespace OdoriRails.DAL
             var model = (Model) array[4];
             var remise = (int) array[5];
             var location = (TramLocation) array[6];
-            var depart = (DateTime) array[7];
+            DateTime? depart = null;
+            if (array[7] != DBNull.Value) depart = (DateTime)array[7];
             return new Tram(id, status, line, driver, model, location, depart);
         }
         #endregion
@@ -225,7 +226,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new MySqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -272,14 +273,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.StartDate == DateTime.MinValue)
-            {
-                serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
-            }
-            else
-            {
-                serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
-            }
+            if (cleaning.StartDate == DateTime.MinValue)serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
