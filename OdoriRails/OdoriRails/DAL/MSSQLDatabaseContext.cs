@@ -153,7 +153,7 @@ namespace OdoriRails.DAL
         private Tram CreateTram(DataRow row)
         {
             var array = row.ItemArray;
-            return new Tram((int)array[0], (TramStatus)array[2], (int)array[1], GetUser((int)array[4]), (Model)array[3]);
+            return new Tram((int)array[0], (TramStatus)array[2], (int)array[1], GetUser((int)array[4]), (Model)array[3], (TramLocation)array[5]);
         }
         #endregion
 
