@@ -17,15 +17,13 @@ namespace OdoriRails
         [STAThread]
         static void Main()
         {
-<<<<<<< HEAD:OdoriRails/OdoriRails/Program.cs
-            //DatabaseTest.OnLoad();
-=======
+
             IDatabaseConnector dbconnector = new MssqlDatabaseContext();
             User user =  dbconnector.GetUser(4);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainService(user));
->>>>>>> Fixed some stuff, ready to merge:OdoriRails/SchoonmaakReparatieSysteem/Program.cs
+            
+
         }
     }
 }
