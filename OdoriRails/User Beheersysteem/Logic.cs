@@ -1,4 +1,5 @@
-﻿using OdoriRails;
+﻿using OdoriRails.BaseClasses;
+using OdoriRails.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace User_Beheersysteem
 {
     class Logic
     {
-        IDatabaseConnector databaseConnector = new MySqlContext();
+        IDatabaseConnector databaseConnector = new MssqlDatabaseContext();
         public List<BeheerUser> UsersAll = new List<BeheerUser>();
         public List<BeheerUser> UsersSearch = new List<BeheerUser>();
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OdoriRails;
+using OdoriRails.BaseClasses;
 
 namespace User_Beheersysteem
 {
