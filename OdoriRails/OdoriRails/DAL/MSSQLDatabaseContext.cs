@@ -31,7 +31,7 @@ namespace OdoriRails.DAL
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
-            var id = (int)data.Rows[0][0];
+            var id = data.Rows[0][0];
 
             user.SetId(Convert.ToInt32(id));
             return user;
@@ -66,7 +66,7 @@ namespace OdoriRails.DAL
             query.Parameters.AddWithValue("@password", user.Password);
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", null);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", DBNull.Value);
             else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
             query.Parameters.AddWithValue("@id", user.Id);
             GetData(query);
