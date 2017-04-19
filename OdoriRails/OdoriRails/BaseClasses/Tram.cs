@@ -53,12 +53,12 @@ namespace OdoriRails.BaseClasses
         /// <summary>
         /// De departure time.
         /// </summary>
-        public DateTime DepartureTime { get; set; }
+        public DateTime DepartureTime { get; protected set; }
 
         /// <summary>
         /// De locatie van de tram.
         /// </summary>
-        public TramLocation Location { get; private set; }
+        public TramLocation Location { get; protected set; }
         
 
         /// <summary>
