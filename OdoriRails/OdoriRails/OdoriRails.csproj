@@ -59,8 +59,12 @@
     <Compile Include="BaseClasses\Track.cs" />
     <Compile Include="BaseClasses\Tram.cs" />
     <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="DAL\IBeheerDatabaseAdapter.cs" />
+    <Compile Include="DAL\IInUitrijDatabaseAdapter.cs" />
+    <Compile Include="DAL\ILoginDatabaseAdapter.cs" />
+    <Compile Include="DAL\ILogisticDatabaseAdapter.cs" />
+    <Compile Include="DAL\ISchoonmaakReparatieDatabaseAdapter.cs" />
     <Compile Include="DatabaseTest.cs" />
-    <Compile Include="DAL\IDatabaseConnector.cs" />
     <Compile Include="DAL\MssqlDatabaseContext.cs" />
     <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
