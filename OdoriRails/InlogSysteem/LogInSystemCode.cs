@@ -28,7 +28,7 @@ namespace LoginSystem
             switch (user.Role)
             {
                 case Role.Administrator:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assembly = "UserBeheersysteem.dll";
                     break;
                 case Role.Logistic:
                     assembly = "LogistiekSysteem.dll";
