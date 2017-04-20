@@ -16,37 +16,19 @@ namespace SchoonmaakReparatieSysteem
     public partial class EditService : Form
     {
         private User activeUser;
-        private Service service;
         private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
-        List<User> users = new List<User>();
-        public EditService(User activeuser, Service svc)
+        private List<User> users = new List<User>();
+        public EditService(User activeuser, Service service)
         {
             activeUser = activeuser;
-            service = svc;
             InitializeComponent();
 
-           
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-            dbconnector.EditService(service);
-   
-        }
-
-        private void EditService_Load(object sender, EventArgs e)
-        {
-            if (activeUser.Role != Role.HeadCleaner || activeUser.Role != Role.HeadEngineer)
-            {
-                MessageBox.Show("No Privileges");
-                this.Close();
-            }
             if (activeUser.Role == Role.HeadEngineer)
             {
-                foreach (var user in dbconnector.GetAllUsersWithRole(Role.Engineer))
+                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Engineer))
                 {
-                    users.Add(user);
+                    usercbox.Items.Add(user.Name);
                 }
 
                 commentlbl.Text = "Defect omschrijving";
@@ -55,15 +37,55 @@ namespace SchoonmaakReparatieSysteem
             }
             if (activeUser.Role == Role.HeadCleaner)
             {
-                foreach (var user in dbconnector.GetAllUsersWithRole(Role.Cleaner))
+                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Cleaner))
                 {
-                    users.Add(user);
+                    usercbox.Items.Add(user.Name);
                 }
 
                 commentlbl.Text = "Opmerkingen";
                 sortsrvc_cb.Items.Add(CleaningSize.Big);
                 sortsrvc_cb.Items.Add(CleaningSize.Small);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<User> userList = new List<User>();
+            string sType = Convert.ToString(sortsrvc_cb.SelectedItem);
+            string comment = commenttb.Text;
+            DateTime startdate = dateTimePicker1.Value;
+
+            if (activeUser.Role == Role.HeadCleaner)
+            {
+                var cleaning = new Cleaning(startdate, DateTime.MinValue, (CleaningSize)sortsrvc_cb.SelectedIndex, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                dbconnector.AddCleaning(cleaning);
+
+            }
+            if (activeUser.Role == Role.HeadEngineer)
+            {
+
+                var repair = new Repair(startdate, DateTime.MinValue, (RepairType)sortsrvc_cb.SelectedIndex, commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+                dbconnector.AddRepair(repair);
+
+            }
+
+
+        }
+
+        private void AddService_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var user = usercbox.SelectedItem;
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            usersListBox.Items.Add(usercbox.SelectedItem);
         }
     }
 }

@@ -54,18 +54,18 @@ namespace SchoonmaakReparatieSysteem
             List<User> userList = new List<User>();
             string  sType = Convert.ToString(sortsrvc_cb.SelectedItem);
             string comment = commenttb.Text;
-
+            DateTime startdate = dateTimePicker1.Value;
 
             if (activeUser.Role == Role.HeadCleaner)
             {
-                var cleaning = new Cleaning(dateTimePicker1.Value, DateTime.MinValue, (CleaningSize)sortsrvc_cb.SelectedIndex, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                var cleaning = new Cleaning(startdate, startdate, (CleaningSize)sortsrvc_cb.SelectedIndex, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                 dbconnector.AddCleaning(cleaning);
                
             }
             if (activeUser.Role == Role.HeadEngineer)
             {
                 
-                var repair = new Repair(dateTimePicker1.Value, DateTime.MinValue, (RepairType)sortsrvc_cb.SelectedIndex, commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+                var repair = new Repair(startdate, startdate, (RepairType)sortsrvc_cb.SelectedIndex, commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                 dbconnector.AddRepair(repair);
                
             }
@@ -82,6 +82,11 @@ namespace SchoonmaakReparatieSysteem
         {
             var user = usercbox.SelectedItem;
             
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            usersListBox.Items.Add(usercbox.SelectedItem);
         }
     }
 }

@@ -42,7 +42,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(714, 720);
+            this.button1.Location = new System.Drawing.Point(524, 720);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 35);
@@ -53,7 +53,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(836, 720);
+            this.button2.Location = new System.Drawing.Point(646, 720);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 35);
@@ -64,7 +64,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(578, 720);
+            this.button4.Location = new System.Drawing.Point(388, 720);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(128, 35);
@@ -90,7 +90,7 @@
             this.filtercbox.Items.AddRange(new object[] {
             "My Services",
             "Unassigned Services"});
-            this.filtercbox.Location = new System.Drawing.Point(766, 45);
+            this.filtercbox.Location = new System.Drawing.Point(469, 32);
             this.filtercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.filtercbox.Name = "filtercbox";
             this.filtercbox.Size = new System.Drawing.Size(180, 28);
@@ -101,7 +101,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(669, 49);
+            this.label1.Location = new System.Drawing.Point(372, 36);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 20);
@@ -114,7 +114,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(18, 91);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(958, 598);
+            this.dataGridView1.Size = new System.Drawing.Size(740, 598);
             this.dataGridView1.TabIndex = 9;
             // 
             // label2
@@ -141,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 783);
+            this.ClientSize = new System.Drawing.Size(778, 783);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
