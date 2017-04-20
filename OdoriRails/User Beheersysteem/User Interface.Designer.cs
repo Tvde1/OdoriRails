@@ -62,7 +62,7 @@
             this.lbEmail.Location = new System.Drawing.Point(17, 110);
             this.lbEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(106, 20);
+            this.lbEmail.Size = new System.Drawing.Size(114, 20);
             this.lbEmail.TabIndex = 5;
             this.lbEmail.Text = "Email Adress:";
             // 
@@ -72,7 +72,7 @@
             this.lbUserName.Location = new System.Drawing.Point(17, 65);
             this.lbUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbUserName.Name = "lbUserName";
-            this.lbUserName.Size = new System.Drawing.Size(87, 20);
+            this.lbUserName.Size = new System.Drawing.Size(91, 20);
             this.lbUserName.TabIndex = 4;
             this.lbUserName.Text = "Username:";
             // 
@@ -82,7 +82,7 @@
             this.lbName.Location = new System.Drawing.Point(17, 25);
             this.lbName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(55, 20);
+            this.lbName.Size = new System.Drawing.Size(58, 20);
             this.lbName.TabIndex = 3;
             this.lbName.Text = "Name:";
             // 
@@ -116,7 +116,7 @@
             this.lbRole.Location = new System.Drawing.Point(17, 236);
             this.lbRole.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbRole.Name = "lbRole";
-            this.lbRole.Size = new System.Drawing.Size(46, 20);
+            this.lbRole.Size = new System.Drawing.Size(48, 20);
             this.lbRole.TabIndex = 6;
             this.lbRole.Text = "Role:";
             // 
@@ -142,7 +142,7 @@
             this.lbPassword.Location = new System.Drawing.Point(17, 156);
             this.lbPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(82, 20);
+            this.lbPassword.Size = new System.Drawing.Size(88, 20);
             this.lbPassword.TabIndex = 8;
             this.lbPassword.Text = "Password:";
             // 
@@ -169,7 +169,7 @@
             this.lbManaged.Location = new System.Drawing.Point(17, 277);
             this.lbManaged.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbManaged.Name = "lbManaged";
-            this.lbManaged.Size = new System.Drawing.Size(102, 20);
+            this.lbManaged.Size = new System.Drawing.Size(107, 20);
             this.lbManaged.TabIndex = 11;
             this.lbManaged.Text = "Managed By:";
             // 
@@ -177,6 +177,7 @@
             // 
             this.tabUsers.Controls.Add(this.tabUserList);
             this.tabUsers.Controls.Add(this.tabManageUser);
+            this.tabUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.tabUsers.Location = new System.Drawing.Point(12, 12);
             this.tabUsers.Name = "tabUsers";
             this.tabUsers.SelectedIndex = 0;
@@ -303,9 +304,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(724, 601);
             this.Controls.Add(this.tabUsers);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UserInterface";
             this.Text = "User Beheersysteem";
