@@ -148,7 +148,7 @@ namespace OdoriRails.DAL
             return GenerateListWithFunction(GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
         }
 
-        public List<Tram> GetAllTramsWithlocation(TramLocation location)
+        public List<Tram> GetAllTramsWithLocation(TramLocation location)
         {
             return GenerateListWithFunction(GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
         }
@@ -195,8 +195,8 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+[User] ON ServiceUser.UserCk = [User].UserP
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -230,17 +230,6 @@ FROM Clean INNER JOIN
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk")), CreateCleaning);
-        }
-
-        public List<User> GetUsersInServiceById(int serviceId)
-        {
-            var command = new SqlCommand(@"SELECT [User].*, Service.ServicePk
-FROM Service INNER JOIN
-ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE (Service.ServicePk = @id)");
-            command.Parameters.AddWithValue("@id", serviceId);
-            return GenerateListWithFunction(GetData(command), CreateUser);
         }
 
         public Cleaning AddCleaning(Cleaning cleaning)
@@ -282,6 +271,13 @@ WHERE (Service.ServicePk = @id)");
             return repair;
         }
 
+        private List<User> GetUsersInService(int serviceId)
+        {
+            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var data = GetData(query);
+            return GenerateListWithFunction(data, CreateUser);
+        }
+
         public void EditService(Service service)
         {
             switch (service.GetType().Name)
@@ -318,6 +314,17 @@ WHERE (Service.ServicePk = @id)");
             var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
             query.Parameters.AddWithValue("@id", service.Id);
             GetData(query);
+        }
+
+        private List<User> GetUsersInServiceById(int serviceId)
+        {
+            var command = new SqlCommand(@"SELECT [User].*, Service.ServicePk
+FROM Service INNER JOIN
+ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
+[User] ON ServiceUser.UserCk = [User].UserPk
+WHERE (Service.ServicePk = @id)");
+            command.Parameters.AddWithValue("@id", serviceId);
+            return GenerateListWithFunction(GetData(command), CreateUser);
         }
 
         #endregion

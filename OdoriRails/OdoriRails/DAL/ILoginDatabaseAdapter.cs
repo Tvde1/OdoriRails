@@ -1,4 +1,6 @@
-﻿namespace OdoriRails.DAL
+﻿using OdoriRails.BaseClasses;
+
+namespace OdoriRails.DAL
 {
     public interface ILoginDatabaseAdapter
     {
@@ -16,5 +18,12 @@
         /// <param name="password"></param>
         /// <returns></returns>
         bool MatchUsernameAndPassword(string username, string password);
+
+        /// <summary>
+        /// Gets user by username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        User GetUser(string userName);
     }
 }
