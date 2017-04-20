@@ -219,7 +219,7 @@
             this.gbDisplay.Margin = new System.Windows.Forms.Padding(5);
             this.gbDisplay.Name = "gbDisplay";
             this.gbDisplay.Padding = new System.Windows.Forms.Padding(5);
-            this.gbDisplay.Size = new System.Drawing.Size(773, 574);
+            this.gbDisplay.Size = new System.Drawing.Size(1114, 759);
             this.gbDisplay.TabIndex = 1;
             this.gbDisplay.TabStop = false;
             this.gbDisplay.Text = "Display";
@@ -228,7 +228,7 @@
             // 
             this.panelMain.Location = new System.Drawing.Point(8, 27);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(757, 537);
+            this.panelMain.Size = new System.Drawing.Size(1098, 724);
             this.panelMain.TabIndex = 0;
             this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             // 
@@ -236,7 +236,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1117, 605);
+            this.ClientSize = new System.Drawing.Size(1441, 793);
             this.Controls.Add(this.gbDisplay);
             this.Controls.Add(this.gbControl);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
