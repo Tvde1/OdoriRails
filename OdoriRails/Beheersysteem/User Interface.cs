@@ -58,8 +58,11 @@ namespace Beheersysteem
             var pen = new Pen(Color.Black, 4);
             var graphics = panel.CreateGraphics();
 
-            var x = 0;
-            var y = 0;
+            var baseX = 100;
+            var baseY = 50;
+
+            var x = baseX;
+            var y = baseY;
 
             var tracks = _logic.AllTracks;
             var testString = "";
@@ -74,12 +77,12 @@ namespace Beheersysteem
                 testString += newTestString + "\r\n";
             }
 
-            //MessageBox.Show(testString);
+            MessageBox.Show(testString);
 
             foreach (var track in tracks)
             {
                 x += 5;
-                y = 0;
+                y = baseY;
                 foreach (var sector in track.Sectors)
                 {
                     graphics.DrawLine(pen, 100, 50, 20, 30);
@@ -94,7 +97,7 @@ namespace Beheersysteem
                             brush = new Pen(Color.White).Brush;
                             break;
                         case SectorStatus.Locked:
-                            brush = new Pen(Color.Red).Brush;
+                            brush = new Pen(Color.Tomato).Brush;
                             break;
                         case SectorStatus.Occupied:
                             brush = new Pen(Color.Yellow).Brush;
