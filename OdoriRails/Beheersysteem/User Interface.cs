@@ -55,13 +55,16 @@ namespace Beheersysteem
         {
             var panel = panelMain;
             var pen = new Pen(Color.Black, 4);
+            var stringFont = new Font("Arial", 16);
+            var stringBrush = new SolidBrush(Color.Black);
             var graphics = panel.CreateGraphics();
 
-            var baseX = 100;
-            var baseY = 50;
+            var baseX = 10;
+            var baseYService = 10;
+            var baseYGroep1 = 160;
 
             var x = baseX;
-            var y = baseY;
+            var y = baseYService;
 
             var tracks = _logic.AllTracks;
             var testString = "";
@@ -76,24 +79,24 @@ namespace Beheersysteem
                 testString += newTestString + "\r\n";
             }
 
-            MessageBox.Show(testString);
+            //MessageBox.Show(testString);
 
             foreach (var track in tracks)
             {
-                x += 5;
-                y = baseY;
+                var rectTrack = new Rectangle(x, y, 40, 20);
+                graphics.DrawRectangle(pen, rectTrack);
+                graphics.DrawString(track.Number.ToString(), stringFont, stringBrush, rectTrack);
+                y += 25;
+
                 foreach (var sector in track.Sectors)
                 {
-                    graphics.DrawLine(pen, 100, 50, 20, 30);
-
-                    y += 7;
-                    var rect = new Rectangle(x, y, 4, 6);
+                    var rect = new Rectangle(x, y, 40, 20);
                     graphics.DrawRectangle(pen, rect);
                     Brush brush = null;
                     switch (sector.Status)
                     {
                         case SectorStatus.Open:
-                            brush = new Pen(Color.White).Brush;
+                            brush = new Pen(Color.Green).Brush;
                             break;
                         case SectorStatus.Locked:
                             brush = new Pen(Color.Tomato).Brush;
@@ -102,8 +105,24 @@ namespace Beheersysteem
                             brush = new Pen(Color.Yellow).Brush;
                             break;
                     }
-                    var rectF = new RectangleF(x + 1, y + 1, 2, 4);
+                    var rectF = new RectangleF(x + 2, y + 2, 35, 15);
                     graphics.FillRectangle(brush, rectF);
+                    y += 25;
+                }
+                x += 50;
+
+                if (track.Number == 33)
+                {
+                    y = baseYGroep1;
+                    x = baseX;
+                }
+                else if (track.Number > 33)
+                {
+                    y = baseYGroep1;
+                }
+                else
+                {
+                    y = baseYService;
                 }
             }
         }
