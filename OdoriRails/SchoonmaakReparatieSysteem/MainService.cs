@@ -15,11 +15,8 @@ namespace SchoonmaakReparatieSysteem
 {
     public partial class MainService : Form
     {
-        private int username = 1; // testing purposes\
+
         private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
-
-        private Role role = Role.HeadEngineer; // testing purposes
-
         public User ActiveUser;
 
 

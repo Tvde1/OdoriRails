@@ -33,7 +33,7 @@ namespace SchoonmaakReparatieSysteem
             else
             {
                 //Haal hier de user op:
-                user = _databaseConnector.GetUser("clean");
+                user = _databaseConnector.GetUser("HeadEngineer");
             }
 
             //Dit moet in een try.
