@@ -12,7 +12,7 @@ namespace In_Uitrit_Systeem
         public InUitRitTram(int number, Model model) : base(number, model)
         { }
 
-        public static InUitRitTram ConvertToInUitRitTram(Tram tram)
+        public static InUitRitTram ToTram(Tram tram)
         {
             return new InUitRitTram(tram.Number, tram.Model);
         }

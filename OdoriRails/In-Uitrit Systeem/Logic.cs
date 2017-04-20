@@ -16,7 +16,7 @@ namespace In_Uitrit_Systeem
         public Logic(User driver)
         {
             Tram tempTram = _databaseConnector.GetTramByDriver(driver);
-            Tram = InUitRitTram.ConvertToInUitRitTram(tempTram);
+            Tram = InUitRitTram.ToTram(tempTram);
         }
 
         public void AddRepair(string defect)

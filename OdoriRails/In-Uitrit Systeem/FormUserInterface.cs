@@ -29,6 +29,10 @@ namespace In_Uitrit_Systeem
 
         private void btnService_Click(object sender, EventArgs e)
         {
+            if (_logic.Tram.Location == TramLocation.In)
+            {
+
+            }
             string defect = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
