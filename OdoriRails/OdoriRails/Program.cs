@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OdoriRails.BaseClasses;
+using OdoriRails.DAL;
 
 namespace OdoriRails
 {
@@ -14,7 +16,8 @@ namespace OdoriRails
         [STAThread]
         static void Main()
         {
-            //DatabaseTest.OnLoad();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
         }
     }
 }

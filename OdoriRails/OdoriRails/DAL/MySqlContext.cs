@@ -148,7 +148,7 @@ namespace OdoriRails.DAL
             return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
         }
 
-        public List<Tram> GetAllTramsWithlocation(TramLocation location)
+        public List<Tram> GetAllTramsWithLocation(TramLocation location)
         {
             return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
         }
@@ -232,17 +232,6 @@ Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk")), CreateCleaning);
         }
 
-        public List<User> GetUsersInServiceById(int serviceId)
-        {
-            var command = new MySqlCommand(@"SELECT User.*, Service.ServicePk
-FROM Service INNER JOIN
-ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
-User ON ServiceUser.UserCk = User.UserPk
-WHERE (Service.ServicePk = @id)");
-            command.Parameters.AddWithValue("@id", serviceId);
-            return GenerateListWithFunction(GetData(command), CreateUser);
-        }
-
         public Cleaning AddCleaning(Cleaning cleaning)
         {
             var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
@@ -318,6 +307,17 @@ WHERE (Service.ServicePk = @id)");
             var query = new MySqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
             query.Parameters.AddWithValue("@id", service.Id);
             GetData(query);
+        }
+
+        private List<User> GetUsersInServiceById(int serviceId)
+        {
+            var command = new MySqlCommand(@"SELECT User.*, Service.ServicePk
+FROM Service INNER JOIN
+ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (Service.ServicePk = @id)");
+            command.Parameters.AddWithValue("@id", serviceId);
+            return GenerateListWithFunction(GetData(command), CreateUser);
         }
 
         #endregion
