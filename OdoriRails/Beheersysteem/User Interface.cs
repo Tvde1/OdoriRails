@@ -57,13 +57,7 @@ namespace Beheersysteem
                 btnChangeDisplayView.Text = "Display Table";
             }
         }
-
-        private void BeheerPanel_Paint(object sender, PaintEventArgs e)
-        {
-            //e.Graphics.dr
-        }
-
-
+        
 
         private void DrawPanel()
         {
@@ -74,14 +68,31 @@ namespace Beheersysteem
             var x = 0;
             var y = 0;
 
-            foreach (var track in _logic.AllTracks)
+            var tracks = _logic.AllTracks;
+            var testString = "";
+
+            foreach (var track in tracks)
             {
-                x += 50;
+                string newTestString = "";
+                foreach (var sector in track.Sectors)
+                {
+                    newTestString += "[] ";
+                }
+                testString += newTestString + "\r\n";
+            }
+
+            //MessageBox.Show(testString);
+
+            foreach (var track in tracks)
+            {
+                x += 5;
                 y = 0;
                 foreach (var sector in track.Sectors)
                 {
-                    y += 70;
-                    var rect = new Rectangle(x, y, 40, 60);
+                    graphics.DrawLine(pen, 100, 50, 20, 30);
+
+                    y += 7;
+                    var rect = new Rectangle(x, y, 4, 6);
                     graphics.DrawRectangle(pen, rect);
                     Brush brush = null;
                     switch (sector.Status)
@@ -96,7 +107,7 @@ namespace Beheersysteem
                             brush = new Pen(Color.Yellow).Brush;
                             break;
                     }
-                    var rectF = new RectangleF(x + 2, y + 2, 36, 56);
+                    var rectF = new RectangleF(x + 1, y + 1, 2, 4);
                     graphics.FillRectangle(brush, rectF);
                 }
             }
