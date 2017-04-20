@@ -263,8 +263,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
             var repairQuery = new SqlCommand(@"INSERT INTO Repair (ServiceFk, Solution, Defect, Type) VALUES (@id, @solution, @defect, @type)");
             repairQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
-            repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
-            repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+            repairQuery.Parameters.AddWithValue("@solution", repair.Solution ?? "");
+            repairQuery.Parameters.AddWithValue("@defect", repair.Defect ?? "");
             repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
             GetData(repairQuery);
 
@@ -290,8 +290,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                     {
                         var repair = (Repair)service;
                         var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
-                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
-                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution ?? "");
+                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect ?? "");
                         repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
                         repairQuery.Parameters.AddWithValue("@id", repair.Id);
                         GetData(repairQuery);
@@ -302,7 +302,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                         var cleaning = (Cleaning)service;
                         var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
                         cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
-                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments ?? "");
                         break;
                     }
             }
