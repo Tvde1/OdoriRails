@@ -13,7 +13,7 @@ namespace In_Uitrit_Systeem
     static class Program
     {
         private static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        private static readonly bool _gebruikInlogSysteem = false;
+        private static readonly bool _gebruikInlogSysteem = true;
 
         /// <summary>
         /// The main entry point for the application.
