@@ -37,18 +37,12 @@ namespace In_Uitrit_Systeem
             {
                 //Haal hier de user op:
                 user = _databaseConnector.GetUser("admin");
-            }
-
-            //Dit moet in een try.
-            try
-            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
-            finally
-            {
-                Application.Run(new UserInterface(user));
-            }
+
+
+            new UserInterface(user).ShowDialog();
         }
     }
 }
