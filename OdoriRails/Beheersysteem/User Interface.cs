@@ -12,7 +12,7 @@ namespace Beheersysteem
         public UserInterface()
         {
             InitializeComponent();
-            DrawPanel();
+            panelMain.Invalidate();
         }
 
         private void btnAddService_Click(object sender, EventArgs e)
@@ -50,9 +50,8 @@ namespace Beheersysteem
         {
             btnChangeDisplayView.Text = btnChangeDisplayView.Text == "Display Table" ? "Display Map" : "Display Table";
         }
-        
 
-        private void DrawPanel()
+        private void panelMain_Paint(object sender, PaintEventArgs e)
         {
             var panel = panelMain;
             var pen = new Pen(Color.Black, 4);
