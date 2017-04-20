@@ -309,6 +309,7 @@
             this.ClientSize = new System.Drawing.Size(724, 601);
             this.Controls.Add(this.tabUsers);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "UserInterface";
