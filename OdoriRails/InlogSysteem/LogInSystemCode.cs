@@ -24,44 +24,44 @@ namespace LoginSystem
         private void StartProgram(User user)
         {
 
-            string assembly = "";
+            string assemblyName = "";
             switch (user.Role)
             {
                 case Role.Administrator:
-                    assembly = "UserBeheersysteem.dll";
+                    assemblyName = "UserBeheersysteem.dll";
                     break;
                 case Role.Logistic:
-                    assembly = "LogistiekSysteem.dll";
+                    assemblyName = "LogistiekSysteem.dll";
                     break;
                 case Role.Driver:
-                    assembly = "InUitritSysteem.dll";
+                    assemblyName = "InUitritSysteem.dll";
                     break;
                 case Role.Cleaner:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.HeadCleaner:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.Engineer:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.HeadEngineer:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
             }
 
-            Assembly ass = null;
+            Assembly assembly = null;
 
             try
             {
-                ass = Assembly.LoadFrom(Path.Combine(_dataLocation, assembly));
+                assembly = Assembly.LoadFrom(Path.Combine(_dataLocation, assemblyName));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception($"Het bestand {assembly} kan niet gevonden worden.");
+                throw new Exception($"Het bestand {assemblyName} kan niet gevonden worden.");
             }
 
-            MethodInfo target = ass.EntryPoint;
+            MethodInfo target = assembly.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
             var args = new string[1] {user.Username};
             target.Invoke(null, new object[1] {args});
