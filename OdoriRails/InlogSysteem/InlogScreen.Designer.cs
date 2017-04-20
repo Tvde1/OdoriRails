@@ -42,20 +42,25 @@
             // 
             // tbUsername
             // 
-            this.tbUsername.Location = new System.Drawing.Point(234, 117);
+            this.tbUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbUsername.Location = new System.Drawing.Point(351, 201);
+            this.tbUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(164, 20);
             this.tbUsername.TabIndex = 0;
             // 
             // tbPassword
             // 
-            this.tbPassword.Location = new System.Drawing.Point(234, 181);
+            this.tbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbPassword.Location = new System.Drawing.Point(351, 267);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(164, 20);
             this.tbPassword.TabIndex = 1;
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(231, 101);
             this.label1.Name = "label1";
@@ -65,6 +70,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(231, 165);
             this.label2.Name = "label2";
@@ -74,7 +80,9 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(323, 207);
+            this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnLogin.Location = new System.Drawing.Point(484, 318);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 4;
@@ -84,6 +92,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::LoginSystem.Properties.Resources.temp;
             this.pictureBox2.Location = new System.Drawing.Point(423, 12);
             this.pictureBox2.Name = "pictureBox2";
@@ -94,6 +103,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = global::LoginSystem.Properties.Resources.temp;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
@@ -104,19 +114,21 @@
             // 
             // lbError
             // 
-            this.lbError.AutoSize = true;
+            this.lbError.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbError.ForeColor = System.Drawing.Color.Red;
             this.lbError.Location = new System.Drawing.Point(12, 307);
             this.lbError.Name = "lbError";
-            this.lbError.Size = new System.Drawing.Size(49, 13);
+            this.lbError.Size = new System.Drawing.Size(912, 24);
             this.lbError.TabIndex = 6;
             this.lbError.Text = "Error text";
+            this.lbError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 328);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(951, 505);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -133,7 +145,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
