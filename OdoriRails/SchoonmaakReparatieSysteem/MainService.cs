@@ -26,7 +26,6 @@ namespace SchoonmaakReparatieSysteem
             InitializeComponent();
             ActiveUser = user;
             usernamelbl.Text = ActiveUser.Username;
-            dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
 
         }
 
@@ -61,7 +60,15 @@ namespace SchoonmaakReparatieSysteem
         private void MainService_Load(object sender, EventArgs e)
         {
 
-            //dbconnector.GetAllServicesFromUser(ActiveUser);
+
+            if(ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
+            {
+                dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+            }
+            if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
+            {
+                dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+            }
 
             if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == Role.HeadCleaner)
             {
@@ -107,7 +114,7 @@ namespace SchoonmaakReparatieSysteem
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                    dataGridView1.DataSource = dbconnector.GetAllCleansWithoutUsers();
                 }
                 else
                 {
@@ -115,7 +122,14 @@ namespace SchoonmaakReparatieSysteem
             }
             if (filtercbox.SelectedIndex == 0)
             {
-                dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
+                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+                }
+                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                }
             }
             
         }

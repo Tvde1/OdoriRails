@@ -21,10 +21,32 @@ namespace SchoonmaakReparatieSysteem
         private List<User> users = new List<User>();
         public AddService(User activeuser)
         {
-            activeUser = activeuser;
-            usercbox.Items.Add(
-            InitializeComponent(); 
+            activeUser = activeuser; 
+            InitializeComponent();
 
+         
+            if (activeUser.Role == Role.HeadEngineer)
+            {
+                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Engineer))
+                {
+                    usercbox.Items.Add(user.Name);
+                }
+
+                commentlbl.Text = "Defect omschrijving";
+                sortsrvc_cb.Items.Add(RepairType.Maintenance);
+                sortsrvc_cb.Items.Add(RepairType.Repair);
+            }
+            if (activeUser.Role == Role.HeadCleaner)
+            {
+                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Cleaner))
+                {
+                    usercbox.Items.Add(user.Name);
+                }
+
+                commentlbl.Text = "Opmerkingen";
+                sortsrvc_cb.Items.Add(CleaningSize.Big);
+                sortsrvc_cb.Items.Add(CleaningSize.Small);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -53,33 +75,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void AddService_Load(object sender, EventArgs e)
         {
-            if (activeUser.Role != Role.HeadCleaner || activeUser.Role != Role.HeadEngineer)
-            {
-                MessageBox.Show("No Privileges");
-                this.Close();
-            }
-            if (activeUser.Role == Role.HeadEngineer)
-            {
-                foreach (var user in dbconnector.GetAllUsersWithRole(Role.Engineer))
-                {
-                    users.Add(user);
-                }
-
-                commentlbl.Text = "Defect omschrijving";
-                sortsrvc_cb.Items.Add(RepairType.Maintenance);
-                sortsrvc_cb.Items.Add(RepairType.Repair);
-            }
-            if (activeUser.Role == Role.HeadCleaner)
-            {
-                foreach (var user in dbconnector.GetAllUsersWithRole(Role.Cleaner))
-                {
-                    users.Add(user);
-                }
-
-                commentlbl.Text = "Opmerkingen";
-                sortsrvc_cb.Items.Add(CleaningSize.Big);
-                sortsrvc_cb.Items.Add(CleaningSize.Small);
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

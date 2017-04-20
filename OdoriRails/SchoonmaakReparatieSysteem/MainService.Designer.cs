@@ -85,6 +85,7 @@
             // 
             // filtercbox
             // 
+            this.filtercbox.DisplayMember = "0";
             this.filtercbox.FormattingEnabled = true;
             this.filtercbox.Items.AddRange(new object[] {
             "My Services",
@@ -94,6 +95,7 @@
             this.filtercbox.Name = "filtercbox";
             this.filtercbox.Size = new System.Drawing.Size(180, 28);
             this.filtercbox.TabIndex = 7;
+            this.filtercbox.ValueMember = "0";
             this.filtercbox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1

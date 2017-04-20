@@ -212,7 +212,7 @@ FROM ServiceUser INNER JOIN
 User ON ServiceUser.UserCk = User.UserPk
 WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
             repairQuery.Parameters.AddWithValue("@id", user.Id);
-            return GenerateListWithFunction(GetData(repairQuery), CreateRepair)
+            return GenerateListWithFunction(GetData(repairQuery), CreateRepair);
         }
 
         public List<Cleaning> GetAllCleansFromUser(User user)
