@@ -45,7 +45,7 @@ namespace Beheersysteem
                     {
                         for (int i = 0; i < track.Sectors.Count - 1; i++)
                         {
-                            if (track.Sectors[0].OccupyingTram == null)
+                            if (track.Sectors[0].OccupyingTram == null && track.Sectors[0].Status == SectorStatus.Open)
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
@@ -71,7 +71,7 @@ namespace Beheersysteem
                     {
                         for (int i = 0; i < track.Sectors.Count - 1; i++)
                         {
-                            if (track.Sectors[0].OccupyingTram == null)
+                            if (track.Sectors[0].OccupyingTram == null && track.Sectors[0].Status == SectorStatus.Open)
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
@@ -97,7 +97,7 @@ namespace Beheersysteem
                     {
                         for (int i = 0; i < track.Sectors.Count - 1; i++)
                         {
-                            if (track.Sectors[0].OccupyingTram == null)
+                            if (track.Sectors[0].OccupyingTram == null && track.Sectors[0].Status == SectorStatus.Open)
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
