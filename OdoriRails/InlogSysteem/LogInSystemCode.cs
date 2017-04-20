@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Authentication;
 using System.Security.Permissions;
+using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 
@@ -53,38 +54,14 @@ namespace LoginSystem
             Assembly ass = Assembly.LoadFrom(Path.Combine(_dataLocation, assembly));
             MethodInfo target = ass.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            var args = new string[1] {user.Username};
-            target.Invoke(null, new object[1] {args});
-        }
-
-
-        /*
-        private void StartProgram(User user)
-        {
-            Assembly assembly;
-            Type type;
-            switch (user.Role)
+            try
             {
-                case Role.HeadEngineer:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Engineer) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Engineer));
-                        break;
-                    }
-                case Role.HeadCleaner:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Cleaner) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Cleaner));
-                        break;
-                    }
-                default:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
-                        break;
-                    }
+                target.Invoke(null, new object[1] {new string[1] {user.Username}});
             }
-            type.GetMethod("Main").Invoke(new object[1] { user }, null);
-        }*/
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
