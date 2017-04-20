@@ -243,9 +243,9 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
             cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
 
-            SetUsersToServices(cleaning.AssignedUsers, cleaning);
-
             cleaning.SetId((int)data.Rows[0].ItemArray[0]);
+            SetUsersToServices(cleaning.AssignedUsers, cleaning);
+            
             return cleaning;
         }
 
@@ -265,9 +265,10 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
             GetData(repairQuery);
 
-            SetUsersToServices(repair.AssignedUsers, repair);
 
             repair.SetId(Convert.ToInt32(data.Rows[0].ItemArray[0]));
+            SetUsersToServices(repair.AssignedUsers, repair);
+            
             return repair;
         }
 
