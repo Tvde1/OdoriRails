@@ -11,7 +11,7 @@ namespace SchoonmaakReparatieSysteem
     static class Program
     {
         private static readonly ISchoonmaakReparatieDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
 
         /// <summary>
         /// The main entry point for the application.
