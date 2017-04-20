@@ -148,6 +148,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LoginScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OdoriRails Login";
             this.Load += new System.EventHandler(this.InlogScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
