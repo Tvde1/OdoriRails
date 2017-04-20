@@ -51,7 +51,17 @@ namespace LoginSystem
                     break;
             }
 
-            Assembly ass = Assembly.LoadFrom(Path.Combine(_dataLocation, assembly));
+            Assembly ass = null;
+
+            try
+            {
+                ass = Assembly.LoadFrom(Path.Combine(_dataLocation, assembly));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Het bestand {assembly} kan niet gevonden worden.");
+            }
+
             MethodInfo target = ass.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
             try
