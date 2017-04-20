@@ -6,9 +6,10 @@ namespace OdoriRails.BaseClasses
     public enum TrackType
     {
         Normal,
-        Repair,
-        Cleaning
+        Service,
+        Exit
     }
+
     public class Track
     {
         public List<Sector> Sectors { get; } = new List<Sector>();
