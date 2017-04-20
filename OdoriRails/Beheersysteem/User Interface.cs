@@ -48,14 +48,7 @@ namespace Beheersysteem
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
         {
-            if (btnChangeDisplayView.Text == "Display Table")
-            {
-                btnChangeDisplayView.Text = "Display Map";
-            }
-            else
-            {
-                btnChangeDisplayView.Text = "Display Table";
-            }
+            btnChangeDisplayView.Text = btnChangeDisplayView.Text == "Display Table" ? "Display Map" : "Display Table";
         }
         
 
