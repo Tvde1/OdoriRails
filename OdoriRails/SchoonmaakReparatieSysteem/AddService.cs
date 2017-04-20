@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using OdoriRails;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 
@@ -21,10 +13,10 @@ namespace SchoonmaakReparatieSysteem
         private List<User> users = new List<User>();
         public AddService(User activeuser)
         {
-            activeUser = activeuser; 
+            activeUser = activeuser;
             InitializeComponent();
 
-         
+
             if (activeUser.Role == Role.HeadEngineer)
             {
                 foreach (User user in dbconnector.GetAllUsersWithRole(Role.Engineer))
@@ -52,7 +44,7 @@ namespace SchoonmaakReparatieSysteem
         private void button2_Click(object sender, EventArgs e)
         {
             List<User> userList = new List<User>();
-            string  sType = Convert.ToString(sortsrvc_cb.SelectedItem);
+            string sType = Convert.ToString(sortsrvc_cb.SelectedItem);
             string comment = commenttb.Text;
             DateTime startdate = dateTimePicker1.Value;
 
@@ -60,28 +52,23 @@ namespace SchoonmaakReparatieSysteem
             {
                 var cleaning = new Cleaning(startdate, startdate, (CleaningSize)sortsrvc_cb.SelectedIndex, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                 dbconnector.AddCleaning(cleaning);
-               
             }
             if (activeUser.Role == Role.HeadEngineer)
             {
-                
                 var repair = new Repair(startdate, startdate, (RepairType)sortsrvc_cb.SelectedIndex, commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                 dbconnector.AddRepair(repair);
-               
             }
-           
-            
         }
 
         private void AddService_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var user = usercbox.SelectedItem;
-            
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
