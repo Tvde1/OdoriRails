@@ -13,7 +13,7 @@ namespace OdoriRails.DAL
     public class MssqlDatabaseContext : IBeheerDatabaseAdapter, IInUitrijDatabaseAdapter, ILoginDatabaseAdapter, ILogisticDatabaseAdapter, ISchoonmaakReparatieDatabaseAdapter
     {
         //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
-        private const string ConnectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
+        private const string ConnectionString = @"Data Source=192.168.20.189;Initial Catalog=OdoriRails;User ID=sa;Password=OdoriRails123;";
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private const int RemiseNumber = 1;
 
