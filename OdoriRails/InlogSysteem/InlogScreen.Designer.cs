@@ -42,6 +42,7 @@
             // 
             // tbUsername
             // 
+            this.tbUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbUsername.Location = new System.Drawing.Point(351, 201);
             this.tbUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbUsername.Name = "tbUsername";
@@ -50,6 +51,7 @@
             // 
             // tbPassword
             // 
+            this.tbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbPassword.Location = new System.Drawing.Point(351, 267);
             this.tbPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPassword.Name = "tbPassword";
@@ -59,6 +61,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(346, 176);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -69,6 +72,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(346, 243);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -79,6 +83,7 @@
             // 
             // btnLogin
             // 
+            this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnLogin.Location = new System.Drawing.Point(484, 318);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLogin.Name = "btnLogin";
@@ -90,6 +95,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::LoginSystem.Properties.Resources.temp;
             this.pictureBox2.Location = new System.Drawing.Point(634, 18);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -101,6 +107,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = global::LoginSystem.Properties.Resources.temp;
             this.pictureBox1.Location = new System.Drawing.Point(18, 18);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -112,20 +119,22 @@
             // 
             // lbError
             // 
-            this.lbError.AutoSize = true;
+            this.lbError.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbError.ForeColor = System.Drawing.Color.Red;
             this.lbError.Location = new System.Drawing.Point(18, 472);
             this.lbError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbError.Name = "lbError";
-            this.lbError.Size = new System.Drawing.Size(79, 20);
+            this.lbError.Size = new System.Drawing.Size(912, 24);
             this.lbError.TabIndex = 6;
             this.lbError.Text = "Error text";
+            this.lbError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginScreen
             // 
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(951, 505);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.pictureBox2);
