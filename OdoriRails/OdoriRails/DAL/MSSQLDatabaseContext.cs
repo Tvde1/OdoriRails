@@ -140,7 +140,9 @@ namespace OdoriRails.DAL
 
         public Tram GetTramByDriver(User driver)
         {
-            return CreateTram(GetData(new SqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
+            var data = GetData(new SqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}"));
+            if (data.Rows.Count > 0) return CreateTram(data.Rows[0]);
+            return null;
         }
 
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
@@ -176,9 +178,9 @@ namespace OdoriRails.DAL
 
         #region schoonmaak
 
-        public List<Service> GetAllServicesFromUser(User user)
+        public List<Repair> GetAllRepairsFromUser(User user)
         {
-            const string repairs = @"
+            var repairQuery = new SqlCommand(@"
 SELECT Repair.*
 FROM Repair INNER JOIN
 (SELECT Service.ServicePk
@@ -186,30 +188,24 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
+            repairQuery.Parameters.AddWithValue("@id", user.Id);
+            return GenerateListWithFunction(GetData(repairQuery), CreateRepair);
+        }
 
-            const string cleans = @"
+        public List<Cleaning> GetAllCleansFromUser(User user)
+        {
+            var cleanQuery = new SqlCommand(@"
 SELECT Clean.*
 FROM Clean INNER JOIN
 (SELECT Service.ServicePk
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
-
-            var repairQuery = new SqlCommand(repairs);
-            repairQuery.Parameters.AddWithValue("@id", user.Id);
-
-            var cleanQuery = new SqlCommand(cleans);
+[User] ON ServiceUser.UserCk = [User].UserP
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk");
             cleanQuery.Parameters.AddWithValue("@id", user.Id);
-
-            List<Service> returnList = new List<Service>();
-
-            returnList.AddRange(GenerateListWithFunction(GetData(repairQuery), CreateRepair));
-            returnList.AddRange(GenerateListWithFunction(GetData(cleanQuery), CreateCleaning));
-
-            return returnList;
+            return GenerateListWithFunction(GetData(cleanQuery), CreateCleaning);
         }
 
         public List<Repair> GetAllRepairsWithoutUsers()
@@ -374,7 +370,7 @@ WHERE (Service.ServicePk = @id)");
         private Cleaning CreateCleaning(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
@@ -391,7 +387,7 @@ WHERE (Service.ServicePk = @id)");
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {Convert.ToInt32(array[0])}")).Rows[0].ItemArray;
+            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
