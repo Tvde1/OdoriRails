@@ -140,9 +140,7 @@ namespace OdoriRails.DAL
 
         public Tram GetTramByDriver(User driver)
         {
-            var data = GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}"));
-            if (data.Rows.Count > 0) return CreateTram(data.Rows[0]);
-            return null;
+            return CreateTram(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
         }
 
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
@@ -369,7 +367,7 @@ WHERE (Service.ServicePk = @id)");
         private Cleaning CreateCleaning(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
@@ -386,7 +384,7 @@ WHERE (Service.ServicePk = @id)");
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
