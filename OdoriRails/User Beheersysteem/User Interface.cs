@@ -17,7 +17,7 @@ namespace User_Beheersysteem
         int index;
         string status;
 
-        public UserInterface()
+        public UserInterface(User user)
         {
             InitializeComponent();
             InitializeListView();
