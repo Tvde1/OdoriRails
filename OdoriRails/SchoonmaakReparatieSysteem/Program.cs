@@ -11,7 +11,7 @@ namespace SchoonmaakReparatieSysteem
     static class Program
     {
         private static readonly ISchoonmaakReparatieDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        private static readonly bool _gebruikInlogSysteem = false;
+        private static readonly bool _gebruikInlogSysteem = true;
 
         /// <summary>
         /// The main entry point for the application.
@@ -34,18 +34,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 //Haal hier de user op:
                 user = _databaseConnector.GetUser("HeadEngineer");
-            }
-
-            //Dit moet in een try.
-            try
-            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
-            finally
-            {
-                Application.Run(new MainService(user));
-            }
+
+            new MainService(user).ShowDialog();
         }
     }
 }
