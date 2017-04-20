@@ -10,18 +10,42 @@ namespace SchoonmaakReparatieSysteem
 {
     static class Program
     {
-        
+        private static readonly ISchoonmaakReparatieDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
+        private static readonly bool _gebruikInlogSysteem = false;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            IDatabaseConnector dbconnector = new MssqlDatabaseContext();
-            User user =  dbconnector.GetUser(4);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainService(user));
+            User user;
+
+            if (_gebruikInlogSysteem)
+            {
+                if (args.Length < 1)
+                {
+                    MessageBox.Show(@"Zorg dat je inlogt via de inlogapplicatie.");
+                    return;
+                }
+                user = _databaseConnector.GetUser(args[0]);
+            }
+            else
+            {
+                //Haal hier de user op:
+                user = _databaseConnector.GetUser("clean");
+            }
+
+            //Dit moet in een try.
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+            }
+            finally
+            {
+                Application.Run(new MainService(user));
+            }
         }
     }
 }

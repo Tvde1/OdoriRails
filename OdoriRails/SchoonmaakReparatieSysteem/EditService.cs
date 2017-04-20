@@ -17,7 +17,7 @@ namespace SchoonmaakReparatieSysteem
     {
         private User activeUser;
         private Service service;
-        private IDatabaseConnector dbconnector = new MssqlDatabaseContext();
+        private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         List<User> users = new List<User>();
         public EditService(User activeuser, Service svc)
         {

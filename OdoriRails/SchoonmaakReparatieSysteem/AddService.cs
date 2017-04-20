@@ -17,7 +17,7 @@ namespace SchoonmaakReparatieSysteem
     public partial class AddService : Form
     {
         private User activeUser;
-        private IDatabaseConnector dbconnector = new MssqlDatabaseContext();
+        private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         private List<User> users = new List<User>();
         public AddService(User activeuser)
         {
