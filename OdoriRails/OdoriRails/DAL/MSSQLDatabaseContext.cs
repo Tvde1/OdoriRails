@@ -195,8 +195,8 @@ FROM Clean INNER JOIN
 FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
-[User] ON ServiceUser.UserCk = [User].UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+[User] ON ServiceUser.UserCk = [User].UserP
+WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new SqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -269,6 +269,13 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
             repair.SetId((int)data.Rows[0].ItemArray[0]);
             return repair;
+        }
+
+        private List<User> GetUsersInService(int serviceId)
+        {
+            var query = new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {serviceId}");
+            var data = GetData(query);
+            return GenerateListWithFunction(data, CreateUser);
         }
 
         public void EditService(Service service)
