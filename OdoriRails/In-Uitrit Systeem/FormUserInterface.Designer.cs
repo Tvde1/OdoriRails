@@ -70,9 +70,7 @@
             // 
             // gbService
             // 
-            this.gbService.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbService.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbService.Controls.Add(this.cbMaintenance);
             this.gbService.Controls.Add(this.cbCleaning);
             this.gbService.Location = new System.Drawing.Point(12, 12);
@@ -84,9 +82,7 @@
             // 
             // gbTramNumber
             // 
-            this.gbTramNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbTramNumber.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbTramNumber.Controls.Add(this.lblTramNumber);
             this.gbTramNumber.Location = new System.Drawing.Point(12, 174);
             this.gbTramNumber.Name = "gbTramNumber";
@@ -110,9 +106,7 @@
             // 
             // gbStandplaats
             // 
-            this.gbStandplaats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbStandplaats.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbStandplaats.Controls.Add(this.lblStandplaats);
             this.gbStandplaats.Location = new System.Drawing.Point(274, 174);
             this.gbStandplaats.Name = "gbStandplaats";
@@ -146,9 +140,7 @@
             // 
             // gbDetails
             // 
-            this.gbDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbDetails.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbDetails.Controls.Add(this.rtbDetails);
             this.gbDetails.Location = new System.Drawing.Point(187, 12);
             this.gbDetails.Name = "gbDetails";
@@ -159,9 +151,7 @@
             // 
             // btnService
             // 
-            this.btnService.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnService.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnService.BackColor = System.Drawing.SystemColors.Window;
             this.btnService.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnService.Location = new System.Drawing.Point(548, 21);
@@ -184,7 +174,9 @@
             this.Controls.Add(this.gbTramNumber);
             this.Controls.Add(this.gbService);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
             this.Name = "FormUserInterface";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
