@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using In_Uitrit_Systeem;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 
@@ -30,24 +26,17 @@ namespace In_Uitrit_Systeem
                     return;
                 }
                 user = _databaseConnector.GetUser(args[0]);
-
             }
             else
             {
                 //Haal hier de user op:
                 user = _databaseConnector.GetUser("admin");
-            }
-
-            //Dit moet in een try.
-            try
-            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
-            finally
-            {
-                Application.Run(new FormUserInterface(user));
-            }
+
+
+            Application.Run(new FormUserInterface(user));
         }
     }
 }
