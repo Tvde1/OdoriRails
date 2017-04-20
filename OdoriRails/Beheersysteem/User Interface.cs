@@ -17,8 +17,7 @@ namespace Beheersysteem
 
         private void btnAddService_Click(object sender, EventArgs e)
         {
-            //Test
-            _logic.GetSchema();
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -47,6 +46,7 @@ namespace Beheersysteem
         private void btnSimulation_Click(object sender, EventArgs e)
         {
             _logic.Simulation();
+            panelMain.Invalidate();
         }
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)

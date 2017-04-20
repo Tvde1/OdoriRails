@@ -25,11 +25,6 @@ namespace Beheersysteem
         public Logic()
         {
             _allTracks = database.GetTracksAndSectors();
-        }
-
-
-        public void GetSchema()
-        {
             csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
@@ -88,14 +83,14 @@ namespace Beheersysteem
             {
                 if (entry.TramNumber == null)
                 {
-                    foreach (BeheerTram tram in allTrams)
+                    foreach (Tram tram in allTrams)
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
                             entry.TramNumber = tram.Number;
 
                             tram.EditTramDepartureTime(entry.ExitTime);
-                            continue;
+                            break;
                         }
                     }
 

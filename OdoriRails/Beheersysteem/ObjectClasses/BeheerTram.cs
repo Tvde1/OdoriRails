@@ -12,19 +12,6 @@ namespace Beheersysteem.ObjectClasses
         public BeheerTram(int number, Model model) : base(number, model)
         { }
 
-        public void EditTramStatus(TramStatus tramStatus)
-        {
-            Status = tramStatus;
-        }
 
-        public void EditTramLocation(TramLocation tramLocation)
-        {
-            Location = tramLocation;
-        }
-
-        public void EditTramDepartureTime(DateTime? departureTime)
-        {
-            DepartureTime = departureTime;
-        }
     }
 }
