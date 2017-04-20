@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
+using System.Linq;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -11,15 +12,17 @@ namespace SchoonmaakReparatieSysteem
         private User activeUser;
         private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         private List<User> users = new List<User>();
+        private List<User> availableusers = new List<User>();
         public AddService(User activeuser)
         {
             activeUser = activeuser;
             InitializeComponent();
-
+            
 
             if (activeUser.Role == Role.HeadEngineer)
             {
-                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Engineer))
+                availableusers = dbconnector.GetAllUsersWithRole(Role.Engineer);
+                foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
                 }
@@ -30,7 +33,8 @@ namespace SchoonmaakReparatieSysteem
             }
             if (activeUser.Role == Role.HeadCleaner)
             {
-                foreach (User user in dbconnector.GetAllUsersWithRole(Role.Cleaner))
+                availableusers = dbconnector.GetAllUsersWithRole(Role.Cleaner);
+                foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
                 }
@@ -48,43 +52,33 @@ namespace SchoonmaakReparatieSysteem
             string comment = commenttb.Text;
             DateTime startdate = dateTimePicker1.Value;
             DateTime enddate = DateTime.MaxValue;
-            try
+            //try
+            //{
+            if (activeUser.Role == Role.HeadCleaner)
             {
-                if (activeUser.Role == Role.HeadCleaner)
-                {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    dbconnector.AddCleaning(cleaning);
-                }
-                if (activeUser.Role == Role.HeadEngineer)
-                {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    dbconnector.AddRepair(repair);
-                }
+                var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                    commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                dbconnector.AddCleaning(cleaning);
             }
-            catch
+            if (activeUser.Role == Role.HeadEngineer)
             {
-                MessageBox.Show("Er ging iets mis. Roep Hugo.");
+                var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                    commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+                dbconnector.AddRepair(repair);
             }
-            finally { this.Close();}
-        }
-
-        private void AddService_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var user = usercbox.SelectedItem;
-
+            //    }
+            //    catch
+            //    {
+            //        MessageBox.Show("Er ging iets mis. Roep Hugo.");
+            //    }
+            //    finally { this.Close();}
+            //}
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             usersListBox.Items.Add(usercbox.SelectedItem);
-            users.Add((User)usercbox.SelectedItem);
+            users.Add(availableusers.ElementAt(usercbox.SelectedIndex));
         }
     }
 }

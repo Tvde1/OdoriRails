@@ -134,5 +134,34 @@ namespace SchoonmaakReparatieSysteem
             }
             
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (filtercbox.SelectedIndex == 1)
+            {
+                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                }
+                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllCleansWithoutUsers();
+                }
+                else
+                {
+                }
+            }
+            if (filtercbox.SelectedIndex == 0)
+            {
+                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+                }
+                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
+                {
+                    dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                }
+            }
+        }
     }
 }

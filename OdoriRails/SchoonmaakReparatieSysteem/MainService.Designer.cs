@@ -37,6 +37,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.usernamelbl = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +91,7 @@
             this.filtercbox.Items.AddRange(new object[] {
             "My Services",
             "Unassigned Services"});
-            this.filtercbox.Location = new System.Drawing.Point(469, 32);
+            this.filtercbox.Location = new System.Drawing.Point(578, 42);
             this.filtercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.filtercbox.Name = "filtercbox";
             this.filtercbox.Size = new System.Drawing.Size(180, 28);
@@ -101,7 +102,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(372, 36);
+            this.label1.Location = new System.Drawing.Point(481, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 20);
@@ -137,11 +138,23 @@
             this.usernamelbl.TabIndex = 11;
             this.usernamelbl.Text = "Username";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(190, 720);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(79, 35);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Refresh";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // MainService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 783);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -172,6 +185,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label usernamelbl;
+        private System.Windows.Forms.Button button3;
     }
 }
 

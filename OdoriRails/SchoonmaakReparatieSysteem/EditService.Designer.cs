@@ -120,6 +120,7 @@
             this.button1.TabIndex = 15;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
+
             // 
             // usercbox
             // 
