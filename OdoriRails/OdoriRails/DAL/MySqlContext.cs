@@ -140,7 +140,9 @@ namespace OdoriRails.DAL
 
         public Tram GetTramByDriver(User driver)
         {
-            return CreateTram(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
+            var data = GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}"));
+            if (data.Rows.Count > 0) return CreateTram(data.Rows[0]);
+            return null;
         }
 
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
@@ -179,24 +181,10 @@ namespace OdoriRails.DAL
         public List<Service> GetAllServicesFromUser(User user)
         {
             const string repairs = @"
-SELECT Repair.*
-FROM Repair INNER JOIN
-(SELECT Service.ServicePk
-FROM Service INNER JOIN
-(SELECT ServiceUser.ServiceCk
-FROM ServiceUser INNER JOIN
-User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+";
 
             const string cleans = @"
-SELECT Clean.*
-FROM Clean INNER JOIN
-(SELECT Service.ServicePk
-FROM Service INNER JOIN
-(SELECT ServiceUser.ServiceCk
-FROM ServiceUser INNER JOIN
-User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
+";
 
             var repairQuery = new MySqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -210,6 +198,36 @@ WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.S
             returnList.AddRange(GenerateListWithFunction(GetData(cleanQuery), CreateCleaning));
 
             return returnList;
+        }
+
+        public List<Repair> GetAllRepairsFromUser(User user)
+        {
+            var repairQuery = new MySqlCommand(@"
+SELECT Repair.*
+FROM Repair INNER JOIN
+(SELECT Service.ServicePk
+FROM Service INNER JOIN
+(SELECT ServiceUser.ServiceCk
+FROM ServiceUser INNER JOIN
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
+            repairQuery.Parameters.AddWithValue("@id", user.Id);
+            return GenerateListWithFunction(GetData(repairQuery), CreateRepair)
+        }
+
+        public List<Cleaning> GetAllCleansFromUser(User user)
+        {
+            var cleanQuery = new MySqlCommand(@"
+SELECT Clean.*
+FROM Clean INNER JOIN
+(SELECT Service.ServicePk
+FROM Service INNER JOIN
+(SELECT ServiceUser.ServiceCk
+FROM ServiceUser INNER JOIN
+User ON ServiceUser.UserCk = User.UserPk
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
+            cleanQuery.Parameters.AddWithValue("@id", user.Id);
+            return GenerateListWithFunction(GetData(cleanQuery), CreateCleaning);
         }
 
         public List<Repair> GetAllRepairsWithoutUsers()
@@ -276,24 +294,24 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             switch (service.GetType().Name)
             {
                 case "Repair":
-                {
-                    var repair = (Repair)service;
-                    var repairQuery = new MySqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
-                    repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
-                    repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
-                    repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
-                    repairQuery.Parameters.AddWithValue("@id", repair.Id);
-                    GetData(repairQuery);
-                    break;
-                }
+                    {
+                        var repair = (Repair)service;
+                        var repairQuery = new MySqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                        repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+                        repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                        GetData(repairQuery);
+                        break;
+                    }
                 case "Cleaning":
-                {
-                    var cleaning = (Cleaning)service;
-                    var cleaningQuery = new MySqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
-                    cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
-                    cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
-                    break;
-                }
+                    {
+                        var cleaning = (Cleaning)service;
+                        var cleaningQuery = new MySqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE CleanPk = @id");
+                        cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        break;
+                    }
             }
             var query = new MySqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
             query.Parameters.AddWithValue("@startdate", service.StartDate);
@@ -367,7 +385,7 @@ WHERE (Service.ServicePk = @id)");
         private Cleaning CreateCleaning(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
@@ -384,7 +402,7 @@ WHERE (Service.ServicePk = @id)");
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new MySqlCommand($"SELECT * FROM Service WHERE ServicePk = {(int)array[0]}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];

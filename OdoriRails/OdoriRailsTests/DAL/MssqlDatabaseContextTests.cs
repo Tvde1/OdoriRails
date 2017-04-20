@@ -94,13 +94,25 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void GetAllUsersWithRoleTest()
         {
-            ms.GetAllUsersWithRole(Role.Administrator);
+            User us1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); ms.AddUser(us1);
+            User us2 = new User(405, "Tester2", "Test2", "Test@test.com", "TEST2", Role.HeadEngineer, "Test2"); ms.AddUser(us2);
+
+            Assert.AreEqual(true, ms.GetAllUsersWithRole(Role.Administrator).Contains(us1));
+            Assert.AreEqual(false, ms.GetAllUsersWithRole(Role.Administrator).Contains(us2));
+
+            // clear test data from db.
+            ms.RemoveUser(us1);
+            ms.RemoveUser(us2);
         }
 
         [TestMethod()]
         public void GetUserIdTest()
         {
-            Assert.Fail();
+            User us1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); ms.AddUser(us1);
+            Assert.AreEqual(us1.Id, ms.GetUserId(us1.Username));
+
+            // clear test data from db.
+            ms.RemoveUser(us1);
         }
         #endregion
 
@@ -108,25 +120,48 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void AddTramTest()
         {
-            Assert.Fail();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); U1 = ms.AddUser(U1);
+            Tram Tr1 = new Tram(404, TramStatus.Idle, 1, U1, Model.Classic, TramLocation.In, DateTime.Now); ms.AddTram(Tr1);
+            Assert.AreEqual(Tr1, ms.GetTram(Tr1.Number));
+
+            // clear test data from db.
+            ms.RemoveUser(U1);
+            ms.RemoveTram(Tr1);
         }
 
         [TestMethod()]
         public void RemoveTramTest()
         {
-            Assert.Fail();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); U1 = ms.AddUser(U1);
+            Tram Tr1 = new Tram(404, TramStatus.Idle, 1, U1, Model.Classic,TramLocation.In, DateTime.Now); ms.AddTram(Tr1);
+            ms.RemoveTram(Tr1);
+
+            try
+            {
+                ms.GetTram(Tr1.Number);
+                Assert.Fail();
+            }
+            catch
+            {
+                Assert.AreEqual(1, 1);
+            }
+
+
+            // clear test data from db.
+            ms.RemoveUser(U1);
+            ms.RemoveTram(Tr1);
         }
 
         [TestMethod()]
         public void GetTramTest()
         {
-            Assert.Fail();
-        }
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); U1 = ms.AddUser(U1);
+            Tram Tr1 = new Tram(404, TramStatus.Idle, 1, U1, Model.Classic,TramLocation.In,DateTime.Now); ms.AddTram(Tr1);
+            Assert.AreEqual(Tr1.Number, ms.GetTram(Tr1.Number));
 
-        [TestMethod()]
-        public void GetAllTramsOnATrackTest()
-        {
-            Assert.Fail();
+            // clear test data from db.
+            ms.RemoveUser(U1);
+            ms.RemoveTram(Tr1);
         }
         #endregion
 
@@ -134,6 +169,8 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void GetTracksAndSectorsTest()
         {
+            // op het moment van maken is er nog geen methode om een track toe tevoegen aan de db.
+            //Track tk1 = new Track(1000, 404, TrackType.Normal);
             Assert.Fail();
         }
         #endregion
@@ -142,43 +179,74 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void GetAllServicesFromUserTest()
         {
-            Assert.Fail();
+            List<User> users = new List<User>();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
+            Cleaning Cl1 = new Cleaning(1, DateTime.Now, DateTime.Now, CleaningSize.Big, "test", users, 1); Cl1 = ms.AddCleaning(Cl1);
+            Assert.AreEqual(true, ms.GetAllServicesFromUser(U1).Contains(Cl1));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
+            ms.DeleteService(Cl1);
         }
 
         [TestMethod()]
         public void AddCleaningTest()
         {
-            Assert.Fail();
+            // these two methodes have to be tested together
+            List<User> users = new List<User>();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
+            Cleaning Cl1 = new Cleaning(1, DateTime.Now, DateTime.Now, CleaningSize.Big, "test", users, 1); Cl1 = ms.AddCleaning(Cl1);
+            Assert.AreEqual(true, ms.GetAllCleansWithoutUsers().Contains(Cl1));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
+            ms.DeleteService(Cl1);
         }
 
         [TestMethod()]
         public void AddRepairTest()
         {
-            Assert.Fail();
+            // These two methodes have to be tested together.
+            List<User> users = new List<User>();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
+            Repair R1 = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Repair, "Test1", "test2", users, 1); R1 = ms.AddRepair(R1);
+            Assert.AreEqual(true, ms.GetAllRepairsWithoutUsers().Contains(R1));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
+            ms.DeleteService(R1);
+
         }
 
-        [TestMethod()]
-        public void GetAllRepairsWithoutUsersTest()
-        {
-            Assert.Fail();
-        }
+       
 
-        [TestMethod()]
-        public void GetAllCleansWithoutUsersTest()
-        {
-            Assert.Fail();
-        }
+        
 
         [TestMethod()]
         public void EditServiceTest()
         {
+            // De enige propertie van service die geset kan worden is id , en deze wordt overschreven door de database.
+            // En deze methode gebruikt de id om de services te vergelijken.
+
+            //List<User> users = new List<User>();
+            //User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
+            // Repair R1 = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Repair, "Test1", "test2", users, 1); R1 = ms.AddRepair(R1);
+            //R1.SetId(101);
+            //ms.EditService(R1);
             Assert.Fail();
         }
 
         [TestMethod()]
         public void DeleteServiceTest()
         {
-            Assert.Fail();
+            List<User> users = new List<User>();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
+            Repair R1 = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Repair, "Test1", "test2", users, 1); R1 = ms.AddRepair(R1);
+            ms.DeleteService(R1);
+            Assert.AreEqual(false, ms.GetAllRepairsWithoutUsers().Contains(R1));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
         }
         #endregion
 
@@ -186,13 +254,23 @@ namespace OdoriRails.DAL.Tests
         [TestMethod()]
         public void ValidateUsernameTest()
         {
-            Assert.Fail();
+            List<User> users = new List<User>();
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); U1 = ms.AddUser(U1); users.Add(U1);
+            Assert.AreEqual(true, ms.ValidateUsername(U1.Username));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
         }
 
         [TestMethod()]
         public void MatchUsernameAndPasswordTest()
         {
-            User U1 = new User(404, "Tester1", "Test", "Test@test.com","TEST",Role.Administrator,"Test");
+            User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test");
+            ms.AddUser(U1);
+            Assert.AreEqual(true, ms.MatchUsernameAndPassword(U1.Username, U1.Password));
+
+            //Removing testdata from db.
+            ms.RemoveUser(U1);
 
         }
         #endregion

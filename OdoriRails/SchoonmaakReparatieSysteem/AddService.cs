@@ -22,6 +22,7 @@ namespace SchoonmaakReparatieSysteem
         public AddService(User activeuser)
         {
             activeUser = activeuser;
+            usercbox.Items.Add(
             InitializeComponent(); 
 
         }
