@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using OdoriRails;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 
@@ -85,14 +92,15 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                    var servicetodelete = (Service) dataGridView1.CurrentRow.DataBoundItem;
+                    var servicetodelete = (Service)dataGridView1.CurrentRow.DataBoundItem;
                     dbconnector.DeleteService(servicetodelete);
                 }
                 catch
                 {
-                    MessageBox.Show("Something went wrong with deleting the service");
+                    MessageBox.Show("Service Deleted");
+
                 }
-                
+
             }
         }
 
@@ -124,6 +132,7 @@ namespace SchoonmaakReparatieSysteem
                     dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
                 }
             }
+            
         }
     }
 }
