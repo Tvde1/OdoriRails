@@ -31,7 +31,8 @@ namespace In_Uitrit_Systeem
         {
             if (_logic.Tram.Location == TramLocation.In)
             {
-
+                MessageBox.Show("Tram {0} is al aangemeld. Neem contact op met een logistiek medewerker.", _logic.Tram.Number.ToString());
+                return;
             }
             string defect = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
