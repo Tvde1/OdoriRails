@@ -44,7 +44,7 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
-            this.BeheerPanel = new System.Windows.Forms.Panel();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
@@ -214,7 +214,7 @@
             // 
             // gbDisplay
             // 
-            this.gbDisplay.Controls.Add(this.BeheerPanel);
+            this.gbDisplay.Controls.Add(this.panelMain);
             this.gbDisplay.Location = new System.Drawing.Point(313, 20);
             this.gbDisplay.Margin = new System.Windows.Forms.Padding(5);
             this.gbDisplay.Name = "gbDisplay";
@@ -224,13 +224,12 @@
             this.gbDisplay.TabStop = false;
             this.gbDisplay.Text = "Display";
             // 
-            // BeheerPanel
+            // panelMain
             // 
-            this.BeheerPanel.Location = new System.Drawing.Point(9, 28);
-            this.BeheerPanel.Name = "BeheerPanel";
-            this.BeheerPanel.Size = new System.Drawing.Size(756, 538);
-            this.BeheerPanel.TabIndex = 0;
-            this.BeheerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.BeheerPanel_Paint);
+            this.panelMain.Location = new System.Drawing.Point(8, 27);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(757, 537);
+            this.panelMain.TabIndex = 0;
             // 
             // UserInterface
             // 
@@ -272,7 +271,7 @@
         private System.Windows.Forms.Label lbSelectedSector;
         private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Button btnChangeDisplayView;
-        private System.Windows.Forms.Panel BeheerPanel;
+        private System.Windows.Forms.Panel panelMain;
     }
 }
 

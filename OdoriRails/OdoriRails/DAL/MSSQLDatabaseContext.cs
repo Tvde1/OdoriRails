@@ -15,7 +15,7 @@ namespace OdoriRails.DAL
         //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
         private const string ConnectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
-        private const int RemiseNumber = 0;
+        private const int RemiseNumber = 1;
 
         #region IBeheerSysteem
 
@@ -353,7 +353,7 @@ WHERE (Service.ServicePk = @id)");
         {
             var array = row.ItemArray;
             Tram tram = null;
-            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = GetTram((int)array[3]);
+            if (array[3] != DBNull.Value) tram = GetTram((int)array[3]);
 
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }

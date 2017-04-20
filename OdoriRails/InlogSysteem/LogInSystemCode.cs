@@ -9,7 +9,7 @@ namespace LoginSystem
 {
     internal class LogInSystemCode
     {
-        private readonly IDatabaseConnector _databaseConnector = new MySqlContext();
+        private readonly ILoginDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
         //Dit moet later MssqlDatabaseContext worden.
         private readonly string _dataLocation = @"D:\"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OdoriRails\";
 

@@ -10,11 +10,22 @@ namespace Beheersysteem
     class Logic
     {
         ICSVContext csv;
-        ILogisticDatabaseAdapter database;
+        ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
         List<Tram> enteringTrams;
+        private List<Track> _allTracks = new List<Track>();
+
+        public List<Track> AllTracks => _allTracks;
+
+        /// <summary>
+        /// Constructor: Voert alles uit dat bij de launch uitgevoerd moet worden.
+        /// </summary>
+        public Logic()
+        {
+            _allTracks = database.GetTracksAndSectors();
+        }
 
 
         public void GetSchema()
@@ -22,7 +33,7 @@ namespace Beheersysteem
             csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
-            sorter = new SortingAlgoritm(database.GetTracksAndSectors());
+            sorter = new SortingAlgoritm(AllTracks);
             allTrams = database.GetAllTrams();
         }
 
