@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdoriRailsTests", "OdoriRai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginSystem", "InlogSysteem\LoginSystem.csproj", "{3D58B85F-D1A1-4442-A09C-5A325AE386A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In-Uitrit Systeem", "In-Uitrit Systeem\In-Uitrit Systeem.csproj", "{59824247-11C9-4084-A959-69F2358EC142}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3D58B85F-D1A1-4442-A09C-5A325AE386A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D58B85F-D1A1-4442-A09C-5A325AE386A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D58B85F-D1A1-4442-A09C-5A325AE386A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59824247-11C9-4084-A959-69F2358EC142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59824247-11C9-4084-A959-69F2358EC142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59824247-11C9-4084-A959-69F2358EC142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59824247-11C9-4084-A959-69F2358EC142}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
