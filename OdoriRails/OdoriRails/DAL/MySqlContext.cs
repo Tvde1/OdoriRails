@@ -327,6 +327,7 @@ WHERE (Service.ServicePk = @id)");
 
         private static void SetUsersToServices(List<User> users, Service service)
         {
+            if (users == null) return;
             var data = GetData(new MySqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}"));
             foreach (DataRow dataRow in data.Rows)
             {
