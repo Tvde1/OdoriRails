@@ -23,12 +23,15 @@ namespace Beheersysteem
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-
+            _logic.Unlock(tbSelectedSector.Text);
+            panelMain.Invalidate();
+            
         }
 
         private void btnLock_Click(object sender, EventArgs e)
         {
-
+            _logic.Lock(tbSelectedSector.Text);
+            panelMain.Invalidate();
         }
 
         private void btnMove_Click(object sender, EventArgs e)

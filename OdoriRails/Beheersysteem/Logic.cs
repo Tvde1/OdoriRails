@@ -110,5 +110,37 @@ namespace Beheersysteem
             }
 
         }
+
+        public void Lock(string tracks)
+        {
+            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
+            string[] sLockTracks = tracks.Split(',');
+            int[] lockTracks = Array.ConvertAll(sLockTracks, int.Parse);
+
+            foreach (Track track in _allTracks)
+            {
+                int pos = Array.IndexOf(lockTracks, track.Number);
+                if (pos > -1)
+                {
+                    track.LockTrack();
+                }
+            }
+        }
+
+        public void Unlock(string tracks)
+        {
+            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
+            string[] sUnlockTracks = tracks.Split(',');
+            int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
+
+            foreach (Track track in _allTracks)
+            {
+                int pos = Array.IndexOf(UnlockTracks, track.Number);
+                if (pos > -1)
+                {
+                    track.UnlockTrack();
+                }
+            }
+        }
     }
 }
