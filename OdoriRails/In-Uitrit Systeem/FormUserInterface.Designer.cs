@@ -70,6 +70,9 @@
             // 
             // gbService
             // 
+            this.gbService.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbService.Controls.Add(this.cbMaintenance);
             this.gbService.Controls.Add(this.cbCleaning);
             this.gbService.Location = new System.Drawing.Point(12, 12);
@@ -81,6 +84,9 @@
             // 
             // gbTramNumber
             // 
+            this.gbTramNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbTramNumber.Controls.Add(this.lblTramNumber);
             this.gbTramNumber.Location = new System.Drawing.Point(12, 174);
             this.gbTramNumber.Name = "gbTramNumber";
@@ -104,6 +110,9 @@
             // 
             // gbStandplaats
             // 
+            this.gbStandplaats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbStandplaats.Controls.Add(this.lblStandplaats);
             this.gbStandplaats.Location = new System.Drawing.Point(274, 174);
             this.gbStandplaats.Name = "gbStandplaats";
@@ -137,6 +146,9 @@
             // 
             // gbDetails
             // 
+            this.gbDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDetails.Controls.Add(this.rtbDetails);
             this.gbDetails.Location = new System.Drawing.Point(187, 12);
             this.gbDetails.Name = "gbDetails";

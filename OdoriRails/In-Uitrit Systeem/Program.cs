@@ -8,7 +8,7 @@ namespace In_Uitrit_Systeem
     static class Program
     {
         private static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -22,7 +22,7 @@ namespace In_Uitrit_Systeem
             {
                 if (args.Length < 1)
                 {
-                    MessageBox.Show(@"Zorg dat je inlogt via de inlogapllicatie.");
+                    MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
                 user = _databaseConnector.GetUser(args[0]);
