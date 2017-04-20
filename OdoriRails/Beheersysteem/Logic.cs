@@ -75,11 +75,6 @@ namespace Beheersysteem
                 {
                     MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
                 }
-                else
-                {
-                    selectedSector.Occupy();
-                    selectedSector.SetOccupyingTram(tram);
-                }
             }
         }
 

@@ -27,7 +27,8 @@ namespace Beheersysteem
                         {
                             if (sector.Status == SectorStatus.Open)
                             {
-
+                                sector.Occupy();
+                                sector.SetOccupyingTram(tram);
                                 return sector;
                             }
                         }
@@ -37,37 +38,56 @@ namespace Beheersysteem
             //Else uses normal algorithem
             else
             {
-                List<Track> potentialTracks = new List<Track>();
                 //Put tram on track thats connected to the line the tram is on
                 foreach (Track track in allTracks)
                 {
                     if (track.Line == tram.Line && track.Type == TrackType.Normal)
                     {
-                        potentialTracks.Add(track);
+                        for (int i = 0; i < track.Sectors.Count - 1; i++)
+                        {
+                            if (track.Sectors[0].OccupyingTram == null)
+                            {
+                                track.Sectors[i].Occupy();
+                                track.Sectors[i].SetOccupyingTram(tram);
+                                return track.Sectors[i];
+                            }
+                            else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
+                            {
+                                if (track.Sectors[i + 1].Status == SectorStatus.Open)
+                                {
+                                    track.Sectors[i + 1].Occupy();
+                                    track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    return track.Sectors[i + 1];
+                                }
+                            }
+                        }
                     }
                 }
-
-                Sector tempSector = GetPotentialSector(potentialTracks, tram);
-                if (tempSector != null)
-                {
-                    return tempSector;
-                }
-
-                potentialTracks.Clear();//Wipe list to start a new
 
                 //If not successful put tram on any other normal track (that doesn't have another line connected to it)
                 foreach (Track track in allTracks)
                 {
                     if (track.Type == TrackType.Normal)
                     {
-                        potentialTracks.Add(track);
+                        for (int i = 0; i < track.Sectors.Count - 1; i++)
+                        {
+                            if (track.Sectors[0].OccupyingTram == null)
+                            {
+                                track.Sectors[i].Occupy();
+                                track.Sectors[i].SetOccupyingTram(tram);
+                                return track.Sectors[i];
+                            }
+                            else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
+                            {
+                                if (track.Sectors[i + 1].Status == SectorStatus.Open)
+                                {
+                                    track.Sectors[i + 1].Occupy();
+                                    track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    return track.Sectors[i + 1];
+                                }
+                            }
+                        }
                     }
-                }
-
-                tempSector = GetPotentialSector(potentialTracks, tram);
-                if (tempSector != null)
-                {
-                    return tempSector;
                 }
 
                 //If not successful put on an exit line
@@ -75,19 +95,29 @@ namespace Beheersysteem
                 {
                     if (track.Type == TrackType.Exit)
                     {
-                        potentialTracks.Add(track);
+                        for (int i = 0; i < track.Sectors.Count - 1; i++)
+                        {
+                            if (track.Sectors[0].OccupyingTram == null)
+                            {
+                                track.Sectors[i].Occupy();
+                                track.Sectors[i].SetOccupyingTram(tram);
+                                return track.Sectors[i];
+                            }
+                            else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
+                            {
+                                if (track.Sectors[i + 1].Status == SectorStatus.Open)
+                                {
+                                    track.Sectors[i + 1].Occupy();
+                                    track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    return track.Sectors[i + 1];
+                                }
+                            }
+                        }
                     }
                 }
-
-                tempSector = GetPotentialSector(potentialTracks, tram);
-                if (tempSector != null)
-                {
-                    return tempSector;
-                }
-
             }
             //If not successful let user place tram
-            return GetSector(tram);
+            return null;
         }
 
         //Algoritme versie waar de eerste lege plek gebruikt wordt (backup als het andere niet blijkt te werken)
@@ -116,24 +146,6 @@ namespace Beheersysteem
                         if (sector.Status == SectorStatus.Open)
                         {
                             return sector;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private Sector GetPotentialSector(List<Track> potentialTracks, Tram tram)
-        {
-            foreach (Track track in potentialTracks)
-            {
-                for (int i = 0; i < track.Sectors.Count - 1; i++)
-                {
-                    if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
-                    {
-                        if (track.Sectors[i + 1].Status == SectorStatus.Open)
-                        {
-                            return track.Sectors[i + 1];
                         }
                     }
                 }

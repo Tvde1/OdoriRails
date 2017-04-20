@@ -58,7 +58,7 @@ namespace Beheersysteem
         {
             var panel = panelMain;
             var pen = new Pen(Color.Black, 2);
-            var stringFont = new Font("Arial", 16);
+            var stringFont = new Font("Arial", 11);
             var blackBrush = new SolidBrush(Color.Black);
             var redBrush = new SolidBrush(Color.Red);
             var yellowBrush = new SolidBrush(Color.Yellow);
@@ -147,7 +147,7 @@ namespace Beheersysteem
                     graphics.DrawRectangle(pen, rect);
                     if (sector.OccupyingTram != null)
                     {
-                        graphics.DrawString(sector.OccupyingTram.ToString(), stringFont, blackBrush, rectTrackNumber);
+                        graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, blackBrush, rect);
                     }
                     y += 25;
                 }
