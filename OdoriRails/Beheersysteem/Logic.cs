@@ -150,11 +150,11 @@ namespace Beheersysteem
         {
             //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             string[] sTrams = trams.Split(',');
-            int[] UnlockTracks = Array.ConvertAll(sTrams, int.Parse);
+            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
 
             foreach (Tram tram in allTrams)
             {
-                int pos = Array.IndexOf(UnlockTracks, tram.Number);
+                int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
                 {
                     if (tram.Status == TramStatus.Idle)
