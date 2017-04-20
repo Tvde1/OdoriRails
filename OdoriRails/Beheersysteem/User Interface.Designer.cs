@@ -157,7 +157,7 @@
             this.btnSetDisabled.Name = "btnSetDisabled";
             this.btnSetDisabled.Size = new System.Drawing.Size(243, 33);
             this.btnSetDisabled.TabIndex = 0;
-            this.btnSetDisabled.Text = "Toggle Diabled";
+            this.btnSetDisabled.Text = "Toggle Disabled";
             this.btnSetDisabled.UseVisualStyleBackColor = true;
             this.btnSetDisabled.Click += new System.EventHandler(this.btnSetDisabled_Click);
             // 

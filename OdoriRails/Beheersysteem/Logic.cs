@@ -145,5 +145,29 @@ namespace Beheersysteem
                 }
             }
         }
+
+        public void ToggleDisabled(string trams)
+        {
+            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
+            string[] sTrams = trams.Split(',');
+            int[] UnlockTracks = Array.ConvertAll(sTrams, int.Parse);
+
+            foreach (Tram tram in allTrams)
+            {
+                int pos = Array.IndexOf(UnlockTracks, tram.Number);
+                if (pos > -1)
+                {
+                    if (tram.Status == TramStatus.Idle)
+                    {
+                        tram.EditTramStatus(TramStatus.Idle);
+                    }
+                    else
+                    {
+                        tram.EditTramStatus(TramStatus.Defect);
+                    }
+                }
+
+            }
+        }
     }
 }

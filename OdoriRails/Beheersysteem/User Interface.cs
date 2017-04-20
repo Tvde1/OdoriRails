@@ -40,7 +40,8 @@ namespace Beheersysteem
 
         private void btnSetDisabled_Click(object sender, EventArgs e)
         {
-
+            _logic.ToggleDisabled(tbSelectedTram.Text);
+            panelMain.Invalidate();
         }
 
         private void btnSimulation_Click(object sender, EventArgs e)
@@ -145,9 +146,28 @@ namespace Beheersysteem
                     }
                     graphics.FillRectangle(brush, rect);
                     graphics.DrawRectangle(pen, rect);
+                    Brush tramBrush = null;
                     if (sector.OccupyingTram != null)
                     {
-                        graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, blackBrush, rect);
+                        switch (sector.OccupyingTram.Status)
+                        {
+                            case TramStatus.Idle:
+                                tramBrush = new Pen(Color.Black).Brush;
+                                break;
+                            case TramStatus.Cleaning:
+                                tramBrush = new Pen(Color.Blue).Brush;
+                                break;
+                            case TramStatus.CleaningMaintenance:
+                                tramBrush = new Pen(Color.Blue).Brush;
+                                break;
+                            case TramStatus.Maintenance:
+                                tramBrush = new Pen(Color.Blue).Brush;
+                                break;
+                            case TramStatus.Defect:
+                                tramBrush = new Pen(Color.Red).Brush;
+                                break;
+                        }
+                        graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, tramBrush, rect);
                     }
                     y += 25;
                 }
