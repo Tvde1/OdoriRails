@@ -26,7 +26,7 @@ namespace SchoonmaakReparatieSysteem
             InitializeComponent();
             ActiveUser = user;
             usernamelbl.Text = ActiveUser.Username;
-            dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
+            dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
 
         }
 
@@ -115,7 +115,7 @@ namespace SchoonmaakReparatieSysteem
             }
             if (filtercbox.SelectedIndex == 0)
             {
-                dataGridView1.DataSource = dbconnector.GetAllServicesFromUser(ActiveUser);
+                dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
             }
             
         }

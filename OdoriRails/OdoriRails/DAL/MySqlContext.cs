@@ -178,28 +178,6 @@ namespace OdoriRails.DAL
 
         #region schoonmaak
 
-        public List<Service> GetAllServicesFromUser(User user)
-        {
-            const string repairs = @"
-";
-
-            const string cleans = @"
-";
-
-            var repairQuery = new MySqlCommand(repairs);
-            repairQuery.Parameters.AddWithValue("@id", user.Id);
-
-            var cleanQuery = new MySqlCommand(cleans);
-            cleanQuery.Parameters.AddWithValue("@id", user.Id);
-
-            List<Service> returnList = new List<Service>();
-
-            returnList.AddRange(GenerateListWithFunction(GetData(repairQuery), CreateRepair));
-            returnList.AddRange(GenerateListWithFunction(GetData(cleanQuery), CreateCleaning));
-
-            return returnList;
-        }
-
         public List<Repair> GetAllRepairsFromUser(User user)
         {
             var repairQuery = new MySqlCommand(@"
@@ -212,7 +190,7 @@ FROM ServiceUser INNER JOIN
 User ON ServiceUser.UserCk = User.UserPk
 WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
             repairQuery.Parameters.AddWithValue("@id", user.Id);
-            return GenerateListWithFunction(GetData(repairQuery), CreateRepair)
+            return GenerateListWithFunction(GetData(repairQuery), CreateRepair);
         }
 
         public List<Cleaning> GetAllCleansFromUser(User user)
@@ -266,6 +244,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
             cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
 
+            SetUsersToServices(cleaning.AssignedUsers, cleaning);
+
             cleaning.SetId((int)data.Rows[0].ItemArray[0]);
             return cleaning;
         }
@@ -284,6 +264,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
             repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
             GetData(serviceQuery);
+
+            SetUsersToServices(repair.AssignedUsers, repair);
 
             repair.SetId((int)data.Rows[0].ItemArray[0]);
             return repair;
@@ -318,6 +300,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@enddate", service.EndDate);
             query.Parameters.AddWithValue("@tramfk", service.TramId);
             GetData(query);
+            SetUsersToServices(service.AssignedUsers, service);
         }
 
         public void DeleteService(Service service)
@@ -338,6 +321,25 @@ WHERE (Service.ServicePk = @id)");
             return GenerateListWithFunction(GetData(command), CreateUser);
         }
 
+        private static void SetUsersToServices(List<User> users, Service service)
+        {
+            var data = GetData(new MySqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}"));
+            foreach (DataRow dataRow in data.Rows)
+            {
+                if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
+                {
+                    GetData(new MySqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[0]}"));
+                }
+            }
+
+            foreach (var user in users)
+            {
+                if (GetData(new MySqlCommand($"SELECT * FROM ServiceUser WHERE UserCk = {user.Id} AND ServiceCk = {service.Id}")).Rows.Count < 1)
+                {
+                    GetData(new MySqlCommand($"INSERT INTO ServiceUser (ServiceCk, UserCk) VALUES ({service.Id},{user.Id})"));
+                }
+            }
+        }
         #endregion
 
         #region createFunctions
