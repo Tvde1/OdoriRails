@@ -54,14 +54,19 @@ namespace Beheersysteem
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
             var panel = panelMain;
-            var pen = new Pen(Color.Black, 4);
+            var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 16);
-            var stringBrush = new SolidBrush(Color.Black);
+            var blackBrush = new SolidBrush(Color.Black);
+            var redBrush = new SolidBrush(Color.Red);
+            var yellowBrush = new SolidBrush(Color.Yellow);
+            var goldBrush = new SolidBrush(Color.Gold);
+            var grayBrush = new SolidBrush(Color.Gray);
             var graphics = panel.CreateGraphics();
 
             var baseX = 10;
             var baseYService = 10;
-            var baseYGroep1 = 160;
+            var baseYGroup1 = 200;
+            var baseYGroup2 = 500;
 
             var x = baseX;
             var y = baseYService;
@@ -83,15 +88,45 @@ namespace Beheersysteem
 
             foreach (var track in tracks)
             {
-                var rectTrack = new Rectangle(x, y, 40, 20);
-                graphics.DrawRectangle(pen, rectTrack);
-                graphics.DrawString(track.Number.ToString(), stringFont, stringBrush, rectTrack);
+                var rectTrackNumber = new Rectangle(x, y, 40, 20);
+                graphics.FillRectangle(grayBrush, rectTrackNumber);
+                graphics.DrawString(track.Number.ToString(), stringFont, blackBrush, rectTrackNumber);
                 y += 25;
+
+                if (track.Type == TrackType.Normal)
+                {
+                    var rectTrackLine = new Rectangle(x, y, 40, 20);
+                    if (track.Line != 0)
+                    {
+                        graphics.FillRectangle(yellowBrush, rectTrackLine);
+                        graphics.DrawString(track.Line.ToString(), stringFont, blackBrush, rectTrackLine);
+                    }
+                    else
+                    {
+                        graphics.FillRectangle(goldBrush, rectTrackLine);
+                    }
+
+
+                }
+                else if (track.Type == TrackType.Service)
+                {
+                    var rectTrackLine = new Rectangle(x, y, 40, 20);
+                    graphics.FillRectangle(redBrush, rectTrackLine);
+
+                }
+                else if (track.Type == TrackType.Exit)
+                {
+                    var rectTrackLine = new Rectangle(x, y, 40, 20);
+                    graphics.FillRectangle(blackBrush, rectTrackLine);
+
+                }
+
+                y += 25;
+
 
                 foreach (var sector in track.Sectors)
                 {
                     var rect = new Rectangle(x, y, 40, 20);
-                    graphics.DrawRectangle(pen, rect);
                     Brush brush = null;
                     switch (sector.Status)
                     {
@@ -105,20 +140,29 @@ namespace Beheersysteem
                             brush = new Pen(Color.Yellow).Brush;
                             break;
                     }
-                    var rectF = new RectangleF(x + 2, y + 2, 35, 15);
-                    graphics.FillRectangle(brush, rectF);
+                    graphics.FillRectangle(brush, rect);
+                    graphics.DrawRectangle(pen, rect);
                     y += 25;
                 }
                 x += 50;
 
-                if (track.Number == 33)
+                if (track.Number == 38)
                 {
-                    y = baseYGroep1;
+                    y = baseYGroup1;
                     x = baseX;
                 }
-                else if (track.Number > 33)
+                else if (track.Number > 38 && track.Number < 64)
                 {
-                    y = baseYGroep1;
+                    y = baseYGroup1;
+                }
+                else if (track.Number == 64)
+                {
+                    y = baseYGroup2;
+                    x = baseX;
+                }
+                else if (track.Number > 64)
+                {
+                    y = baseYGroup2;
                 }
                 else
                 {
