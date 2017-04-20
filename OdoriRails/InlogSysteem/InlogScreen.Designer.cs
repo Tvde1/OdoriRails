@@ -46,7 +46,7 @@
             this.tbUsername.Location = new System.Drawing.Point(351, 201);
             this.tbUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(244, 26);
+            this.tbUsername.Size = new System.Drawing.Size(164, 20);
             this.tbUsername.TabIndex = 0;
             // 
             // tbPassword
@@ -55,18 +55,16 @@
             this.tbPassword.Location = new System.Drawing.Point(351, 267);
             this.tbPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '•';
-            this.tbPassword.Size = new System.Drawing.Size(244, 26);
+            this.tbPassword.Size = new System.Drawing.Size(164, 20);
             this.tbPassword.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(346, 176);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(231, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 20);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Username:";
             // 
@@ -74,10 +72,9 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(346, 243);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(231, 165);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 20);
+            this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password:";
             // 
@@ -87,7 +84,7 @@
             this.btnLogin.Location = new System.Drawing.Point(484, 318);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(112, 35);
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Log In";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -97,10 +94,9 @@
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::LoginSystem.Properties.Resources.temp;
-            this.pictureBox2.Location = new System.Drawing.Point(634, 18);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pictureBox2.Location = new System.Drawing.Point(423, 12);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(296, 449);
+            this.pictureBox2.Size = new System.Drawing.Size(197, 292);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
@@ -109,10 +105,9 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = global::LoginSystem.Properties.Resources.temp;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 18);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(296, 449);
+            this.pictureBox1.Size = new System.Drawing.Size(197, 292);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -121,8 +116,7 @@
             // 
             this.lbError.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbError.ForeColor = System.Drawing.Color.Red;
-            this.lbError.Location = new System.Drawing.Point(18, 472);
-            this.lbError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbError.Location = new System.Drawing.Point(12, 307);
             this.lbError.Name = "lbError";
             this.lbError.Size = new System.Drawing.Size(912, 24);
             this.lbError.TabIndex = 6;
@@ -131,8 +125,7 @@
             // 
             // LoginScreen
             // 
-            this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(951, 505);
@@ -144,9 +137,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.tbUsername);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LoginScreen";
             this.Text = "OdoriRails Login";
             this.Load += new System.EventHandler(this.InlogScreen_Load);
@@ -154,7 +145,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
