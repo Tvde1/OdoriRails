@@ -175,6 +175,7 @@
             // 
             // tabUsers
             // 
+            this.tabUsers.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tabUsers.Controls.Add(this.tabUserList);
             this.tabUsers.Controls.Add(this.tabManageUser);
             this.tabUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
@@ -309,7 +310,9 @@
             this.Controls.Add(this.tabUsers);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
             this.Name = "UserInterface";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Beheersysteem";
             this.tabUsers.ResumeLayout(false);
             this.tabUserList.ResumeLayout(false);

@@ -27,7 +27,7 @@ namespace In_Uitrit_Systeem
             {
                 if (args.Length < 1)
                 {
-                    MessageBox.Show(@"Zorg dat je inlogt via de inlogapllicatie.");
+                    MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
                 user = _databaseConnector.GetUser(args[0]);
