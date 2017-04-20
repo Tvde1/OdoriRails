@@ -182,7 +182,7 @@ namespace OdoriRails.DAL.Tests
             List<User> users = new List<User>();
             User U1 = new User(404, "Tester1", "Test", "Test@test.com", "TEST", Role.Administrator, "Test"); users.Add(U1); U1 = ms.AddUser(U1);
             Cleaning Cl1 = new Cleaning(1, DateTime.Now, DateTime.Now, CleaningSize.Big, "test", users, 1); Cl1 = ms.AddCleaning(Cl1);
-            Assert.AreEqual(true, ms.GetAllServicesFromUser(U1).Contains(Cl1));
+            Assert.AreEqual(true, ms.GetAllCleansFromUser(U1).Contains(Cl1));
 
             //Removing testdata from db.
             ms.RemoveUser(U1);

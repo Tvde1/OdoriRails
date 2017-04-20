@@ -6,11 +6,18 @@ namespace OdoriRails.DAL
     public interface ISchoonmaakReparatieDatabaseAdapter
     {
         /// <summary>
-        /// Haal alle services op (reparatie en schoonmaak) die deze user hebben.
+        /// Haal alle reparaties op die deze user heeft.
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        List<Service> GetAllServicesFromUser(User user);
+        List<Repair> GetAllRepairsFromUser(User user);
+
+        /// <summary>
+        /// Haal alle schoonmaaks op die deze user heeft.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        List<Cleaning> GetAllCleansFromUser(User user);
 
         /// <summary>
         /// Haalt een lijst op van repairs zonder users.
