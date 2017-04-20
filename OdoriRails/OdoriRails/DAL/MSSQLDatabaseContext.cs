@@ -239,13 +239,14 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var data = GetData(serviceQuery);
 
             var cleaningQuery = new SqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
-            cleaningQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            cleaningQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
             cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            GetData(cleaningQuery);
 
             SetUsersToServices(cleaning.AssignedUsers, cleaning);
 
-            cleaning.SetId((int)data.Rows[0].ItemArray[0]);
+            cleaning.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
             return cleaning;
         }
 
@@ -259,15 +260,15 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var data = GetData(serviceQuery);
 
             var repairQuery = new SqlCommand(@"INSERT INTO Repair (ServiceFk, Solution, Defect, Type) VALUES (@id, @solution, @defect, @type)");
-            repairQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            repairQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
             repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
             repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
-            GetData(serviceQuery);
+            GetData(repairQuery);
 
             SetUsersToServices(repair.AssignedUsers, repair);
 
-            repair.SetId((int)data.Rows[0].ItemArray[0]);
+            repair.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
             return repair;
         }
 

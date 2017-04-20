@@ -230,44 +230,45 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public Cleaning AddCleaning(Cleaning cleaning)
         {
-            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
             if (cleaning.StartDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
-            GetData(serviceQuery);
 
             var cleaningQuery = new MySqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
-            cleaningQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            cleaningQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
             cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            GetData(cleaningQuery);
 
             SetUsersToServices(cleaning.AssignedUsers, cleaning);
 
-            cleaning.SetId((int)data.Rows[0].ItemArray[0]);
+            cleaning.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
             return cleaning;
         }
 
         public Repair AddRepair(Repair repair)
         {
-            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
+            var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
             serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
+
             var data = GetData(serviceQuery);
 
             var repairQuery = new MySqlCommand(@"INSERT INTO Repair (ServiceFk, Solution, Defect, Type) VALUES (@id, @solution, @defect, @type)");
-            repairQuery.Parameters.AddWithValue("@id", (int)data.Rows[0].ItemArray[0]);
+            repairQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
             repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
             repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
-            GetData(serviceQuery);
+            GetData(repairQuery);
 
             SetUsersToServices(repair.AssignedUsers, repair);
 
-            repair.SetId((int)data.Rows[0].ItemArray[0]);
+            repair.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
             return repair;
         }
 
