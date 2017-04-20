@@ -24,7 +24,7 @@ namespace Beheersysteem
         {
             _logic.Unlock(tbSelectedSector.Text);
             panelMain.Invalidate();
-            
+
         }
 
         private void btnLock_Click(object sender, EventArgs e)
@@ -145,6 +145,10 @@ namespace Beheersysteem
                     }
                     graphics.FillRectangle(brush, rect);
                     graphics.DrawRectangle(pen, rect);
+                    if (sector.OccupyingTram != null)
+                    {
+                        graphics.DrawString(sector.OccupyingTram.ToString(), stringFont, blackBrush, rectTrackNumber);
+                    }
                     y += 25;
                 }
                 x += 50;

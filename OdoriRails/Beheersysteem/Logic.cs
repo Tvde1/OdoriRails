@@ -4,6 +4,7 @@ using OdoriRails.DAL;
 using OdoriRails.BaseClasses;
 using System.Collections.Generic;
 using System;
+using System.Windows.Forms;
 
 namespace Beheersysteem
 {
@@ -67,9 +68,18 @@ namespace Beheersysteem
 
         public void SortTram(Tram tram)
         {
-            if (sorter.GetSector(tram, GetExitTime(tram)) == null)
+            if (tram != null)
             {
-                System.Windows.Forms.MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
+                Sector selectedSector = sorter.GetSector(tram, tram.DepartureTime);
+                if (selectedSector == null)
+                {
+                    MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
+                }
+                else
+                {
+                    selectedSector.Occupy();
+                    selectedSector.SetOccupyingTram(tram);
+                }
             }
         }
 
@@ -93,13 +103,16 @@ namespace Beheersysteem
                             break;
                         }
                     }
-
                 }
             }
 
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
+                //if (entry.TramNumber == null)
+                //{
+                //    MessageBox.Show(entry.ToString());
+                //}
                 Tram tram = allTrams.Find(x => x.Number == entry.TramNumber);
                 SortTram(tram);
             }

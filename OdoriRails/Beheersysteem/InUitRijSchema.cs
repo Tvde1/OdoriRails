@@ -20,5 +20,10 @@ namespace Beheersysteem.ObjectClasses
             Line = _line;
         }
 
+        public override string ToString()
+        {
+            return ExitTime + " " + EntryTime + " " + Line + " " + TramNumber;
+        }
+
     }
 }
