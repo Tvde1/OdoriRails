@@ -5,14 +5,14 @@ using System.Security.Authentication;
 using System.Security.Permissions;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
+using System.Windows.Forms;
 
 namespace LoginSystem
 {
     internal class LogInSystemCode
     {
         private readonly ILoginDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        //Dit moet later MssqlDatabaseContext worden.
-        private readonly string _dataLocation = @"D:\"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OdoriRails\";
+        private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
 
         public void Login(string username, string password)
         {
