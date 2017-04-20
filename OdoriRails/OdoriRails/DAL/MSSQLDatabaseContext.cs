@@ -44,7 +44,8 @@ namespace OdoriRails.DAL
 
         public void RemoveUser(User user)
         {
-            GetData(new SqlCommand("DELETE FROM [User] WHERE UserPk = " + user.Id));
+            GetData(new SqlCommand($"DELETE FROM [User] WHERE UserPk = {user.Id}"));
+            GetData(new SqlCommand($"UPDATE [User] SET ManagedByFk = null WHERE ManagedByFk = {user.Id}"));
         }
 
         public User GetUser(int id)
@@ -232,16 +233,16 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.StartDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (cleaning.EndDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
 
-            var cleaningQuery = new SqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
+            var cleaningQuery = new SqlCommand(@"INSERT INTO Clean (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
             cleaningQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
-            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments ?? "");
             GetData(cleaningQuery);
 
             SetUsersToServices(cleaning.AssignedUsers, cleaning);

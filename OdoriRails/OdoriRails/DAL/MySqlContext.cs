@@ -45,6 +45,7 @@ namespace OdoriRails.DAL
         public void RemoveUser(User user)
         {
             GetData(new MySqlCommand("DELETE FROM User WHERE UserPk = " + user.Id));
+            GetData(new MySqlCommand($"UPDATE [User] SET ManagedByFk = null WHERE ManagedByFk = {user.Id}"));
         }
 
         public User GetUser(int id)
@@ -232,7 +233,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.StartDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (cleaning.EndDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
@@ -241,7 +242,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var cleaningQuery = new MySqlCommand(@"INSERT INTO Cleaning (ServiceFk, Size, Remarks) VALUES (@id, @size, @remarks)");
             cleaningQuery.Parameters.AddWithValue("@id", data.Rows[0].ItemArray[0]);
             cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
-            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+            cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments ?? "");
             GetData(cleaningQuery);
 
             SetUsersToServices(cleaning.AssignedUsers, cleaning);
@@ -254,7 +255,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
-            if (repair.StartDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (repair.EndDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
 
