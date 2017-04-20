@@ -391,7 +391,7 @@ WHERE (Service.ServicePk = @id)");
         private Repair CreateRepair(DataRow row)
         {
             var array = row.ItemArray;
-            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {(string)array[0]}")).Rows[0].ItemArray;
+            var service = GetData(new SqlCommand($"SELECT * FROM Service WHERE ServicePk = {Convert.ToInt32(array[0])}")).Rows[0].ItemArray;
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];

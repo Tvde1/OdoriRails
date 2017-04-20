@@ -18,7 +18,8 @@ namespace SchoonmaakReparatieSysteem
 
         private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         public User ActiveUser;
-
+        private List<Repair> replist;
+        private List<Cleaning> cleanlist;
 
         public MainService(User user)
         {
