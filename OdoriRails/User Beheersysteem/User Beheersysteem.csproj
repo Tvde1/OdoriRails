@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC6CE72A-A2F9-4E02-8888-11AEDD18C72B}</ProjectGuid>
+    <ProjectGuid>{89CF7E5C-3C27-4B95-93A6-1DFB36E0C183}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OdoriRails</RootNamespace>
-    <AssemblyName>OdoriRails</AssemblyName>
+    <RootNamespace>User_Beheersysteem</RootNamespace>
+    <AssemblyName>User Beheersysteem</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,8 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,21 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClasses\Cleaning.cs" />
-    <Compile Include="BaseClasses\Repair.cs" />
-    <Compile Include="BaseClasses\Sector.cs" />
-    <Compile Include="BaseClasses\Service.cs" />
-    <Compile Include="BaseClasses\Track.cs" />
-    <Compile Include="BaseClasses\Tram.cs" />
-    <Compile Include="BaseClasses\User.cs" />
-    <Compile Include="DAL\IBeheerDatabaseAdapter.cs" />
-    <Compile Include="DAL\IInUitrijDatabaseAdapter.cs" />
-    <Compile Include="DAL\ILoginDatabaseAdapter.cs" />
-    <Compile Include="DAL\ILogisticDatabaseAdapter.cs" />
-    <Compile Include="DAL\ISchoonmaakReparatieDatabaseAdapter.cs" />
-    <Compile Include="DAL\MSSQLDatabaseContext.cs" />
-    <Compile Include="DatabaseTest.cs" />
-    <Compile Include="DAL\MySqlContext.cs" />
+    <Compile Include="BeheerUser.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Logic.cs" />
+    <Compile Include="User Interface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User Interface.Designer.cs">
+      <DependentUpon>User Interface.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -78,7 +66,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
+    <EmbeddedResource Include="User Interface.resx">
+      <DependentUpon>User Interface.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,7 +83,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\OdoriRailsIcon.png.ico" />
+    <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
+      <Project>{fc6ce72a-a2f9-4e02-8888-11aedd18c72b}</Project>
+      <Name>OdoriRails</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

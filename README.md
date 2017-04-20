@@ -1,2 +1,0 @@
-# OdoriRails
-In/Uitrit Systeem
