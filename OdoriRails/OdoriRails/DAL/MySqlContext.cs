@@ -27,7 +27,7 @@ namespace OdoriRails.DAL
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", DBNull.Value);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", null);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
             var data = GetData(query);
@@ -60,7 +60,7 @@ namespace OdoriRails.DAL
             query.Parameters.AddWithValue("@email", user.Email);
             query.Parameters.AddWithValue("@role", (int)user.Role);
 
-            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", DBNull.Value);
+            if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedby", null);
             else query.Parameters.AddWithValue("@managedby", GetUserId(user.ManagerUsername));
 
             query.Parameters.AddWithValue("@id", user.Id);
@@ -101,15 +101,19 @@ namespace OdoriRails.DAL
         #region tram
         public void AddTram(Tram tram)
         {
-            var query = new MySqlCommand("INSERT INTO [Tram] (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@departure)");
+            var query = new MySqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk), VALUES(@id,@line,@status,@model,@driver)");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
             query.Parameters.AddWithValue("@model", (int)tram.Model);
-            query.Parameters.AddWithValue("@location", (int)tram.Location);
-            query.Parameters.AddWithValue("@departure", tram.DepartureTime);
-            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", GetUserId(tram.Driver.Username));
-            else query.Parameters.AddWithValue("@driver", DBNull.Value);
+            if (tram.Driver != null)
+            {
+                query.Parameters.AddWithValue("@driver", GetUserId(tram.Driver.Username));
+            }
+            else
+            {
+                query.Parameters.AddWithValue("@driver", null);
+            }
 
             GetData(query);
         }
@@ -127,26 +131,6 @@ namespace OdoriRails.DAL
             return CreateTram(table.Rows[0]);
         }
 
-        public List<Tram> GetAllTrams()
-        {
-            return GenerateListWithFunction(GetData(new MySqlCommand("SELECT * FROM Tram")), CreateTram);
-        }
-
-        public List<Tram> GetAllTramsWithStatus(TramStatus status)
-        {
-            return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), CreateTram);
-        }
-
-        public List<Tram> GetAllTramsWithlocation(TramLocation location)
-        {
-            return GenerateListWithFunction(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
-        }
-
-        public Tram GetTramByDriver(User driver)
-        {
-            return CreateTram(GetData(new MySqlCommand($"SELECT * FROM Tram WHERE DriverFk = {driver.Id}")).Rows[0]);
-        }
-
         public List<Tram> GetAllTramsOnATrack()
         {
             var command = new MySqlCommand($"SELECT Tram.* FROM Tram INNER JOIN Sector ON Tram.TramPk = Sector.TramFk WHERE Tram.RemiseFk = {_remiseNumber}");
@@ -156,18 +140,8 @@ namespace OdoriRails.DAL
 
         private Tram CreateTram(DataRow row)
         {
-            //Pk, Line, Status, Driver, Model, Remise, Location, Depart
             var array = row.ItemArray;
-            var id = (int)array[0];
-            var line = (int)array[1];
-            var status = (TramStatus)array[2];
-            var driver = GetUser((int)array[3]);
-            var model = (Model) array[4];
-            var remise = (int) array[5];
-            var location = (TramLocation) array[6];
-            DateTime? depart = null;
-            if (array[7] != DBNull.Value) depart = (DateTime)array[7];
-            return new Tram(id, status, line, driver, model, location, depart);
+            return new Tram((int)array[0], (TramStatus)array[2], (int)array[1], GetUser((int)array[4]), (Model)array[3]);
         }
         #endregion
 
@@ -195,7 +169,7 @@ namespace OdoriRails.DAL
         {
             var array = row.ItemArray;
             Tram tram = null;
-            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = GetTram((int)array[3]);
+            if (array[3] != null) tram = GetTram((int)array[3]);
 
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }
@@ -226,7 +200,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 User ON ServiceUser.UserCk = User.UserPk
-WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk";
+WHERE (User.UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk";
 
             var repairQuery = new MySqlCommand(repairs);
             repairQuery.Parameters.AddWithValue("@id", user.Id);
@@ -273,8 +247,14 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new MySqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT LAST_INSERT_ID();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.StartDate == DateTime.MinValue)serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
-            else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            if (cleaning.StartDate == DateTime.MinValue)
+            {
+                serviceQuery.Parameters.AddWithValue("@enddate", null);
+            }
+            else
+            {
+                serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
+            }
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
             var data = GetData(serviceQuery);
