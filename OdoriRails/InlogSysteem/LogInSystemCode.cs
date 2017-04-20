@@ -66,35 +66,5 @@ namespace LoginSystem
             var args = new string[1] {user.Username};
             target.Invoke(null, new object[1] {args});
         }
-
-
-        /*
-        private void StartProgram(User user)
-        {
-            Assembly assembly;
-            Type type;
-            switch (user.Role)
-            {
-                case Role.HeadEngineer:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Engineer) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Engineer));
-                        break;
-                    }
-                case Role.HeadCleaner:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Cleaner) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Cleaner));
-                        break;
-                    }
-                default:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
-                        break;
-                    }
-            }
-            type.GetMethod("Main").Invoke(new object[1] { user }, null);
-        }*/
     }
 }
