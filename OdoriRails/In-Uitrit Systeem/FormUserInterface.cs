@@ -54,6 +54,9 @@ namespace In_Uitrit_Systeem
             }
             rtbDetails.Text = "";
             btnService.Enabled = false;
+            cbCleaning.Enabled = false;
+            cbMaintenance.Enabled = false;
+            rtbDetails.Enabled = false;
             _logic.Tram.EditTramLocation(TramLocation.ComingIn);
             lblStandplaats.Text = _logic.Tram.Line.ToString();
             _lineFetcher.Start();
