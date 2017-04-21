@@ -68,7 +68,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                         repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
                         repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
                         repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
-                        repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                        repairQuery.Parameters.AddWithValue("@id", service.Id);
                         Database.GetData(repairQuery);
                         break;
                     }
@@ -78,6 +78,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                         var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE ServiceFk = @id");
                         cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
                         cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        cleaningQuery.Parameters.AddWithValue("@id", service.Id);
                         break;
                     }
             }
