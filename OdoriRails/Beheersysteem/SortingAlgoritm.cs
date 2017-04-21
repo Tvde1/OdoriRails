@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 using System;
+using OdoriRails.DAL;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,9 +10,11 @@ namespace Beheersysteem
     class SortingAlgoritm
     {
         private List<Track> allTracks;
+        ILogisticDatabaseAdapter database;
 
-        public SortingAlgoritm(List<Track> allTracks)
+        public SortingAlgoritm(List<Track> allTracks, ILogisticDatabaseAdapter database)
         {
+            this.database = database;
             this.allTracks = allTracks;
 
         }
@@ -31,6 +34,8 @@ namespace Beheersysteem
                             {
                                 sector.Occupy();
                                 sector.SetOccupyingTram(tram);
+                                database.EditTram(tram);
+                                database.EditSector(sector);
                                 return sector;
                             }
                         }
@@ -51,6 +56,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
+                                database.EditTram(tram);
+                                database.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -59,6 +66,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    database.EditTram(tram);
+                                    database.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }
@@ -77,6 +86,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
+                                database.EditTram(tram);
+                                database.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -85,6 +96,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    database.EditTram(tram);
+                                    database.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }
@@ -103,6 +116,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
+                                database.EditTram(tram);
+                                database.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -111,6 +126,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
+                                    database.EditTram(tram);
+                                    database.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }

@@ -31,7 +31,7 @@ namespace Beheersysteem
             csv = new CSVContext();
             schema = csv.getSchema();
             database = new MssqlDatabaseContext();
-            sorter = new SortingAlgoritm(AllTracks);
+            sorter = new SortingAlgoritm(AllTracks, database);
             allTrams = database.GetAllTrams();
             this.form = form;
         }
@@ -130,6 +130,7 @@ namespace Beheersysteem
                 if (pos > -1)
                 {
                     track.LockTrack();
+                    database.EditTrack(track);
                 }
             }
         }
@@ -145,8 +146,8 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
-
                     track.UnlockTrack();
+                    database.EditTrack(track);
                 }
             }
         }
@@ -165,10 +166,12 @@ namespace Beheersysteem
                     if (tram.Status == TramStatus.Idle)
                     {
                         tram.EditTramStatus(TramStatus.Idle);
+                        database.EditTram(tram);
                     }
                     else
                     {
                         tram.EditTramStatus(TramStatus.Defect);
+                        database.EditTram(tram);
                     }
                 }
 
