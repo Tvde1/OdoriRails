@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public interface IUserContext
     {

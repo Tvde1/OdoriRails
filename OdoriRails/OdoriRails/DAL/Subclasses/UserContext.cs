@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public class UserContext : IUserContext
     {

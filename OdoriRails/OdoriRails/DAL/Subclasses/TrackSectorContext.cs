@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public class TrackSectorContext : ITrackSectorContext
     {
