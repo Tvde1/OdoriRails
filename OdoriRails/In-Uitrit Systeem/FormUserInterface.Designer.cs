@@ -39,6 +39,7 @@
             this.rtbDetails = new System.Windows.Forms.RichTextBox();
             this.gbDetails = new System.Windows.Forms.GroupBox();
             this.btnService = new System.Windows.Forms.Button();
+            this.btnLeave = new System.Windows.Forms.Button();
             this.gbService.SuspendLayout();
             this.gbTramNumber.SuspendLayout();
             this.gbStandplaats.SuspendLayout();
@@ -74,7 +75,7 @@
             this.gbService.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbService.Controls.Add(this.cbMaintenance);
             this.gbService.Controls.Add(this.cbCleaning);
-            this.gbService.Location = new System.Drawing.Point(12, 12);
+            this.gbService.Location = new System.Drawing.Point(14, 12);
             this.gbService.Name = "gbService";
             this.gbService.Size = new System.Drawing.Size(159, 139);
             this.gbService.TabIndex = 3;
@@ -85,7 +86,7 @@
             // 
             this.gbTramNumber.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbTramNumber.Controls.Add(this.lblTramNumber);
-            this.gbTramNumber.Location = new System.Drawing.Point(12, 174);
+            this.gbTramNumber.Location = new System.Drawing.Point(14, 174);
             this.gbTramNumber.Name = "gbTramNumber";
             this.gbTramNumber.Size = new System.Drawing.Size(256, 181);
             this.gbTramNumber.TabIndex = 2;
@@ -109,7 +110,7 @@
             // 
             this.gbStandplaats.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbStandplaats.Controls.Add(this.lblStandplaats);
-            this.gbStandplaats.Location = new System.Drawing.Point(274, 174);
+            this.gbStandplaats.Location = new System.Drawing.Point(276, 174);
             this.gbStandplaats.Name = "gbStandplaats";
             this.gbStandplaats.Size = new System.Drawing.Size(365, 181);
             this.gbStandplaats.TabIndex = 4;
@@ -135,7 +136,7 @@
             this.rtbDetails.Enabled = false;
             this.rtbDetails.Location = new System.Drawing.Point(6, 25);
             this.rtbDetails.Name = "rtbDetails";
-            this.rtbDetails.Size = new System.Drawing.Size(343, 96);
+            this.rtbDetails.Size = new System.Drawing.Size(268, 96);
             this.rtbDetails.TabIndex = 0;
             this.rtbDetails.Text = "";
             // 
@@ -143,9 +144,9 @@
             // 
             this.gbDetails.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbDetails.Controls.Add(this.rtbDetails);
-            this.gbDetails.Location = new System.Drawing.Point(187, 12);
+            this.gbDetails.Location = new System.Drawing.Point(179, 12);
             this.gbDetails.Name = "gbDetails";
-            this.gbDetails.Size = new System.Drawing.Size(355, 139);
+            this.gbDetails.Size = new System.Drawing.Size(281, 139);
             this.gbDetails.TabIndex = 6;
             this.gbDetails.TabStop = false;
             this.gbDetails.Text = "Details:";
@@ -155,20 +156,33 @@
             this.btnService.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnService.BackColor = System.Drawing.SystemColors.Window;
             this.btnService.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnService.Location = new System.Drawing.Point(548, 21);
+            this.btnService.Location = new System.Drawing.Point(466, 21);
             this.btnService.Name = "btnService";
-            this.btnService.Size = new System.Drawing.Size(91, 130);
+            this.btnService.Size = new System.Drawing.Size(88, 130);
             this.btnService.TabIndex = 1;
             this.btnService.Text = "Meld tram aan bij remise";
             this.btnService.UseVisualStyleBackColor = false;
             this.btnService.Click += new System.EventHandler(this.btnService_Click);
+            // 
+            // btnLeave
+            // 
+            this.btnLeave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnLeave.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnLeave.Location = new System.Drawing.Point(560, 21);
+            this.btnLeave.Name = "btnLeave";
+            this.btnLeave.Size = new System.Drawing.Size(88, 130);
+            this.btnLeave.TabIndex = 7;
+            this.btnLeave.Text = "Meld tram aan voor vertrek";
+            this.btnLeave.UseVisualStyleBackColor = true;
+            this.btnLeave.Click += new System.EventHandler(this.btnLeave_Click);
             // 
             // FormUserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(651, 367);
+            this.ClientSize = new System.Drawing.Size(654, 367);
+            this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnService);
             this.Controls.Add(this.gbDetails);
             this.Controls.Add(this.gbStandplaats);
@@ -203,6 +217,7 @@
         private System.Windows.Forms.RichTextBox rtbDetails;
         private System.Windows.Forms.GroupBox gbDetails;
         private System.Windows.Forms.Button btnService;
+        private System.Windows.Forms.Button btnLeave;
     }
 }
 
