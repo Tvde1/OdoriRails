@@ -52,27 +52,31 @@ namespace SchoonmaakReparatieSysteem
             string comment = commenttb.Text;
             DateTime startdate = dateTimePicker1.Value;
             DateTime enddate = DateTime.MaxValue;
-            //try
-            //{
-            if (activeUser.Role == Role.HeadCleaner)
+            try
             {
-                var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
-                    commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                dbconnector.AddCleaning(cleaning);
+                if (activeUser.Role == Role.HeadCleaner)
+                {
+                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                    dbconnector.AddCleaning(cleaning);
+                }
+                if (activeUser.Role == Role.HeadEngineer)
+                {
+                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+                    dbconnector.AddRepair(repair);
+                }
             }
-            if (activeUser.Role == Role.HeadEngineer)
+
+            catch
             {
-                var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
-                    commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                dbconnector.AddRepair(repair);
+                MessageBox.Show("Er ging iets mis. Roep Hugo.");
             }
-            //    }
-            //    catch
-            //    {
-            //        MessageBox.Show("Er ging iets mis. Roep Hugo.");
-            //    }
-            //    finally { this.Close();}
-            //}
+            finally
+            {
+                this.Close();
+            }
+        
         }
 
         private void button1_Click_1(object sender, EventArgs e)
