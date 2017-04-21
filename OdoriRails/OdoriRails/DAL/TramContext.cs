@@ -1,18 +1,12 @@
 ﻿using OdoriRails.BaseClasses;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails.DAL
 {
     public class TramContext : ITramContext
     {
-        private const string ConnectionString = Database.ConnectionString;
-
         public void AddTram(Tram tram)
         {
             var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@departure)");
@@ -32,8 +26,6 @@ namespace OdoriRails.DAL
         {
             Database.GetData(new SqlCommand($"DELETE FROM Tram WHERE TramPk = {tram.Number}"));
         }
-
-        
 
         public List<Tram> GetAllTrams()
         {

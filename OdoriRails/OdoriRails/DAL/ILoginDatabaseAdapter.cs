@@ -22,7 +22,7 @@ namespace OdoriRails.DAL
         /// <summary>
         /// Gets user by username.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="userName"></param>
         /// <returns></returns>
         User GetUser(string userName);
     }

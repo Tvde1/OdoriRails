@@ -3,16 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails.DAL
 {
     public class UserContext : IUserContext
     {
-        private const string ConnectionString = Database.ConnectionString;
-
         public User AddUser(User user)
         {
             var query = new SqlCommand("INSERT INTO [User] (Username,Password,Email,Name,Role,ManagedBy) VALUES (@username,@pass,@email,@name,@role,@managedBy); SELECT SCOPE_IDENTITY();");
@@ -25,9 +20,7 @@ namespace OdoriRails.DAL
             if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", DBNull.Value);
             else query.Parameters.AddWithValue("@managedBy", Database.GetUserId(user.ManagerUsername));
 
-            var data = Database.GetData(query);
-
-            user.SetId((int)data.Rows[0][0]);
+            user.SetId((int)Database.GetData(query).Rows[0][0]);
             return user;
         }
 

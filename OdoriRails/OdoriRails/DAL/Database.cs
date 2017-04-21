@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
@@ -87,7 +84,7 @@ namespace OdoriRails.DAL
         {
             var array = row.ItemArray;
             Tram tram = null;
-            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = Database.GetTram((int)array[3]);
+            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = GetTram((int)array[3]);
 
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }

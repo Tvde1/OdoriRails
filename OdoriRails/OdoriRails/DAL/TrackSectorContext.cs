@@ -1,18 +1,12 @@
 ﻿using OdoriRails.BaseClasses;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdoriRails.DAL
 {
     public class TrackSectorContext : ITrackSectorContext
     {
-        private const string ConnectionString = Database.ConnectionString;
-
         private const int RemiseNumber = 0;
         public List<Track> GetTracksAndSectors()
         {
