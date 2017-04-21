@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInterface));
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.gbOther = new System.Windows.Forms.GroupBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.btnChangeDisplayView = new System.Windows.Forms.Button();
             this.btnSimulation = new System.Windows.Forms.Button();
             this.gbTram = new System.Windows.Forms.GroupBox();
@@ -49,7 +51,6 @@
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.btnReset = new System.Windows.Forms.Button();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
@@ -84,6 +85,16 @@
             this.gbOther.TabIndex = 3;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(12, 105);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(236, 33);
+            this.btnReset.TabIndex = 3;
+            this.btnReset.Text = "Reset Remise";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnChangeDisplayView
             // 
@@ -274,16 +285,6 @@
             this.panelMain.TabIndex = 0;
             this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(12, 105);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(236, 33);
-            this.btnReset.TabIndex = 3;
-            this.btnReset.Text = "Reset Remise";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -292,6 +293,7 @@
             this.Controls.Add(this.gbDisplay);
             this.Controls.Add(this.gbControl);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "UserInterface";
             this.Text = "User Interface";
