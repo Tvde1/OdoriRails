@@ -21,6 +21,7 @@ namespace In_Uitrit_Systeem
 
         private void AssignedTramLocationFetcher_Tick(object sender, EventArgs e)
         {
+            _logic.FetchTramUpdates();
             if (_logic.Tram.Location == TramLocation.In)
             {
                 lblStandplaats.Text = _logic.GetAssingedTramLocation();
@@ -28,7 +29,7 @@ namespace In_Uitrit_Systeem
                 btnService.Enabled = true;
                 _AssignedTramLocationFetcher.Stop();
             }
-            if (_timerTick >= 5)
+            if (_timerTick == 5)
             {
                 _timerTick = 0;
                 string error = string.Format("Tram {0} kan niet worden aangemeld. Neem contact op met een logistiek medewerker.", _logic.Tram.Number.ToString());
@@ -80,6 +81,7 @@ namespace In_Uitrit_Systeem
             btnService.Enabled = false;
 
             _logic.Tram.EditTramLocation(TramLocation.ComingIn);
+            _logic.UpdateTram();
             _AssignedTramLocationFetcher.Start();
         }
 
@@ -101,8 +103,8 @@ namespace In_Uitrit_Systeem
             lblStandplaats.Text = "Niet bekend";
 
             _logic.Tram.EditTramLocation(TramLocation.Out);
+            _logic.UpdateTram();
             _logic.Tram.ResetTramDeparture();
-            _logic.Tram.ResetTramTrackAndSector();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)

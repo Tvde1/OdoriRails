@@ -12,7 +12,7 @@ namespace In_Uitrit_Systeem
         public InUitRitTram(int number, TramStatus status, int line, User driver, Model model, TramLocation location, DateTime? departureTime): base(number, status, line, driver, model, location, departureTime)
         { }
 
-        public static InUitRitTram ToTram(Tram tram)
+        public static InUitRitTram ToInUitRitTram(Tram tram)
         {
             return new InUitRitTram(tram.Number, tram.Status, tram.Line, tram.Driver, tram.Model, tram.Location, tram.DepartureTime);
         }
@@ -30,11 +30,6 @@ namespace In_Uitrit_Systeem
         public void ResetTramDeparture()
         {
             DepartureTime = null;
-        }
-
-        public void ResetTramTrackAndSector()
-        {
-            
         }
     }
 }
