@@ -45,6 +45,10 @@
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.lbMoveToTrack = new System.Windows.Forms.Label();
+            this.lbMoveToSector = new System.Windows.Forms.Label();
+            this.tbMoveToTrack = new System.Windows.Forms.TextBox();
+            this.tbMoveToSector = new System.Windows.Forms.TextBox();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
@@ -70,11 +74,11 @@
             // 
             this.gbOther.Controls.Add(this.btnChangeDisplayView);
             this.gbOther.Controls.Add(this.btnSimulation);
-            this.gbOther.Location = new System.Drawing.Point(12, 330);
+            this.gbOther.Location = new System.Drawing.Point(12, 454);
             this.gbOther.Margin = new System.Windows.Forms.Padding(5);
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
-            this.gbOther.Size = new System.Drawing.Size(259, 234);
+            this.gbOther.Size = new System.Drawing.Size(259, 110);
             this.gbOther.TabIndex = 3;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
@@ -101,6 +105,10 @@
             // 
             // gbTram
             // 
+            this.gbTram.Controls.Add(this.tbMoveToSector);
+            this.gbTram.Controls.Add(this.tbMoveToTrack);
+            this.gbTram.Controls.Add(this.lbMoveToSector);
+            this.gbTram.Controls.Add(this.lbMoveToTrack);
             this.gbTram.Controls.Add(this.btnAddService);
             this.gbTram.Controls.Add(this.btnMove);
             this.gbTram.Controls.Add(this.tbSelectedTram);
@@ -110,16 +118,16 @@
             this.gbTram.Margin = new System.Windows.Forms.Padding(5);
             this.gbTram.Name = "gbTram";
             this.gbTram.Padding = new System.Windows.Forms.Padding(5);
-            this.gbTram.Size = new System.Drawing.Size(259, 155);
+            this.gbTram.Size = new System.Drawing.Size(259, 279);
             this.gbTram.TabIndex = 2;
             this.gbTram.TabStop = false;
             this.gbTram.Text = "Tram";
             // 
             // btnAddService
             // 
-            this.btnAddService.Location = new System.Drawing.Point(136, 79);
+            this.btnAddService.Location = new System.Drawing.Point(8, 199);
             this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(115, 33);
+            this.btnAddService.Size = new System.Drawing.Size(242, 33);
             this.btnAddService.TabIndex = 5;
             this.btnAddService.Text = "Add Service";
             this.btnAddService.UseVisualStyleBackColor = true;
@@ -127,9 +135,9 @@
             // 
             // btnMove
             // 
-            this.btnMove.Location = new System.Drawing.Point(8, 79);
+            this.btnMove.Location = new System.Drawing.Point(12, 135);
             this.btnMove.Name = "btnMove";
-            this.btnMove.Size = new System.Drawing.Size(122, 33);
+            this.btnMove.Size = new System.Drawing.Size(242, 33);
             this.btnMove.TabIndex = 1;
             this.btnMove.Text = "Manual Move";
             this.btnMove.UseVisualStyleBackColor = true;
@@ -153,7 +161,7 @@
             // 
             // btnSetDisabled
             // 
-            this.btnSetDisabled.Location = new System.Drawing.Point(8, 115);
+            this.btnSetDisabled.Location = new System.Drawing.Point(7, 238);
             this.btnSetDisabled.Name = "btnSetDisabled";
             this.btnSetDisabled.Size = new System.Drawing.Size(243, 33);
             this.btnSetDisabled.TabIndex = 0;
@@ -232,6 +240,38 @@
             this.panelMain.TabIndex = 0;
             this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             // 
+            // lbMoveToTrack
+            // 
+            this.lbMoveToTrack.AutoSize = true;
+            this.lbMoveToTrack.Location = new System.Drawing.Point(9, 76);
+            this.lbMoveToTrack.Name = "lbMoveToTrack";
+            this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
+            this.lbMoveToTrack.TabIndex = 6;
+            this.lbMoveToTrack.Text = "Move to Track:";
+            // 
+            // lbMoveToSector
+            // 
+            this.lbMoveToSector.AutoSize = true;
+            this.lbMoveToSector.Location = new System.Drawing.Point(10, 106);
+            this.lbMoveToSector.Name = "lbMoveToSector";
+            this.lbMoveToSector.Size = new System.Drawing.Size(127, 20);
+            this.lbMoveToSector.TabIndex = 7;
+            this.lbMoveToSector.Text = "Move to Sector:";
+            // 
+            // tbMoveToTrack
+            // 
+            this.tbMoveToTrack.Location = new System.Drawing.Point(154, 76);
+            this.tbMoveToTrack.Name = "tbMoveToTrack";
+            this.tbMoveToTrack.Size = new System.Drawing.Size(97, 26);
+            this.tbMoveToTrack.TabIndex = 8;
+            // 
+            // tbMoveToSector
+            // 
+            this.tbMoveToSector.Location = new System.Drawing.Point(153, 103);
+            this.tbMoveToSector.Name = "tbMoveToSector";
+            this.tbMoveToSector.Size = new System.Drawing.Size(97, 26);
+            this.tbMoveToSector.TabIndex = 9;
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -274,6 +314,10 @@
         private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Button btnChangeDisplayView;
         private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.TextBox tbMoveToSector;
+        private System.Windows.Forms.TextBox tbMoveToTrack;
+        private System.Windows.Forms.Label lbMoveToSector;
+        private System.Windows.Forms.Label lbMoveToTrack;
     }
 }
 

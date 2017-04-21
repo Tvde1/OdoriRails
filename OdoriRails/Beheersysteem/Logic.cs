@@ -177,5 +177,28 @@ namespace Beheersysteem
 
             }
         }
+
+        public void MoveTram(string trams, string track, string sector)
+        {
+            string[] sTrams = trams.Split(',');
+            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
+            int moveTram = iTrams[0]; //Alleen de eerste bewegen
+
+            int moveTrack = Convert.ToInt32(track);
+            int moveSector = Convert.ToInt32(sector);
+            
+            foreach (Tram tram in allTrams)
+            {
+                int pos = Array.IndexOf(iTrams, tram.Number);
+                if (pos > -1)
+                {
+                    foreach (Track track in _allTracks)
+                    {
+
+                    }
+                }
+
+            }
+        }
     }
 }
