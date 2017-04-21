@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
+using OdoriRails.DAL.Repository;
 
 namespace User_Beheersysteem
 {
     static class Program
     {
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
+        private static readonly UserBeheerRepository UserBeheerRepository = new UserBeheerRepository();
 
         /// <summary>
         /// The main entry point for the application.
@@ -24,13 +25,13 @@ namespace User_Beheersysteem
                     MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
-                user = Database.GetUser(args[0]);
+                user = UserBeheerRepository.GetUser(args[0]);
 
             }
             else
             {
                 //Haal hier de user op:
-                user = Database.GetUser("admin");
+                user = UserBeheerRepository.GetUser("Admin");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }

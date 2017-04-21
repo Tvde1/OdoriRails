@@ -52,7 +52,7 @@
     <Compile Include="InlogScreen.Designer.cs">
       <DependentUpon>InlogScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogInSystemCode.cs" />
+    <Compile Include="Logic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="InlogScreen.resx">

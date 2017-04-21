@@ -1,59 +1,85 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
+using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Repository
 {
-    public interface IBeheerDatabaseAdapter
+    public class UserBeheerRepository
     {
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// Voegt een User toe aan de database.
         /// </summary>
         /// <param name="user"></param>
-        User AddUser(User user);
+        public User AddUser(User user)
+        {
+            return UserContext.AddUser(user);
+        }
 
         /// <summary>
         /// Haalt alle users op.
         /// </summary>
         /// <returns></returns>
-        List<User> GetAllUsers();
+        public List<User> GetAllUsers()
+        {
+            return UserContext.GetAllUsers();
+        }
 
         /// <summary>
         /// Verwijdert een User uit de database.
         /// </summary>
         /// <param name="user"></param>
-        void RemoveUser(User user);
+        public void RemoveUser(User user)
+        {
+            UserContext.RemoveUser(user);
+        }
 
         /// <summary>
         /// Haal een User op aan de hand van de userid.
         /// </summary>
         /// <param name="id"></param>
-        User GetUser(int id);
+        public User GetUser(int id)
+        {
+            return UserContext.GetUser(id);
+        }
 
         /// <summary>
         /// Get de user ID via de username.
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        int GetUserId(string username);
+        public int GetUserId(string username)
+        {
+            return UserContext.GetUserId(username);
+        }
 
         /// <summary>
         /// Slaat de bestaande user op in de database.
         /// </summary>
         /// <param name="user"></param>
-        void UpdateUser(User user);
+        public void UpdateUser(User user)
+        {
+            UserContext.UpdateUser(user);
+        }
 
         /// <summary>
         /// Haal een User op aan de hand van de username.
         /// </summary>
         /// <param name="userName"></param>
-        User GetUser(string userName);
+        public User GetUser(string userName)
+        {
+            return UserContext.GetUser(userName);
+        }
 
         /// <summary>
         /// Haalt alle users op die deze rol hebben.
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        List<User> GetAllUsersWithRole(Role role);
+        public List<User> GetAllUsersWithFunction(Role role)
+        {
+            return UserContext.GetAllUsersWithFunction(role);
+        }
     }
 }
