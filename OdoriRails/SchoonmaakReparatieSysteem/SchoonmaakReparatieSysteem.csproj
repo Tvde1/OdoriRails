@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D16E11C4-9389-4ABB-A71A-BC28BFC90CC2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SchoonmaakReparatieSysteem</RootNamespace>
     <AssemblyName>SchoonmaakReparatieSysteem</AssemblyName>

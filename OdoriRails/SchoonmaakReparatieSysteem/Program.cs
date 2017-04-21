@@ -13,6 +13,7 @@ namespace SchoonmaakReparatieSysteem
     {
         private static readonly bool _gebruikInlogSysteem = true;
         private static SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
