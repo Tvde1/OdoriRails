@@ -1,17 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OdoriRails.DAL.Tests
+namespace OdoriRailsTests.DAL
 {
     [TestClass()]
     public class MssqlDatabaseContextTests
     {
+        /*
         MssqlDatabaseContext ms = new MssqlDatabaseContext();
 
         #region User
@@ -270,5 +264,6 @@ namespace OdoriRails.DAL.Tests
 
         }
         #endregion
+        */
     }
 }

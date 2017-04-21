@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
@@ -7,7 +8,6 @@ namespace In_Uitrit_Systeem
 {
     static class Program
     {
-        private static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
         private static readonly bool _gebruikInlogSysteem = true;
 
         /// <summary>
@@ -25,12 +25,12 @@ namespace In_Uitrit_Systeem
                     MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
-                user = _databaseConnector.GetUser(args[0]);
+                user = Database.GetUser(args[0]);
             }
             else
             {
                 //Haal hier de user op:
-                user = _databaseConnector.GetUser("admin");
+                user = Database.GetUser("admin");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
