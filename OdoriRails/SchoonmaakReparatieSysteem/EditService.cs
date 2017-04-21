@@ -16,7 +16,6 @@ namespace SchoonmaakReparatieSysteem
     public partial class EditService : Form
     {
         private User activeUser;
-        private IServiceContext _serviceContext = new ServiceContext();
         private Logic logic = new Logic();
         private List<User> users = new List<User>();
         private List<User> availableusers = new List<User>();

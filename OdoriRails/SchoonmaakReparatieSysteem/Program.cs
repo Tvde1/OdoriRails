@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
+using OdoriRails.DAL.Repository;
 
 namespace SchoonmaakReparatieSysteem
 {
     static class Program
     {
-        private static ILoginContext _loginContext = new LoginContext();
-        private static readonly bool _gebruikInlogSysteem = false;
-
+    private static readonly bool _gebruikInlogSysteem = false;
+        static private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -28,12 +28,12 @@ namespace SchoonmaakReparatieSysteem
                     MessageBox.Show(@"Zorg dat je inlogt via de inlogapplicatie.");
                     return;
                 }
-                user = Database.GetUser(args[0]);
+                user = _repo.GetUser(args[0]);
             }
             else
             {
                 //Haal hier de user op:
-                user = Database.GetUser("HeadEngineer");
+                user = _repo.GetUser("HeadEngineer");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }

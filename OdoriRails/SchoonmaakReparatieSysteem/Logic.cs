@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
+using OdoriRails.DAL.Repository;
+using OdoriRails.DAL.Subclasses;
 
 namespace SchoonmaakReparatieSysteem
 {
     public class Logic
     {
-        private IServiceContext _serviceContext = new ServiceContext();
-        private IUserContext _userContext = new UserContext();
+        private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
 
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl,
             ComboBox usercbox)
         {
             if (activeUser.Role == Role.HeadEngineer)
             {
-                availableusers = _userContext.GetAllUsersWithFunction(Role.Engineer);
+                availableusers = _repo.GetAllUsersWithFunction(Role.Engineer);
                 foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
@@ -33,7 +34,7 @@ namespace SchoonmaakReparatieSysteem
             }
             if (activeUser.Role == Role.HeadCleaner)
             {
-                availableusers = _userContext.GetAllUsersWithFunction(Role.Cleaner);
+                availableusers = _repo.GetAllUsersWithFunction(Role.Cleaner);
                 foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
@@ -60,13 +61,13 @@ namespace SchoonmaakReparatieSysteem
                 {
                     var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.AddCleaning(cleaning);
+                    _repo.AddCleaning(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
                     var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.AddRepair(repair);
+                    _repo.AddRepair(repair);
                 }
             }
 
@@ -90,13 +91,13 @@ namespace SchoonmaakReparatieSysteem
                 {
                     var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.EditService(cleaning);
+                    _repo.EditService(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
                     var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.EditService(repair);
+                    _repo.EditService(repair);
                 }
             }
 
@@ -117,11 +118,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView.DataSource = _serviceContext.GetAllRepairsWithoutUsers();
+                    dataGridView.DataSource = _repo.GetAllRepairsWithoutUsers();
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView.DataSource = _serviceContext.GetAllCleansWithoutUsers();
+                    dataGridView.DataSource = _repo.GetAllCleansWithoutUsers();
                 }
                 else
                 {
@@ -131,11 +132,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
+                    dataGridView.DataSource = _repo.GetAllRepairsFromUser(ActiveUser);
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
+                    dataGridView.DataSource = _repo.GetAllCleansFromUser(ActiveUser);
                 }
             }
         }
@@ -147,7 +148,7 @@ namespace SchoonmaakReparatieSysteem
                 try
                 {
                     servicetofinish.EndDate = DateTime.Now;
-                    _serviceContext.EditService(servicetofinish);
+                    _repo.EditService(servicetofinish);
                 }
                 catch
                 {

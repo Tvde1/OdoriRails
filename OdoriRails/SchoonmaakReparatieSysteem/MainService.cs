@@ -17,8 +17,7 @@ namespace SchoonmaakReparatieSysteem
     {
 
         //private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
-        private IServiceContext _serviceContext = new ServiceContext();
-
+     
         private Logic logic = new Logic();
         public User ActiveUser;
         private List<Repair> replist;
@@ -55,50 +54,31 @@ namespace SchoonmaakReparatieSysteem
 
         private void MainService_Load(object sender, EventArgs e)
         {
-
-
-            if(ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
-            {
-                dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
-            }
-            if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
-            {
-                dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
-            }
+            logic.RefreshDatagridView(ActiveUser, filtercbox, dataGridView1);
 
             if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == Role.HeadCleaner)
             {
-                
                 button1.Visible = true;
                 button2.Visible = true;
             }
             else
-            {
-                
+            {           
                 button1.Visible = false;
                 button2.Visible = false;
             }
-
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count != 0)
+            try
             {
-                try
-                {
-                    var servicetodelete = (Service)dataGridView1.CurrentRow.DataBoundItem;
-                    _serviceContext.DeleteService(servicetodelete);
-                }
-                catch
-                {
-                 // it still deletes but theres an sql exception, must be fixed
-
-                }
-
+                logic.FinishService(dataGridView1, (Service) dataGridView1.CurrentRow.DataBoundItem);
             }
-        }
+            catch
+            {
+                MessageBox.Show("Select a service first my dude");
+            }
+      }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
