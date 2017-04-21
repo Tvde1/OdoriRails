@@ -26,5 +26,24 @@ namespace OdoriRails.DAL
             }
             return returnList;
         }
+
+        public void EditTrack(Track track)
+        {
+            var query = new SqlCommand("UPDATE Track SET (Line,Type,RemiseFk) VALUES (@line,@type,@remise) WHERE TrackPk = @id");
+            query.Parameters.AddWithValue("@line", track.Number);
+            query.Parameters.AddWithValue("@type", (int)track.Type);
+            query.Parameters.AddWithValue("@remise", 0); //TODO: Deze actueel maken.
+            Database.GetData(query);
+        }
+
+        public void EditSector(Sector sector)
+        {
+            var query = new SqlCommand("UPDATE Sector SET (Status,Track,Tram,Remise) VALUES (@stat,@track,@tram,@remis) WHERE SectorPk = @id");
+            query.Parameters.AddWithValue("@stat", (int)sector.Status);
+            query.Parameters.AddWithValue("@track", sector.TrackNumber);
+            query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
+            query.Parameters.AddWithValue("@remis", 0); //TODO: Deze acueel maken.
+            Database.GetData(query);
+        }
     }
 }
