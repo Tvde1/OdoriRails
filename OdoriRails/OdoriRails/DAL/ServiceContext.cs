@@ -55,6 +55,45 @@ Service ON ServiceUser.ServiceCk = Service.ServicePk
 WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk")), CreateCleaning);
         }
 
+        public void EditService(Service service)
+        {
+            switch (service.GetType().Name)
+            {
+                case "Repair":
+                    {
+                        var repair = (Repair)service;
+                        var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE ServiceFk = @id");
+                        repairQuery.Parameters.AddWithValue("@solution", repair.Solution);
+                        repairQuery.Parameters.AddWithValue("@defect", repair.Defect);
+                        repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);
+                        repairQuery.Parameters.AddWithValue("@id", repair.Id);
+                        Database.GetData(repairQuery);
+                        break;
+                    }
+                case "Cleaning":
+                    {
+                        var cleaning = (Cleaning)service;
+                        var cleaningQuery = new SqlCommand("UPDATE Clean SET Size = @size, Remarks = @remarks WHERE ServiceFk = @id");
+                        cleaningQuery.Parameters.AddWithValue("@size", (int)cleaning.Size);
+                        cleaningQuery.Parameters.AddWithValue("@remarks", cleaning.Comments);
+                        break;
+                    }
+            }
+            var query = new SqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
+            query.Parameters.AddWithValue("@startdate", service.StartDate);
+            query.Parameters.AddWithValue("@enddate", service.EndDate);
+            query.Parameters.AddWithValue("@tramfk", service.TramId);
+            Database.GetData(query);
+            SetUsersToServices(service.AssignedUsers, service);
+        }
+
+        public void DeleteService(Service service)
+        {
+            var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            query.Parameters.AddWithValue("@id", service.Id);
+            Database.GetData(query);
+        }
+
         public Cleaning AddCleaning(Cleaning cleaning)
         {
             var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
@@ -100,7 +139,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return repair;
         }
 
- 
+
         private Cleaning CreateCleaning(DataRow row)
         {
             var array = row.ItemArray;

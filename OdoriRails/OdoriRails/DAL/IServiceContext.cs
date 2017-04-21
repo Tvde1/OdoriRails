@@ -13,6 +13,18 @@ namespace OdoriRails.DAL
 
         List<Cleaning> GetAllCleansWithoutUsers();
 
+        /// <summary>
+        /// Edit de service in de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void EditService(Service service);
+
+        /// <summary>
+        /// Delete de service van de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void DeleteService(Service service);
+
         Cleaning AddCleaning(Cleaning cleaning);
 
         Repair AddRepair(Repair repair);
