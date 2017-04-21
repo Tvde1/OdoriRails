@@ -42,12 +42,13 @@ namespace OdoriRails.DAL
         public void EditTram(Tram tram)
         {
             //line status driver model remise location departure 
-            var query = new SqlCommand("UPDATE Tram SET (Line,Status,DriverFk,ModelFk,RemiseFk,Location,DepartureTime) VALUES (@line,@stat,@driv,@model,@remis,@loc,@dep) WHERE TramPk = @id");
+            var query = new SqlCommand("UPDATE Tram SET Line = @line, Status = @stat, DriverFk = @driver, ModelFk = @model, RemiseFk = @remis, Location = @loc, DepartureTime = @dep WHERE TramPk = @id");
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@stat", (int) tram.Status);
-            query.Parameters.AddWithValue("@driv", Database.GetUserId(tram.Driver.Username));
+            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", Database.GetUserId(tram.Driver.Username));
+            else query.Parameters.AddWithValue("@driver", DBNull.Value);
             query.Parameters.AddWithValue("@model", (int) tram.Model);
-            query.Parameters.AddWithValue("@remis", 0); //TODO: Correct updaten.
+            query.Parameters.AddWithValue("@remis", 1); //TODO: Correct updaten.
             query.Parameters.AddWithValue("@loc", (int) tram.Location);
             query.Parameters.AddWithValue("@dep", tram.DepartureTime);
             query.Parameters.AddWithValue("@id", tram.Number);

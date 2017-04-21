@@ -15,7 +15,7 @@ namespace OdoriRails.DAL
 
         //private string _connectionString = "Data Source=84.30.16.219;Initial Catalog=OdoriRails;Persist Security Info=True;User ID=OdoriRails;Password=12345678;";
         private const string ConnectionString = @"Server=192.168.20.167;Database=OdoriRails;Uid=OdoriRails;Pwd=OdoriRails123;";
-        private const int RemiseNumber = 0;
+        private const int RemiseNumber = 1;
 
         #region IBeheerSysteem
 

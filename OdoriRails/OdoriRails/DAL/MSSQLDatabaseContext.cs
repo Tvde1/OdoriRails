@@ -15,7 +15,7 @@ namespace OdoriRails.DAL
         //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
         private const string ConnectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
-        private const int RemiseNumber = 0;
+        private const int RemiseNumber = 1;
 
         #region IBeheerSysteem
 

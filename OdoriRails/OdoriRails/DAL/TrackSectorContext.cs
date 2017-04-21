@@ -7,7 +7,7 @@ namespace OdoriRails.DAL
 {
     public class TrackSectorContext : ITrackSectorContext
     {
-        private const int RemiseNumber = 0;
+        private const int RemiseNumber = 1;
         public List<Track> GetTracksAndSectors()
         {
             var returnList = new List<Track>();
@@ -29,20 +29,21 @@ namespace OdoriRails.DAL
 
         public void EditTrack(Track track)
         {
-            var query = new SqlCommand("UPDATE Track SET (Line,Type,RemiseFk) VALUES (@line,@type,@remise) WHERE TrackPk = @id");
-            query.Parameters.AddWithValue("@line", track.Number);
+            var query = new SqlCommand("UPDATE Track SET Line = @line, Type = @type, RemiseFk = @remise WHERE TrackPk = @id");
+            query.Parameters.AddWithValue("@line", track.Line);
             query.Parameters.AddWithValue("@type", (int)track.Type);
-            query.Parameters.AddWithValue("@remise", 0); //TODO: Deze actueel maken.
+            query.Parameters.AddWithValue("@remise", RemiseNumber); //TODO: Deze actueel maken.
+            query.Parameters.AddWithValue("@id", track.Number);
             Database.GetData(query);
         }
 
         public void EditSector(Sector sector)
         {
-            var query = new SqlCommand("UPDATE Sector SET (Status,Track,Tram,Remise) VALUES (@stat,@track,@tram,@remis) WHERE SectorPk = @id");
             query.Parameters.AddWithValue("@stat", (int)sector.Status);
             query.Parameters.AddWithValue("@track", sector.TrackNumber);
             query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
-            query.Parameters.AddWithValue("@remis", 0); //TODO: Deze acueel maken.
+            query.Parameters.AddWithValue("@remis", RemiseNumber); //TODO: Deze acueel maken.
+            query.Parameters.AddWithValue("@id", sector.Number);
             Database.GetData(query);
         }
     }
