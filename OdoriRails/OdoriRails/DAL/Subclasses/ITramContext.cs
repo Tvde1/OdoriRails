@@ -65,5 +65,7 @@ namespace OdoriRails.DAL.Subclasses
         Sector GetAssignedSector(Tram tram);
 
         void WipeDepartureTimes();
+
+        Tram FetchTram(Tram tram);
     }
 }

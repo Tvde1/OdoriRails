@@ -86,6 +86,11 @@ namespace OdoriRails.DAL.Subclasses
             Database.GetData(new SqlCommand("UPDATE Tram SET DepartureTime = null"));
         }
 
+        public Tram FetchTram(Tram tram)
+        {
+            return CreateTram(Database.GetData(new SqlCommand($"SELECR * FROM Tram WHERE TramPk = {tram.Number}")).Rows[0]);
+        }
+
         private Tram CreateTram(DataRow row)
         {
             //Pk, Line, Status, Driver, Model, Remise, Location, Depart
