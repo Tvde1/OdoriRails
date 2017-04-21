@@ -93,7 +93,7 @@ namespace In_Uitrit_Systeem
                 return;
             }
 
-            if (_logic.Tram.Location == TramLocation.In || _logic.Tram.Location == TramLocation.ComingIn)
+            if (_logic.Tram.Location == TramLocation.Out || _logic.Tram.Location == TramLocation.ComingIn)
             {
                 string error = string.Format("Tram {0} is nog niet aangemeld bij de remise. Meld deze tram eerst aan bij de remise.", _logic.Tram.Number.ToString());
                 MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
