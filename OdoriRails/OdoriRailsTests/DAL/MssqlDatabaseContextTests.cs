@@ -218,10 +218,6 @@ namespace OdoriRails.DAL.Tests
 
         }
 
-       
-
-        
-
         [TestMethod()]
         public void EditServiceTest()
         {
