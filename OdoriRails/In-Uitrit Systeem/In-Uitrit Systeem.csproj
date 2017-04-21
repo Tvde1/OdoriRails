@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{59824247-11C9-4084-A959-69F2358EC142}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>In_Uitrit_Systeem</RootNamespace>
     <AssemblyName>In_Uitrit_Systeem</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
