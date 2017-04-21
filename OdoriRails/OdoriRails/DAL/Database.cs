@@ -8,7 +8,7 @@ namespace OdoriRails.DAL
 {
     public static class Database
     {
-        public const string ConnectionString = @"Data Source=mssql.fhict.local;Initial Catalog=dbi362813;User ID=dbi362813;Password=OdoriRails123;";
+        public const string ConnectionString =@"Data Source=192.168.20.189;Initial Catalog=OdoriRails;User ID=sa;Password=OdoriRails123;";
         public static DataTable GetData(SqlCommand command)
         {
             var dataTable = new DataTable();
