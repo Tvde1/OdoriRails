@@ -20,7 +20,7 @@ namespace OdoriRails.DAL.Subclasses
             if (string.IsNullOrEmpty(user.ManagerUsername)) query.Parameters.AddWithValue("@managedBy", DBNull.Value);
             else query.Parameters.AddWithValue("@managedBy", GetUserId(user.ManagerUsername));
 
-            user.SetId((int)Database.GetData(query).Rows[0][0]);
+            user.SetId(Convert.ToInt32((decimal)Database.GetData(query).Rows[0][0]));
             return user;
         }
 

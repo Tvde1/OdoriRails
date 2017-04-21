@@ -6,8 +6,8 @@ namespace OdoriRails.DAL.Repository
 {
     public class SchoonmaakReparatieRepository
     {
-        private readonly IServiceContext _serviceContext = new ServiceContext();
-        private readonly IUserContext _userContext = new UserContext();
+        private static readonly IServiceContext ServiceContext = new ServiceContext();
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// Haal alle reparaties op die deze user heeft.
@@ -16,7 +16,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Repair> GetAllRepairsFromUser(User user)
         {
-            return _serviceContext.GetAllRepairsFromUser(user);
+            return ServiceContext.GetAllRepairsFromUser(user);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Cleaning> GetAllCleansFromUser(User user)
         {
-            return _serviceContext.GetAllCleansFromUser(user);
+            return ServiceContext.GetAllCleansFromUser(user);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Repair> GetAllRepairsWithoutUsers()
         {
-            return _serviceContext.GetAllRepairsWithoutUsers();
+            return ServiceContext.GetAllRepairsWithoutUsers();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Cleaning> GetAllCleansWithoutUsers()
         {
-            return _serviceContext.GetAllCleansWithoutUsers();
+            return ServiceContext.GetAllCleansWithoutUsers();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Cleaning AddCleaning(Cleaning cleaning)
         {
-            return _serviceContext.AddCleaning(cleaning);
+            return ServiceContext.AddCleaning(cleaning);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Repair AddRepair(Repair repair)
         {
-            return _serviceContext.AddRepair(repair);
+            return ServiceContext.AddRepair(repair);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="service"></param>
         public void EditService(Service service)
         {
-            _serviceContext.EditService(service);
+            ServiceContext.EditService(service);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="service"></param>
         public void DeleteService(Service service)
         {
-            _serviceContext.DeleteService(service);
+            ServiceContext.DeleteService(service);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="userName"></param>
         public User GetUser(string userName)
         {
-            return _userContext.GetUser(userName);
+            return UserContext.GetUser(userName);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<User> GetAllUsersWithFunction(Role role)
         {
-            return _userContext.GetAllUsersWithFunction(role);
+            return UserContext.GetAllUsersWithFunction(role);
         }
     }
 }

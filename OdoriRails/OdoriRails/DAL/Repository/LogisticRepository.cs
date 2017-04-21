@@ -6,9 +6,9 @@ namespace OdoriRails.DAL.Repository
 {
     public class LogisticRepository
     {
-        private readonly IUserContext _userContext = new UserContext();
-        private readonly ITramContext _tramContext = new TramContext();
-        private  readonly ITrackSectorContext _trackSectorContext = new TrackSectorContext();
+        private static readonly IUserContext UserContext = new UserContext();
+        private static readonly ITramContext TramContext = new TramContext();
+        private static readonly ITrackSectorContext TrackSectorContext = new TrackSectorContext();
 
         /// <summary>
         /// Voegt een nieuwe tram toe aan de database.
@@ -16,7 +16,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="tram"></param>
         public void AddTram(Tram tram)
         {
-            _tramContext.AddTram(tram);
+            TramContext.AddTram(tram);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="tram"></param>
         public void RemoveTram(Tram tram)
         {
-            _tramContext.RemoveTram(tram);
+            TramContext.RemoveTram(tram);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="id"></param>
         public Tram GetTram(int id)
         {
-            return _tramContext.GetTram(id);
+            return TramContext.GetTram(id);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         public List<Tram> GetAllTrams()
         {
-            return _tramContext.GetAllTrams();
+            return TramContext.GetAllTrams();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Tram GetTramByDriver(User driver)
         {
-            return _tramContext.GetTramByDriver(driver);
+            return TramContext.GetTramByDriver(driver);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
         {
-            return _tramContext.GetAllTramsWithStatus(status);
+            return TramContext.GetAllTramsWithStatus(status);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Tram> GetAllTramsWithLocation(TramLocation location)
         {
-            return _tramContext.GetAllTramsWithLocation(location);
+            return TramContext.GetAllTramsWithLocation(location);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<Track> GetTracksAndSectors()
         {
-            return _trackSectorContext.GetTracksAndSectors();
+            return TrackSectorContext.GetTracksAndSectors();
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="userName"></param>
         public User GetUser(string userName)
         {
-            return _userContext.GetUser(userName);
+            return UserContext.GetUser(userName);
         }
     }
 }

@@ -8,8 +8,8 @@ namespace OdoriRails.DAL.Subclasses
 {
     public class TramContext : ITramContext
     {
-        private readonly UserContext _userContext = new UserContext();
-        private readonly TrackSectorContext _trackSectorContext = new TrackSectorContext();
+        private static readonly UserContext UserContext = new UserContext();
+        private static readonly TrackSectorContext TrackSectorContext = new TrackSectorContext();
 
         public Tram GetTram(int tramId)
         {
@@ -25,7 +25,7 @@ namespace OdoriRails.DAL.Subclasses
             query.Parameters.AddWithValue("@model", (int)tram.Model);
             query.Parameters.AddWithValue("@location", (int)tram.Location);
             query.Parameters.AddWithValue("@departure", tram.DepartureTime);
-            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", _userContext.GetUserId(tram.Driver.Username));
+            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", UserContext.GetUserId(tram.Driver.Username));
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
 
             Database.GetData(query);
@@ -54,7 +54,7 @@ namespace OdoriRails.DAL.Subclasses
             var query = new SqlCommand("UPDATE Tram SET Line = @line, Status = @stat, DriverFk = @driver, ModelFk = @model, RemiseFk = @remis, Location = @loc, DepartureTime = @dep WHERE TramPk = @id");
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@stat", (int) tram.Status);
-            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", _userContext.GetUserId(tram.Driver.Username));
+            if (tram.Driver != null) query.Parameters.AddWithValue("@driver", UserContext.GetUserId(tram.Driver.Username));
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
             query.Parameters.AddWithValue("@model", (int) tram.Model);
             query.Parameters.AddWithValue("@remis", 1); //TODO: Correct updaten.
@@ -78,7 +78,7 @@ namespace OdoriRails.DAL.Subclasses
         {
             var data = Database.GetData(new SqlCommand($"SELECT * FROM Sector WHERE TramFk = {tram.Number}"));
             if (data.Rows.Count < 1) return null;
-            return _trackSectorContext.CreateSector(data.Rows[0]);
+            return TrackSectorContext.CreateSector(data.Rows[0]);
         }
 
         private Tram CreateTram(DataRow row)
@@ -88,7 +88,7 @@ namespace OdoriRails.DAL.Subclasses
             var id = (int)array[0];
             var line = (int)array[1];
             var status = (TramStatus)array[2];
-            var driver = array[3] == DBNull.Value ? null : _userContext.GetUser((int)array[3]);
+            var driver = array[3] == DBNull.Value ? null : UserContext.GetUser((int)array[3]);
             var model = (Model)array[4];
             var location = (TramLocation)array[6];
             DateTime? depart = null;

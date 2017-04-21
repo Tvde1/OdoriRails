@@ -6,7 +6,7 @@ namespace OdoriRails.DAL.Repository
 {
     public class UserBeheerRepository
     {
-        private readonly IUserContext _userContext = new UserContext();
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// Voegt een User toe aan de database.
@@ -14,7 +14,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="user"></param>
         public User AddUser(User user)
         {
-            return _userContext.AddUser(user);
+            return UserContext.AddUser(user);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<User> GetAllUsers()
         {
-            return _userContext.GetAllUsers();
+            return UserContext.GetAllUsers();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="user"></param>
         public void RemoveUser(User user)
         {
-            _userContext.RemoveUser(user);
+            UserContext.RemoveUser(user);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="id"></param>
         public User GetUser(int id)
         {
-            return _userContext.GetUser(id);
+            return UserContext.GetUser(id);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public int GetUserId(string username)
         {
-            return _userContext.GetUserId(username);
+            return UserContext.GetUserId(username);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="user"></param>
         public void UpdateUser(User user)
         {
-            _userContext.UpdateUser(user);
+            UserContext.UpdateUser(user);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="userName"></param>
         public User GetUser(string userName)
         {
-            return _userContext.GetUser(userName);
+            return UserContext.GetUser(userName);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public List<User> GetAllUsersWithFunction(Role role)
         {
-            return _userContext.GetAllUsersWithFunction(role);
+            return UserContext.GetAllUsersWithFunction(role);
         }
     }
 }

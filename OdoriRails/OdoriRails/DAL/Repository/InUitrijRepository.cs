@@ -5,9 +5,9 @@ namespace OdoriRails.DAL.Repository
 {
     public class InUitrijRepository
     {
-        private readonly IUserContext _userContext = new UserContext();
-        private readonly IServiceContext _serviceContext = new ServiceContext();
-        private readonly ITramContext _tramContext = new TramContext();
+        private static readonly IUserContext UserContext = new UserContext();
+        private static readonly IServiceContext ServiceContext = new ServiceContext();
+        private static readonly ITramContext TramContext = new TramContext();
 
         /// <summary>
         /// Voegt een Schoonmaak toe en geeft de schoonmaak met ID terug.
@@ -16,7 +16,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Cleaning AddCleaning(Cleaning cleaning)
         {
-            return _serviceContext.AddCleaning(cleaning);
+            return ServiceContext.AddCleaning(cleaning);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Repair AddRepair(Repair repair)
         {
-            return _serviceContext.AddRepair(repair);
+            return ServiceContext.AddRepair(repair);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public User GetUser(string username)
         {
-            return _userContext.GetUser(username);
+            return UserContext.GetUser(username);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Tram GetTramByDriver(User driver)
         {
-            return _tramContext.GetTramByDriver(driver);
+            return TramContext.GetTramByDriver(driver);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public Sector GetAssignedSector(Tram tram)
         {
-            return _tramContext.GetAssignedSector(tram);
+            return TramContext.GetAssignedSector(tram);
         }
     }
 }

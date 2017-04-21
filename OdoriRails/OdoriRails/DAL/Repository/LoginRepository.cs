@@ -5,8 +5,8 @@ namespace OdoriRails.DAL.Repository
 {
     public class LoginRepository
     {
-        private readonly ILoginContext _loginContext = new LoginContext();
-        private readonly IUserContext _userContext = new UserContext();
+        private static readonly ILoginContext LoginContext = new LoginContext();
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// Kijkt of de username bestaat in de database.
@@ -15,7 +15,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public bool ValidateUsername(string username)
         {
-            return _loginContext.ValidateUsername(username);
+            return LoginContext.ValidateUsername(username);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public bool MatchUsernameAndPassword(string username, string password)
         {
-            return _loginContext.MatchUsernameAndPassword(username, password);
+            return LoginContext.MatchUsernameAndPassword(username, password);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace OdoriRails.DAL.Repository
         /// <returns></returns>
         public User GetUser(string userName)
         {
-            return _userContext.GetUser(userName);
+            return UserContext.GetUser(userName);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace User_Beheersysteem
 
             if (status == "Edit")
             {
-                string username = logic.UsersSearch[index].Name;
+                string username = logic.UsersSearch[index].Username;
                 int id = logic.GetIndex(username);
                 if (cbManaged.SelectedText != "")
                 {

@@ -7,7 +7,7 @@ namespace User_Beheersysteem
 {
     static class Program
     {
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
         private static readonly UserBeheerRepository UserBeheerRepository = new UserBeheerRepository();
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace User_Beheersysteem
             else
             {
                 //Haal hier de user op:
-                user = UserBeheerRepository.GetUser("admin");
+                user = UserBeheerRepository.GetUser("Admin");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
