@@ -7,7 +7,6 @@ namespace In_Uitrit_Systeem
 {
     static class Program
     {
-        private static readonly IInUitrijDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
         private static readonly bool _gebruikInlogSysteem = true;
 
         /// <summary>
@@ -16,7 +15,7 @@ namespace In_Uitrit_Systeem
         [STAThread]
         static void Main(string[] args)
         {
-            User user = null;
+            User user;
 
             if (_gebruikInlogSysteem)
             {
@@ -25,12 +24,12 @@ namespace In_Uitrit_Systeem
                     MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
-                user = _databaseConnector.GetUser(args[0]);
+                user = Database.GetUser(args[0]);
             }
             else
             {
                 //Haal hier de user op:
-                user = _databaseConnector.GetUser("admin");
+                user = Database.GetUser("driver");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }

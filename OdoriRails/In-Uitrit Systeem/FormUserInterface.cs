@@ -13,9 +13,9 @@ namespace In_Uitrit_Systeem
         {
             InitializeComponent();
             _logic = new Logic(driver);
-            _lineFetcher = new Timer {Interval = 10000};
+            _lineFetcher = new Timer { Interval = 10000 };
             _lineFetcher.Tick += LineFetcher_Tick;
-            lblTramNumber.Text = _logic.Tram.Number.ToString();
+            lblTramNumber.Text = _logic.Tram?.Number.ToString() ?? "Geen Tram";
         }
 
         private void LineFetcher_Tick(object sender, EventArgs e)
@@ -29,6 +29,12 @@ namespace In_Uitrit_Systeem
 
         private void btnService_Click(object sender, EventArgs e)
         {
+            if (_logic.Tram == null)
+            {
+                MessageBox.Show("U bestuurt nu geen tram.");
+                return;
+            }
+
             if (_logic.Tram.Location == TramLocation.In)
             {
                 string error = string.Format("Tram {0} is al aangemeld. Neem contact op met een logistiek medewerker.", _logic.Tram.Number.ToString());

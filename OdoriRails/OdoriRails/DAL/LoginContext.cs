@@ -2,10 +2,8 @@
 
 namespace OdoriRails.DAL
 {
-    class LoginContext : ILoginContext
+    public class LoginContext : ILoginContext
     {
-        private const string ConnectionString = Database.ConnectionString;
-
         public bool ValidateUsername(string username)
         {
             var query = new SqlCommand("SELECT UserPk FROM [User] WHERE Username = @usrname");

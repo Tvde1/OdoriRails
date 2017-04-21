@@ -1,26 +1,22 @@
 ﻿using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace User_Beheersysteem
 {
     class Logic
     {
-        IBeheerDatabaseAdapter databaseConnector = new MssqlDatabaseContext();
-        public List<BeheerUser> UsersAll = new List<BeheerUser>();
-        public List<BeheerUser> UsersSearch = new List<BeheerUser>();
+        private IUserContext _userContext = new UserContext();
+        public List<BeheerUser> UsersSearch { get; set; } = new List<BeheerUser>();
+        public List<BeheerUser> UsersAll { get; set; } = new List<BeheerUser>();
 
         public void GetAllUsersFromDatabase()
         {
             UsersAll.Clear();
-            List<User> TempUsers = databaseConnector.GetAllUsers();
-            foreach (User TempUser in TempUsers)
+            List<User> tempUsers = _userContext.GetAllUsers();
+            foreach (User tempUser in tempUsers)
             {
-                UsersAll.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
+                UsersAll.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername));
             }
         }
 
@@ -28,44 +24,33 @@ namespace User_Beheersysteem
         {
             UsersSearch.Clear();
 
-            List<User> TempUsers = null;
+            var tempUsers = index == 7 ? _userContext.GetAllUsers() : _userContext.GetAllUsersWithFunction((Role)index);
 
-            if (index == 7)
+            foreach (User tempUser in tempUsers)
             {
-                TempUsers = databaseConnector.GetAllUsers();
-            }
-            else
-            {
-                TempUsers = databaseConnector.GetAllUsersWithRole((Role)index);
-            }
-
-            foreach (User TempUser in TempUsers)
-            {
-                UsersSearch.Add(new BeheerUser(TempUser.Id, TempUser.Name, TempUser.Username, TempUser.Email, TempUser.Password, TempUser.Role, TempUser.ManagerUsername));
+                UsersSearch.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername));
             }
         }
 
 
         public void DeleteUser(int delIndex)
         {
-            databaseConnector.RemoveUser(UsersSearch[delIndex]);
+            _userContext.RemoveUser(UsersSearch[delIndex]);
         }
 
         public void UpdateUser(User user)
         {
-            databaseConnector.UpdateUser(user);
+            _userContext.UpdateUser(user);
         }
 
         public void AddUser(User user)
         {
-            databaseConnector.AddUser(user);
+            _userContext.AddUser(user);
         }
 
         public int GetIndex(string username)
         {
-            return databaseConnector.GetUserId(username);
+            return Database.GetUserId(username);
         }
-
-
     }
 }

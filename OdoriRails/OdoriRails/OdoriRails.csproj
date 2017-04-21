@@ -71,13 +71,11 @@
     <Compile Include="DAL\ITramContext.cs" />
     <Compile Include="DAL\IUserContext.cs" />
     <Compile Include="DAL\LoginContext.cs" />
-    <Compile Include="DAL\MSSQLDatabaseContext.cs" />
     <Compile Include="DAL\ServiceContext.cs" />
     <Compile Include="DAL\TrackSectorContext.cs" />
     <Compile Include="DAL\TramContext.cs" />
     <Compile Include="DAL\UserContext.cs" />
     <Compile Include="DatabaseTest.cs" />
-    <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
