@@ -39,6 +39,7 @@ namespace OdoriRails.DAL
 
         public void EditSector(Sector sector)
         {
+            var query = new SqlCommand("UPDATE Sector SET Status = @stat, TramFk = @tram, RemiseFk = @remis WHERE SectorPk = @id AND TrackFk = @track");
             query.Parameters.AddWithValue("@stat", (int)sector.Status);
             query.Parameters.AddWithValue("@track", sector.TrackNumber);
             query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
