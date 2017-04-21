@@ -70,7 +70,7 @@ namespace SchoonmaakReparatieSysteem
 
             catch
             {
-                MessageBox.Show("Er ging iets mis. Roep Hugo.");
+                MessageBox.Show("Er ging iets mis.");
             }
             finally
             {

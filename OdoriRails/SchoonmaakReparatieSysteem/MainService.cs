@@ -97,7 +97,7 @@ namespace SchoonmaakReparatieSysteem
                 }
                 catch
                 {
-                    MessageBox.Show("Service Deleted");
+                 // it still deletes but theres an sql exception, must be fixed
 
                 }
 
