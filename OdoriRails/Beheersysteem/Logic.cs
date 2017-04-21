@@ -95,11 +95,10 @@ namespace Beheersysteem
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
-                            Thread.Sleep(50);
                             entry.TramNumber = tram.Number;
                             tram.EditTramDepartureTime(entry.ExitTime);
                             form.Invalidate();
-                            
+                            //Thread.Sleep(50);
                             break;
                         }
                     }
@@ -146,6 +145,7 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
+
                     track.UnlockTrack();
                 }
             }
