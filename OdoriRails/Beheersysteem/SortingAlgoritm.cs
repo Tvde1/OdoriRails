@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
+using Beheersysteem.ObjectClasses;
 using System;
-using OdoriRails.DAL;
 using System.Linq;
 using System.Windows.Forms;
 using OdoriRails.DAL.Repository;
@@ -22,9 +22,10 @@ namespace Beheersysteem
 
         }
 
-        public Sector GetSector(Tram tram, DateTime? exitTime)
+        public Sector GetSector(BeheerTram tram, DateTime? exitTime)
         {
             //With a service needed, put on the first free slot
+            if (tram.Location == TramLocation.ComingIn) tram.EditTramLocation(TramLocation.In);
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {
                 foreach (Track track in allTracks)
@@ -86,36 +87,6 @@ namespace Beheersysteem
                                 }
                             }
                         }
-
-
-
-                        //for (int i = 0; i < track.Sectors.Count - 1; i++)
-                        //{
-                        //    if (track.Sectors[0].OccupyingTram == null && track.Sectors[0].Status == SectorStatus.Open)
-                        //    {
-                        //        BeheerSector beheerSector;
-                        //        beheerSector = track.Sectors[i] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i]);
-                        //        beheerSector.Occupy();
-                        //        beheerSector.SetOccupyingTram(tram);
-                        //        Console.WriteLine("track: " + beheerSector.TrackNumber + ". sector: " + beheerSector.Number + ". tram: " + tram.Number);
-                        //        repo.EditTram(tram);
-                        //        repo.EditSector(beheerSector);
-                        //        return track.Sectors[i];
-                        //    }
-                        //    else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
-                        //    {
-                        //        if (track.Sectors[i + 1].Status == SectorStatus.Open)
-                        //        {
-                        //            BeheerSector beheerSector;
-                        //            beheerSector = track.Sectors[i + 1] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i + 1]);
-                        //            beheerSector.Occupy();
-                        //            beheerSector.SetOccupyingTram(tram);
-                        //            repo.EditTram(tram);
-                        //            repo.EditSector(beheerSector);
-                        //            return track.Sectors[i + 1];
-                        //        }
-                        //    }
-                        //}
                     }
                 }
 
@@ -153,7 +124,7 @@ namespace Beheersysteem
                     }
                 }
 
-                //If not successful put on an exit line
+                //If not successful put on an exit line <-- this has to be fixed
                 foreach (BeheerTrack track in allTracks)
                 {
                     if (track.Type == TrackType.Exit)

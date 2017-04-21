@@ -37,6 +37,7 @@ namespace Beheersysteem
             this.form = form;
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
+            tramFetcher.Start();
         }
 
         public void FetchUpdates()
@@ -53,23 +54,32 @@ namespace Beheersysteem
             }
         }
 
-        public void SortAllEnteringTrams()
+        public bool SortAllEnteringTrams()
         {
             enteringTrams = repo.GetAllTramsWithLocation(TramLocation.ComingIn);
-            foreach (Tram tram in enteringTrams)
+            if (enteringTrams.Count != 0)
             {
-                if (tram.DepartureTime == null)
+                foreach (Tram tram in enteringTrams)
                 {
-                    GetExitTime(tram);
+                    BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
+                    if (tram.DepartureTime == null)
+                    {
+                        GetExitTime(beheerTram);
+                    }
+                    SortTram(beheerTram);
                 }
-                SortTram(tram);
+                FetchUpdates();
+                return true;
             }
+            return false;
         }
 
         public void tramFetcher_Tick(object sender, EventArgs e)
         {
-            SortAllEnteringTrams();
-            form.Invalidate();
+            if (SortAllEnteringTrams())
+            {
+                form.Invalidate();
+            }
         }
 
         public void WipeDepartureTimes()
@@ -85,7 +95,7 @@ namespace Beheersysteem
             FetchUpdates();
         }
 
-        public DateTime? GetExitTime(Tram tram)
+        public DateTime? GetExitTime(BeheerTram tram)
         {
             foreach (InUitRijSchema entry in schema)
             {
@@ -98,7 +108,7 @@ namespace Beheersysteem
             return null;
         }
 
-        public void SortTram(Tram tram)
+        public void SortTram(BeheerTram tram)
         {
             if (tram != null)
             {
@@ -147,7 +157,8 @@ namespace Beheersysteem
                 //    MessageBox.Show(entry.ToString());
                 //}
                 Tram tram = allTrams.Find(x => x.Number == entry.TramNumber);
-                SortTram(tram);
+                BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
+                SortTram(beheerTram);
             }
 
             FetchUpdates();

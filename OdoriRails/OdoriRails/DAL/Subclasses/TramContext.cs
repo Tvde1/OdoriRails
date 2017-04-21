@@ -73,7 +73,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public List<Tram> GetAllTramsWithLocation(TramLocation location)
         {
-            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Location = {(int)location}")), CreateTram);
         }
 
         public Sector GetAssignedSector(Tram tram)
