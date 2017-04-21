@@ -18,6 +18,8 @@ namespace SchoonmaakReparatieSysteem
 
         //private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         private IServiceContext _serviceContext = new ServiceContext();
+
+        private Logic logic = new Logic();
         public User ActiveUser;
         private List<Repair> replist;
         private List<Cleaning> cleanlist;
@@ -40,23 +42,15 @@ namespace SchoonmaakReparatieSysteem
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count != 0)
+            try
             {
-                try
-
-                {
-                    var servicetoupdate = (Service)dataGridView1.CurrentRow.DataBoundItem;
-                    var edsrvc = new EditService(ActiveUser, servicetoupdate);
-                    edsrvc.Show();
-                    
-                }
-                catch
-                {
-                    MessageBox.Show("Something went wrong with deleting the service");
-                }
+                logic.UpdateService(ActiveUser, dataGridView1, (Service) dataGridView1.CurrentRow.DataBoundItem);
 
             }
-            
+            catch
+            {
+                MessageBox.Show("select a service first my dude");
+            } 
         }
 
         private void MainService_Load(object sender, EventArgs e)
@@ -108,80 +102,18 @@ namespace SchoonmaakReparatieSysteem
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (filtercbox.SelectedIndex == 1)
-            {
-                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllRepairsWithoutUsers();
-                }
-                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllCleansWithoutUsers();
-                }
-                else
-                {
-                }
-            }
-            if (filtercbox.SelectedIndex == 0)
-            {
-                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
-                }
-                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
-                }
-            }
-            
+            logic.RefreshDatagridView(ActiveUser, filtercbox, dataGridView1);
+    
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (filtercbox.SelectedIndex == 1)
-            {
-                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllRepairsWithoutUsers();
-                }
-                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllCleansWithoutUsers();
-                }
-                else
-                {
-                }
-            }
-            if (filtercbox.SelectedIndex == 0)
-            {
-                if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
-                }
-                if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
-                {
-                    dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
-                }
-            }
+            logic.RefreshDatagridView(ActiveUser, filtercbox, dataGridView1);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count != 0)
-            {
-                try
-                {
-                    var servicetofinish = (Service) dataGridView1.CurrentRow.DataBoundItem;
-                    servicetofinish.EndDate = DateTime.Now;
-                    _serviceContext.EditService(servicetofinish);
-                }
-                catch
-                {
-                    // it still updates but theres an sql exception, must be fixed
-
-                }
-            }
+            logic.FinishService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem); 
         }
     }
 }

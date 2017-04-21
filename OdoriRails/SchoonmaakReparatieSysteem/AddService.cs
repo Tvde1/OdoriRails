@@ -10,81 +10,32 @@ namespace SchoonmaakReparatieSysteem
     public partial class AddService : Form
     {
         private User activeUser;
-        private IServiceContext _serviceContext = new ServiceContext();
-        private IUserContext _userContext = new UserContext();
-        //private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
+        private Logic logic = new Logic();
         private List<User> users = new List<User>();
-        private List<User> availableusers = new List<User>();
+        private List<User> availableusers; 
         public AddService(User activeuser)
         {
+            
             activeUser = activeuser;
             InitializeComponent();
             
-
-            if (activeUser.Role == Role.HeadEngineer)
-            {
-                availableusers = _userContext.GetAllUsersWithFunction(Role.Engineer);
-                foreach (User user in availableusers)
-                {
-                    usercbox.Items.Add(user.Name);
-                }
-
-                commentlbl.Text = "Defect omschrijving";
-                sortsrvc_cb.Items.Add(RepairType.Maintenance);
-                sortsrvc_cb.Items.Add(RepairType.Repair);
-            }
-            if (activeUser.Role == Role.HeadCleaner)
-            {
-                availableusers = _userContext.GetAllUsersWithFunction(Role.Cleaner);
-                foreach (User user in availableusers)
-                {
-                    usercbox.Items.Add(user.Name);
-                }
-
-                commentlbl.Text = "Opmerkingen";
-                sortsrvc_cb.Items.Add(CleaningSize.Big);
-                sortsrvc_cb.Items.Add(CleaningSize.Small);
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<User> userList = new List<User>();
-            string sType = Convert.ToString(sortsrvc_cb.SelectedItem);
-            string comment = commenttb.Text;
-            DateTime startdate = dateTimePicker1.Value;
-            DateTime enddate = DateTime.MaxValue;
-            try
-            {
-                if (activeUser.Role == Role.HeadCleaner)
-                {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.AddCleaning(cleaning);
-                }
-                if (activeUser.Role == Role.HeadEngineer)
-                {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _serviceContext.AddRepair(repair);
-                }
-            }
-
-            catch
-            {
-                MessageBox.Show("Er ging iets mis.");
-            }
-            finally
-            {
-                this.Close();
-            }
-        
+            logic.AddServicetoDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, commenttb, users, tramnrtb);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             usersListBox.Items.Add(usercbox.SelectedItem);
             users.Add(availableusers.ElementAt(usercbox.SelectedIndex));
+        }
+
+        private void AddService_Load(object sender, EventArgs e)
+        {
+            availableusers = logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
+   
         }
     }
 }
