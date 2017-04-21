@@ -17,6 +17,8 @@ namespace LoginSystem
             try
             {
                 _loginSystem.Login(tbUsername.Text, tbPassword.Text);
+                tbUsername.Text = "";
+                tbPassword.Text = "";
             }
             catch (Exception ex)
             {

@@ -1,87 +1,70 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Security.Authentication;
 using System.Security.Permissions;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
+using System.Windows.Forms;
 
 namespace LoginSystem
 {
     internal class LogInSystemCode
     {
-        private readonly ILoginDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
-        //Dit moet later MssqlDatabaseContext worden.
-        private readonly string _dataLocation = @"D:\"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OdoriRails\";
+        private readonly ILoginContext _loginDatabaseConnector = new LoginContext();
+        private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
 
         public void Login(string username, string password)
         {
-            if (!_databaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
-            if (!_databaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
-            StartProgram(_databaseConnector.GetUser(username));
+            if (!_loginDatabaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
+            if (!_loginDatabaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
+            StartProgram(Database.GetUser(username));
         }
 
         private void StartProgram(User user)
         {
 
-            string assembly = "";
+            string assemblyName = "";
             switch (user.Role)
             {
                 case Role.Administrator:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "UserBeheersysteem.dll";
                     break;
                 case Role.Logistic:
-                    assembly = "LogistiekSysteem.dll";
+                    assemblyName = "LogistiekSysteem.dll";
                     break;
                 case Role.Driver:
-                    assembly = "InUitritSysteem.dll";
+                    assemblyName = "InUitritSysteem.dll";
                     break;
                 case Role.Cleaner:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.HeadCleaner:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.Engineer:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
                 case Role.HeadEngineer:
-                    assembly = "SchoonmaakReparatieSysteem.dll";
+                    assemblyName = "SchoonmaakReparatieSysteem.dll";
                     break;
             }
 
-            MethodInfo target = Assembly.Load(_dataLocation + assembly).EntryPoint;
-            (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            target.Invoke(null, new object[1] { user });
-        }
-
-
-        /*
-        private void StartProgram(User user)
-        {
             Assembly assembly;
-            Type type;
-            switch (user.Role)
+
+            try
             {
-                case Role.HeadEngineer:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Engineer) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Engineer));
-                        break;
-                    }
-                case Role.HeadCleaner:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), Role.Cleaner) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), Role.Cleaner));
-                        break;
-                    }
-                default:
-                    {
-                        assembly = Assembly.LoadFrom(_dataLocation + Enum.GetName(typeof(Role), user.Role) + ".dll");
-                        type = assembly.GetType(Enum.GetName(typeof(Role), user.Role));
-                        break;
-                    }
+                assembly = Assembly.LoadFrom(Path.Combine(_dataLocation, assemblyName));
             }
-            type.GetMethod("Main").Invoke(new object[1] { user }, null);
-        }*/
+            catch (Exception)
+            {
+                throw new Exception($"Het bestand {assemblyName} kan niet gevonden worden.");
+            }
+
+            MethodInfo target = assembly.EntryPoint;
+            (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
+            var args = new[] {user.Username};
+            target.Invoke(null, new object[] {args});
+        }
     }
 }

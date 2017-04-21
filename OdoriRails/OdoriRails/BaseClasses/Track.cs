@@ -40,28 +40,5 @@ namespace OdoriRails.BaseClasses
         {
             Sectors.Add(sector);
         }
-
-
-        /// <summary>
-        /// Zet elke sectoren's status op 'Locked'
-        /// </summary>
-        public void LockTrack()
-        {
-            foreach (var sector in Sectors)
-            {
-                sector.Lock();
-            }
-        }
-
-        /// <summary>
-        /// Zet alle sectoren's status op 'Open'.
-        /// </summary>
-        public void UnlockTrack()
-        {
-            foreach (var sector in Sectors)
-            {
-                sector.Unlock();
-            }
-        }
     }
 }

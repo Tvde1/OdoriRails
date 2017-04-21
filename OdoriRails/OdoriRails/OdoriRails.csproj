@@ -12,21 +12,6 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,13 +59,24 @@
     <Compile Include="BaseClasses\Track.cs" />
     <Compile Include="BaseClasses\Tram.cs" />
     <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="DAL\Database.cs" />
     <Compile Include="DAL\IBeheerDatabaseAdapter.cs" />
     <Compile Include="DAL\IInUitrijDatabaseAdapter.cs" />
+    <Compile Include="DAL\ILoginContext.cs" />
     <Compile Include="DAL\ILoginDatabaseAdapter.cs" />
     <Compile Include="DAL\ILogisticDatabaseAdapter.cs" />
     <Compile Include="DAL\ISchoonmaakReparatieDatabaseAdapter.cs" />
+    <Compile Include="DAL\IServiceContext.cs" />
+    <Compile Include="DAL\ITrackSectorContext.cs" />
+    <Compile Include="DAL\ITramContext.cs" />
+    <Compile Include="DAL\IUserContext.cs" />
+    <Compile Include="DAL\LoginContext.cs" />
+    <Compile Include="DAL\MSSQLDatabaseContext.cs" />
+    <Compile Include="DAL\ServiceContext.cs" />
+    <Compile Include="DAL\TrackSectorContext.cs" />
+    <Compile Include="DAL\TramContext.cs" />
+    <Compile Include="DAL\UserContext.cs" />
     <Compile Include="DatabaseTest.cs" />
-    <Compile Include="DAL\MssqlDatabaseContext.cs" />
     <Compile Include="DAL\MySqlContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,25 +104,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TempLocalDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TempLocalDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>TempLocalDatabase.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <Content Include="Resources\OdoriRailsIcon.png.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

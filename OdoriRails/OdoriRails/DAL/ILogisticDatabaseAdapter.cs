@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
@@ -51,12 +47,18 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        List<Tram> GetAllTramsWithlocation(TramLocation location);
+        List<Tram> GetAllTramsWithLocation(TramLocation location);
 
         /// <summary>
         /// Haalt alle tracks, sectoren en trams op sectoren op.
         /// </summary>
         /// <returns></returns>
         List<Track> GetTracksAndSectors();
+
+        /// <summary>
+        /// Haal een User op aan de hand van de username.
+        /// </summary>
+        /// <param name="userName"></param>
+        User GetUser(string userName);
     }
 }
