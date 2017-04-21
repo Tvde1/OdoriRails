@@ -25,7 +25,7 @@ namespace OdoriRails.BaseClasses
         /// <param name="number"></param>
         /// <param name="line"></param>
         /// <param name="type"></param>
-        public Track(int number, int line, TrackType type)
+        public Track(int number, int? line, TrackType type)
         {
             Number = number;
             Line = line;

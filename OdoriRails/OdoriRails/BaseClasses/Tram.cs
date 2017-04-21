@@ -91,6 +91,5 @@ namespace OdoriRails.BaseClasses
             Model = model;
             Status = TramStatus.Idle;
         }
-
     }
 }

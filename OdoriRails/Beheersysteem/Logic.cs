@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using OdoriRails.DAL.Repository;
 
 namespace Beheersysteem
 {
@@ -13,8 +14,7 @@ namespace Beheersysteem
     {
         ICSVContext csv;
         //ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
-        private ITramContext _tramContext = new TramContext();
-        private ITrackSectorContext _trackSectorContext = new TrackSectorContext();
+        private LogisticRepository repo = new LogisticRepository();
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
@@ -30,11 +30,11 @@ namespace Beheersysteem
         /// </summary>
         public Logic(Form form)
         {
-            _allTracks = _trackSectorContext.GetTracksAndSectors();
+            _allTracks = repo.GetTracksAndSectors();
             csv = new CSVContext();
             schema = csv.getSchema();
-            sorter = new SortingAlgoritm(AllTracks, _tramContext, _trackSectorContext);
-            allTrams = _tramContext.GetAllTrams();
+            sorter = new SortingAlgoritm(AllTracks, repo);
+            allTrams = repo.GetAllTrams();
             this.form = form;
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
@@ -42,7 +42,7 @@ namespace Beheersysteem
 
         public void SortAllEnteringTrams()
         {
-            enteringTrams = _tramContext.GetAllTramsWithLocation(TramLocation.ComingIn);
+            enteringTrams = repo.GetAllTramsWithLocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
                 if (tram.DepartureTime == null)
@@ -112,8 +112,10 @@ namespace Beheersysteem
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
+                            BeheerTram beheerTram;
+                            beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
                             entry.TramNumber = tram.Number;
-                            tram.EditTramDepartureTime(entry.ExitTime);
+                            beheerTram.EditTramDepartureTime(entry.ExitTime);
                             form.Invalidate();
                             //Thread.Sleep(50);
                             break;
@@ -146,8 +148,10 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
                 {
-                    track.LockTrack();
-                    _trackSectorContext.EditTrack(track);
+                    BeheerTrack beheerTrack;
+                    beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.LockTrack();
+                    repo.EditTrack(track);
                 }
             }
         }
@@ -163,8 +167,10 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
-                    track.UnlockTrack();
-                    _trackSectorContext.EditTrack(track);
+                    BeheerTrack beheerTrack;
+                    beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.UnlockTrack();
+                    repo.EditTrack(track);
                 }
             }
         }
@@ -182,13 +188,17 @@ namespace Beheersysteem
                 {
                     if (tram.Status == TramStatus.Idle)
                     {
-                        tram.EditTramStatus(TramStatus.Idle);
-                        _tramContext.EditTram(tram);
+                        BeheerTram beheerTram;
+                        beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
+                        beheerTram.EditTramStatus(TramStatus.Idle);
+                        repo.EditTram(tram);
                     }
                     else
                     {
-                        tram.EditTramStatus(TramStatus.Defect);
-                        _tramContext.EditTram(tram);
+                        BeheerTram beheerTram;
+                        beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
+                        beheerTram.EditTramStatus(TramStatus.Defect);
+                        repo.EditTram(tram);
                     }
                 }
 
