@@ -17,13 +17,13 @@ namespace Beheersysteem
         private LogisticRepository repo = new LogisticRepository();
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
-        List<Tram> allTrams;
+        List<BeheerTram> allTrams;
         List<Tram> enteringTrams;
-        private List<Track> _allTracks = new List<Track>();
+        private List<BeheerTrack> _allTracks;
         private Form form;
         private System.Windows.Forms.Timer tramFetcher;
 
-        public List<Track> AllTracks => _allTracks;
+        public List<BeheerTrack> AllTracks => _allTracks;
 
         /// <summary>
         /// Constructor: Voert alles uit dat bij de launch uitgevoerd moet worden.
@@ -41,8 +41,16 @@ namespace Beheersysteem
 
         public void FetchUpdates()
         {
-            _allTracks = repo.GetTracksAndSectors();
-            allTrams = repo.GetAllTrams();
+            _allTracks = new List<BeheerTrack>();
+            foreach (Track track in repo.GetTracksAndSectors())
+            {
+                _allTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
+            }
+            allTrams = new List<BeheerTram>();
+            foreach (Tram tram in repo.GetAllTrams())
+            {
+                allTrams.Add(tram == null ? null : BeheerTram.ToBeheerTram(tram));
+            }
         }
 
         public void SortAllEnteringTrams()
@@ -75,7 +83,6 @@ namespace Beheersysteem
             repo.WipeAllDepartureTimes();
             repo.WipeAllTramsFromSectors();
             FetchUpdates();
-
         }
 
         public DateTime? GetExitTime(Tram tram)
@@ -105,6 +112,7 @@ namespace Beheersysteem
 
         public void Simulation()
         {
+            sorter = new SortingAlgoritm(AllTracks, repo);
             WipePreSimulation();
 
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
@@ -115,19 +123,19 @@ namespace Beheersysteem
             {
                 if (entry.TramNumber == null)
                 {
-                    foreach (Tram tram in allTrams)
+                    foreach (BeheerTram tram in allTrams)
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
-                            BeheerTram beheerTram;
-                            beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
+                            Console.WriteLine(tram.Number);
                             entry.TramNumber = tram.Number;
-                            beheerTram.EditTramDepartureTime(entry.ExitTime);
+                            tram.EditTramDepartureTime(entry.ExitTime);
                             form.Invalidate();
                             //Thread.Sleep(50);
                             break;
                         }
                     }
+                    Console.WriteLine("--------");
                 }
             }
 
@@ -142,6 +150,8 @@ namespace Beheersysteem
                 SortTram(tram);
             }
 
+            FetchUpdates();
+            form.Invalidate();
         }
 
         public void Lock(string tracks)
@@ -155,9 +165,6 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
                 {
-                    BeheerTrack beheerTrack;
-                    beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
-                    beheerTrack.LockTrack();
                     repo.EditTrack(track);
                 }
             }
@@ -174,9 +181,6 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
-                    BeheerTrack beheerTrack;
-                    beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
-                    beheerTrack.UnlockTrack();
                     repo.EditTrack(track);
                 }
             }
@@ -188,27 +192,22 @@ namespace Beheersysteem
             string[] sTrams = trams.Split(',');
             int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
 
-            foreach (Tram tram in allTrams)
+            foreach (BeheerTram tram in allTrams)
             {
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
                 {
                     if (tram.Status == TramStatus.Idle)
                     {
-                        BeheerTram beheerTram;
-                        beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
-                        beheerTram.EditTramStatus(TramStatus.Idle);
+                        tram.EditTramStatus(TramStatus.Idle);
                         repo.EditTram(tram);
                     }
                     else
                     {
-                        BeheerTram beheerTram;
-                        beheerTram = tram == null ? null : BeheerTram.ToBeheerTram(tram);
-                        beheerTram.EditTramStatus(TramStatus.Defect);
+                        tram.EditTramStatus(TramStatus.Defect);
                         repo.EditTram(tram);
                     }
                 }
-
             }
         }
 
@@ -220,7 +219,7 @@ namespace Beheersysteem
 
             int moveTrack = Convert.ToInt32(track);
             int moveSector = Convert.ToInt32(sector);
-            
+
             foreach (Tram tram in allTrams)
             {
                 int pos = Array.IndexOf(iTrams, tram.Number);

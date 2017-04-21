@@ -11,12 +11,12 @@ namespace Beheersysteem
     {
         public List<BeheerSector> BeheerSectors = new List<BeheerSector>();
 
-        public BeheerTrack(int number, int? line, TrackType type) : base(number, line, type)
+        public BeheerTrack(int number, int? line, TrackType type, List<Sector> sectors) : base(number, line, type, sectors)
         {}
 
         public static BeheerTrack ToBeheerTrack(Track track)
         {
-            return new BeheerTrack(track.Number, track.Line, track.Type);
+            return new BeheerTrack(track.Number, track.Line, track.Type, track.Sectors);
         }
 
 

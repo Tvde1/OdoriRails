@@ -94,7 +94,7 @@ namespace Beheersysteem
 
             //MessageBox.Show(testString);
 
-            foreach (var track in tracks)
+            foreach (BeheerTrack track in tracks)
             {
                 var rectTrackNumber = new Rectangle(x, y, 40, 20);
                 graphics.FillRectangle(grayBrush, rectTrackNumber);
@@ -132,7 +132,7 @@ namespace Beheersysteem
                 y += 25;
 
 
-                foreach (var sector in track.Sectors)
+                foreach (Sector sector in track.Sectors)
                 {
                     var rect = new Rectangle(x, y, 40, 20);
                     Brush brush = null;
@@ -210,6 +210,7 @@ namespace Beheersysteem
         private void btnReset_Click(object sender, EventArgs e)
         {
             _logic.WipePreSimulation();
+            panelMain.Invalidate();
         }
     }
 }
