@@ -8,6 +8,7 @@ namespace User_Beheersysteem
     static class Program
     {
         private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// The main entry point for the application.
@@ -24,13 +25,13 @@ namespace User_Beheersysteem
                     MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
-                user = Database.GetUser(args[0]);
+                user = UserContext.GetUser(args[0]);
 
             }
             else
             {
                 //Haal hier de user op:
-                user = Database.GetUser("admin");
+                user = UserContext.GetUser("admin");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }

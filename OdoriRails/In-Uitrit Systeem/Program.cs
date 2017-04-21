@@ -8,6 +8,7 @@ namespace In_Uitrit_Systeem
     static class Program
     {
         private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly IUserContext UserContext = new UserContext();
 
         /// <summary>
         /// The main entry point for the application.
@@ -25,12 +26,12 @@ namespace In_Uitrit_Systeem
                     MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
-                user = Database.GetUser(args[0]);
+                user = UserContext.GetUser(args[0]);
             }
             else
             {
                 //Haal hier de user op:
-                user = Database.GetUser("driver");
+                user = UserContext.GetUser("driver");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }

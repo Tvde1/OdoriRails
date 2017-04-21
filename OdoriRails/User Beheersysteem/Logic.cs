@@ -50,7 +50,7 @@ namespace User_Beheersysteem
 
         public int GetIndex(string username)
         {
-            return Database.GetUserId(username);
+            return _userContext.GetUserId(username);
         }
     }
 }

@@ -6,6 +6,13 @@ namespace OdoriRails.DAL
     public interface ITramContext
     {
         /// <summary>
+        /// Get een tram via het Id.
+        /// </summary>
+        /// <param name="tramId"></param>
+        /// <returns></returns>
+        Tram GetTram(int tramId);
+
+        /// <summary>
         /// Voegt een nieuwe tram toe aan de database.
         /// </summary>
         /// <param name="tram">Het tram object.</param>

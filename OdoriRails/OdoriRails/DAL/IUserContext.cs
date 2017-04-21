@@ -5,6 +5,12 @@ namespace OdoriRails.DAL
 {
     public interface IUserContext
     {
+        User GetUser(string userName);
+
+        User GetUser(int userId);
+
+        int GetUserId(string userName);
+
         User AddUser(User user);
 
         List<User> GetAllUsers();
