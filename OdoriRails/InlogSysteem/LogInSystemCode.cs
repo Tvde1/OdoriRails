@@ -11,14 +11,14 @@ namespace LoginSystem
 {
     internal class LogInSystemCode
     {
-        private readonly ILoginDatabaseAdapter _databaseConnector = new MssqlDatabaseContext();
+        private readonly ILoginContext _loginDatabaseConnector = new LoginContext();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
 
         public void Login(string username, string password)
         {
-            if (!_databaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
-            if (!_databaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
-            StartProgram(_databaseConnector.GetUser(username));
+            if (!_loginDatabaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
+            if (!_loginDatabaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
+            StartProgram(Database.GetUser(username));
         }
 
         private void StartProgram(User user)
@@ -50,7 +50,7 @@ namespace LoginSystem
                     break;
             }
 
-            Assembly assembly = null;
+            Assembly assembly;
 
             try
             {
@@ -63,8 +63,8 @@ namespace LoginSystem
 
             MethodInfo target = assembly.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            var args = new string[1] {user.Username};
-            target.Invoke(null, new object[1] {args});
+            var args = new[] {user.Username};
+            target.Invoke(null, new object[] {args});
         }
     }
 }

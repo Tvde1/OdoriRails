@@ -2,7 +2,7 @@
 
 namespace OdoriRails.DAL
 {
-    class LoginContext : ILoginContext
+    public class LoginContext : ILoginContext
     {
         public bool ValidateUsername(string username)
         {

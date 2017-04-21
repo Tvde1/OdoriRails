@@ -39,6 +39,11 @@ namespace OdoriRails.DAL
             return null;
         }
 
+        public void EditTram(Tram tram)
+        {
+            var query = new SqlCommand("ALTER Tram SET (");
+        }
+
         public List<Tram> GetAllTramsWithStatus(TramStatus status)
         {
             return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)status}")), Database.CreateTram);
