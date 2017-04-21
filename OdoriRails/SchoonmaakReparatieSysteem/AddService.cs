@@ -10,7 +10,9 @@ namespace SchoonmaakReparatieSysteem
     public partial class AddService : Form
     {
         private User activeUser;
-        private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
+        private IServiceContext _serviceContext = new ServiceContext();
+        private IUserContext _userContext = new UserContext();
+        //private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
         private List<User> users = new List<User>();
         private List<User> availableusers = new List<User>();
         public AddService(User activeuser)
@@ -21,7 +23,7 @@ namespace SchoonmaakReparatieSysteem
 
             if (activeUser.Role == Role.HeadEngineer)
             {
-                availableusers = dbconnector.GetAllUsersWithRole(Role.Engineer);
+                availableusers = _userContext.GetAllUsersWithFunction(Role.Engineer);
                 foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
@@ -33,7 +35,7 @@ namespace SchoonmaakReparatieSysteem
             }
             if (activeUser.Role == Role.HeadCleaner)
             {
-                availableusers = dbconnector.GetAllUsersWithRole(Role.Cleaner);
+                availableusers = _userContext.GetAllUsersWithFunction(Role.Cleaner);
                 foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
@@ -58,13 +60,13 @@ namespace SchoonmaakReparatieSysteem
                 {
                     var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    dbconnector.AddCleaning(cleaning);
+                    _serviceContext.AddCleaning(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
                     var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    dbconnector.AddRepair(repair);
+                    _serviceContext.AddRepair(repair);
                 }
             }
 

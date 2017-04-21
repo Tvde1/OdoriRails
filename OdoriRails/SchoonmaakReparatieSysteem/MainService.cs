@@ -16,7 +16,8 @@ namespace SchoonmaakReparatieSysteem
     public partial class MainService : Form
     {
 
-        private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
+        //private ISchoonmaakReparatieDatabaseAdapter dbconnector = new MssqlDatabaseContext();
+        private IServiceContext _serviceContext = new ServiceContext();
         public User ActiveUser;
         private List<Repair> replist;
         private List<Cleaning> cleanlist;
@@ -64,11 +65,11 @@ namespace SchoonmaakReparatieSysteem
 
             if(ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
             {
-                dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+                dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
             }
             if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
             {
-                dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
             }
 
             if (ActiveUser.Role == Role.HeadEngineer || ActiveUser.Role == Role.HeadCleaner)
@@ -94,7 +95,7 @@ namespace SchoonmaakReparatieSysteem
                 try
                 {
                     var servicetodelete = (Service)dataGridView1.CurrentRow.DataBoundItem;
-                    dbconnector.DeleteService(servicetodelete);
+                    _serviceContext.DeleteService(servicetodelete);
                 }
                 catch
                 {
@@ -112,11 +113,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                    dataGridView1.DataSource = _serviceContext.GetAllRepairsWithoutUsers();
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllCleansWithoutUsers();
+                    dataGridView1.DataSource = _serviceContext.GetAllCleansWithoutUsers();
                 }
                 else
                 {
@@ -126,11 +127,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+                    dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                    dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
                 }
             }
             
@@ -142,11 +143,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllRepairsWithoutUsers();
+                    dataGridView1.DataSource = _serviceContext.GetAllRepairsWithoutUsers();
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllCleansWithoutUsers();
+                    dataGridView1.DataSource = _serviceContext.GetAllCleansWithoutUsers();
                 }
                 else
                 {
@@ -156,11 +157,11 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (ActiveUser.Role == Role.Engineer || ActiveUser.Role == Role.HeadEngineer)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllRepairsFromUser(ActiveUser);
+                    dataGridView1.DataSource = _serviceContext.GetAllRepairsFromUser(ActiveUser);
                 }
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
-                    dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                    dataGridView1.DataSource = _serviceContext.GetAllCleansFromUser(ActiveUser);
                 }
             }
         }
@@ -173,7 +174,7 @@ namespace SchoonmaakReparatieSysteem
                 {
                     var servicetofinish = (Service) dataGridView1.CurrentRow.DataBoundItem;
                     servicetofinish.EndDate = DateTime.Now;
-                    dbconnector.EditService(servicetofinish);
+                    _serviceContext.EditService(servicetofinish);
                 }
                 catch
                 {
