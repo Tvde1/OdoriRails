@@ -90,7 +90,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public Tram FetchTram(Tram tram)
         {
-            return CreateTram(Database.GetData(new SqlCommand($"SELECR * FROM Tram WHERE TramPk = {tram.Number}")).Rows[0]);
+            return CreateTram(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {tram.Number}")).Rows[0]);
         }
 
         private Tram CreateTram(DataRow row)
