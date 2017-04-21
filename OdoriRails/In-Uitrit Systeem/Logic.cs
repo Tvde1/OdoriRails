@@ -1,4 +1,5 @@
-﻿using OdoriRails.DAL;
+﻿using System.Windows.Forms;
+using OdoriRails.DAL;
 using OdoriRails.BaseClasses;
 
 namespace In_Uitrit_Systeem
@@ -12,7 +13,7 @@ namespace In_Uitrit_Systeem
         public Logic(User driver)
         {
             var tempTram = _tramContext.GetTramByDriver(driver);
-            Tram = InUitRitTram.ToTram(tempTram);
+            Tram = tempTram == null ? null : InUitRitTram.ToTram(tempTram);
         }
 
         public void AddRepair(string defect)

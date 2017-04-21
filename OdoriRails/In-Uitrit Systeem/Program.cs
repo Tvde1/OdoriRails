@@ -16,7 +16,7 @@ namespace In_Uitrit_Systeem
         [STAThread]
         static void Main(string[] args)
         {
-            User user = null;
+            User user;
 
             if (_gebruikInlogSysteem)
             {
@@ -30,7 +30,7 @@ namespace In_Uitrit_Systeem
             else
             {
                 //Haal hier de user op:
-                user = Database.GetUser("admin");
+                user = Database.GetUser("driver");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
