@@ -33,6 +33,10 @@
             this.btnChangeDisplayView = new System.Windows.Forms.Button();
             this.btnSimulation = new System.Windows.Forms.Button();
             this.gbTram = new System.Windows.Forms.GroupBox();
+            this.tbMoveToSector = new System.Windows.Forms.TextBox();
+            this.tbMoveToTrack = new System.Windows.Forms.TextBox();
+            this.lbMoveToSector = new System.Windows.Forms.Label();
+            this.lbMoveToTrack = new System.Windows.Forms.Label();
             this.btnAddService = new System.Windows.Forms.Button();
             this.btnMove = new System.Windows.Forms.Button();
             this.tbSelectedTram = new System.Windows.Forms.TextBox();
@@ -45,10 +49,7 @@
             this.btnLock = new System.Windows.Forms.Button();
             this.gbDisplay = new System.Windows.Forms.GroupBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.lbMoveToTrack = new System.Windows.Forms.Label();
-            this.lbMoveToSector = new System.Windows.Forms.Label();
-            this.tbMoveToTrack = new System.Windows.Forms.TextBox();
-            this.tbMoveToSector = new System.Windows.Forms.TextBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.gbControl.SuspendLayout();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
@@ -65,20 +66,21 @@
             this.gbControl.Margin = new System.Windows.Forms.Padding(5);
             this.gbControl.Name = "gbControl";
             this.gbControl.Padding = new System.Windows.Forms.Padding(5);
-            this.gbControl.Size = new System.Drawing.Size(281, 574);
+            this.gbControl.Size = new System.Drawing.Size(281, 759);
             this.gbControl.TabIndex = 0;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Controls";
             // 
             // gbOther
             // 
+            this.gbOther.Controls.Add(this.btnReset);
             this.gbOther.Controls.Add(this.btnChangeDisplayView);
             this.gbOther.Controls.Add(this.btnSimulation);
             this.gbOther.Location = new System.Drawing.Point(12, 454);
             this.gbOther.Margin = new System.Windows.Forms.Padding(5);
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
-            this.gbOther.Size = new System.Drawing.Size(259, 110);
+            this.gbOther.Size = new System.Drawing.Size(259, 148);
             this.gbOther.TabIndex = 3;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
@@ -122,6 +124,38 @@
             this.gbTram.TabIndex = 2;
             this.gbTram.TabStop = false;
             this.gbTram.Text = "Tram";
+            // 
+            // tbMoveToSector
+            // 
+            this.tbMoveToSector.Location = new System.Drawing.Point(153, 103);
+            this.tbMoveToSector.Name = "tbMoveToSector";
+            this.tbMoveToSector.Size = new System.Drawing.Size(97, 26);
+            this.tbMoveToSector.TabIndex = 9;
+            // 
+            // tbMoveToTrack
+            // 
+            this.tbMoveToTrack.Location = new System.Drawing.Point(154, 76);
+            this.tbMoveToTrack.Name = "tbMoveToTrack";
+            this.tbMoveToTrack.Size = new System.Drawing.Size(97, 26);
+            this.tbMoveToTrack.TabIndex = 8;
+            // 
+            // lbMoveToSector
+            // 
+            this.lbMoveToSector.AutoSize = true;
+            this.lbMoveToSector.Location = new System.Drawing.Point(10, 106);
+            this.lbMoveToSector.Name = "lbMoveToSector";
+            this.lbMoveToSector.Size = new System.Drawing.Size(127, 20);
+            this.lbMoveToSector.TabIndex = 7;
+            this.lbMoveToSector.Text = "Move to Sector:";
+            // 
+            // lbMoveToTrack
+            // 
+            this.lbMoveToTrack.AutoSize = true;
+            this.lbMoveToTrack.Location = new System.Drawing.Point(9, 76);
+            this.lbMoveToTrack.Name = "lbMoveToTrack";
+            this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
+            this.lbMoveToTrack.TabIndex = 6;
+            this.lbMoveToTrack.Text = "Move to Track:";
             // 
             // btnAddService
             // 
@@ -240,37 +274,15 @@
             this.panelMain.TabIndex = 0;
             this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             // 
-            // lbMoveToTrack
+            // btnReset
             // 
-            this.lbMoveToTrack.AutoSize = true;
-            this.lbMoveToTrack.Location = new System.Drawing.Point(9, 76);
-            this.lbMoveToTrack.Name = "lbMoveToTrack";
-            this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
-            this.lbMoveToTrack.TabIndex = 6;
-            this.lbMoveToTrack.Text = "Move to Track:";
-            // 
-            // lbMoveToSector
-            // 
-            this.lbMoveToSector.AutoSize = true;
-            this.lbMoveToSector.Location = new System.Drawing.Point(10, 106);
-            this.lbMoveToSector.Name = "lbMoveToSector";
-            this.lbMoveToSector.Size = new System.Drawing.Size(127, 20);
-            this.lbMoveToSector.TabIndex = 7;
-            this.lbMoveToSector.Text = "Move to Sector:";
-            // 
-            // tbMoveToTrack
-            // 
-            this.tbMoveToTrack.Location = new System.Drawing.Point(154, 76);
-            this.tbMoveToTrack.Name = "tbMoveToTrack";
-            this.tbMoveToTrack.Size = new System.Drawing.Size(97, 26);
-            this.tbMoveToTrack.TabIndex = 8;
-            // 
-            // tbMoveToSector
-            // 
-            this.tbMoveToSector.Location = new System.Drawing.Point(153, 103);
-            this.tbMoveToSector.Name = "tbMoveToSector";
-            this.tbMoveToSector.Size = new System.Drawing.Size(97, 26);
-            this.tbMoveToSector.TabIndex = 9;
+            this.btnReset.Location = new System.Drawing.Point(12, 105);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(236, 33);
+            this.btnReset.TabIndex = 3;
+            this.btnReset.Text = "Reset Remise";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // UserInterface
             // 
@@ -318,6 +330,7 @@
         private System.Windows.Forms.TextBox tbMoveToTrack;
         private System.Windows.Forms.Label lbMoveToSector;
         private System.Windows.Forms.Label lbMoveToTrack;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 

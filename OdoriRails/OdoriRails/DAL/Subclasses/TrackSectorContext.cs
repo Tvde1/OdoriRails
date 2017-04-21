@@ -55,6 +55,7 @@ namespace OdoriRails.DAL.Subclasses
         public void WipeTramsFromSectors()
         {
             Database.GetData(new SqlCommand("UPDATE Sector SET TramFk = null"));
+            Database.GetData(new SqlCommand("UPDATE Sector SET Status = 0 WHERE Status = 2"));
         }
 
         public Sector CreateSector(DataRow row)

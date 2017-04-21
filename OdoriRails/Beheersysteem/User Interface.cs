@@ -206,5 +206,10 @@ namespace Beheersysteem
         {
             panelMain.Invalidate();
         }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            _logic.WipePreSimulation();
+        }
     }
 }

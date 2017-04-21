@@ -30,14 +30,19 @@ namespace Beheersysteem
         /// </summary>
         public Logic(Form form)
         {
-            _allTracks = repo.GetTracksAndSectors();
+            FetchUpdates();
             csv = new CSVContext();
             schema = csv.getSchema();
             sorter = new SortingAlgoritm(AllTracks, repo);
-            allTrams = repo.GetAllTrams();
             this.form = form;
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
+        }
+
+        public void FetchUpdates()
+        {
+            _allTracks = repo.GetTracksAndSectors();
+            allTrams = repo.GetAllTrams();
         }
 
         public void SortAllEnteringTrams()
@@ -67,8 +72,10 @@ namespace Beheersysteem
 
         public void WipePreSimulation()
         {
-            //TODO: Voeg toe aan master
-            //database.WipeTramDepartureTime();
+            repo.WipeAllDepartureTimes();
+            repo.WipeAllTramsFromSectors();
+            FetchUpdates();
+
         }
 
         public DateTime? GetExitTime(Tram tram)
