@@ -19,15 +19,6 @@ namespace Beheersysteem
             return new BeheerTrack(track.Number, track.Line, track.Type);
         }
 
-        /// <summary>
-        /// Voegt een nieuwe sector toe aan het track.
-        /// </summary>
-        /// <param name="sector"></param>
-        public void AddSector(Sector sector)
-        {
-            Sectors.Add(sector);
-        }
-
 
         /// <summary>
         /// Zet elke sectoren's status op 'Locked'
