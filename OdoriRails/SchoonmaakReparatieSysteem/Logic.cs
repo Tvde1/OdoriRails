@@ -157,6 +157,21 @@ namespace SchoonmaakReparatieSysteem
                 }
             }
         }
+        public void DeleteService(DataGridView datagridview, Service servicetofinish)
+        {
+            if (datagridview.SelectedRows.Count != 0)
+            {
+                try
+                {
+                   _repo.DeleteService(servicetofinish);
+                }
+                catch
+                {
+                    // it still updates but theres an sql exception, must be fixed
+
+                }
+            }
+        }
 
         public void UpdateService(User ActiveUser, DataGridView datagridview, Service servicetofinish)
         {

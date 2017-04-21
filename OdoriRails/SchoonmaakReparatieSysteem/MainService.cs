@@ -44,7 +44,7 @@ namespace SchoonmaakReparatieSysteem
             try
             {
                 logic.UpdateService(ActiveUser, dataGridView1, (Service) dataGridView1.CurrentRow.DataBoundItem);
-
+                logic.RefreshDatagridView(ActiveUser, filtercbox, dataGridView1);
             }
             catch
             {
@@ -72,7 +72,8 @@ namespace SchoonmaakReparatieSysteem
         {
             try
             {
-                logic.FinishService(dataGridView1, (Service) dataGridView1.CurrentRow.DataBoundItem);
+                logic.DeleteService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
+                logic.RefreshDatagridView(ActiveUser, filtercbox, dataGridView1);
             }
             catch
             {
