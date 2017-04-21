@@ -21,7 +21,7 @@ namespace OdoriRails.DAL.Subclasses
             var sectorData = Database.GetData(sectorQuery);
 
             var sectorList = Database.GenerateListWithFunction(sectorData, CreateSector);
-            var trackList = Database.GenerateListWithFunction<Track>(trackData, CreateTrack);
+            var trackList = Database.GenerateListWithFunction(trackData, CreateTrack);
 
             foreach (var track in trackList)
             {
@@ -61,7 +61,7 @@ namespace OdoriRails.DAL.Subclasses
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }
 
-        public static Track CreateTrack(DataRow row)
+        private static Track CreateTrack(DataRow row)
         {
             var array = row.ItemArray;
             return new Track((int)array[0], (int)array[1], (TrackType)array[2]);

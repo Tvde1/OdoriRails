@@ -48,5 +48,15 @@ namespace OdoriRails.DAL.Repository
         {
             return _tramContext.GetTramByDriver(driver);
         }
+
+        /// <summary>
+        /// Haal de sector op waar deze tram op staat.
+        /// </summary>
+        /// <param name="tram"></param>
+        /// <returns></returns>
+        public Sector GetAssignedSector(Tram tram)
+        {
+            return _tramContext.GetAssignedSector(tram);
+        }
     }
 }

@@ -56,5 +56,12 @@ namespace OdoriRails.DAL.Subclasses
         /// <param name="tramLocation">De locatie.</param>
         /// <returns></returns>
         List<Tram> GetAllTramsWithLocation(TramLocation tramLocation);
+
+        /// <summary>
+        /// Haalt de sector op waar de tram op staat.
+        /// </summary>
+        /// <param name="tram"></param>
+        /// <returns></returns>
+        Sector GetAssignedSector(Tram tram);
     }
 }

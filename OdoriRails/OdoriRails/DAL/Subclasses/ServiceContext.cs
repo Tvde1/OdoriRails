@@ -4,9 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public class ServiceContext : IServiceContext
     {

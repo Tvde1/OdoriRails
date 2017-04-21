@@ -9,6 +9,7 @@ namespace OdoriRails.DAL.Subclasses
     public class TramContext : ITramContext
     {
         private readonly UserContext _userContext = new UserContext();
+        private readonly TrackSectorContext _trackSectorContext = new TrackSectorContext();
 
         public Tram GetTram(int tramId)
         {
@@ -73,7 +74,14 @@ namespace OdoriRails.DAL.Subclasses
             return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
         }
 
-        public Tram CreateTram(DataRow row)
+        public Sector GetAssignedSector(Tram tram)
+        {
+            var data = Database.GetData(new SqlCommand($"SELECT * FROM Sector WHERE TramFk = {tram.Number}"));
+            if (data.Rows.Count < 1) return null;
+            return _trackSectorContext.CreateSector(data.Rows[0]);
+        }
+
+        private Tram CreateTram(DataRow row)
         {
             //Pk, Line, Status, Driver, Model, Remise, Location, Depart
             var array = row.ItemArray;
