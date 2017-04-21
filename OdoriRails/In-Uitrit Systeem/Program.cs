@@ -17,7 +17,6 @@ namespace In_Uitrit_Systeem
         static void Main(string[] args)
         {
             User user;
-            args = new string[1] {"driver"}; // for testing so we dont have to use the login everytime
 
             if (_gebruikInlogSysteem)
             {
