@@ -289,7 +289,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
                 case "Repair":
                     {
                         var repair = (Repair)service;
-                        var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE RepairFK = @id");
+                        var repairQuery = new SqlCommand("UPDATE Repair SET Solution = @solution, Defect = @defect, Type = @type WHERE ServiceFK = @id");
                         repairQuery.Parameters.AddWithValue("@solution", repair.Solution ?? "");
                         repairQuery.Parameters.AddWithValue("@defect", repair.Defect ?? "");
                         repairQuery.Parameters.AddWithValue("@type", (int)repair.Type);

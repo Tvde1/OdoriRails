@@ -26,6 +26,7 @@ namespace SchoonmaakReparatieSysteem
             InitializeComponent();
             ActiveUser = user;
             usernamelbl.Text = ActiveUser.Username;
+            filtercbox.SelectedIndex = 0;
 
         }
 
@@ -160,6 +161,24 @@ namespace SchoonmaakReparatieSysteem
                 if (ActiveUser.Role == Role.Cleaner || ActiveUser.Role == Role.HeadCleaner)
                 {
                     dataGridView1.DataSource = dbconnector.GetAllCleansFromUser(ActiveUser);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                try
+                {
+                    var servicetofinish = (Service) dataGridView1.CurrentRow.DataBoundItem;
+                    servicetofinish.EndDate = DateTime.Now;
+                    dbconnector.EditService(servicetofinish);
+                }
+                catch
+                {
+                    // it still updates but theres an sql exception, must be fixed
+
                 }
             }
         }
