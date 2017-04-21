@@ -13,7 +13,7 @@ namespace In_Uitrit_Systeem
         public Logic(User driver)
         {
             var tempTram = _inUitrijRepository.GetTramByDriver(driver);
-            Tram = tempTram == null ? null : InUitRitTram.ToTram(tempTram);
+            Tram = tempTram == null ? null : InUitRitTram.ToInUitRitTram(tempTram);
         }
 
         public string GetAssingedTramLocation()
@@ -32,6 +32,16 @@ namespace In_Uitrit_Systeem
         {
             var cleaning = new Cleaning(Tram.Number);
             _inUitrijRepository.AddCleaning(cleaning);
+        }
+
+        public void UpdateTram()
+        {
+            _inUitrijRepository.EditTram(Tram);
+        }
+
+        public void FetchTramUpdates()
+        {
+            Tram = InUitRitTram.ToInUitRitTram(_inUitrijRepository.FetchTram(Tram));
         }
     }
 }
