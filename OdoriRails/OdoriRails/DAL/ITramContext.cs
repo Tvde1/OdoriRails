@@ -1,17 +1,10 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
-namespace OdoriRails.DAL.Subclasses
+namespace OdoriRails.DAL
 {
     public interface ITramContext
     {
-        /// <summary>
-        /// Get een tram via het Id.
-        /// </summary>
-        /// <param name="tramId"></param>
-        /// <returns></returns>
-        Tram GetTram(int tramId);
-
         /// <summary>
         /// Voegt een nieuwe tram toe aan de database.
         /// </summary>
@@ -56,16 +49,5 @@ namespace OdoriRails.DAL.Subclasses
         /// <param name="tramLocation">De locatie.</param>
         /// <returns></returns>
         List<Tram> GetAllTramsWithLocation(TramLocation tramLocation);
-
-        /// <summary>
-        /// Haalt de sector op waar de tram op staat.
-        /// </summary>
-        /// <param name="tram"></param>
-        /// <returns></returns>
-        Sector GetAssignedSector(Tram tram);
-
-        void WipeDepartureTimes();
-
-        Tram FetchTram(Tram tram);
     }
 }

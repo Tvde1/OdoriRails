@@ -1,4 +1,5 @@
-﻿using OdoriRails.BaseClasses;
+﻿using System;
+using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
 namespace OdoriRails.DAL.Repository
@@ -57,6 +58,20 @@ namespace OdoriRails.DAL.Repository
         public Sector GetAssignedSector(Tram tram)
         {
             return TramContext.GetAssignedSector(tram);
+        }
+
+        /// <summary>
+        /// Edit tram.
+        /// </summary>
+        /// <param name="tram"></param>
+        public void EditTram(Tram tram)
+        {
+            TramContext.EditTram(tram);
+        }
+
+        public Tram FetchTram(Tram tram)
+        {
+            return TramContext.FetchTram(tram);
         }
     }
 }

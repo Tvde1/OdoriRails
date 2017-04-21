@@ -18,13 +18,14 @@ namespace OdoriRails.DAL.Subclasses
 
         public void AddTram(Tram tram)
         {
-            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@departure)");
+            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@dep)");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
             query.Parameters.AddWithValue("@model", (int)tram.Model);
             query.Parameters.AddWithValue("@location", (int)tram.Location);
-            query.Parameters.AddWithValue("@departure", tram.DepartureTime);
+            if (tram.DepartureTime == null) query.Parameters.AddWithValue("@dep", DBNull.Value);
+            else query.Parameters.AddWithValue("@dep", tram.DepartureTime);
             if (tram.Driver != null) query.Parameters.AddWithValue("@driver", UserContext.GetUserId(tram.Driver.Username));
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
 
@@ -58,8 +59,9 @@ namespace OdoriRails.DAL.Subclasses
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
             query.Parameters.AddWithValue("@model", (int) tram.Model);
             query.Parameters.AddWithValue("@remis", 1); //TODO: Correct updaten.
+            if (tram.DepartureTime == null) query.Parameters.AddWithValue("@dep", DBNull.Value);
+            else query.Parameters.AddWithValue("@dep", tram.DepartureTime);
             query.Parameters.AddWithValue("@loc", (int) tram.Location);
-            query.Parameters.AddWithValue("@dep", tram.DepartureTime);
             query.Parameters.AddWithValue("@id", tram.Number);
             Database.GetData(query);
         }
@@ -84,6 +86,11 @@ namespace OdoriRails.DAL.Subclasses
         public void WipeDepartureTimes()
         {
             Database.GetData(new SqlCommand("UPDATE Tram SET DepartureTime = null"));
+        }
+
+        public Tram FetchTram(Tram tram)
+        {
+            return CreateTram(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {tram.Number}")).Rows[0]);
         }
 
         private Tram CreateTram(DataRow row)
