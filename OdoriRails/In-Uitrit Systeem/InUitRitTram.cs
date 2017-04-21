@@ -34,7 +34,7 @@ namespace In_Uitrit_Systeem
 
         public void ResetTramTrackAndSector()
         {
-
+            
         }
     }
 }
