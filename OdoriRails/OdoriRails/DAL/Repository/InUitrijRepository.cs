@@ -3,7 +3,7 @@ using OdoriRails.DAL.Subclasses;
 
 namespace OdoriRails.DAL.Repository
 {
-    class InUitrijRepository
+    public class InUitrijRepository
     {
         private readonly IUserContext _userContext = new UserContext();
         private readonly IServiceContext _serviceContext = new ServiceContext();
@@ -14,7 +14,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="cleaning"></param>
         /// <returns></returns>
-        Cleaning AddCleaning(Cleaning cleaning)
+        public Cleaning AddCleaning(Cleaning cleaning)
         {
             return _serviceContext.AddCleaning(cleaning);
         }
@@ -24,7 +24,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="repair"></param>
         /// <returns></returns>
-        Repair AddRepair(Repair repair)
+        public Repair AddRepair(Repair repair)
         {
             return _serviceContext.AddRepair(repair);
         }
@@ -34,7 +34,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        User GetUser(string username)
+        public User GetUser(string username)
         {
             return _userContext.GetUser(username);
         }
@@ -44,7 +44,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        Tram GetTramByDriver(User driver)
+        public Tram GetTramByDriver(User driver)
         {
             return _tramContext.GetTramByDriver(driver);
         }

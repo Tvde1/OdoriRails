@@ -6,20 +6,20 @@ using System.Security.Permissions;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL;
 using System.Windows.Forms;
+using OdoriRails.DAL.Repository;
 
 namespace LoginSystem
 {
     internal class LogInSystemCode
     {
-        private readonly IUserContext _userContext = new UserContext();
-        private readonly ILoginContext _loginDatabaseConnector = new LoginContext();
+        private readonly LoginRepository _loginRepository = new LoginRepository();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
 
         public void Login(string username, string password)
         {
-            if (!_loginDatabaseConnector.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
-            if (!_loginDatabaseConnector.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
-            StartProgram(_userContext.GetUser(username));
+            if (!_loginRepository.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
+            if (!_loginRepository.MatchUsernameAndPassword(username, password)) throw new AuthenticationException("De gebruikersnaam en wachtwoord komen niet overeen.");
+            StartProgram(_loginRepository.GetUser(username));
         }
 
         private void StartProgram(User user)

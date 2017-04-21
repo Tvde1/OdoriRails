@@ -3,7 +3,7 @@ using OdoriRails.DAL.Subclasses;
 
 namespace OdoriRails.DAL.Repository
 {
-    class LoginRepository
+    public class LoginRepository
     {
         private readonly ILoginContext _loginContext = new LoginContext();
         private readonly IUserContext _userContext = new UserContext();
@@ -13,7 +13,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        bool ValidateUsername(string username)
+        public bool ValidateUsername(string username)
         {
             return _loginContext.ValidateUsername(username);
         }
@@ -24,7 +24,7 @@ namespace OdoriRails.DAL.Repository
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        bool MatchUsernameAndPassword(string username, string password)
+        public bool MatchUsernameAndPassword(string username, string password)
         {
             return _loginContext.MatchUsernameAndPassword(username, password);
         }
@@ -34,7 +34,7 @@ namespace OdoriRails.DAL.Repository
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        User GetUser(string userName)
+        public User GetUser(string userName)
         {
             return _userContext.GetUser(userName);
         }
