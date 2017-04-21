@@ -20,15 +20,11 @@ namespace SchoonmaakReparatieSysteem
         static void Main(string[] args)
         {
             User user;
-
-            args = new[] {"HeadEngineer"};
-
-
             if (_gebruikInlogSysteem)
             {
                 if (args.Length < 1)
                 {
-                    MessageBox.Show(@"Zorg dat je inlogt via de inlogapplicatie.");
+                    MessageBox.Show(@"Log eerst in via de Inlog app.");
                     return;
                 }
                 user = _repo.GetUser(args[0]);

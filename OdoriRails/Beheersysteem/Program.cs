@@ -13,8 +13,6 @@ namespace Beheersysteem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-
             new UserInterface().ShowDialog();
         }
     }
