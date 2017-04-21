@@ -92,5 +92,9 @@ namespace OdoriRails.BaseClasses
             Status = TramStatus.Idle;
         }
 
+        public void SetId(int id)
+        {
+            Number = id;
+        }
     }
 }
