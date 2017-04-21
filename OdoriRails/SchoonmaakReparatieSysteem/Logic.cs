@@ -73,7 +73,8 @@ namespace SchoonmaakReparatieSysteem
 
             catch
             {
-                MessageBox.Show("Er ging iets mis.");
+                // MessageBox.Show("Er ging iets mis.");
+                //  bug.Database foreign key error needs to get fixed, stuff still getting properly added tho
             }
             finally
             {

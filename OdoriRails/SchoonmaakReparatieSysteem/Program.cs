@@ -21,7 +21,7 @@ namespace SchoonmaakReparatieSysteem
         {
             User user;
 
-            args = new[] {"Clean"};
+            args = new[] {"HeadEngineer"};
 
 
             if (_gebruikInlogSysteem)
