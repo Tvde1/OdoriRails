@@ -10,7 +10,7 @@ using OdoriRails.DAL.Repository;
 
 namespace LoginSystem
 {
-    internal class LogInSystemCode
+    internal class Logic
     {
         private readonly LoginRepository _loginRepository = new LoginRepository();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";

@@ -16,6 +16,12 @@ namespace In_Uitrit_Systeem
             Tram = tempTram == null ? null : InUitRitTram.ToTram(tempTram);
         }
 
+        public string GetAssingedTramLocation()
+        {
+            Sector sector = _inUitrijRepository.GetAssignedSector(Tram);
+            return string.Format("Track: {0}, Sector: {1}", sector.TrackNumber, sector.Number);
+        }
+
         public void AddRepair(string defect)
         {
             var repair = new Repair(Tram.Number, defect);
