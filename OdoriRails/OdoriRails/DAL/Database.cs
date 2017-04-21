@@ -70,7 +70,7 @@ namespace OdoriRails.DAL
             var id = (int)array[0];
             var line = (int)array[1];
             var status = (TramStatus)array[2];
-            var driver = GetUser((int)array[3]);
+            var driver = array[3] == DBNull.Value ? null : GetUser((int)array[3]);
             var model = (Model)array[4];
             //var remise = (int)array[5];
             var location = (TramLocation)array[6];
