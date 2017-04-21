@@ -86,6 +86,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@startdate", service.StartDate);
             query.Parameters.AddWithValue("@enddate", service.EndDate);
             query.Parameters.AddWithValue("@tramfk", service.TramId);
+            query.Parameters.AddWithValue("@id", service.Id);
+
             Database.GetData(query);
             SetUsersToServices(service.AssignedUsers, service);
         }

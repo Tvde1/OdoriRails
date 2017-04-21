@@ -52,6 +52,11 @@ namespace OdoriRails.DAL.Subclasses
             Database.GetData(query);
         }
 
+        public void WipeTramsFromSectors()
+        {
+            Database.GetData(new SqlCommand("UPDATE Sector SET TramFk = null"));
+        }
+
         public Sector CreateSector(DataRow row)
         {
             var array = row.ItemArray;

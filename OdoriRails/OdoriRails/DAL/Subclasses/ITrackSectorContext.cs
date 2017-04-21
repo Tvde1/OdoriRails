@@ -20,5 +20,7 @@ namespace OdoriRails.DAL.Subclasses
         /// Updated de sector in de database met de nieuwe informatie.
         /// </summary>
         void EditSector(Sector sector);
+
+        void WipeTramsFromSectors();
     }
 }
