@@ -10,11 +10,13 @@ namespace Beheersysteem
     class SortingAlgoritm
     {
         private List<Track> allTracks;
-        ILogisticDatabaseAdapter database;
+        private ITramContext _tramContext;
+        private ITrackSectorContext _trackSectorContext;
 
-        public SortingAlgoritm(List<Track> allTracks, ILogisticDatabaseAdapter database)
+        public SortingAlgoritm(List<Track> allTracks, ITramContext _tramContext, ITrackSectorContext _trackSectorContext)
         {
-            this.database = database;
+            this._tramContext = _tramContext;
+            this._trackSectorContext = _trackSectorContext;
             this.allTracks = allTracks;
 
         }
@@ -34,8 +36,8 @@ namespace Beheersysteem
                             {
                                 sector.Occupy();
                                 sector.SetOccupyingTram(tram);
-                                database.EditTram(tram);
-                                database.EditSector(sector);
+                                _tramContext.EditTram(tram);
+                                _trackSectorContext.EditSector(sector);
                                 return sector;
                             }
                         }
@@ -56,8 +58,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
-                                database.EditTram(tram);
-                                database.EditSector(track.Sectors[i]);
+                                _tramContext.EditTram(tram);
+                                _trackSectorContext.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -66,8 +68,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
-                                    database.EditTram(tram);
-                                    database.EditSector(track.Sectors[i + 1]);
+                                    _tramContext.EditTram(tram);
+                                    _trackSectorContext.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }
@@ -86,8 +88,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
-                                database.EditTram(tram);
-                                database.EditSector(track.Sectors[i]);
+                                _tramContext.EditTram(tram);
+                                _trackSectorContext.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -96,8 +98,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
-                                    database.EditTram(tram);
-                                    database.EditSector(track.Sectors[i + 1]);
+                                    _tramContext.EditTram(tram);
+                                    _trackSectorContext.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }
@@ -116,8 +118,8 @@ namespace Beheersysteem
                             {
                                 track.Sectors[i].Occupy();
                                 track.Sectors[i].SetOccupyingTram(tram);
-                                database.EditTram(tram);
-                                database.EditSector(track.Sectors[i]);
+                                _tramContext.EditTram(tram);
+                                _trackSectorContext.EditSector(track.Sectors[i]);
                                 return track.Sectors[i];
                             }
                             else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[i].OccupyingTram.DepartureTime < tram.DepartureTime)
@@ -126,8 +128,8 @@ namespace Beheersysteem
                                 {
                                     track.Sectors[i + 1].Occupy();
                                     track.Sectors[i + 1].SetOccupyingTram(tram);
-                                    database.EditTram(tram);
-                                    database.EditSector(track.Sectors[i + 1]);
+                                    _tramContext.EditTram(tram);
+                                    _trackSectorContext.EditSector(track.Sectors[i + 1]);
                                     return track.Sectors[i + 1];
                                 }
                             }

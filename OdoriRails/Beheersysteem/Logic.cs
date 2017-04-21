@@ -12,7 +12,9 @@ namespace Beheersysteem
     class Logic
     {
         ICSVContext csv;
-        ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
+        //ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
+        private ITramContext _tramContext = new TramContext();
+        private ITrackSectorContext _trackSectorContext = new TrackSectorContext();
         SortingAlgoritm sorter;
         List<InUitRijSchema> schema;
         List<Tram> allTrams;
@@ -27,18 +29,17 @@ namespace Beheersysteem
         /// </summary>
         public Logic(Form form)
         {
-            _allTracks = database.GetTracksAndSectors();
+            _allTracks = _trackSectorContext.GetTracksAndSectors();
             csv = new CSVContext();
             schema = csv.getSchema();
-            database = new MssqlDatabaseContext();
-            sorter = new SortingAlgoritm(AllTracks, database);
-            allTrams = database.GetAllTrams();
+            sorter = new SortingAlgoritm(AllTracks, _tramContext, _trackSectorContext);
+            allTrams = _tramContext.GetAllTrams();
             this.form = form;
         }
 
         public void SortAllEnteringTrams()
         {
-            enteringTrams = database.GetAllTramsWithLocation(TramLocation.ComingIn);
+            enteringTrams = _tramContext.GetAllTramsWithLocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
                 //Vgm niet nodig maar toch voor de zekerheid nog even laten staan
@@ -130,7 +131,7 @@ namespace Beheersysteem
                 if (pos > -1)
                 {
                     track.LockTrack();
-                    database.EditTrack(track);
+                    _trackSectorContext.EditTrack(track);
                 }
             }
         }
@@ -147,7 +148,7 @@ namespace Beheersysteem
                 if (pos > -1)
                 {
                     track.UnlockTrack();
-                    database.EditTrack(track);
+                    _trackSectorContext.EditTrack(track);
                 }
             }
         }
@@ -166,12 +167,12 @@ namespace Beheersysteem
                     if (tram.Status == TramStatus.Idle)
                     {
                         tram.EditTramStatus(TramStatus.Idle);
-                        database.EditTram(tram);
+                        _tramContext.EditTram(tram);
                     }
                     else
                     {
                         tram.EditTramStatus(TramStatus.Defect);
-                        database.EditTram(tram);
+                        _tramContext.EditTram(tram);
                     }
                 }
 
@@ -192,10 +193,10 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
                 {
-                    foreach (Track track in _allTracks)
-                    {
+                    //foreach (Track track in _allTracks)
+                    //{
 
-                    }
+                    //}
                 }
 
             }
