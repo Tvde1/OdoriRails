@@ -7,10 +7,11 @@ namespace Beheersysteem
 {
     public partial class UserInterface : Form
     {
-        private Logic _logic = new Logic();
+        private Logic _logic;
 
         public UserInterface()
         {
+            _logic = new Logic(this);
             InitializeComponent();
             panelMain.Invalidate();
         }
@@ -196,6 +197,11 @@ namespace Beheersysteem
                     y = baseYService;
                 }
             }
+        }
+
+        private void UserInterface_Paint(object sender, PaintEventArgs e)
+        {
+            panelMain.Invalidate();
         }
     }
 }

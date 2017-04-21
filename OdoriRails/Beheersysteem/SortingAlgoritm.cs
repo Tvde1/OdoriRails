@@ -2,6 +2,7 @@
 using OdoriRails.BaseClasses;
 using System;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Beheersysteem
 {
@@ -12,6 +13,7 @@ namespace Beheersysteem
         public SortingAlgoritm(List<Track> allTracks)
         {
             this.allTracks = allTracks;
+
         }
 
         public Sector GetSector(Tram tram, DateTime? exitTime)

@@ -243,6 +243,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "UserInterface";
             this.Text = "User Interface";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.UserInterface_Paint);
             this.gbControl.ResumeLayout(false);
             this.gbOther.ResumeLayout(false);
             this.gbTram.ResumeLayout(false);

@@ -5,6 +5,7 @@ using OdoriRails.BaseClasses;
 using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Beheersysteem
 {
@@ -17,13 +18,14 @@ namespace Beheersysteem
         List<Tram> allTrams;
         List<Tram> enteringTrams;
         private List<Track> _allTracks = new List<Track>();
+        private Form form;
 
         public List<Track> AllTracks => _allTracks;
 
         /// <summary>
         /// Constructor: Voert alles uit dat bij de launch uitgevoerd moet worden.
         /// </summary>
-        public Logic()
+        public Logic(Form form)
         {
             _allTracks = database.GetTracksAndSectors();
             csv = new CSVContext();
@@ -31,6 +33,7 @@ namespace Beheersysteem
             database = new MssqlDatabaseContext();
             sorter = new SortingAlgoritm(AllTracks);
             allTrams = database.GetAllTrams();
+            this.form = form;
         }
 
         public void SortAllEnteringTrams()
@@ -92,9 +95,11 @@ namespace Beheersysteem
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
+                            Thread.Sleep(50);
                             entry.TramNumber = tram.Number;
-
                             tram.EditTramDepartureTime(entry.ExitTime);
+                            form.Invalidate();
+                            
                             break;
                         }
                     }
