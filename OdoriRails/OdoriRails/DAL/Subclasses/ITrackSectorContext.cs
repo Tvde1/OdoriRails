@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public interface ITrackSectorContext
     {
@@ -20,5 +20,7 @@ namespace OdoriRails.DAL
         /// Updated de sector in de database met de nieuwe informatie.
         /// </summary>
         void EditSector(Sector sector);
+
+        void WipeTramsFromSectors();
     }
 }

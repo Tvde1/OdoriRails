@@ -92,19 +92,5 @@ namespace OdoriRails.BaseClasses
             Status = TramStatus.Idle;
         }
 
-        public void EditTramStatus(TramStatus tramStatus)
-        {
-            Status = tramStatus;
-        }
-
-        public void EditTramLocation(TramLocation tramLocation)
-        {
-            Location = tramLocation;
-        }
-
-        public void EditTramDepartureTime(DateTime? departureTime)
-        {
-            DepartureTime = departureTime;
-        }
     }
 }

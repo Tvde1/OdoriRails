@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
-namespace OdoriRails.DAL
+namespace OdoriRails.DAL.Subclasses
 {
     public interface IServiceContext
     {
@@ -18,6 +18,12 @@ namespace OdoriRails.DAL
         /// </summary>
         /// <param name="service"></param>
         void EditService(Service service);
+
+        /// <summary>
+        /// Delete de service van de database.
+        /// </summary>
+        /// <param name="service"></param>
+        void DeleteService(Service service);
 
         Cleaning AddCleaning(Cleaning cleaning);
 
