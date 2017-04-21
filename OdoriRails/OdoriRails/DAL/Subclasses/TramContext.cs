@@ -81,6 +81,11 @@ namespace OdoriRails.DAL.Subclasses
             return TrackSectorContext.CreateSector(data.Rows[0]);
         }
 
+        public void WipeDepartureTimes()
+        {
+            Database.GetData(new SqlCommand("UPDATE Tram SET DepartureTime = null"));
+        }
+
         private Tram CreateTram(DataRow row)
         {
             //Pk, Line, Status, Driver, Model, Remise, Location, Depart

@@ -92,5 +92,15 @@ namespace OdoriRails.DAL.Repository
         {
             return UserContext.GetUser(userName);
         }
+
+        public void WipeAllDepartureTimes()
+        {
+            TramContext.WipeDepartureTimes();
+        }
+
+        public void WipeAllTramsFromSectors()
+        {
+            TrackSectorContext.WipeTramsFromSectors();
+        }
     }
 }
