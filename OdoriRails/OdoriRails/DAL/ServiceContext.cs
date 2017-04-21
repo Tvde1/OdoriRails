@@ -11,7 +11,7 @@ namespace OdoriRails.DAL
     {
         public List<Repair> GetAllRepairsFromUser(User user)
         {
-            var repairQuery = new SqlCommand(@"
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($@"
 SELECT Repair.*
 FROM Repair INNER JOIN
 (SELECT Service.ServicePk
@@ -19,14 +19,12 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk");
-            repairQuery.Parameters.AddWithValue("@id", user.Id);
-            return Database.GenerateListWithFunction(Database.GetData(repairQuery), CreateRepair);
+WHERE ([User].UserPk = {user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk")), this.CreateRepair);
         }
 
         public List<Cleaning> GetAllCleansFromUser(User user)
         {
-            var cleanQuery = new SqlCommand(@"
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($@"
 SELECT Clean.*
 FROM Clean INNER JOIN
 (SELECT Service.ServicePk
@@ -34,9 +32,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserP
-WHERE ([User].UserPk = @id)) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk");
-            cleanQuery.Parameters.AddWithValue("@id", user.Id);
-            return Database.GenerateListWithFunction(Database.GetData(cleanQuery), CreateCleaning);
+WHERE ([User].UserPk ={user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk")), this.CreateCleaning);
         }
 
         public List<Repair> GetAllRepairsWithoutUsers()
@@ -142,20 +138,18 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         private List<User> GetUsersInServiceById(int serviceId)
         {
-            var command = new SqlCommand(@"SELECT [User].*, Service.ServicePk
+            var command = new SqlCommand($@"SELECT [User].*, Service.ServicePk
 FROM Service INNER JOIN
 ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE (Service.ServicePk = @id)");
-            command.Parameters.AddWithValue("@id", serviceId);
+WHERE (Service.ServicePk = {serviceId})");
             return Database.GenerateListWithFunction(Database.GetData(command), Database.CreateUser);
         }
 
         private static void SetUsersToServices(List<User> users, Service service)
         {
             if (users == null) return;
-            var data = Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}"));
-            foreach (DataRow dataRow in data.Rows)
+            foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
             {
                 if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
                 {
