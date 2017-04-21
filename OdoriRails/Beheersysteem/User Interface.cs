@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
+using System.Reflection;
 
 namespace Beheersysteem
 {
@@ -14,6 +15,8 @@ namespace Beheersysteem
             _logic = new Logic(this);
             InitializeComponent();
             panelMain.Invalidate();
+
+            //typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
         }
 
         private void btnAddService_Click(object sender, EventArgs e)
