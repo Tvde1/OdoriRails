@@ -38,7 +38,7 @@ namespace Beheersysteem
 
         public void SortAllEnteringTrams()
         {
-            enteringTrams = database.GetAllTramsWithlocation(TramLocation.ComingIn);
+            enteringTrams = database.GetAllTramsWithLocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
                 //Vgm niet nodig maar toch voor de zekerheid nog even laten staan
