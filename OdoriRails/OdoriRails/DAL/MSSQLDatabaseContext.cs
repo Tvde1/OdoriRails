@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using OdoriRails.BaseClasses;
+using System.Windows.Forms;
 
 namespace OdoriRails.DAL
 {
@@ -12,8 +13,13 @@ namespace OdoriRails.DAL
     /// </summary>
     public class MssqlDatabaseContext : IBeheerDatabaseAdapter, IInUitrijDatabaseAdapter, ILoginDatabaseAdapter, ILogisticDatabaseAdapter, ISchoonmaakReparatieDatabaseAdapter
     {
-        //private readonly string _connectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OdoriRailsDatabase;Trusted_Connection=True;";
+        //Local Database for testing
+        //private const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gebruiker\Documents\GitHub\OdoriRails\OdoriRails\OdoriRails\TempLocalDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=true";
+
+        //Server based Database
         private const string ConnectionString = @"Data Source=192.168.20.189;Initial Catalog=OdoriRails;User ID=sa;Password=OdoriRails123;";
+
+
         //Deze werkt als Microsoft SQL Server Management Studio geinstalleerd is.
         private const int RemiseNumber = 1;
 
@@ -339,7 +345,8 @@ WHERE (Service.ServicePk = @id)");
             var id = (int)array[0];
             var line = (int)array[1];
             var status = (TramStatus)array[2];
-            var driver = GetUser((int)array[3]);
+            var driver = new User(0, null);
+            if (array[3] != DBNull.Value) driver = GetUser((int)array[3]);
             var model = (Model)array[4];
             //var remise = (int)array[5];
             var location = (TramLocation)array[6];
