@@ -155,8 +155,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             var endDate = service[2] == DBNull.Value ? DateTime.MinValue : (DateTime)service[2];
             var tramId = (int)service[3];
 
-            var comments = (string)array[1];
-            var type = (CleaningSize)array[2];
+            var type = (CleaningSize)array[1];
+            var comments = (string)array[2];
             var users = GetUsersInServiceById((int)service[0]);
 
             return new Cleaning(id, startDate, endDate, type, comments, users, tramId);
