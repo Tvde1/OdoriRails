@@ -21,6 +21,7 @@ namespace Beheersysteem
         List<Tram> enteringTrams;
         private List<Track> _allTracks = new List<Track>();
         private Form form;
+        private System.Windows.Forms.Timer tramFetcher;
 
         public List<Track> AllTracks => _allTracks;
 
@@ -35,6 +36,8 @@ namespace Beheersysteem
             sorter = new SortingAlgoritm(AllTracks, _tramContext, _trackSectorContext);
             allTrams = _tramContext.GetAllTrams();
             this.form = form;
+            tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
+            tramFetcher.Tick += tramFetcher_Tick;
         }
 
         public void SortAllEnteringTrams()
@@ -42,16 +45,27 @@ namespace Beheersysteem
             enteringTrams = _tramContext.GetAllTramsWithLocation(TramLocation.ComingIn);
             foreach (Tram tram in enteringTrams)
             {
-                //Vgm niet nodig maar toch voor de zekerheid nog even laten staan
-                //if (tram.DepartureTime == null)
-                //{
-                //    GetExitTime(tram);
-                //}
+                if (tram.DepartureTime == null)
+                {
+                    GetExitTime(tram);
+                }
                 SortTram(tram);
             }
         }
 
+        public void tramFetcher_Tick(object sender, EventArgs e)
+        {
+            SortAllEnteringTrams();
+            form.Invalidate();
+        }
+
         public void WipeDepartureTimes()
+        {
+            //TODO: Voeg toe aan master
+            //database.WipeTramDepartureTime();
+        }
+
+        public void WipePreSimulation()
         {
             //TODO: Voeg toe aan master
             //database.WipeTramDepartureTime();
@@ -84,6 +98,8 @@ namespace Beheersysteem
 
         public void Simulation()
         {
+            WipePreSimulation();
+
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));
 
