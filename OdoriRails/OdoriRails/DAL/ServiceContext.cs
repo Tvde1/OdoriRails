@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using MySql.Data.MySqlClient;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL
@@ -86,6 +85,13 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@tramfk", service.TramId);
             Database.GetData(query);
             SetUsersToServices(service.AssignedUsers, service);
+        }
+
+        public void DeleteService(Service service)
+        {
+            var query = new SqlCommand("DELETE FROM Service WHERE ServicePk = @id; DELETE FROM Clean WHERE ServiceFk = @id; DELETE FROM Repair WHERE ServiceFk = @id");
+            query.Parameters.AddWithValue("@id", service.Id);
+            Database.GetData(query);
         }
 
         public Cleaning AddCleaning(Cleaning cleaning)
