@@ -137,7 +137,7 @@ namespace Beheersysteem
                     {
                         if (tram.Line == entry.Line && tram.DepartureTime == null)
                         {
-                            Console.WriteLine(tram.Number);
+                            Console.WriteLine(" Entry:" + entry.EntryTime.ToString() + " Exit:"  +  entry.ExitTime.ToString() + " Tram:" +  tram.Number);
                             entry.TramNumber = tram.Number;
                             tram.EditTramDepartureTime(entry.ExitTime);
                             form.Invalidate();
@@ -145,7 +145,11 @@ namespace Beheersysteem
                             break;
                         }
                     }
-                    Console.WriteLine("--------");
+                    if(entry.TramNumber == null)
+                    {
+                        Console.WriteLine(" Entry:" + entry.EntryTime.ToString() + " Exit:" + entry.ExitTime.ToString() + " Failed to assign the line to a tram");
+                    }
+                    
                 }
             }
 

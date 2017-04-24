@@ -16,7 +16,7 @@ namespace Beheersysteem.ObjectClasses
         public InUitRijSchema(string _UitRijTijd, string _InRijTijd, int _line)
         {
             ExitTime = Convert.ToDateTime(_UitRijTijd);
-            EntryTime = Convert.ToDateTime(_UitRijTijd);
+            EntryTime = Convert.ToDateTime(_InRijTijd);
             Line = _line;
         }
 

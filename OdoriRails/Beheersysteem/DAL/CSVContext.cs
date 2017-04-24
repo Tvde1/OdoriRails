@@ -26,7 +26,15 @@ namespace Beheersysteem.DAL
                     while ((line = reader.ReadLine()) != null)
                     {
                         schemaArray = line.Split(';');
-                        schema.Add(new InUitRijSchema(schemaArray[0], schemaArray[6], Convert.ToInt32(schemaArray[1])));
+                        if (schemaArray[1] == "16" || schemaArray[1] == "24")
+                        {
+                            schema.Add(new InUitRijSchema(schemaArray[0], schemaArray[6], 1624));
+                        }
+                        else
+                        {
+                            schema.Add(new InUitRijSchema(schemaArray[0], schemaArray[6], Convert.ToInt32(schemaArray[1])));
+                        }
+                        
                     }
                 }
                 return schema;
