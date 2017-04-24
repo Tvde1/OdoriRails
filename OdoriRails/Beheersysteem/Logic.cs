@@ -12,6 +12,9 @@ namespace Beheersysteem
 {
     class Logic
     {
+        bool testing = true;
+        int simulationSpeed = 600;
+
         ICSVContext csv;
         //ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
         private LogisticRepository repo = new LogisticRepository();
@@ -30,6 +33,11 @@ namespace Beheersysteem
         /// </summary>
         public Logic(Form form)
         {
+            if (testing == true)
+            {
+                simulationSpeed = 50;
+            }
+
             FetchUpdates();
             csv = new CSVContext();
             schema = csv.getSchema();
@@ -112,11 +120,7 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
-                Sector selectedSector = sorter.GetSector(tram, tram.DepartureTime);
-                if (selectedSector == null)
-                {
-                    MessageBox.Show("Het systeem kan geen passende plek vinden voor deze tram. Plaats deze tram manueel.");
-                }
+                _allTracks = sorter.GetSector(tram, tram.DepartureTime);
             }
         }
 
@@ -137,18 +141,13 @@ namespace Beheersysteem
                     {
                         if (tram.DepartureTime == null && tram.Line == entry.Line)
                         {
-                            //Console.WriteLine(" In:" + entry.EntryTime.ToString() + " Out:" + entry.ExitTime.ToString() + " Tram:" + tram.Number);
                             entry.TramNumber = tram.Number;
                             tram.EditTramDepartureTime(entry.ExitTime);
-                            form.Invalidate();
-                            //Thread.Sleep(50);
                             break;
                         }
                     }
                 }
             }
-
-
 
             //Too little linebound trams to fill each entry so overflow to other types of trams
             foreach (InUitRijSchema entry in schema)
@@ -179,38 +178,35 @@ namespace Beheersysteem
                 }
             }
 
-            //Overgebleven trams en schema entries
-            Console.WriteLine("Overgebleven schema's");
-            foreach (InUitRijSchema entry in schema)
-            {
-                if (entry.TramNumber == null)
-                {
-                    Console.WriteLine(entry.Line);
-                }
-            }
+            ////Overgebleven trams en schema entries
+            //Console.WriteLine("Overgebleven schema's");
+            //foreach (InUitRijSchema entry in schema)
+            //{
+            //    if (entry.TramNumber == null)
+            //    {
+            //        Console.WriteLine(entry.Line);
+            //    }
+            //}
 
-            Console.WriteLine("Overgebleven trams:");
-            foreach (BeheerTram tram in allTrams)
-            {
-                if (tram.DepartureTime == null)
-                {
-                    Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
-                }
-            }
-
-
+            //Console.WriteLine("Overgebleven trams:");
+            //foreach (BeheerTram tram in allTrams)
+            //{
+            //    if (tram.DepartureTime == null)
+            //    {
+            //        Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
+            //    }
+            //}
+            
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
-                //if (entry.TramNumber == null)
-                //{
-                //    MessageBox.Show(entry.ToString());
-                //}
-                Tram tram = allTrams.Find(x => x.Number == entry.TramNumber);
-                BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
-                SortTram(beheerTram);
+                BeheerTram tram = allTrams.Find(x => x.Number == entry.TramNumber);
+                SortTram(tram);
+                form.Invalidate();
+                Thread.Sleep(simulationSpeed);
             }
 
+            //Sync with database:
             FetchUpdates();
             form.Invalidate();
         }

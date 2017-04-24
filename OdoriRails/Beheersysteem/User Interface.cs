@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Beheersysteem
 {
@@ -16,7 +17,7 @@ namespace Beheersysteem
             InitializeComponent();
             panelMain.Invalidate();
 
-            //typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
         }
 
         private void btnAddService_Click(object sender, EventArgs e)
@@ -50,8 +51,8 @@ namespace Beheersysteem
 
         private void btnSimulation_Click(object sender, EventArgs e)
         {
-            _logic.Simulation();
-            panelMain.Invalidate();
+            Task Simulation = new Task(new Action(() => { _logic.Simulation(); } ));
+            Simulation.Start();
         }
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
@@ -61,6 +62,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
+            Console.WriteLine(".");
             var panel = panelMain;
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
@@ -69,7 +71,7 @@ namespace Beheersysteem
             var yellowBrush = new SolidBrush(Color.Yellow);
             var goldBrush = new SolidBrush(Color.Gold);
             var grayBrush = new SolidBrush(Color.Gray);
-            var graphics = panel.CreateGraphics();
+            var graphics = e.Graphics;
 
             var baseX = 10;
             var baseYService = 10;
@@ -113,8 +115,6 @@ namespace Beheersysteem
                     {
                         graphics.FillRectangle(goldBrush, rectTrackLine);
                     }
-
-
                 }
                 else if (track.Type == TrackType.Service)
                 {
@@ -126,12 +126,10 @@ namespace Beheersysteem
                 {
                     var rectTrackLine = new Rectangle(x, y, 40, 20);
                     graphics.FillRectangle(blackBrush, rectTrackLine);
-
                 }
 
                 y += 25;
-
-
+                
                 foreach (Sector sector in track.Sectors)
                 {
                     var rect = new Rectangle(x, y, 40, 20);

@@ -34,21 +34,13 @@ namespace Beheersysteem
         }
 
         /// <summary>
-        /// Zet de status van de tram naar occupied.
-        /// </summary>
-        public void Occupy()
-        {
-            if (Status == SectorStatus.Locked) throw new InvalidOperationException("Can't occupy a locked sector. Please unlock it first.");
-            Status = SectorStatus.Occupied;
-        }
-
-        /// <summary>
         /// Zet de status van de tram naar open.
         /// </summary>
         public void UnOccupy()
         {
             if (Status != SectorStatus.Occupied) throw new InvalidOperationException("Can't unoccupy a sector with a state other than Occupied. Current state is " + Status + ".");
             Status = SectorStatus.Open;
+            OccupyingTram = null;
         }
 
         /// <summary>
@@ -57,6 +49,9 @@ namespace Beheersysteem
         /// <param name="tram"></param>
         public void SetOccupyingTram(Tram tram)
         {
+            if (Status == SectorStatus.Locked) throw new InvalidOperationException("Can't occupy a locked sector. Please unlock it first.");
+            if (Status == SectorStatus.Occupied) throw new InvalidOperationException("Sector already Occupied");
+            Status = SectorStatus.Occupied;
             OccupyingTram = tram;
         }
     }
