@@ -135,9 +135,9 @@ namespace Beheersysteem
                 {
                     foreach (BeheerTram tram in allTrams)
                     {
-                        if (tram.Line == entry.Line && tram.DepartureTime == null)
+                        if (tram.DepartureTime == null && tram.Line == entry.Line)
                         {
-                            Console.WriteLine(" Entry:" + entry.EntryTime.ToString() + " Exit:"  +  entry.ExitTime.ToString() + " Tram:" +  tram.Number);
+                            //Console.WriteLine(" In:" + entry.EntryTime.ToString() + " Out:" + entry.ExitTime.ToString() + " Tram:" + tram.Number);
                             entry.TramNumber = tram.Number;
                             tram.EditTramDepartureTime(entry.ExitTime);
                             form.Invalidate();
@@ -145,13 +145,59 @@ namespace Beheersysteem
                             break;
                         }
                     }
-                    if(entry.TramNumber == null)
-                    {
-                        Console.WriteLine(" Entry:" + entry.EntryTime.ToString() + " Exit:" + entry.ExitTime.ToString() + " Failed to assign the line to a tram");
-                    }
-                    
                 }
             }
+
+
+
+            //Too little linebound trams to fill each entry so overflow to other types of trams
+            foreach (InUitRijSchema entry in schema)
+            {
+                if (entry.TramNumber == null)
+                {
+                    foreach (BeheerTram tram in allTrams)
+                    {
+                        if (tram.DepartureTime == null)
+                        {
+                            if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG))//No driver lines
+                            {
+                                entry.TramNumber = tram.Number;
+                                tram.EditTramDepartureTime(entry.ExitTime);
+                                form.Invalidate();
+                                break;
+                            }
+                            else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino)//Driver lines
+                            {
+                                entry.TramNumber = tram.Number;
+                                tram.EditTramDepartureTime(entry.ExitTime);
+                                form.Invalidate();
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            //Overgebleven trams en schema entries
+            Console.WriteLine("Overgebleven schema's");
+            foreach (InUitRijSchema entry in schema)
+            {
+                if (entry.TramNumber == null)
+                {
+                    Console.WriteLine(entry.Line);
+                }
+            }
+
+            Console.WriteLine("Overgebleven trams:");
+            foreach (BeheerTram tram in allTrams)
+            {
+                if (tram.DepartureTime == null)
+                {
+                    Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
+                }
+            }
+
 
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
