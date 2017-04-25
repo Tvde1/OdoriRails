@@ -423,7 +423,7 @@
             this.cbTramModel.FormattingEnabled = true;
             this.cbTramModel.Location = new System.Drawing.Point(131, 77);
             this.cbTramModel.Name = "cbTramModel";
-            this.cbTramModel.Size = new System.Drawing.Size(121, 28);
+            this.cbTramModel.Size = new System.Drawing.Size(118, 28);
             this.cbTramModel.TabIndex = 2;
             // 
             // gbNewTrack
@@ -485,7 +485,7 @@
             this.btnAddTrack.Name = "btnAddTrack";
             this.btnAddTrack.Size = new System.Drawing.Size(242, 33);
             this.btnAddTrack.TabIndex = 4;
-            this.btnAddTrack.Text = "Add New Tram";
+            this.btnAddTrack.Text = "Add New Track";
             this.btnAddTrack.UseVisualStyleBackColor = true;
             this.btnAddTrack.Click += new System.EventHandler(this.btnAddTrack_Click);
             // 
