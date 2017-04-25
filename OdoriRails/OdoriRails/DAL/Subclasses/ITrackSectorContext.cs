@@ -22,5 +22,7 @@ namespace OdoriRails.DAL.Subclasses
         void EditSector(Sector sector);
 
         void WipeTramsFromSectors();
+
+        void WipeTramFromSectorByTramId(int id);
     }
 }
