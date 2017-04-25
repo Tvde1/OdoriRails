@@ -17,6 +17,7 @@ namespace In_Uitrit_Systeem
             _AssignedTramLocationFetcher = new Timer { Interval = 5000 };
             _AssignedTramLocationFetcher.Tick += AssignedTramLocationFetcher_Tick;
             lblTramNumber.Text = _logic.Tram?.Number.ToString() ?? "Geen Tram";
+            lblStandplaats.Text = _logic.GetAssingedTramLocation() ?? "Niet bekend";
         }
 
         private void AssignedTramLocationFetcher_Tick(object sender, EventArgs e)
@@ -95,7 +96,7 @@ namespace In_Uitrit_Systeem
 
             if (_logic.Tram.Location == TramLocation.Out || _logic.Tram.Location == TramLocation.ComingIn)
             {
-                string error = string.Format("Tram {0} is nog niet aangemeld bij de remise. Meld deze tram eerst aan bij de remise.", _logic.Tram.Number.ToString());
+                string error = string.Format("Tram {0} bevind zich niet op de remise. Meld deze tram eerst aan bij de remise.", _logic.Tram.Number.ToString());
                 MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

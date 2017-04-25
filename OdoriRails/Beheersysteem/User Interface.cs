@@ -63,8 +63,8 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            Console.WriteLine(".");
-            var panel = panelMain;
+            Console.WriteLine(".Redraw.");
+
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
             var blackBrush = new SolidBrush(Color.Black);
@@ -74,28 +74,14 @@ namespace Beheersysteem
             var grayBrush = new SolidBrush(Color.Gray);
             var graphics = e.Graphics;
 
-            var baseX = 10;
-            var baseYService = 10;
-            var baseYGroup1 = 200;
-            var baseYGroup2 = 500;
+            int baseX = 10;
+            int baseY = 10;
+            int baseYmax = 0;
 
             var x = baseX;
-            var y = baseYService;
+            var y = baseY;
 
             var tracks = _logic.AllTracks;
-            var testString = "";
-
-            foreach (var track in tracks)
-            {
-                string newTestString = "";
-                foreach (var sector in track.Sectors)
-                {
-                    newTestString += "[] ";
-                }
-                testString += newTestString + "\r\n";
-            }
-
-            //MessageBox.Show(testString);
 
             foreach (BeheerTrack track in tracks)
             {
@@ -173,30 +159,37 @@ namespace Beheersysteem
                         graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, tramBrush, rect);
                     }
                     y += 25;
+
+                    if (baseYmax < y)
+                    {
+                        baseYmax = y;
+                    }
                 }
                 x += 50;
 
                 if (track.Number == 38)
                 {
-                    y = baseYGroup1;
+                    baseY = baseYmax + 10;
+                    y = baseY;
                     x = baseX;
                 }
                 else if (track.Number > 38 && track.Number < 64)
                 {
-                    y = baseYGroup1;
+                    y = baseY;
                 }
                 else if (track.Number == 64)
                 {
-                    y = baseYGroup2;
+                    baseY = baseYmax + 10;
+                    y = baseY;
                     x = baseX;
                 }
                 else if (track.Number > 64)
                 {
-                    y = baseYGroup2;
+                    y = baseY;
                 }
                 else
                 {
-                    y = baseYService;
+                    y = baseY;
                 }
             }
         }

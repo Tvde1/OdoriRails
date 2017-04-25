@@ -82,7 +82,7 @@
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
             this.gbOther.Size = new System.Drawing.Size(259, 148);
-            this.gbOther.TabIndex = 3;
+            this.gbOther.TabIndex = 2;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
             // 
@@ -91,7 +91,7 @@
             this.btnReset.Location = new System.Drawing.Point(12, 105);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(236, 33);
-            this.btnReset.TabIndex = 3;
+            this.btnReset.TabIndex = 2;
             this.btnReset.Text = "Reset Remise";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
@@ -101,7 +101,7 @@
             this.btnChangeDisplayView.Location = new System.Drawing.Point(12, 66);
             this.btnChangeDisplayView.Name = "btnChangeDisplayView";
             this.btnChangeDisplayView.Size = new System.Drawing.Size(236, 33);
-            this.btnChangeDisplayView.TabIndex = 2;
+            this.btnChangeDisplayView.TabIndex = 1;
             this.btnChangeDisplayView.Text = "Display table";
             this.btnChangeDisplayView.UseVisualStyleBackColor = true;
             this.btnChangeDisplayView.Click += new System.EventHandler(this.btnChangeDisplayView_Click);
@@ -111,7 +111,7 @@
             this.btnSimulation.Location = new System.Drawing.Point(12, 27);
             this.btnSimulation.Name = "btnSimulation";
             this.btnSimulation.Size = new System.Drawing.Size(236, 33);
-            this.btnSimulation.TabIndex = 1;
+            this.btnSimulation.TabIndex = 0;
             this.btnSimulation.Text = "Start Simulation";
             this.btnSimulation.UseVisualStyleBackColor = true;
             this.btnSimulation.Click += new System.EventHandler(this.btnSimulation_Click);
@@ -132,7 +132,7 @@
             this.gbTram.Name = "gbTram";
             this.gbTram.Padding = new System.Windows.Forms.Padding(5);
             this.gbTram.Size = new System.Drawing.Size(259, 279);
-            this.gbTram.TabIndex = 2;
+            this.gbTram.TabIndex = 1;
             this.gbTram.TabStop = false;
             this.gbTram.Text = "Tram";
             // 
@@ -141,14 +141,14 @@
             this.tbMoveToSector.Location = new System.Drawing.Point(153, 103);
             this.tbMoveToSector.Name = "tbMoveToSector";
             this.tbMoveToSector.Size = new System.Drawing.Size(97, 26);
-            this.tbMoveToSector.TabIndex = 9;
+            this.tbMoveToSector.TabIndex = 3;
             // 
             // tbMoveToTrack
             // 
             this.tbMoveToTrack.Location = new System.Drawing.Point(154, 76);
             this.tbMoveToTrack.Name = "tbMoveToTrack";
             this.tbMoveToTrack.Size = new System.Drawing.Size(97, 26);
-            this.tbMoveToTrack.TabIndex = 8;
+            this.tbMoveToTrack.TabIndex = 2;
             // 
             // lbMoveToSector
             // 
@@ -156,7 +156,7 @@
             this.lbMoveToSector.Location = new System.Drawing.Point(10, 106);
             this.lbMoveToSector.Name = "lbMoveToSector";
             this.lbMoveToSector.Size = new System.Drawing.Size(127, 20);
-            this.lbMoveToSector.TabIndex = 7;
+            this.lbMoveToSector.TabIndex = 5;
             this.lbMoveToSector.Text = "Move to Sector:";
             // 
             // lbMoveToTrack
@@ -165,7 +165,7 @@
             this.lbMoveToTrack.Location = new System.Drawing.Point(9, 76);
             this.lbMoveToTrack.Name = "lbMoveToTrack";
             this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
-            this.lbMoveToTrack.TabIndex = 6;
+            this.lbMoveToTrack.TabIndex = 4;
             this.lbMoveToTrack.Text = "Move to Track:";
             // 
             // btnAddService
@@ -173,7 +173,7 @@
             this.btnAddService.Location = new System.Drawing.Point(8, 199);
             this.btnAddService.Name = "btnAddService";
             this.btnAddService.Size = new System.Drawing.Size(242, 33);
-            this.btnAddService.TabIndex = 5;
+            this.btnAddService.TabIndex = 7;
             this.btnAddService.Text = "Add Service";
             this.btnAddService.UseVisualStyleBackColor = true;
             this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
@@ -183,7 +183,7 @@
             this.btnMove.Location = new System.Drawing.Point(12, 135);
             this.btnMove.Name = "btnMove";
             this.btnMove.Size = new System.Drawing.Size(242, 33);
-            this.btnMove.TabIndex = 1;
+            this.btnMove.TabIndex = 6;
             this.btnMove.Text = "Manual Move";
             this.btnMove.UseVisualStyleBackColor = true;
             this.btnMove.Click += new System.EventHandler(this.btnMove_Click);
@@ -193,7 +193,7 @@
             this.tbSelectedTram.Location = new System.Drawing.Point(8, 47);
             this.tbSelectedTram.Name = "tbSelectedTram";
             this.tbSelectedTram.Size = new System.Drawing.Size(243, 26);
-            this.tbSelectedTram.TabIndex = 4;
+            this.tbSelectedTram.TabIndex = 1;
             // 
             // lbSelectedTram
             // 
@@ -201,7 +201,7 @@
             this.lbSelectedTram.Location = new System.Drawing.Point(9, 24);
             this.lbSelectedTram.Name = "lbSelectedTram";
             this.lbSelectedTram.Size = new System.Drawing.Size(184, 20);
-            this.lbSelectedTram.TabIndex = 4;
+            this.lbSelectedTram.TabIndex = 0;
             this.lbSelectedTram.Text = "Current Selected Tram:";
             // 
             // btnSetDisabled
@@ -209,7 +209,7 @@
             this.btnSetDisabled.Location = new System.Drawing.Point(7, 238);
             this.btnSetDisabled.Name = "btnSetDisabled";
             this.btnSetDisabled.Size = new System.Drawing.Size(243, 33);
-            this.btnSetDisabled.TabIndex = 0;
+            this.btnSetDisabled.TabIndex = 8;
             this.btnSetDisabled.Text = "Toggle Disabled";
             this.btnSetDisabled.UseVisualStyleBackColor = true;
             this.btnSetDisabled.Click += new System.EventHandler(this.btnSetDisabled_Click);
@@ -225,7 +225,7 @@
             this.gbSector.Name = "gbSector";
             this.gbSector.Padding = new System.Windows.Forms.Padding(5);
             this.gbSector.Size = new System.Drawing.Size(259, 126);
-            this.gbSector.TabIndex = 1;
+            this.gbSector.TabIndex = 0;
             this.gbSector.TabStop = false;
             this.gbSector.Text = "Sector/Track";
             // 
@@ -234,7 +234,7 @@
             this.tbSelectedSector.Location = new System.Drawing.Point(12, 47);
             this.tbSelectedSector.Name = "tbSelectedSector";
             this.tbSelectedSector.Size = new System.Drawing.Size(239, 26);
-            this.tbSelectedSector.TabIndex = 3;
+            this.tbSelectedSector.TabIndex = 1;
             // 
             // lbSelectedSector
             // 
@@ -242,7 +242,7 @@
             this.lbSelectedSector.Location = new System.Drawing.Point(9, 24);
             this.lbSelectedSector.Name = "lbSelectedSector";
             this.lbSelectedSector.Size = new System.Drawing.Size(220, 20);
-            this.lbSelectedSector.TabIndex = 2;
+            this.lbSelectedSector.TabIndex = 0;
             this.lbSelectedSector.Text = "Current Selected Sector(s): ";
             // 
             // btnOpen
@@ -250,7 +250,7 @@
             this.btnOpen.Location = new System.Drawing.Point(12, 79);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(117, 33);
-            this.btnOpen.TabIndex = 1;
+            this.btnOpen.TabIndex = 2;
             this.btnOpen.Text = "Unlock";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -260,7 +260,7 @@
             this.btnLock.Location = new System.Drawing.Point(135, 79);
             this.btnLock.Name = "btnLock";
             this.btnLock.Size = new System.Drawing.Size(115, 33);
-            this.btnLock.TabIndex = 0;
+            this.btnLock.TabIndex = 3;
             this.btnLock.Text = "Lock";
             this.btnLock.UseVisualStyleBackColor = true;
             this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
@@ -289,6 +289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1441, 793);
             this.Controls.Add(this.gbDisplay);
             this.Controls.Add(this.gbControl);
@@ -296,7 +297,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "UserInterface";
-            this.Text = "User Interface";
+            this.Text = "Odori Logistics";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.UserInterface_Paint);
             this.gbControl.ResumeLayout(false);
             this.gbOther.ResumeLayout(false);
