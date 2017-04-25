@@ -34,15 +34,15 @@
             this.gbService = new System.Windows.Forms.GroupBox();
             this.gbTramNumber = new System.Windows.Forms.GroupBox();
             this.lblTramNumber = new System.Windows.Forms.Label();
-            this.gbStandplaats = new System.Windows.Forms.GroupBox();
-            this.lblStandplaats = new System.Windows.Forms.Label();
+            this.gbLocation = new System.Windows.Forms.GroupBox();
+            this.lblLocation = new System.Windows.Forms.Label();
             this.rtbDetails = new System.Windows.Forms.RichTextBox();
             this.gbDetails = new System.Windows.Forms.GroupBox();
             this.btnService = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
             this.gbService.SuspendLayout();
             this.gbTramNumber.SuspendLayout();
-            this.gbStandplaats.SuspendLayout();
+            this.gbLocation.SuspendLayout();
             this.gbDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,32 +103,32 @@
             this.lblTramNumber.Name = "lblTramNumber";
             this.lblTramNumber.Size = new System.Drawing.Size(244, 156);
             this.lblTramNumber.TabIndex = 0;
-            this.lblTramNumber.Text = "Niet bekend";
+            this.lblTramNumber.Text = "Geen tram";
             this.lblTramNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // gbStandplaats
+            // gbLocation
             // 
-            this.gbStandplaats.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.gbStandplaats.Controls.Add(this.lblStandplaats);
-            this.gbStandplaats.Location = new System.Drawing.Point(276, 174);
-            this.gbStandplaats.Name = "gbStandplaats";
-            this.gbStandplaats.Size = new System.Drawing.Size(365, 181);
-            this.gbStandplaats.TabIndex = 4;
-            this.gbStandplaats.TabStop = false;
-            this.gbStandplaats.Text = "Standplaats:";
+            this.gbLocation.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.gbLocation.Controls.Add(this.lblLocation);
+            this.gbLocation.Location = new System.Drawing.Point(276, 174);
+            this.gbLocation.Name = "gbLocation";
+            this.gbLocation.Size = new System.Drawing.Size(365, 181);
+            this.gbLocation.TabIndex = 4;
+            this.gbLocation.TabStop = false;
+            this.gbLocation.Text = "Locatie:";
             // 
-            // lblStandplaats
+            // lblLocation
             // 
-            this.lblStandplaats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStandplaats.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F);
-            this.lblStandplaats.Location = new System.Drawing.Point(6, 22);
-            this.lblStandplaats.Name = "lblStandplaats";
-            this.lblStandplaats.Size = new System.Drawing.Size(353, 156);
-            this.lblStandplaats.TabIndex = 0;
-            this.lblStandplaats.Text = "Niet bekend";
-            this.lblStandplaats.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F);
+            this.lblLocation.Location = new System.Drawing.Point(6, 22);
+            this.lblLocation.Name = "lblLocation";
+            this.lblLocation.Size = new System.Drawing.Size(353, 156);
+            this.lblLocation.TabIndex = 0;
+            this.lblLocation.Text = "Niet bekend";
+            this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rtbDetails
             // 
@@ -185,7 +185,7 @@
             this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnService);
             this.Controls.Add(this.gbDetails);
-            this.Controls.Add(this.gbStandplaats);
+            this.Controls.Add(this.gbLocation);
             this.Controls.Add(this.gbTramNumber);
             this.Controls.Add(this.gbService);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
@@ -199,7 +199,7 @@
             this.gbService.ResumeLayout(false);
             this.gbService.PerformLayout();
             this.gbTramNumber.ResumeLayout(false);
-            this.gbStandplaats.ResumeLayout(false);
+            this.gbLocation.ResumeLayout(false);
             this.gbDetails.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -212,8 +212,8 @@
         private System.Windows.Forms.GroupBox gbService;
         private System.Windows.Forms.GroupBox gbTramNumber;
         private System.Windows.Forms.Label lblTramNumber;
-        private System.Windows.Forms.GroupBox gbStandplaats;
-        private System.Windows.Forms.Label lblStandplaats;
+        private System.Windows.Forms.GroupBox gbLocation;
+        private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.RichTextBox rtbDetails;
         private System.Windows.Forms.GroupBox gbDetails;
         private System.Windows.Forms.Button btnService;
