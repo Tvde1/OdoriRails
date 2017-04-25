@@ -17,15 +17,16 @@ namespace Beheersysteem
         public SortingAlgoritm(List<BeheerTrack> allTracks, LogisticRepository repo)
         {
             this.repo = repo;
-            OccupiedSectors = new List<float>();
             this.allTracks = allTracks;
+            OccupiedSectors = new List<float>();
             unassignedTrams = new List<BeheerTram>();
         }
 
-        public List<BeheerTrack> GetSector(BeheerTram tram, DateTime? exitTime)
+        public List<BeheerTrack> AssignTramLocation(BeheerTram tram, DateTime? exitTime)
         {
             //With a service needed, put on the first free slot
             if (tram.Location == TramLocation.ComingIn) tram.EditTramLocation(TramLocation.In);
+
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {
                 foreach (Track track in allTracks)
@@ -127,8 +128,6 @@ namespace Beheersysteem
                 }
             }
 
-
-
             //If not successful let user place tram
             MessageBox.Show("Failure");
             return null;
@@ -138,7 +137,6 @@ namespace Beheersysteem
         {
             sector.SetOccupyingTram(tram);
             repo.EditTram(tram);
-            Console.WriteLine(sector.ToString());
             repo.EditSector(sector);
             return sector;
         }

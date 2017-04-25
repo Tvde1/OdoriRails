@@ -17,11 +17,10 @@ namespace Beheersysteem
         ICSVContext csv;
         private List<InUitRijSchema> schema;
         private List<BeheerTram> allTrams;
-        private List<Tram> movingTrams;
         private LogisticRepository repo = new LogisticRepository();
         private List<BeheerTrack> _allTracks;
         private Form form;
-        private System.Windows.Forms.Timer tramFetcher;
+        public System.Windows.Forms.Timer tramFetcher;
 
         public List<BeheerTrack> AllTracks => _allTracks;
 
@@ -32,7 +31,7 @@ namespace Beheersysteem
         {
             if (testing == true)
             {
-                simulationSpeed = 25;
+                simulationSpeed = 50;
             }
 
             FetchUpdates();
@@ -62,7 +61,7 @@ namespace Beheersysteem
         public bool SortMovingTrams(TramLocation location)
         {
             SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
-            movingTrams = repo.GetAllTramsWithLocation(location);
+            List<Tram> movingTrams = repo.GetAllTramsWithLocation(location);
             if (movingTrams.Count != 0)
             {
                 foreach (Tram tram in movingTrams)
@@ -123,7 +122,7 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
-                _allTracks = sorter.GetSector(tram, tram.DepartureTime);
+                _allTracks = sorter.AssignTramLocation(tram, tram.DepartureTime);
             }
         }
 
@@ -164,40 +163,18 @@ namespace Beheersysteem
                             {
                                 entry.TramNumber = tram.Number;
                                 tram.EditTramDepartureTime(entry.ExitTime);
-                                form.Invalidate();
                                 break;
                             }
                             else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino)//Driver lines
                             {
                                 entry.TramNumber = tram.Number;
                                 tram.EditTramDepartureTime(entry.ExitTime);
-                                form.Invalidate();
                                 break;
                             }
                         }
-
                     }
                 }
             }
-
-            ////Overgebleven trams en schema entries
-            //Console.WriteLine("Overgebleven schema's");
-            //foreach (InUitRijSchema entry in schema)
-            //{
-            //    if (entry.TramNumber == null)
-            //    {
-            //        Console.WriteLine(entry.Line);
-            //    }
-            //}
-
-            //Console.WriteLine("Overgebleven trams:");
-            //foreach (BeheerTram tram in allTrams)
-            //{
-            //    if (tram.DepartureTime == null)
-            //    {
-            //        Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
-            //    }
-            //}
 
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
@@ -208,13 +185,14 @@ namespace Beheersysteem
                 Thread.Sleep(simulationSpeed);
             }
 
+            schema = csv.getSchema();
+
             //Sync with database:
             Update();
         }
 
         public void Lock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
 
             foreach (Track track in _allTracks)
@@ -232,7 +210,6 @@ namespace Beheersysteem
 
         public void Unlock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             string[] sUnlockTracks = tracks.Split(',');
             int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
 
@@ -260,7 +237,7 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
                 {
-                    if (tram.Status == TramStatus.Idle)
+                    if (tram.Status == TramStatus.Defect)
                     {
                         tram.EditTramStatus(TramStatus.Idle);
                         repo.EditTram(tram);
@@ -272,29 +249,34 @@ namespace Beheersysteem
                     }
                 }
             }
+            Update();
         }
 
-        public void MoveTram(string trams, string track, string sector)
+        public bool MoveTram(string _tram, string _track, string _sector)
         {
-            string[] sTrams = trams.Split(',');
-            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
-            int moveTram = iTrams[0]; //Alleen de eerste bewegen
+            int moveTram = Convert.ToInt32(_tram);
+            int moveTrack = Convert.ToInt32(_track);
+            int moveSector = Convert.ToInt32(_sector);
 
-            int moveTrack = Convert.ToInt32(track);
-            int moveSector = Convert.ToInt32(sector);
-
-            foreach (Tram tram in allTrams)
+            foreach (Track track in AllTracks)
             {
-                int pos = Array.IndexOf(iTrams, tram.Number);
-                if (pos > -1)
+                if (track.Number == moveTrack)
                 {
-                    //foreach (Track track in _allTracks)
-                    //{
-
-                    //}
+                    foreach (Tram tram in allTrams)
+                    {
+                        if (tram.Number == moveTram)
+                        {
+                            BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                            beheerSector.SetOccupyingTram(tram);
+                            repo.WipeSectorByTramId(tram.Number);
+                            repo.EditSector(beheerSector);
+                            Update();
+                            return true;
+                        }
+                    }
                 }
-
             }
+            return false;
         }
 
         public void Update()

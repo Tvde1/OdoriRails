@@ -40,7 +40,10 @@ namespace Beheersysteem
 
         private void btnMove_Click(object sender, EventArgs e)
         {
-
+            if (_logic.MoveTram(tbSelectedTram.Text, tbMoveToTrack.Text, tbMoveToSector.Text) == false)
+            {
+                MessageBox.Show("Failed to move the selected tram to the new location");
+            }
         }
 
         private void btnSetDisabled_Click(object sender, EventArgs e)
@@ -51,9 +54,11 @@ namespace Beheersysteem
 
         private void btnSimulation_Click(object sender, EventArgs e)
         {
+            _logic.tramFetcher.Stop();
             Task Simulation = new Task(new Action(() => { _logic.Simulation(); } ));
             _logic.WipePreSimulation();
             Simulation.Start();
+            _logic.tramFetcher.Start();
         }
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
@@ -63,142 +68,8 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            Console.WriteLine(".");
-            var panel = panelMain;
-            var pen = new Pen(Color.Black, 2);
-            var stringFont = new Font("Arial", 11);
-            var blackBrush = new SolidBrush(Color.Black);
-            var redBrush = new SolidBrush(Color.Red);
-            var yellowBrush = new SolidBrush(Color.Yellow);
-            var goldBrush = new SolidBrush(Color.Gold);
-            var grayBrush = new SolidBrush(Color.Gray);
-            var graphics = e.Graphics;
-
-            var baseX = 10;
-            var baseYService = 10;
-            var baseYGroup1 = 200;
-            var baseYGroup2 = 500;
-
-            var x = baseX;
-            var y = baseYService;
-
-            var tracks = _logic.AllTracks;
-            var testString = "";
-
-            foreach (var track in tracks)
-            {
-                string newTestString = "";
-                foreach (var sector in track.Sectors)
-                {
-                    newTestString += "[] ";
-                }
-                testString += newTestString + "\r\n";
-            }
-
-            //MessageBox.Show(testString);
-
-            foreach (BeheerTrack track in tracks)
-            {
-                var rectTrackNumber = new Rectangle(x, y, 40, 20);
-                graphics.FillRectangle(grayBrush, rectTrackNumber);
-                graphics.DrawString(track.Number.ToString(), stringFont, blackBrush, rectTrackNumber);
-                y += 25;
-
-                if (track.Type == TrackType.Normal)
-                {
-                    var rectTrackLine = new Rectangle(x, y, 40, 20);
-                    if (track.Line != 0)
-                    {
-                        graphics.FillRectangle(yellowBrush, rectTrackLine);
-                        graphics.DrawString(track.Line.ToString(), stringFont, blackBrush, rectTrackLine);
-                    }
-                    else
-                    {
-                        graphics.FillRectangle(goldBrush, rectTrackLine);
-                    }
-                }
-                else if (track.Type == TrackType.Service)
-                {
-                    var rectTrackLine = new Rectangle(x, y, 40, 20);
-                    graphics.FillRectangle(redBrush, rectTrackLine);
-
-                }
-                else if (track.Type == TrackType.Exit)
-                {
-                    var rectTrackLine = new Rectangle(x, y, 40, 20);
-                    graphics.FillRectangle(blackBrush, rectTrackLine);
-                }
-
-                y += 25;
-                
-                foreach (Sector sector in track.Sectors)
-                {
-                    var rect = new Rectangle(x, y, 40, 20);
-                    Brush brush = null;
-                    switch (sector.Status)
-                    {
-                        case SectorStatus.Open:
-                            brush = new Pen(Color.Green).Brush;
-                            break;
-                        case SectorStatus.Locked:
-                            brush = new Pen(Color.Tomato).Brush;
-                            break;
-                        case SectorStatus.Occupied:
-                            brush = new Pen(Color.Yellow).Brush;
-                            break;
-                    }
-                    graphics.FillRectangle(brush, rect);
-                    graphics.DrawRectangle(pen, rect);
-                    Brush tramBrush = null;
-                    if (sector.OccupyingTram != null)
-                    {
-                        switch (sector.OccupyingTram.Status)
-                        {
-                            case TramStatus.Idle:
-                                tramBrush = new Pen(Color.Black).Brush;
-                                break;
-                            case TramStatus.Cleaning:
-                                tramBrush = new Pen(Color.Blue).Brush;
-                                break;
-                            case TramStatus.CleaningMaintenance:
-                                tramBrush = new Pen(Color.Blue).Brush;
-                                break;
-                            case TramStatus.Maintenance:
-                                tramBrush = new Pen(Color.Blue).Brush;
-                                break;
-                            case TramStatus.Defect:
-                                tramBrush = new Pen(Color.Red).Brush;
-                                break;
-                        }
-                        graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, tramBrush, rect);
-                    }
-                    y += 25;
-                }
-                x += 50;
-
-                if (track.Number == 38)
-                {
-                    y = baseYGroup1;
-                    x = baseX;
-                }
-                else if (track.Number > 38 && track.Number < 64)
-                {
-                    y = baseYGroup1;
-                }
-                else if (track.Number == 64)
-                {
-                    y = baseYGroup2;
-                    x = baseX;
-                }
-                else if (track.Number > 64)
-                {
-                    y = baseYGroup2;
-                }
-                else
-                {
-                    y = baseYService;
-                }
-            }
+            Console.WriteLine(".Paint."); 
+            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks);
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)
