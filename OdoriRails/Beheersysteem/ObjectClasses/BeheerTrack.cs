@@ -25,11 +25,12 @@ namespace Beheersysteem
         /// </summary>
         public void LockTrack()
         {
-            for (int i = 0; i < Sectors.Count - 1; i++)
+            for (int i = 0; i < Sectors.Count; i++)
             {
                 BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
                 beheerSector.Lock();
                 Sectors[i] = beheerSector;
+                Console.WriteLine(Sectors[i].Number + "" + Sectors[i].Status);
             }
         }
 
@@ -38,11 +39,12 @@ namespace Beheersysteem
         /// </summary>
         public void UnlockTrack()
         {
-            for (int i = 0; i < Sectors.Count - 1; i++)
+            for (int i = 0; i < Sectors.Count; i++)
             {
                 BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
                 beheerSector.UnLock();
                 Sectors[i] = beheerSector;
+                Console.WriteLine(Sectors[i].Number + "" + Sectors[i].Status);
             }
         }
     }

@@ -30,7 +30,7 @@ namespace Beheersysteem
         /// </summary>
         public void UnLock()
         {
-            Status = SectorStatus.Locked;
+            Status = SectorStatus.Open;
         }
 
         /// <summary>

@@ -15,12 +15,10 @@ namespace Beheersysteem
         int simulationSpeed = 600;
 
         ICSVContext csv;
-        //ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
+        private List<InUitRijSchema> schema;
+        private List<BeheerTram> allTrams;
+        private List<Tram> enteringTrams;
         private LogisticRepository repo = new LogisticRepository();
-        SortingAlgoritm sorter;
-        List<InUitRijSchema> schema;
-        List<BeheerTram> allTrams;
-        List<Tram> enteringTrams;
         private List<BeheerTrack> _allTracks;
         private Form form;
         private System.Windows.Forms.Timer tramFetcher;
@@ -40,7 +38,6 @@ namespace Beheersysteem
             FetchUpdates();
             csv = new CSVContext();
             schema = csv.getSchema();
-            sorter = new SortingAlgoritm(AllTracks, repo);
             this.form = form;
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
@@ -63,6 +60,7 @@ namespace Beheersysteem
 
         public bool SortAllEnteringTrams()
         {
+            SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
             enteringTrams = repo.GetAllTramsWithLocation(TramLocation.ComingIn);
             if (enteringTrams.Count != 0)
             {
@@ -73,7 +71,7 @@ namespace Beheersysteem
                     {
                         GetExitTime(beheerTram);
                     }
-                    SortTram(beheerTram);
+                    SortTram(sorter, beheerTram);
                 }
                 FetchUpdates();
                 return true;
@@ -115,7 +113,7 @@ namespace Beheersysteem
             return null;
         }
 
-        public void SortTram(BeheerTram tram)
+        public void SortTram(SortingAlgoritm sorter, BeheerTram tram)
         {
             if (tram != null)
             {
@@ -125,7 +123,7 @@ namespace Beheersysteem
 
         public void Simulation()
         {
-            sorter = new SortingAlgoritm(AllTracks, repo);
+            SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
             WipePreSimulation();
 
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
@@ -195,12 +193,12 @@ namespace Beheersysteem
             //        Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
             //    }
             //}
-            
+
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
                 BeheerTram tram = allTrams.Find(x => x.Number == entry.TramNumber);
-                SortTram(tram);
+                SortTram(sorter, tram);
                 form.Invalidate();
                 Thread.Sleep(simulationSpeed);
             }
@@ -212,8 +210,7 @@ namespace Beheersysteem
         public void Lock(string tracks)
         {
             //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
-            string[] sLockTracks = tracks.Split(',');
-            int[] lockTracks = Array.ConvertAll(sLockTracks, int.Parse);
+            int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
 
             foreach (Track track in _allTracks)
             {
