@@ -1,6 +1,6 @@
 ﻿namespace In_Uitrit_Systeem
 {
-    partial class FormUserInterface
+    partial class UserInterface
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUserInterface));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInterface));
             this.cbCleaning = new System.Windows.Forms.CheckBox();
             this.cbMaintenance = new System.Windows.Forms.CheckBox();
             this.gbService = new System.Windows.Forms.GroupBox();
