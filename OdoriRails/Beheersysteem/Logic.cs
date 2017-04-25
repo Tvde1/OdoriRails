@@ -207,8 +207,7 @@ namespace Beheersysteem
             }
 
             //Sync with database:
-            FetchUpdates();
-            form.Invalidate();
+            Update();
         }
 
         public void Lock(string tracks)
@@ -222,9 +221,12 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
                 {
-                    repo.EditTrack(track);
+                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.LockTrack();
+                    repo.EditTrack(beheerTrack);
                 }
             }
+            Update();
         }
 
         public void Unlock(string tracks)
@@ -238,9 +240,12 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
-                    repo.EditTrack(track);
+                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.UnlockTrack();
+                    repo.EditTrack(beheerTrack);
                 }
             }
+            Update();
         }
 
         public void ToggleDisabled(string trams)
@@ -289,6 +294,12 @@ namespace Beheersysteem
                 }
 
             }
+        }
+
+        public void Update()
+        {
+            FetchUpdates();
+            form.Invalidate();
         }
     }
 }
