@@ -77,6 +77,7 @@ namespace In_Uitrit_Systeem
 
         public void DisableFormControls()
         {
+            rtbDetails.Text = "";
             rtbDetails.Enabled = false;
             cbCleaning.Checked = false;
             cbMaintenance.Checked = false;
