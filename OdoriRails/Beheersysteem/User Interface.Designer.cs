@@ -289,6 +289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1441, 793);
             this.Controls.Add(this.gbDisplay);
             this.Controls.Add(this.gbControl);
@@ -296,7 +297,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "UserInterface";
-            this.Text = "User Interface";
+            this.Text = "Odori Logistics";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.UserInterface_Paint);
             this.gbControl.ResumeLayout(false);
             this.gbOther.ResumeLayout(false);
