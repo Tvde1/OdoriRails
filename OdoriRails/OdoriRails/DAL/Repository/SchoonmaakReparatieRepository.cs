@@ -103,5 +103,15 @@ namespace OdoriRails.DAL.Repository
         {
             return UserContext.GetAllUsersWithFunction(role);
         }
+
+        public List<Repair> GetAllRepairsFromTram(Tram tram)
+        {
+            return ServiceContext.GetAllRepairsFromTram(tram);
+        }
+
+        public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
+        {
+            return ServiceContext.GetAllCeCleaningsFromTram(tram);
+        }
     }
 }
