@@ -154,6 +154,16 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Cleaning WHERE TramFk = {tram.Number}")), CreateCleaning);
         }
 
+        public bool HadBigMaintenance(Tram tram)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HadSmallMaintenance(Tram tram)
+        {
+            throw new NotImplementedException();
+        }
+
 
         private Cleaning CreateCleaning(DataRow row)
         {

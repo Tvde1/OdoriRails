@@ -18,7 +18,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public void AddTram(Tram tram)
         {
-            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@dep); SELECT SCOPE_IDENTITY();");
+            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime) VALUES(@id,@line,@status,@model,@driver,@location,@dep); SELECT SCOPE_IDENTITY();");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
