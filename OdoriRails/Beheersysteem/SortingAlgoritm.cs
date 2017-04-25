@@ -2,7 +2,6 @@
 using OdoriRails.BaseClasses;
 using Beheersysteem.ObjectClasses;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using OdoriRails.DAL.Repository;
 

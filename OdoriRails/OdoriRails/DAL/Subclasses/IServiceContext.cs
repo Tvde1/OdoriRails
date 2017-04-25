@@ -28,5 +28,9 @@ namespace OdoriRails.DAL.Subclasses
         Cleaning AddCleaning(Cleaning cleaning);
 
         Repair AddRepair(Repair repair);
+
+        List<Repair> GetAllRepairsFromTram(Tram tram);
+
+        List<Cleaning> GetAllCeCleaningsFromTram(Tram tram);
     }
 }
