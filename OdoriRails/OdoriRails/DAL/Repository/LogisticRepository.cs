@@ -133,5 +133,20 @@ namespace OdoriRails.DAL.Repository
         {
             return ServiceContext.HadSmallMaintenance(tram);
         }
+
+        public Repair AddRepair(Repair repair)
+        {
+            return ServiceContext.AddRepair(repair);
+        }
+
+        public Cleaning AddCleaning(Cleaning cleaning)
+        {
+            return ServiceContext.AddCleaning(cleaning);
+        }
+
+        public void DeleteService(Service service)
+        {
+            ServiceContext.DeleteService(service);
+        }
     }
 }

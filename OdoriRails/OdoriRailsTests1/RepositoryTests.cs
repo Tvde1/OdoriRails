@@ -90,16 +90,20 @@ namespace OdoriRails.DAL.Repository.Tests
             Assert.AreEqual(tram.Number, 823);
         }
 
-        //Victors quality unit tests from here
-
         [TestMethod()]
         public void HadBigMaintenanceTest()
         {
             User user = new User(1, "Roel", "roelvdboom", "Roel@Remise.nl", "123", Role.Driver, "Admin");
             Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
-            Repair repair = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Maintenance, "Test", "", new List<User>(), 1);
-            
+            Repair repair = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Maintenance, "Big Planned Maintenance", "-", new List<User>(), 1);
+
+            logisticRepository.AddTram(tram);
+            repair = logisticRepository.AddRepair(repair);
+
             Assert.IsTrue(logisticRepository.HadBigMaintenance(tram));
+
+            logisticRepository.DeleteService(repair);
+            logisticRepository.RemoveTram(tram);
         }
     }
 }
