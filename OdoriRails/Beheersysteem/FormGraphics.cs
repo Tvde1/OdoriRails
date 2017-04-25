@@ -10,7 +10,7 @@ namespace Beheersysteem
 {
     static class FormGraphics
     {
-        public static Graphics DrawGraphics(Graphics graphics, List<BeheerTrack> tracks)
+        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks)
         {
             Console.WriteLine(".Redraw.");
 
@@ -130,8 +130,6 @@ namespace Beheersysteem
                     y = baseY;
                 }
             }
-
-            return graphics;
         } 
     }
 }

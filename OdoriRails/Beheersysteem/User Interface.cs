@@ -63,8 +63,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            FormGraphics.DrawGraphics(g, _logic.AllTracks);
+            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks);
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)

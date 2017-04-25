@@ -17,7 +17,6 @@ namespace Beheersysteem
         ICSVContext csv;
         private List<InUitRijSchema> schema;
         private List<BeheerTram> allTrams;
-        private List<Tram> movingTrams;
         private LogisticRepository repo = new LogisticRepository();
         private List<BeheerTrack> _allTracks;
         private Form form;
@@ -62,7 +61,7 @@ namespace Beheersysteem
         public bool SortMovingTrams(TramLocation location)
         {
             SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
-            movingTrams = repo.GetAllTramsWithLocation(location);
+            List<Tram> movingTrams = repo.GetAllTramsWithLocation(location);
             if (movingTrams.Count != 0)
             {
                 foreach (Tram tram in movingTrams)
