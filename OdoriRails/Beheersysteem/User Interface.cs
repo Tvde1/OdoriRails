@@ -52,6 +52,7 @@ namespace Beheersysteem
         private void btnSimulation_Click(object sender, EventArgs e)
         {
             Task Simulation = new Task(new Action(() => { _logic.Simulation(); } ));
+            _logic.WipePreSimulation();
             Simulation.Start();
         }
 

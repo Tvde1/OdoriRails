@@ -10,6 +10,7 @@ namespace Beheersysteem
     class SortingAlgoritm
     {
         private List<BeheerTrack> allTracks;
+        private List<BeheerTram> unassignedTrams;
         private LogisticRepository repo;
         private List<float> OccupiedSectors;
 
@@ -18,7 +19,7 @@ namespace Beheersysteem
             this.repo = repo;
             OccupiedSectors = new List<float>();
             this.allTracks = allTracks;
-
+            unassignedTrams = new List<BeheerTram>();
         }
 
         public List<BeheerTrack> GetSector(BeheerTram tram, DateTime? exitTime)
@@ -125,8 +126,10 @@ namespace Beheersysteem
                     }
                 }
             }
-            //If not successful let user place tram
 
+
+
+            //If not successful let user place tram
             MessageBox.Show("Failure");
             return null;
         }
@@ -135,43 +138,9 @@ namespace Beheersysteem
         {
             sector.SetOccupyingTram(tram);
             repo.EditTram(tram);
+            Console.WriteLine(sector.ToString());
             repo.EditSector(sector);
             return sector;
         }
-
-
-        //Algoritme versie waar de eerste lege plek gebruikt wordt (backup als het andere niet blijkt te werken)
-        //public Sector GetSector(Tram tram)
-        //{
-        //    foreach (Track track in allTracks)
-        //    {
-        //        if (track.Type == TrackType.Normal)
-        //        {
-        //            foreach (Sector sector in track.Sectors)
-        //            {
-        //                if (sector.Status == SectorStatus.Open)
-        //                {
-        //                    return sector;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    foreach (Track track in allTracks)
-        //    {
-        //        if (track.Type == TrackType.Exit)
-        //        {
-        //            foreach (Sector sector in track.Sectors)
-        //            {
-        //                if (sector.Status == SectorStatus.Open)
-        //                {
-        //                    return sector;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return null;
-        //}
     }
-
 }
