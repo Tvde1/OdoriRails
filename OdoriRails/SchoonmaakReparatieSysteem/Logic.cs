@@ -196,7 +196,7 @@ namespace SchoonmaakReparatieSysteem
             List<User> emptylistusers = new List<User>();
             trams = _repolog.GetAllTrams();
 
-            for (DateTime date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
+            for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
             {
 
 
@@ -225,7 +225,7 @@ namespace SchoonmaakReparatieSysteem
                     foreach (var tram in trams)
                     {
 
-                        if (!_repolog.HadBigMaintenance(tram)) // check for small service in 3 months
+                        if (!_repolog.HadSmallMaintenance(tram)) // check for small service in 3 months
                         {
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
