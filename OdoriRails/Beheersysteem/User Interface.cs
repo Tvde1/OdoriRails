@@ -82,5 +82,25 @@ namespace Beheersysteem
             _logic.WipePreSimulation();
             panelMain.Invalidate();
         }
+
+        private void btnAddTram_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddTrack_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddSector_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteSector_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
