@@ -9,7 +9,8 @@ namespace OdoriRails.DAL.Subclasses
 {
     public class ServiceContext : IServiceContext
     {
-        private readonly UserContext _userContext = new UserContext();
+        private static readonly UserContext UserContext = new UserContext();
+        private static readonly TramContext TramContext = new TramContext();
 
         public List<Repair> GetAllRepairsFromUser(User user)
         {
@@ -160,7 +161,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 FROM Repair INNER JOIN
 Service ON Repair.ServiceFk = Service.ServicePk
 WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) > 6) AND (Repair.Defect = 'Big Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
-            return Database.GetData(query).Rows.Count < 1;
+            return Database.GetData(query).Rows.Count > 0;
         }
 
         public bool HadSmallMaintenance(Tram tram)
@@ -169,7 +170,7 @@ WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) > 6) AND (Repair.Defect = 'Big 
 FROM Repair INNER JOIN
  Service ON Repair.ServiceFk = Service.ServicePk
 WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) > 3) AND (Repair.Defect = 'Small Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
-            return Database.GetData(query).Rows.Count < 1;
+            return Database.GetData(query).Rows.Count > 0;
         }
 
 
@@ -215,13 +216,13 @@ FROM Service INNER JOIN
 ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
 WHERE (Service.ServicePk = {serviceId})");
-            return Database.GenerateListWithFunction(Database.GetData(command), _userContext.CreateUser);
+            return Database.GenerateListWithFunction(Database.GetData(command), UserContext.CreateUser);
         }
 
         private static void SetUsersToServices(List<User> users, Service service)
         {
             if (users == null) return;
-            foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
+            foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
             {
                 if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
                 {
