@@ -102,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Beheersysteem\Logistiek Beheersysteem.csproj">
+      <Project>{30A5D8EB-3167-41B7-8804-6D7EC8FE52D1}</Project>
+      <Name>Logistiek Beheersysteem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
       <Project>{fc6ce72a-a2f9-4e02-8888-11aedd18c72b}</Project>
       <Name>OdoriRails</Name>

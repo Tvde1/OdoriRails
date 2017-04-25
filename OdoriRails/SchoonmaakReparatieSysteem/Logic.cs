@@ -225,7 +225,7 @@ namespace SchoonmaakReparatieSysteem
                     foreach (var tram in trams)
                     {
 
-                        if (_repolog.HadSmallMaintenance(tram)) // check for small service in 3 months
+                        if (!_repolog.HadSmallMaintenance(tram)) // check for small service in 3 months
                         {
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);

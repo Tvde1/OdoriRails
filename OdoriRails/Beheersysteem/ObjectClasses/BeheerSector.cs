@@ -30,12 +30,11 @@ namespace Beheersysteem
         /// </summary>
         public void UnLock()
         {
-<<<<<<< HEAD
+
             Status = SectorStatus.Locked;
-=======
+
             Status = SectorStatus.Open;
->>>>>>> c00ddfeb49c159a0bfd07525564dcd42c9213914
-        }
+       }
 
         /// <summary>
         /// Zet de status van de tram naar open.
