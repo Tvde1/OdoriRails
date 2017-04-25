@@ -20,8 +20,8 @@ namespace OdoriRails.DAL.Subclasses
         void EditService(Service service);
 
         /// <summary>
-        /// Delete de service van de database.
         /// </summary>
+        /// Delete de service van de database.
         /// <param name="service"></param>
         void DeleteService(Service service);
 

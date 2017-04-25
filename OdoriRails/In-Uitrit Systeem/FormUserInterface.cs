@@ -7,54 +7,88 @@ namespace In_Uitrit_Systeem
     public partial class FormUserInterface : Form
     {
         private Logic _logic;
-        private Timer _AssignedTramLocationFetcher;
-        private int _timerTick;
+        private Timer _DriverTramUpdater;
+        private int _timerTickIn;
+        private int _timerTickOut;
 
         public FormUserInterface(User driver)
         {
             InitializeComponent();
             _logic = new Logic(driver);
-            _AssignedTramLocationFetcher = new Timer { Interval = 5000 };
-            _AssignedTramLocationFetcher.Tick += AssignedTramLocationFetcher_Tick;
-            lblTramNumber.Text = _logic.Tram?.Number.ToString() ?? "Geen Tram";
-            lblStandplaats.Text = _logic.GetAssingedTramLocation() ?? "Niet bekend";
+
+            _DriverTramUpdater = new Timer { Interval = 2500 };
+            _DriverTramUpdater.Tick += DriverTramUpdater_Tick;
+
+            _DriverTramUpdater.Start();
+            DriverTramUpdater_Tick(null, EventArgs.Empty);
         }
 
-        private void AssignedTramLocationFetcher_Tick(object sender, EventArgs e)
+        private void DriverTramUpdater_Tick(object sender, EventArgs e)
         {
-            _logic.FetchTramUpdates();
-            if (_logic.Tram.Location == TramLocation.In)
+            if (_logic.Tram != null)
             {
-                lblStandplaats.Text = _logic.GetAssingedTramLocation();
-                btnLeave.Enabled = true;
-                btnService.Enabled = true;
-                _AssignedTramLocationFetcher.Stop();
+                _logic.FetchTramUpdates();
+                lblTramNumber.Text = _logic.Tram?.Number.ToString();
+                DisableFormControls();
+                switch (_logic.Tram.Location)
+                {
+                    case TramLocation.In:
+                        btnLeave.Enabled = true;
+                        lblLocation.Text = _logic.GetAssingedTramLocation() ?? "Niet bekend";
+                        break;
+                    case TramLocation.ComingIn:
+                        if (_timerTickIn == 10)
+                        {
+                            _timerTickIn = 0;
+                            string error = string.Format("Tram {0} kan niet worden aangemeld.{1}Neem contact op met een logistiek medewerker of probeer het opnieuw.", 
+                                                            _logic.Tram.Number.ToString(), Environment.NewLine);
+                            MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            _logic.Tram.EditTramLocation(TramLocation.Out);
+                            _logic.UpdateTram();
+                        }
+                        _timerTickIn++;
+                        break;
+                    case TramLocation.Out:
+                        rtbDetails.Enabled = true;
+                        cbCleaning.Enabled = true;
+                        cbMaintenance.Enabled = true;
+                        btnService.Enabled = true;
+                        lblLocation.Text = "Onderweg";
+                        break;
+                    case TramLocation.GoingOut:
+                        if (_timerTickOut == 10)
+                        {
+                            _timerTickOut = 0;
+                            string error = string.Format("Tram {0} kan niet worden aangemeld voor vertrek.{1}Neem contact op met een logistiek medewerker of probeer het opnieuw.", 
+                                                            _logic.Tram.Number.ToString(), Environment.NewLine);
+                            MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            _logic.Tram.EditTramLocation(TramLocation.In);
+                            _logic.UpdateTram();
+                        }
+                        _timerTickOut++;
+                        break;
+                }
             }
-            if (_timerTick == 5)
+            else
             {
-                _timerTick = 0;
-                string error = string.Format("Tram {0} kan niet worden aangemeld. Neem contact op met een logistiek medewerker.", _logic.Tram.Number.ToString());
-                MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                _AssignedTramLocationFetcher.Stop();
+                _logic.LoadTram();
             }
-            _timerTick++;
+        }
+
+        public void DisableFormControls()
+        {
+            rtbDetails.Text = "";
+            rtbDetails.Enabled = false;
+            cbCleaning.Checked = false;
+            cbMaintenance.Checked = false;
+            cbCleaning.Enabled = false;
+            cbMaintenance.Enabled = false;
+            btnLeave.Enabled = false;
+            btnService.Enabled = false;
         }
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            if (_logic.Tram == null)
-            {
-                MessageBox.Show("U bestuurt nu geen tram.");
-                return;
-            }
-
-            if (_logic.Tram.Location == TramLocation.In || _logic.Tram.Location == TramLocation.ComingIn)
-            {
-                string error = string.Format("Tram {0} is al aangemeld. Neem contact op met een logistiek medewerker.", _logic.Tram.Number.ToString());
-                MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             string defect = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
@@ -73,46 +107,21 @@ namespace In_Uitrit_Systeem
                 _logic.AddRepair(defect);
             }
 
-            lblStandplaats.Text = "Wordt opgehaald.";
-            rtbDetails.Text = "";
-            rtbDetails.Enabled = false;
-            cbCleaning.Checked = false;
-            cbMaintenance.Checked = false;
-            btnLeave.Enabled = false;
-            btnService.Enabled = false;
+            lblLocation.Text = "Wordt opgehaald.";
 
             _logic.Tram.EditTramLocation(TramLocation.ComingIn);
             _logic.UpdateTram();
-            _AssignedTramLocationFetcher.Start();
+            DisableFormControls();
         }
 
         private void btnLeave_Click(object sender, EventArgs e)
         {
-            if (_logic.Tram == null)
-            {
-                MessageBox.Show("U bestuurt nu geen tram.");
-                return;
-            }
-
-            if (_logic.Tram.Location == TramLocation.Out || _logic.Tram.Location == TramLocation.ComingIn)
-            {
-                string error = string.Format("Tram {0} bevind zich niet op de remise. Meld deze tram eerst aan bij de remise.", _logic.Tram.Number.ToString());
-                MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (_logic.Tram.Location == TramLocation.GoingOut)
-            {
-                string error = string.Format("Tram {0} is aangemeld voor vertrek.", _logic.Tram.Number.ToString());
-                MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            lblStandplaats.Text = "Niet bekend";
+            lblLocation.Text = "Wordt opgehaald.";
 
             _logic.Tram.EditTramLocation(TramLocation.GoingOut);
             _logic.Tram.ResetTramDeparture();
             _logic.UpdateTram();
+            DisableFormControls();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)

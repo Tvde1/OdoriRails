@@ -95,12 +95,42 @@ namespace OdoriRails.DAL.Repository.Tests
         {
             User user = new User(1, "Roel", "roelvdboom", "Roel@Remise.nl", "123", Role.Driver, "Admin");
             Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
-            Repair repair = new Repair(1, DateTime.Now, DateTime.Now, RepairType.Maintenance, "Big Planned Maintenance", "-", new List<User>(), 1);
+            Repair repair = new Repair(1, DateTime.Parse("18-1-2016"), DateTime.Now, RepairType.Maintenance, "Big Planned Maintenance", "-", new List<User>(), 1);
 
             logisticRepository.AddTram(tram);
             repair = logisticRepository.AddRepair(repair);
 
             Assert.IsTrue(logisticRepository.HadBigMaintenance(tram));
+
+            logisticRepository.DeleteService(repair);
+            logisticRepository.RemoveTram(tram);
+        }
+
+        [TestMethod()]
+        public void GetAllRepairsFromUser()
+        {
+            User user = logisticRepository.GetUser("roelvdboom");
+            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
+
+            List<User> listUsers = new List<User>();
+            listUsers.Add(user);
+
+            Repair repair = new Repair(1, DateTime.Parse("18-1-2016"), DateTime.Now, RepairType.Maintenance, "Big Planned Maintenance", "-", listUsers, 1);
+
+            logisticRepository.AddTram(tram);
+            repair = logisticRepository.AddRepair(repair);
+
+            bool working = false;
+
+            foreach (Repair itemRepair in logisticRepository.GetAllRepairsFromUser(user))
+            {
+                if (itemRepair.Id == repair.Id)
+                {
+                    working = true;
+                }
+            }
+
+            Assert.IsTrue(working);
 
             logisticRepository.DeleteService(repair);
             logisticRepository.RemoveTram(tram);
