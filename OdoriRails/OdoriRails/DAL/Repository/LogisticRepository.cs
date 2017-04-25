@@ -121,7 +121,12 @@ namespace OdoriRails.DAL.Repository
 
         public bool HadBigMaintenance(Tram tram)
         {
-            return false;
+            return ServiceContext.HadBigMaintenance(tram);
+        }
+
+        public bool HadSmallMaintenance(Tram tram)
+        {
+            return ServiceContext.HadSmallMaintenance(tram);
         }
     }
 }
