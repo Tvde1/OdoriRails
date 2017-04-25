@@ -1,5 +1,4 @@
 ﻿using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
 using System.Collections.Generic;
 using OdoriRails.DAL.Repository;
 

@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Security.Authentication;
 using System.Security.Permissions;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
 using System.Windows.Forms;
 using OdoriRails.DAL.Repository;
 
@@ -32,7 +31,7 @@ namespace LoginSystem
                     assemblyName = "UserBeheersysteem.dll";
                     break;
                 case Role.Logistic:
-                    assemblyName = "LogistiekSysteem.dll";
+                    assemblyName = "BeheerSysteem.dll";
                     break;
                 case Role.Driver:
                     assemblyName = "InUitritSysteem.dll";
@@ -64,8 +63,8 @@ namespace LoginSystem
 
             MethodInfo target = assembly.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            var args = new[] {user.Username};
-            target.Invoke(null, new object[] {args});
+            var args = new[] { user.Username };
+            target.Invoke(null, new object[] { args });
         }
     }
 }

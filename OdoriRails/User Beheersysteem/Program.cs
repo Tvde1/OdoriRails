@@ -7,7 +7,7 @@ namespace User_Beheersysteem
 {
     static class Program
     {
-        private static readonly bool _gebruikInlogSysteem = false;
+        private static readonly bool _gebruikInlogSysteem = true;
         private static readonly UserBeheerRepository UserBeheerRepository = new UserBeheerRepository();
 
         /// <summary>
@@ -35,7 +35,6 @@ namespace User_Beheersysteem
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
             }
-
 
             new UserInterface(user).ShowDialog();
         }

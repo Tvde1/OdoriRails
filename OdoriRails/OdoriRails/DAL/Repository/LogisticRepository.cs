@@ -112,5 +112,10 @@ namespace OdoriRails.DAL.Repository
         {
             TrackSectorContext.EditSector(sector);
         }
+
+        public void EditTrack(Track track)
+        {
+            TrackSectorContext.EditTrack(track);
+        }
     }
 }

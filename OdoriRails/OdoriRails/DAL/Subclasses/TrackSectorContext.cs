@@ -43,7 +43,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public void EditSector(Sector sector)
         {
-            var query = new SqlCommand("UPDATE Sector SET Status = @stat, TrackFk = @track, TramFk = @tram, RemiseFk = @remis WHERE SectorPk = @id");
+            var query = new SqlCommand("UPDATE Sector SET Status = @stat, TramFk = @tram, RemiseFk = @remis WHERE SectorPk = @id AND TrackFk = @track");
             query.Parameters.AddWithValue("@stat", (int)sector.Status);
             query.Parameters.AddWithValue("@track", sector.TrackNumber);
             query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
@@ -55,13 +55,14 @@ namespace OdoriRails.DAL.Subclasses
         public void WipeTramsFromSectors()
         {
             Database.GetData(new SqlCommand("UPDATE Sector SET TramFk = null"));
+            Database.GetData(new SqlCommand("UPDATE Sector SET Status = 0 WHERE Status = 2"));
         }
 
         public Sector CreateSector(DataRow row)
         {
             var array = row.ItemArray;
             Tram tram = null;
-            if (String.IsNullOrEmpty((string)array[3]) && array[3] != DBNull.Value) tram = _tramContext.GetTram((int)array[3]);
+            if (array[3] != DBNull.Value) tram = _tramContext.GetTram((int)array[3]);
 
             return new Sector((int)array[0], (int)array[2], (SectorStatus)array[1], tram);
         }

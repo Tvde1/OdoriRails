@@ -13,7 +13,12 @@ namespace OdoriRails.BaseClasses
     
     public enum Model
     {
-        Classic
+        Other,
+        Combino,
+        ElfG,
+        Dubbel_Kop_Combino,
+        TwaalfG,
+        Opleidingstram
     }
 
     public enum TramLocation
@@ -92,5 +97,9 @@ namespace OdoriRails.BaseClasses
             Status = TramStatus.Idle;
         }
 
+        public void SetId(int id)
+        {
+            Number = id;
+        }
     }
 }

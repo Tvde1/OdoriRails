@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditService));
             this.button2 = new System.Windows.Forms.Button();
             this.commenttb = new System.Windows.Forms.RichTextBox();
             this.commentlbl = new System.Windows.Forms.Label();
@@ -173,6 +174,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.usercbox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EditService";
             this.Text = "Edit Service";

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using LoginSystem;
 
-namespace InlogSysteem
+namespace Beheersysteem
 {
     static class Program
     {
@@ -10,11 +9,11 @@ namespace InlogSysteem
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginScreen());
+            new UserInterface().ShowDialog();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public void AddTram(Tram tram)
         {
-            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@dep)");
+            var query = new SqlCommand("INSERT INTO Tram (TramPk,Line,Status,ModelFk,DriverFk,Location,DepartureTime), VALUES(@id,@line,@status,@model,@driver,@location,@dep); SELECT SCOPE_IDENTITY();");
             query.Parameters.AddWithValue("@id", tram.Number);
             query.Parameters.AddWithValue("@line", tram.Line);
             query.Parameters.AddWithValue("@status", (int)tram.Status);
@@ -29,7 +29,7 @@ namespace OdoriRails.DAL.Subclasses
             if (tram.Driver != null) query.Parameters.AddWithValue("@driver", UserContext.GetUserId(tram.Driver.Username));
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
 
-            Database.GetData(query);
+            tram.SetId((int)Database.GetData(query).Rows[0].ItemArray[0]);
         }
 
         public void RemoveTram(Tram tram)
@@ -73,7 +73,7 @@ namespace OdoriRails.DAL.Subclasses
 
         public List<Tram> GetAllTramsWithLocation(TramLocation location)
         {
-            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Status = {(int)location}")), CreateTram);
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE Location = {(int)location}")), CreateTram);
         }
 
         public Sector GetAssignedSector(Tram tram)
