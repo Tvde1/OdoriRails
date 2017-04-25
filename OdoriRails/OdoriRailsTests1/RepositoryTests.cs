@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace OdoriRails.DAL.Repository.Tests
 {
     [TestClass()]
-    public class LoginRepositoryTest
+    public class RepositoryTest
     {
         LoginRepository loginRepository = new LoginRepository();
 
@@ -43,17 +43,16 @@ namespace OdoriRails.DAL.Repository.Tests
         [TestMethod()]
         public void AddRemoveTram()
         {
-            DateTime dateTimeNow = DateTime.Now;
             bool working = false;
             User user = new User(1, "Roel", "roelvdboom", "Roel@Remise.nl", "123", Role.Driver, "Admin");
-            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, dateTimeNow);
+            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
 
             logisticRepository.AddTram(tram);
 
             Assert.IsTrue(logisticRepository.GetAllTrams().Any());
             foreach (Tram itemTram in logisticRepository.GetAllTrams())
             {
-                if (itemTram.DepartureTime == dateTimeNow)
+                if (itemTram.Number == 1)
                 {
                     working = true;
                     tram = itemTram;
@@ -66,7 +65,7 @@ namespace OdoriRails.DAL.Repository.Tests
             working = false;
             foreach (Tram itemTram in logisticRepository.GetAllTrams())
             {
-                if (itemTram.DepartureTime == dateTimeNow)
+                if (itemTram.Number == 1)
                 {
                     working = true;
                 }
@@ -77,13 +76,18 @@ namespace OdoriRails.DAL.Repository.Tests
         [TestMethod()]
         public void GetTram()
         {
+            Tram tram = logisticRepository.GetTram(809);
 
+            Assert.AreEqual(tram.Model, Model.Opleidingstram);
         }
 
         [TestMethod()]
         public void GetTramByDriver()
         {
+            User user = new User(7, "Driver", "Driver", "Driver@Remise.nl", "123", Role.Driver, "Admin");
+            Tram tram = logisticRepository.GetTramByDriver(user);
 
+            Assert.AreEqual(tram.Number, 823);
         }
     }
 }
