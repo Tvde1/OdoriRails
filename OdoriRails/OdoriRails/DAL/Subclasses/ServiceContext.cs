@@ -156,7 +156,11 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public bool HadBigMaintenance(Tram tram)
         {
-            throw new NotImplementedException();
+            var query = new SqlCommand(@"SELECT 'Yes' AS Result
+FROM Repair INNER JOIN
+Service ON Repair.ServiceFk = Service.ServicePk
+WHERE(DATEDIFF(m, Service.StartDate, GETDATE()) < 3) AND(Repair.Defect = 'Small Planned Maintenance') AND(Service.TramFk = 1)");
+            return Database.GetData(query).Rows.Count 
         }
 
         public bool HadSmallMaintenance(Tram tram)
