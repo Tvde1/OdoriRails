@@ -17,7 +17,14 @@ namespace In_Uitrit_Systeem
         public string GetAssingedTramLocation()
         {
             Sector sector = _inUitrijRepository.GetAssignedSector(Tram);
-            return string.Format("Track: {0}, Sector: {1}", sector.TrackNumber, sector.Number);
+            if (sector != null)
+            {
+                return string.Format("Track: {0}, Sector: {1}", sector.TrackNumber, sector.Number);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void AddRepair(string defect)
