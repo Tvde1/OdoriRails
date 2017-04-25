@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 
 namespace OdoriRails.DAL.Subclasses
 {
@@ -31,7 +30,7 @@ namespace OdoriRails.DAL.Subclasses
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
             query.Parameters.AddWithValue("@remise", 1);
 
-            tram.SetId((int)Database.GetData(query).Rows[0].ItemArray[0]);
+            Database.GetData(query);
         }
 
         public void RemoveTram(Tram tram)
@@ -56,14 +55,14 @@ namespace OdoriRails.DAL.Subclasses
             //line status driver model remise location departure 
             var query = new SqlCommand("UPDATE Tram SET Line = @line, Status = @stat, DriverFk = @driver, ModelFk = @model, RemiseFk = @remis, Location = @loc, DepartureTime = @dep WHERE TramPk = @id");
             query.Parameters.AddWithValue("@line", tram.Line);
-            query.Parameters.AddWithValue("@stat", (int) tram.Status);
+            query.Parameters.AddWithValue("@stat", (int)tram.Status);
             if (tram.Driver != null) query.Parameters.AddWithValue("@driver", UserContext.GetUserId(tram.Driver.Username));
             else query.Parameters.AddWithValue("@driver", DBNull.Value);
-            query.Parameters.AddWithValue("@model", (int) tram.Model);
+            query.Parameters.AddWithValue("@model", (int)tram.Model);
             query.Parameters.AddWithValue("@remis", 1); //TODO: Correct updaten.
             if (tram.DepartureTime == null) query.Parameters.AddWithValue("@dep", DBNull.Value);
             else query.Parameters.AddWithValue("@dep", tram.DepartureTime);
-            query.Parameters.AddWithValue("@loc", (int) tram.Location);
+            query.Parameters.AddWithValue("@loc", (int)tram.Location);
             query.Parameters.AddWithValue("@id", tram.Number);
             Database.GetData(query);
         }

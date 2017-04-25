@@ -45,7 +45,7 @@ namespace OdoriRails.DAL.Repository.Tests
         {
             DateTime dateTimeNow = DateTime.Now;
             bool working = false;
-            User user = new User(1, "Driver", "Driver", "Driver@Remise.nl", "123", Role.Driver, "Admin");
+            User user = new User(1, "Roel", "roelvdboom", "Roel@Remise.nl", "123", Role.Driver, "Admin");
             Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, dateTimeNow);
 
             logisticRepository.AddTram(tram);
