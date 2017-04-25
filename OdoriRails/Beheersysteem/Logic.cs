@@ -172,7 +172,6 @@ namespace Beheersysteem
                                 break;
                             }
                         }
-
                     }
                 }
             }
@@ -213,7 +212,6 @@ namespace Beheersysteem
 
         public void Lock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
 
             foreach (Track track in _allTracks)
@@ -231,7 +229,6 @@ namespace Beheersysteem
 
         public void Unlock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             string[] sUnlockTracks = tracks.Split(',');
             int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
 
