@@ -222,11 +222,11 @@ WHERE (Service.ServicePk = {serviceId})");
         private static void SetUsersToServices(List<User> users, Service service)
         {
             if (users == null) return;
-            foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
+            foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
             {
-                if (users.All(x => x.Id != (int)dataRow.ItemArray[1]))
+                if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
                 {
-                    Database.GetData(new SqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[1]}"));
+                    Database.GetData(new SqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[0]}"));
                 }
             }
 
