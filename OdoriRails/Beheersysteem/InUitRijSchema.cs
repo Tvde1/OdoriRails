@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Beheersysteem.ObjectClasses
+namespace Beheersysteem
 {
     class InUitRijSchema
     {
