@@ -25,11 +25,12 @@ namespace In_Uitrit_Systeem
 
         private void DriverTramUpdater_Tick(object sender, EventArgs e)
         {
+            DisableFormButtons();
             if (_logic.Tram != null)
             {
                 _logic.FetchTramUpdates();
                 lblTramNumber.Text = _logic.Tram?.Number.ToString();
-                DisableFormControls();
+                DisableFormButtons();
                 switch (_logic.Tram.Location)
                 {
                     case TramLocation.In:
@@ -49,7 +50,6 @@ namespace In_Uitrit_Systeem
                         _timerTickIn++;
                         break;
                     case TramLocation.Out:
-                        rtbDetails.Enabled = true;
                         cbCleaning.Enabled = true;
                         cbMaintenance.Enabled = true;
                         btnService.Enabled = true;
@@ -75,14 +75,8 @@ namespace In_Uitrit_Systeem
             }
         }
 
-        public void DisableFormControls()
+        public void DisableFormButtons()
         {
-            rtbDetails.Text = "";
-            rtbDetails.Enabled = false;
-            cbCleaning.Checked = false;
-            cbMaintenance.Checked = false;
-            cbCleaning.Enabled = false;
-            cbMaintenance.Enabled = false;
             btnLeave.Enabled = false;
             btnService.Enabled = false;
         }
@@ -108,10 +102,13 @@ namespace In_Uitrit_Systeem
             }
 
             lblLocation.Text = "Wordt opgehaald.";
+            rtbDetails.Text = "";
+            cbCleaning.Checked = false;
+            cbMaintenance.Checked = false;
 
             _logic.Tram.EditTramLocation(TramLocation.ComingIn);
             _logic.UpdateTram();
-            DisableFormControls();
+            DisableFormButtons();
         }
 
         private void btnLeave_Click(object sender, EventArgs e)
@@ -121,7 +118,7 @@ namespace In_Uitrit_Systeem
             _logic.Tram.EditTramLocation(TramLocation.GoingOut);
             _logic.Tram.ResetTramDeparture();
             _logic.UpdateTram();
-            DisableFormControls();
+            DisableFormButtons();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
