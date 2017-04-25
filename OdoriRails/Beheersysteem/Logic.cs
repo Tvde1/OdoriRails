@@ -176,25 +176,6 @@ namespace Beheersysteem
                 }
             }
 
-            ////Overgebleven trams en schema entries
-            //Console.WriteLine("Overgebleven schema's");
-            //foreach (InUitRijSchema entry in schema)
-            //{
-            //    if (entry.TramNumber == null)
-            //    {
-            //        Console.WriteLine(entry.Line);
-            //    }
-            //}
-
-            //Console.WriteLine("Overgebleven trams:");
-            //foreach (BeheerTram tram in allTrams)
-            //{
-            //    if (tram.DepartureTime == null)
-            //    {
-            //        Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
-            //    }
-            //}
-
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
@@ -270,27 +251,31 @@ namespace Beheersysteem
             }
         }
 
-        public void MoveTram(string trams, string track, string sector)
+        public bool MoveTram(string _tram, string _track, string _sector)
         {
-            string[] sTrams = trams.Split(',');
-            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
-            int moveTram = iTrams[0]; //Alleen de eerste bewegen
+            int moveTram = Convert.ToInt32(_tram);
+            int moveTrack = Convert.ToInt32(_track);
+            int moveSector = Convert.ToInt32(_sector);
 
-            int moveTrack = Convert.ToInt32(track);
-            int moveSector = Convert.ToInt32(sector);
-
-            foreach (Tram tram in allTrams)
+            foreach (Track track in AllTracks)
             {
-                int pos = Array.IndexOf(iTrams, tram.Number);
-                if (pos > -1)
+                if (track.Number == moveTrack)
                 {
-                    //foreach (Track track in _allTracks)
-                    //{
-
-                    //}
+                    foreach (Tram tram in allTrams)
+                    {
+                        if (tram.Number == moveTram)
+                        {
+                            BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                            beheerSector.SetOccupyingTram(tram);
+                            repo.WipeSectorByTramId(tram.Number);
+                            repo.EditSector(beheerSector);
+                            Update();
+                            return true;
+                        }
+                    }
                 }
-
             }
+            return false;
         }
 
         public void Update()
