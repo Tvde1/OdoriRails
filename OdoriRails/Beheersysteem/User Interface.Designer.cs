@@ -63,15 +63,20 @@
             this.lbTramNumber = new System.Windows.Forms.Label();
             this.cbTramModel = new System.Windows.Forms.ComboBox();
             this.gbNewTrack = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbTrackType = new System.Windows.Forms.ComboBox();
+            this.tbSectorAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lbSectorAmount = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddTrack = new System.Windows.Forms.Button();
             this.tbTrackNumber = new System.Windows.Forms.TextBox();
             this.lbTrackNumber = new System.Windows.Forms.Label();
             this.lbDefaultLineTrack = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbDefaultLineTrack = new System.Windows.Forms.TextBox();
+            this.gbEditSectorAmount = new System.Windows.Forms.GroupBox();
+            this.btnAddSector = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lbTrack = new System.Windows.Forms.Label();
+            this.btnDeleteSector = new System.Windows.Forms.Button();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -81,6 +86,7 @@
             this.tabPage2.SuspendLayout();
             this.gbNewTram.SuspendLayout();
             this.gbNewTrack.SuspendLayout();
+            this.gbEditSectorAmount.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbOther
@@ -305,7 +311,7 @@
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(292, 751);
-            this.tabMain.TabIndex = 2;
+            this.tabMain.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -322,6 +328,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.gbEditSectorAmount);
             this.tabPage2.Controls.Add(this.gbNewTrack);
             this.tabPage2.Controls.Add(this.gbNewTram);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -356,7 +363,7 @@
             this.gbNewTram.Name = "gbNewTram";
             this.gbNewTram.Padding = new System.Windows.Forms.Padding(5);
             this.gbNewTram.Size = new System.Drawing.Size(259, 154);
-            this.gbNewTram.TabIndex = 2;
+            this.gbNewTram.TabIndex = 0;
             this.gbNewTram.TabStop = false;
             this.gbNewTram.Text = "New Tram";
             // 
@@ -365,7 +372,7 @@
             this.tbDefaultLine.Location = new System.Drawing.Point(131, 47);
             this.tbDefaultLine.Name = "tbDefaultLine";
             this.tbDefaultLine.Size = new System.Drawing.Size(118, 26);
-            this.tbDefaultLine.TabIndex = 2;
+            this.tbDefaultLine.TabIndex = 1;
             // 
             // lbTramModel
             // 
@@ -373,7 +380,7 @@
             this.lbTramModel.Location = new System.Drawing.Point(9, 80);
             this.lbTramModel.Name = "lbTramModel";
             this.lbTramModel.Size = new System.Drawing.Size(59, 20);
-            this.lbTramModel.TabIndex = 5;
+            this.lbTramModel.TabIndex = 6;
             this.lbTramModel.Text = "Model:";
             // 
             // lbDefaultLineTram
@@ -382,7 +389,7 @@
             this.lbDefaultLineTram.Location = new System.Drawing.Point(8, 50);
             this.lbDefaultLineTram.Name = "lbDefaultLineTram";
             this.lbDefaultLineTram.Size = new System.Drawing.Size(105, 20);
-            this.lbDefaultLineTram.TabIndex = 4;
+            this.lbDefaultLineTram.TabIndex = 5;
             this.lbDefaultLineTram.Text = "Default Line:";
             // 
             // btnAddTram
@@ -390,16 +397,17 @@
             this.btnAddTram.Location = new System.Drawing.Point(8, 109);
             this.btnAddTram.Name = "btnAddTram";
             this.btnAddTram.Size = new System.Drawing.Size(242, 33);
-            this.btnAddTram.TabIndex = 7;
+            this.btnAddTram.TabIndex = 3;
             this.btnAddTram.Text = "Add New Tram";
             this.btnAddTram.UseVisualStyleBackColor = true;
+            this.btnAddTram.Click += new System.EventHandler(this.btnAddTram_Click);
             // 
             // tbTramNumber
             // 
             this.tbTramNumber.Location = new System.Drawing.Point(131, 18);
             this.tbTramNumber.Name = "tbTramNumber";
             this.tbTramNumber.Size = new System.Drawing.Size(118, 26);
-            this.tbTramNumber.TabIndex = 1;
+            this.tbTramNumber.TabIndex = 0;
             // 
             // lbTramNumber
             // 
@@ -407,7 +415,7 @@
             this.lbTramNumber.Location = new System.Drawing.Point(8, 21);
             this.lbTramNumber.Name = "lbTramNumber";
             this.lbTramNumber.Size = new System.Drawing.Size(117, 20);
-            this.lbTramNumber.TabIndex = 0;
+            this.lbTramNumber.TabIndex = 4;
             this.lbTramNumber.Text = "Tram Number:";
             // 
             // cbTramModel
@@ -416,17 +424,17 @@
             this.cbTramModel.Location = new System.Drawing.Point(131, 77);
             this.cbTramModel.Name = "cbTramModel";
             this.cbTramModel.Size = new System.Drawing.Size(121, 28);
-            this.cbTramModel.TabIndex = 3;
+            this.cbTramModel.TabIndex = 2;
             // 
             // gbNewTrack
             // 
-            this.gbNewTrack.Controls.Add(this.textBox3);
+            this.gbNewTrack.Controls.Add(this.tbDefaultLineTrack);
             this.gbNewTrack.Controls.Add(this.lbDefaultLineTrack);
-            this.gbNewTrack.Controls.Add(this.comboBox1);
-            this.gbNewTrack.Controls.Add(this.textBox1);
+            this.gbNewTrack.Controls.Add(this.cbTrackType);
+            this.gbNewTrack.Controls.Add(this.tbSectorAmount);
             this.gbNewTrack.Controls.Add(this.label1);
             this.gbNewTrack.Controls.Add(this.lbSectorAmount);
-            this.gbNewTrack.Controls.Add(this.button1);
+            this.gbNewTrack.Controls.Add(this.btnAddTrack);
             this.gbNewTrack.Controls.Add(this.tbTrackNumber);
             this.gbNewTrack.Controls.Add(this.lbTrackNumber);
             this.gbNewTrack.Location = new System.Drawing.Point(8, 172);
@@ -434,24 +442,24 @@
             this.gbNewTrack.Name = "gbNewTrack";
             this.gbNewTrack.Padding = new System.Windows.Forms.Padding(5);
             this.gbNewTrack.Size = new System.Drawing.Size(259, 183);
-            this.gbNewTrack.TabIndex = 8;
+            this.gbNewTrack.TabIndex = 1;
             this.gbNewTrack.TabStop = false;
             this.gbNewTrack.Text = "New Track";
             // 
-            // comboBox1
+            // cbTrackType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(131, 77);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(118, 28);
-            this.comboBox1.TabIndex = 3;
+            this.cbTrackType.FormattingEnabled = true;
+            this.cbTrackType.Location = new System.Drawing.Point(131, 77);
+            this.cbTrackType.Name = "cbTrackType";
+            this.cbTrackType.Size = new System.Drawing.Size(118, 28);
+            this.cbTrackType.TabIndex = 2;
             // 
-            // textBox1
+            // tbSectorAmount
             // 
-            this.textBox1.Location = new System.Drawing.Point(131, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(118, 26);
-            this.textBox1.TabIndex = 2;
+            this.tbSectorAmount.Location = new System.Drawing.Point(131, 47);
+            this.tbSectorAmount.Name = "tbSectorAmount";
+            this.tbSectorAmount.Size = new System.Drawing.Size(118, 26);
+            this.tbSectorAmount.TabIndex = 1;
             // 
             // label1
             // 
@@ -459,7 +467,7 @@
             this.label1.Location = new System.Drawing.Point(9, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 20);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 7;
             this.label1.Text = "Track Type:";
             // 
             // lbSectorAmount
@@ -468,24 +476,25 @@
             this.lbSectorAmount.Location = new System.Drawing.Point(8, 50);
             this.lbSectorAmount.Name = "lbSectorAmount";
             this.lbSectorAmount.Size = new System.Drawing.Size(125, 20);
-            this.lbSectorAmount.TabIndex = 4;
+            this.lbSectorAmount.TabIndex = 6;
             this.lbSectorAmount.Text = "Sector Amount:";
             // 
-            // button1
+            // btnAddTrack
             // 
-            this.button1.Location = new System.Drawing.Point(13, 142);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(242, 33);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Add New Tram";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddTrack.Location = new System.Drawing.Point(13, 142);
+            this.btnAddTrack.Name = "btnAddTrack";
+            this.btnAddTrack.Size = new System.Drawing.Size(242, 33);
+            this.btnAddTrack.TabIndex = 4;
+            this.btnAddTrack.Text = "Add New Tram";
+            this.btnAddTrack.UseVisualStyleBackColor = true;
+            this.btnAddTrack.Click += new System.EventHandler(this.btnAddTrack_Click);
             // 
             // tbTrackNumber
             // 
             this.tbTrackNumber.Location = new System.Drawing.Point(131, 18);
             this.tbTrackNumber.Name = "tbTrackNumber";
             this.tbTrackNumber.Size = new System.Drawing.Size(118, 26);
-            this.tbTrackNumber.TabIndex = 1;
+            this.tbTrackNumber.TabIndex = 0;
             // 
             // lbTrackNumber
             // 
@@ -493,7 +502,7 @@
             this.lbTrackNumber.Location = new System.Drawing.Point(8, 21);
             this.lbTrackNumber.Name = "lbTrackNumber";
             this.lbTrackNumber.Size = new System.Drawing.Size(120, 20);
-            this.lbTrackNumber.TabIndex = 0;
+            this.lbTrackNumber.TabIndex = 5;
             this.lbTrackNumber.Text = "Track Number:";
             // 
             // lbDefaultLineTrack
@@ -505,12 +514,63 @@
             this.lbDefaultLineTrack.TabIndex = 8;
             this.lbDefaultLineTrack.Text = "Default Line:";
             // 
-            // textBox3
+            // tbDefaultLineTrack
             // 
-            this.textBox3.Location = new System.Drawing.Point(131, 110);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(118, 26);
-            this.textBox3.TabIndex = 9;
+            this.tbDefaultLineTrack.Location = new System.Drawing.Point(131, 110);
+            this.tbDefaultLineTrack.Name = "tbDefaultLineTrack";
+            this.tbDefaultLineTrack.Size = new System.Drawing.Size(118, 26);
+            this.tbDefaultLineTrack.TabIndex = 3;
+            // 
+            // gbEditSectorAmount
+            // 
+            this.gbEditSectorAmount.Controls.Add(this.btnDeleteSector);
+            this.gbEditSectorAmount.Controls.Add(this.btnAddSector);
+            this.gbEditSectorAmount.Controls.Add(this.textBox2);
+            this.gbEditSectorAmount.Controls.Add(this.lbTrack);
+            this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 365);
+            this.gbEditSectorAmount.Margin = new System.Windows.Forms.Padding(5);
+            this.gbEditSectorAmount.Name = "gbEditSectorAmount";
+            this.gbEditSectorAmount.Padding = new System.Windows.Forms.Padding(5);
+            this.gbEditSectorAmount.Size = new System.Drawing.Size(259, 137);
+            this.gbEditSectorAmount.TabIndex = 2;
+            this.gbEditSectorAmount.TabStop = false;
+            this.gbEditSectorAmount.Text = "Edit Sector Amount";
+            // 
+            // btnAddSector
+            // 
+            this.btnAddSector.Location = new System.Drawing.Point(7, 50);
+            this.btnAddSector.Name = "btnAddSector";
+            this.btnAddSector.Size = new System.Drawing.Size(242, 33);
+            this.btnAddSector.TabIndex = 1;
+            this.btnAddSector.Text = "Add Sector";
+            this.btnAddSector.UseVisualStyleBackColor = true;
+            this.btnAddSector.Click += new System.EventHandler(this.btnAddSector_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(131, 18);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(118, 26);
+            this.textBox2.TabIndex = 0;
+            // 
+            // lbTrack
+            // 
+            this.lbTrack.AutoSize = true;
+            this.lbTrack.Location = new System.Drawing.Point(8, 21);
+            this.lbTrack.Name = "lbTrack";
+            this.lbTrack.Size = new System.Drawing.Size(56, 20);
+            this.lbTrack.TabIndex = 3;
+            this.lbTrack.Text = "Track:";
+            // 
+            // btnDeleteSector
+            // 
+            this.btnDeleteSector.Location = new System.Drawing.Point(7, 89);
+            this.btnDeleteSector.Name = "btnDeleteSector";
+            this.btnDeleteSector.Size = new System.Drawing.Size(242, 33);
+            this.btnDeleteSector.TabIndex = 2;
+            this.btnDeleteSector.Text = "Delete Sector";
+            this.btnDeleteSector.UseVisualStyleBackColor = true;
+            this.btnDeleteSector.Click += new System.EventHandler(this.btnDeleteSector_Click);
             // 
             // UserInterface
             // 
@@ -539,6 +599,8 @@
             this.gbNewTram.PerformLayout();
             this.gbNewTrack.ResumeLayout(false);
             this.gbNewTrack.PerformLayout();
+            this.gbEditSectorAmount.ResumeLayout(false);
+            this.gbEditSectorAmount.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -570,13 +632,13 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox gbNewTrack;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbDefaultLineTrack;
         private System.Windows.Forms.Label lbDefaultLineTrack;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox cbTrackType;
+        private System.Windows.Forms.TextBox tbSectorAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbSectorAmount;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddTrack;
         private System.Windows.Forms.TextBox tbTrackNumber;
         private System.Windows.Forms.Label lbTrackNumber;
         private System.Windows.Forms.GroupBox gbNewTram;
@@ -587,6 +649,11 @@
         private System.Windows.Forms.Button btnAddTram;
         private System.Windows.Forms.TextBox tbTramNumber;
         private System.Windows.Forms.Label lbTramNumber;
+        private System.Windows.Forms.GroupBox gbEditSectorAmount;
+        private System.Windows.Forms.Button btnDeleteSector;
+        private System.Windows.Forms.Button btnAddSector;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lbTrack;
     }
 }
 
