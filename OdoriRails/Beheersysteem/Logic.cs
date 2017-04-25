@@ -237,7 +237,7 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
                 {
-                    if (tram.Status == TramStatus.Idle)
+                    if (tram.Status == TramStatus.Defect)
                     {
                         tram.EditTramStatus(TramStatus.Idle);
                         repo.EditTram(tram);
@@ -249,6 +249,7 @@ namespace Beheersysteem
                     }
                 }
             }
+            Update();
         }
 
         public bool MoveTram(string _tram, string _track, string _sector)
