@@ -9,7 +9,8 @@ namespace OdoriRails.DAL.Subclasses
 {
     public class ServiceContext : IServiceContext
     {
-        private readonly UserContext _userContext = new UserContext();
+        private static readonly UserContext UserContext = new UserContext();
+        private static readonly TramContext TramContext = new TramContext();
 
         public List<Repair> GetAllRepairsFromUser(User user)
         {
@@ -215,7 +216,7 @@ FROM Service INNER JOIN
 ServiceUser ON Service.ServicePk = ServiceUser.ServiceCk INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
 WHERE (Service.ServicePk = {serviceId})");
-            return Database.GenerateListWithFunction(Database.GetData(command), _userContext.CreateUser);
+            return Database.GenerateListWithFunction(Database.GetData(command), UserContext.CreateUser);
         }
 
         private static void SetUsersToServices(List<User> users, Service service)
@@ -223,9 +224,9 @@ WHERE (Service.ServicePk = {serviceId})");
             if (users == null) return;
             foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
             {
-                if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
+                if (users.All(x => x.Id != (int)dataRow.ItemArray[1]))
                 {
-                    Database.GetData(new SqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[0]}"));
+                    Database.GetData(new SqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[1]}"));
                 }
             }
 
