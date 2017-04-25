@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InUitrijRepository.cs" />
     <Compile Include="InUitRitTram.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="Program.cs" />
