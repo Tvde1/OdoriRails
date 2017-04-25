@@ -67,15 +67,13 @@ namespace LoginSystem
             {
                 throw new Exception($"Het bestand {assemblyName} kan niet gevonden worden.");
             }
+            
+            //(new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
 
-            MethodInfo target = assembly.EntryPoint;
-            (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
-            var args = new[] { user.Username };
+            //_mainForm.Hide();
+            //_mainForm.ShowInTaskbar = false;
 
-            _mainForm.Hide();
-            _mainForm.ShowInTaskbar = false;
-
-            target.Invoke(null, new object[] { args });
+            assembly.EntryPoint.Invoke(null, new object[] { new[] { user.Username } });
         }
     }
 }
