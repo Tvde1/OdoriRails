@@ -88,12 +88,6 @@ namespace Beheersysteem
             }
         }
 
-        public void WipeDepartureTimes()
-        {
-            //TODO: Voeg toe aan master
-            //database.WipeTramDepartureTime();
-        }
-
         public void WipePreSimulation()
         {
             repo.WipeAllDepartureTimes();

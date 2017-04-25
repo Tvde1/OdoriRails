@@ -100,11 +100,18 @@ namespace In_Uitrit_Systeem
                 return;
             }
 
+            if (_logic.Tram.Location == TramLocation.GoingOut)
+            {
+                string error = string.Format("Tram {0} is aangemeld voor vertrek.", _logic.Tram.Number.ToString());
+                MessageBox.Show(error, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             lblStandplaats.Text = "Niet bekend";
 
-            _logic.Tram.EditTramLocation(TramLocation.Out);
-            _logic.UpdateTram();
+            _logic.Tram.EditTramLocation(TramLocation.GoingOut);
             _logic.Tram.ResetTramDeparture();
+            _logic.UpdateTram();
         }
 
         private void cbMaintenance_CheckedChanged(object sender, EventArgs e)
