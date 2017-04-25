@@ -5,7 +5,7 @@ namespace LoginSystem
 {
     public partial class LoginScreen : Form
     {
-        private readonly Logic _loginSystem = new Logic();
+        private readonly Logic _loginSystem = new Logic(this);
 
         public LoginScreen()
         {

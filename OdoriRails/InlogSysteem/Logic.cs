@@ -13,6 +13,13 @@ namespace LoginSystem
     {
         private readonly LoginRepository _loginRepository = new LoginRepository();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
+        private readonly LoginScreen _mainForm;
+
+        public Logic(LoginScreen mainForm)
+        {
+            _mainForm = mainForm;
+        }
+
 
         public void Login(string username, string password)
         {
@@ -64,6 +71,10 @@ namespace LoginSystem
             MethodInfo target = assembly.EntryPoint;
             (new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
             var args = new[] { user.Username };
+
+            _mainForm.Hide();
+            _mainForm.ShowInTaskbar = false;
+
             target.Invoke(null, new object[] { args });
         }
     }
