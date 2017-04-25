@@ -58,6 +58,17 @@ namespace OdoriRails.DAL.Subclasses
             Database.GetData(query);
         }
 
+        public void WipeTramFromSectorByTramId(int id)
+        {
+            var query = new SqlCommand("UPDATE Sector SET TramFk = null WHERE TramFk = @id");
+            query.Parameters.AddWithValue("@id", id);
+            Database.GetData(query);
+
+            query = new SqlCommand("UPDATE Sector SET Status = 0 WHERE Status = 2 AND TramFk = @id");
+            query.Parameters.AddWithValue("@id", id);
+            Database.GetData(query);
+        }
+
         public void WipeTramsFromSectors()
         {
             Database.GetData(new SqlCommand("UPDATE Sector SET TramFk = null"));

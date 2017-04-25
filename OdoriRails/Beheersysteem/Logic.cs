@@ -17,7 +17,7 @@ namespace Beheersysteem
         ICSVContext csv;
         private List<InUitRijSchema> schema;
         private List<BeheerTram> allTrams;
-        private List<Tram> enteringTrams;
+        private List<Tram> movingTrams;
         private LogisticRepository repo = new LogisticRepository();
         private List<BeheerTrack> _allTracks;
         private Form form;
@@ -59,20 +59,27 @@ namespace Beheersysteem
             }
         }
 
-        public bool SortAllEnteringTrams()
+        public bool SortMovingTrams(TramLocation location)
         {
             SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
-            enteringTrams = repo.GetAllTramsWithLocation(TramLocation.ComingIn);
-            if (enteringTrams.Count != 0)
+            movingTrams = repo.GetAllTramsWithLocation(location);
+            if (movingTrams.Count != 0)
             {
-                foreach (Tram tram in enteringTrams)
+                foreach (Tram tram in movingTrams)
                 {
                     BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
-                    if (tram.DepartureTime == null)
+                    if (location == TramLocation.ComingIn)
                     {
-                        GetExitTime(beheerTram);
+                        if (tram.DepartureTime == null)
+                        {
+                            GetExitTime(beheerTram);
+                        }
+                        SortTram(sorter, beheerTram);
                     }
-                    SortTram(sorter, beheerTram);
+                    else if (location == TramLocation.GoingOut)
+                    {
+                        repo.WipeSectorByTramId(tram.Number);
+                    }
                 }
                 FetchUpdates();
                 return true;
@@ -82,7 +89,11 @@ namespace Beheersysteem
 
         public void tramFetcher_Tick(object sender, EventArgs e)
         {
-            if (SortAllEnteringTrams())
+            if (SortMovingTrams(TramLocation.ComingIn))
+            {
+                form.Invalidate();
+            }
+            if (SortMovingTrams(TramLocation.GoingOut))
             {
                 form.Invalidate();
             }
