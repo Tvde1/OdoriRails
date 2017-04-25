@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DAL\CSVContext.cs" />
     <Compile Include="DAL\ICSVContext.cs" />
+    <Compile Include="DAL\Repository\LogisticRepository.cs" />
     <Compile Include="FormGraphics.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="ObjectClasses\BeheerSector.cs" />
