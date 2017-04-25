@@ -39,6 +39,11 @@ namespace OdoriRails.DAL.Subclasses
             query.Parameters.AddWithValue("@remise", RemiseNumber);
             query.Parameters.AddWithValue("@id", track.Number);
             Database.GetData(query);
+
+            foreach (var sector in track.Sectors)
+            {
+                EditSector(sector);
+            }
         }
 
         public void EditSector(Sector sector)
@@ -46,9 +51,21 @@ namespace OdoriRails.DAL.Subclasses
             var query = new SqlCommand("UPDATE Sector SET Status = @stat, TramFk = @tram, RemiseFk = @remis WHERE SectorPk = @id AND TrackFk = @track");
             query.Parameters.AddWithValue("@stat", (int)sector.Status);
             query.Parameters.AddWithValue("@track", sector.TrackNumber);
-            query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
+            if (sector.OccupyingTram != null) query.Parameters.AddWithValue("@tram", sector.OccupyingTram.Number);
+            else query.Parameters.AddWithValue("@tram", DBNull.Value);
             query.Parameters.AddWithValue("@remis", RemiseNumber);
             query.Parameters.AddWithValue("@id", sector.Number);
+            Database.GetData(query);
+        }
+
+        public void WipeTramFromSectorByTramId(int id)
+        {
+            var query = new SqlCommand("UPDATE Sector SET TramFk = null WHERE TramFk = @id");
+            query.Parameters.AddWithValue("@id", id);
+            Database.GetData(query);
+
+            query = new SqlCommand("UPDATE Sector SET Status = 0 WHERE Status = 2 AND TramFk = @id");
+            query.Parameters.AddWithValue("@id", id);
             Database.GetData(query);
         }
 

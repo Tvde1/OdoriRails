@@ -144,6 +144,34 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return repair;
         }
 
+        public List<Repair> GetAllRepairsFromTram(Tram tram)
+        {
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Repair WHERE TramFk = {tram.Number}")), CreateRepair);
+        }
+
+        public List<Cleaning> GetAllCeCleaningsFromTram(Tram tram)
+        {
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Cleaning WHERE TramFk = {tram.Number}")), CreateCleaning);
+        }
+
+        public bool HadBigMaintenance(Tram tram)
+        {
+            var query = new SqlCommand($@"SELECT 'Yes' AS Result
+FROM Repair INNER JOIN
+Service ON Repair.ServiceFk = Service.ServicePk
+WHERE(DATEDIFF(m, Service.StartDate, GETDATE()) < 3) AND(Repair.Defect = 'Small Planned Maintenance') AND(Service.TramFk = {tram.Number})");
+            return Database.GetData(query).Rows.Count > 1;
+        }
+
+        public bool HadSmallMaintenance(Tram tram)
+        {
+            var query = new SqlCommand($@"SELECT 'Yes' AS Result
+FROM Repair INNER JOIN
+Service ON Repair.ServiceFk = Service.ServicePk
+WHERE(DATEDIFF(m, Service.StartDate, GETDATE()) < 6) AND(Repair.Defect = 'Big Planned Maintenance') AND(Service.TramFk = {tram.Number})");
+            return Database.GetData(query).Rows.Count > 1;
+        }
+
 
         private Cleaning CreateCleaning(DataRow row)
         {

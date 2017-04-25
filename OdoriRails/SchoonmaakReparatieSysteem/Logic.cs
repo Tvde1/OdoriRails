@@ -9,7 +9,7 @@ namespace SchoonmaakReparatieSysteem
     public class Logic
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
-        
+        private LogisticRepository _repolog = new LogisticRepository();
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl,
             ComboBox usercbox)
         {
@@ -53,13 +53,13 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (activeUser.Role == Role.HeadCleaner)
                 {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                     _repo.AddCleaning(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                     _repo.AddRepair(repair);
                 }
@@ -84,13 +84,13 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (activeUser.Role == Role.HeadCleaner)
                 {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                     _repo.EditService(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                     _repo.EditService(repair);
                 }
@@ -158,7 +158,7 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                   _repo.DeleteService(servicetofinish);
+                    _repo.DeleteService(servicetofinish);
                 }
                 catch
                 {
@@ -190,47 +190,52 @@ namespace SchoonmaakReparatieSysteem
 
         public void PlanServices()
         {
-            DateTime startdate = DateTime.Today;
-            DateTime enddate = DateTime.Today.AddMonths(6);
-            
+            DateTime startdate = DateTime.Today.Subtract(TimeSpan.FromDays(365));
+            DateTime enddate = DateTime.Today;
+            List<Tram> trams;
+            List<User> emptylistusers = new List<User>();
+            trams = _repolog.GetAllTrams();
 
-            for (DateTime date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 6 months
+            for (DateTime date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
             {
-                foreach (var tram in trams)
+
+
+                for (int i = 0; i < 1; i++)
                 {
-                    for (int i = 0; i < 1; i++)
+                    foreach (var tram in trams)
                     {
-                        if (bigserviceplanned?) // check for big service in next 6 months
+                        if (!_repolog.HadBigMaintenance(tram)) // check for big service in next 6 months
                         {
                             // no : plan service and leave loop
-                            
+                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                            _repo.AddRepair(rep);
                             ++i;
+                            break;
                         }
                         else
                         {
                             // yes : skip to second check
                         }
                     }
-                    
+
                 }
 
-                for (int i = 0; i < 3;)
+                for (int i = 0; i < 4;) // checks three times for small services, 
+                {
+                    foreach (var tram in trams)
                     {
-                        foreach (var tram in trams)
+
+                        if (!_repolog.HadBigMaintenance(tram)) // check for small service in 3 months
                         {
-
-                            if (smallserviceplanned?) // check for small service in 3 months
-                            {
-                                 // no : plan service and increment leave loop counter
-                            }
-                            else
-                            {
-                                // yes : next tram
-                                ++i;
-
-                            }
+                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
+                            _repo.AddRepair(rep);
+                            ++i;
+                            break;
                         }
-                       
+                        else
+                        {
+                            // yes : next tram
+                        }
                     }
 
                 }
@@ -238,5 +243,7 @@ namespace SchoonmaakReparatieSysteem
             }
 
         }
+
     }
+}
 

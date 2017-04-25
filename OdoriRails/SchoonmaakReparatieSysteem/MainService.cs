@@ -12,6 +12,12 @@ namespace SchoonmaakReparatieSysteem
         public MainService(User user)
         {
             InitializeComponent();
+
+            _logic.PlanServices();
+
+
+            MessageBox.Show("Debug info: There was a problem with the INSERT SQL query.");
+
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
             filtercbox.SelectedIndex = 0;
@@ -29,13 +35,13 @@ namespace SchoonmaakReparatieSysteem
         {
             try
             {
-                _logic.UpdateService(_activeUser, dataGridView1, (Service) dataGridView1.CurrentRow.DataBoundItem);
+                _logic.UpdateService(_activeUser, dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
                 _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
             }
             catch
             {
                 MessageBox.Show("select a service first my dude");
-            } 
+            }
         }
 
         private void MainService_Load(object sender, EventArgs e)
@@ -48,7 +54,7 @@ namespace SchoonmaakReparatieSysteem
                 button2.Visible = true;
             }
             else
-            {           
+            {
                 button1.Visible = false;
                 button2.Visible = false;
             }
@@ -65,12 +71,12 @@ namespace SchoonmaakReparatieSysteem
             {
                 MessageBox.Show("Select a service first my dude");
             }
-      }
+        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
-    
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -80,7 +86,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void button5_Click(object sender, EventArgs e)
         {
-            _logic.FinishService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem); 
+            _logic.FinishService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
         }
     }
 }

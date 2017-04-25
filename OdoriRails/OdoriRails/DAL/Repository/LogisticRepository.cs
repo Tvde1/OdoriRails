@@ -9,6 +9,7 @@ namespace OdoriRails.DAL.Repository
         private static readonly IUserContext UserContext = new UserContext();
         private static readonly ITramContext TramContext = new TramContext();
         private static readonly ITrackSectorContext TrackSectorContext = new TrackSectorContext();
+        private static readonly IServiceContext ServiceContext = new ServiceContext();
 
         /// <summary>
         /// Voegt een nieuwe tram toe aan de database.
@@ -103,6 +104,11 @@ namespace OdoriRails.DAL.Repository
             TrackSectorContext.WipeTramsFromSectors();
         }
 
+        public void WipeSectorByTramId(int id)
+        {
+            TrackSectorContext.WipeTramFromSectorByTramId(id);
+        }
+
         public void EditTram(Tram tram)
         {
             TramContext.EditTram(tram);
@@ -116,6 +122,16 @@ namespace OdoriRails.DAL.Repository
         public void EditTrack(Track track)
         {
             TrackSectorContext.EditTrack(track);
+        }
+
+        public bool HadBigMaintenance(Tram tram)
+        {
+            return ServiceContext.HadBigMaintenance(tram);
+        }
+
+        public bool HadSmallMaintenance(Tram tram)
+        {
+            return ServiceContext.HadSmallMaintenance(tram);
         }
     }
 }

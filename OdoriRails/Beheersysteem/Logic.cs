@@ -15,12 +15,10 @@ namespace Beheersysteem
         int simulationSpeed = 600;
 
         ICSVContext csv;
-        //ILogisticDatabaseAdapter database = new MssqlDatabaseContext();
+        private List<InUitRijSchema> schema;
+        private List<BeheerTram> allTrams;
+        private List<Tram> movingTrams;
         private LogisticRepository repo = new LogisticRepository();
-        SortingAlgoritm sorter;
-        List<InUitRijSchema> schema;
-        List<BeheerTram> allTrams;
-        List<Tram> enteringTrams;
         private List<BeheerTrack> _allTracks;
         private Form form;
         private System.Windows.Forms.Timer tramFetcher;
@@ -34,14 +32,14 @@ namespace Beheersysteem
         {
             if (testing == true)
             {
-                simulationSpeed = 50;
+                simulationSpeed = 25;
             }
 
             FetchUpdates();
             csv = new CSVContext();
             schema = csv.getSchema();
-            sorter = new SortingAlgoritm(AllTracks, repo);
             this.form = form;
+
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
             tramFetcher.Start();
@@ -61,19 +59,27 @@ namespace Beheersysteem
             }
         }
 
-        public bool SortAllEnteringTrams()
+        public bool SortMovingTrams(TramLocation location)
         {
-            enteringTrams = repo.GetAllTramsWithLocation(TramLocation.ComingIn);
-            if (enteringTrams.Count != 0)
+            SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
+            movingTrams = repo.GetAllTramsWithLocation(location);
+            if (movingTrams.Count != 0)
             {
-                foreach (Tram tram in enteringTrams)
+                foreach (Tram tram in movingTrams)
                 {
                     BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
-                    if (tram.DepartureTime == null)
+                    if (location == TramLocation.ComingIn)
                     {
-                        GetExitTime(beheerTram);
+                        if (tram.DepartureTime == null)
+                        {
+                            GetExitTime(beheerTram);
+                        }
+                        SortTram(sorter, beheerTram);
                     }
-                    SortTram(beheerTram);
+                    else if (location == TramLocation.GoingOut)
+                    {
+                        repo.WipeSectorByTramId(tram.Number);
+                    }
                 }
                 FetchUpdates();
                 return true;
@@ -83,16 +89,14 @@ namespace Beheersysteem
 
         public void tramFetcher_Tick(object sender, EventArgs e)
         {
-            if (SortAllEnteringTrams())
+            if (SortMovingTrams(TramLocation.ComingIn))
             {
                 form.Invalidate();
             }
-        }
-
-        public void WipeDepartureTimes()
-        {
-            //TODO: Voeg toe aan master
-            //database.WipeTramDepartureTime();
+            if (SortMovingTrams(TramLocation.GoingOut))
+            {
+                form.Invalidate();
+            }
         }
 
         public void WipePreSimulation()
@@ -115,7 +119,7 @@ namespace Beheersysteem
             return null;
         }
 
-        public void SortTram(BeheerTram tram)
+        public void SortTram(SortingAlgoritm sorter, BeheerTram tram)
         {
             if (tram != null)
             {
@@ -125,8 +129,7 @@ namespace Beheersysteem
 
         public void Simulation()
         {
-            sorter = new SortingAlgoritm(AllTracks, repo);
-            WipePreSimulation();
+            SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
 
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));
@@ -195,35 +198,36 @@ namespace Beheersysteem
             //        Console.WriteLine(tram.Number + " : " + tram.Line + " : " + tram.Model.ToString());
             //    }
             //}
-            
+
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
                 BeheerTram tram = allTrams.Find(x => x.Number == entry.TramNumber);
-                SortTram(tram);
+                SortTram(sorter, tram);
                 form.Invalidate();
                 Thread.Sleep(simulationSpeed);
             }
 
             //Sync with database:
-            FetchUpdates();
-            form.Invalidate();
+            Update();
         }
 
         public void Lock(string tracks)
         {
             //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
-            string[] sLockTracks = tracks.Split(',');
-            int[] lockTracks = Array.ConvertAll(sLockTracks, int.Parse);
+            int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
 
             foreach (Track track in _allTracks)
             {
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
                 {
-                    repo.EditTrack(track);
+                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.LockTrack();
+                    repo.EditTrack(beheerTrack);
                 }
             }
+            Update();
         }
 
         public void Unlock(string tracks)
@@ -237,9 +241,12 @@ namespace Beheersysteem
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
                 {
-                    repo.EditTrack(track);
+                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                    beheerTrack.UnlockTrack();
+                    repo.EditTrack(beheerTrack);
                 }
             }
+            Update();
         }
 
         public void ToggleDisabled(string trams)
@@ -288,6 +295,12 @@ namespace Beheersysteem
                 }
 
             }
+        }
+
+        public void Update()
+        {
+            FetchUpdates();
+            form.Invalidate();
         }
     }
 }
