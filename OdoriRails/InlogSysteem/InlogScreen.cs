@@ -5,11 +5,12 @@ namespace LoginSystem
 {
     public partial class LoginScreen : Form
     {
-        private readonly Logic _loginSystem = new Logic(this);
+        private readonly Logic _loginSystem;
 
         public LoginScreen()
         {
             InitializeComponent();
+            _loginSystem = new Logic(this);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
