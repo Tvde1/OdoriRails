@@ -148,5 +148,10 @@ namespace OdoriRails.DAL.Repository
         {
             ServiceContext.DeleteService(service);
         }
+
+        public List<Repair> GetAllRepairsFromUser(User user)
+        {
+            return ServiceContext.GetAllRepairsFromUser(user);
+        }
     }
 }
