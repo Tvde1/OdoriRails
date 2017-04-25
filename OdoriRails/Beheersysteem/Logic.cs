@@ -6,23 +6,22 @@ using System;
 using System.Windows.Forms;
 using System.Threading;
 using Beheersysteem.DAL.Repository;
+using System.Linq;
 
 namespace Beheersysteem
 {
     class Logic
     {
+        public List<BeheerTrack> AllTracks { get; private set; }
         bool testing = true;
         int simulationSpeed = 600;
 
         ICSVContext csv;
+        private LogisticRepository repo = new LogisticRepository();
         private List<InUitRijSchema> schema;
         private List<BeheerTram> allTrams;
-        private LogisticRepository repo = new LogisticRepository();
-        private List<BeheerTrack> _allTracks;
         private Form form;
         public System.Windows.Forms.Timer tramFetcher;
-
-        public List<BeheerTrack> AllTracks => _allTracks;
 
         /// <summary>
         /// Constructor: Voert alles uit dat bij de launch uitgevoerd moet worden.
@@ -46,10 +45,10 @@ namespace Beheersysteem
 
         public void FetchUpdates()
         {
-            _allTracks = new List<BeheerTrack>();
+            AllTracks = new List<BeheerTrack>();
             foreach (Track track in repo.GetTracksAndSectors())
             {
-                _allTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
+                AllTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
             }
             allTrams = new List<BeheerTram>();
             foreach (Tram tram in repo.GetAllTrams())
@@ -109,13 +108,10 @@ namespace Beheersysteem
 
         public DateTime? GetExitTime(BeheerTram tram)
         {
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.Line == tram.Line && x.TramNumber == null))
             {
-                if (tram.Line == entry.Line && entry.TramNumber == null)
-                {
-                    entry.TramNumber = tram.Number;
-                    return entry.ExitTime;
-                }
+                entry.TramNumber = tram.Number;
+                return entry.ExitTime;
             }
             return null;
         }
@@ -124,7 +120,7 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
-                _allTracks = sorter.AssignTramLocation(tram, tram.DepartureTime);
+                AllTracks = sorter.AssignTramLocation(tram);
             }
         }
 
@@ -136,44 +132,32 @@ namespace Beheersysteem
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));
 
             //Voor iedere inrijtijd een tram eraan koppellen
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                if (entry.TramNumber == null)
+                foreach (BeheerTram tram in allTrams.Where(x => x.DepartureTime == null && x.Line == entry.Line))
                 {
-                    foreach (BeheerTram tram in allTrams)
-                    {
-                        if (tram.DepartureTime == null && tram.Line == entry.Line)
-                        {
-                            entry.TramNumber = tram.Number;
-                            tram.EditTramDepartureTime(entry.ExitTime);
-                            break;
-                        }
-                    }
+                    entry.TramNumber = tram.Number;
+                    tram.EditTramDepartureTime(entry.ExitTime);
+                    break;
                 }
             }
 
             //Too little linebound trams to fill each entry so overflow to other types of trams
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                if (entry.TramNumber == null)
+                foreach (BeheerTram tram in allTrams.Where(x => x.DepartureTime == null))
                 {
-                    foreach (BeheerTram tram in allTrams)
+                    if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG)) //No driver lines
                     {
-                        if (tram.DepartureTime == null)
-                        {
-                            if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG))//No driver lines
-                            {
-                                entry.TramNumber = tram.Number;
-                                tram.EditTramDepartureTime(entry.ExitTime);
-                                break;
-                            }
-                            else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino)//Driver lines
-                            {
-                                entry.TramNumber = tram.Number;
-                                tram.EditTramDepartureTime(entry.ExitTime);
-                                break;
-                            }
-                        }
+                        entry.TramNumber = tram.Number;
+                        tram.EditTramDepartureTime(entry.ExitTime);
+                        break;
+                    }
+                    else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino) //Driver lines
+                    {
+                        entry.TramNumber = tram.Number;
+                        tram.EditTramDepartureTime(entry.ExitTime);
+                        break;
                     }
                 }
             }
@@ -188,16 +172,13 @@ namespace Beheersysteem
             }
 
             schema = csv.getSchema();
-
-            //Sync with database:
             Update();
         }
 
         public void Lock(string tracks)
         {
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
-
-            foreach (Track track in _allTracks)
+            foreach (Track track in AllTracks)
             {
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
@@ -212,10 +193,8 @@ namespace Beheersysteem
 
         public void Unlock(string tracks)
         {
-            string[] sUnlockTracks = tracks.Split(',');
-            int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
-
-            foreach (Track track in _allTracks)
+            int[] UnlockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
+            foreach (Track track in AllTracks)
             {
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
@@ -230,10 +209,7 @@ namespace Beheersysteem
 
         public void ToggleDisabled(string trams)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
-            string[] sTrams = trams.Split(',');
-            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
-
+            int[] iTrams = Array.ConvertAll(trams.Split(','), int.Parse);
             foreach (BeheerTram tram in allTrams)
             {
                 int pos = Array.IndexOf(iTrams, tram.Number);
@@ -260,22 +236,16 @@ namespace Beheersysteem
             int moveTrack = Convert.ToInt32(_track);
             int moveSector = Convert.ToInt32(_sector);
 
-            foreach (Track track in AllTracks)
+            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack))
             {
-                if (track.Number == moveTrack)
+                foreach (Tram tram in allTrams.Where(x => x.Number == moveTram))
                 {
-                    foreach (Tram tram in allTrams)
-                    {
-                        if (tram.Number == moveTram)
-                        {
-                            BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
-                            beheerSector.SetOccupyingTram(tram);
-                            repo.WipeSectorByTramId(tram.Number);
-                            repo.EditSector(beheerSector);
-                            Update();
-                            return true;
-                        }
-                    }
+                    BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                    beheerSector.SetOccupyingTram(tram);
+                    repo.WipeSectorByTramId(tram.Number);
+                    repo.EditSector(beheerSector);
+                    Update();
+                    return true;
                 }
             }
             return false;

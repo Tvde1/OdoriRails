@@ -12,13 +12,12 @@ namespace Beheersysteem
         public List<BeheerSector> BeheerSectors = new List<BeheerSector>();
 
         public BeheerTrack(int number, int? line, TrackType type, List<Sector> sectors) : base(number, line, type, sectors)
-        {}
+        { }
 
         public static BeheerTrack ToBeheerTrack(Track track)
         {
             return new BeheerTrack(track.Number, track.Line, track.Type, track.Sectors);
         }
-
 
         /// <summary>
         /// Zet elke sectoren's status op 'Locked'
@@ -30,7 +29,6 @@ namespace Beheersysteem
                 BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
                 beheerSector.Lock();
                 Sectors[i] = beheerSector;
-                Console.WriteLine(Sectors[i].Number + "" + Sectors[i].Status);
             }
         }
 
@@ -44,7 +42,6 @@ namespace Beheersysteem
                 BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
                 beheerSector.UnLock();
                 Sectors[i] = beheerSector;
-                Console.WriteLine(Sectors[i].Number + "" + Sectors[i].Status);
             }
         }
     }
