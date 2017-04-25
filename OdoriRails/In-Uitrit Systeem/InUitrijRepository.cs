@@ -2,7 +2,7 @@
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL.Repository
+namespace In_Uitrit_Systeem
 {
     public class InUitrijRepository
     {

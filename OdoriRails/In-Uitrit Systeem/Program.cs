@@ -36,7 +36,7 @@ namespace In_Uitrit_Systeem
             }
 
 
-            new FormUserInterface(user).ShowDialog();
+            new UserInterface(user).ShowDialog();
         }
     }
 }
