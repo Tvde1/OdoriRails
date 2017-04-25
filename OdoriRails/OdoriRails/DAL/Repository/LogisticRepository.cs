@@ -104,6 +104,11 @@ namespace OdoriRails.DAL.Repository
             TrackSectorContext.WipeTramsFromSectors();
         }
 
+        public void WipeSectorByTramId(int id)
+        {
+            TrackSectorContext.WipeTramFromSectorByTramId(id);
+        }
+
         public void EditTram(Tram tram)
         {
             TramContext.EditTram(tram);
