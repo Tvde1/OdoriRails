@@ -25,7 +25,8 @@ namespace OdoriRails.BaseClasses
     {
         In,
         ComingIn,
-        Out
+        Out,
+        GoingOut
     }
 
     public class Tram
