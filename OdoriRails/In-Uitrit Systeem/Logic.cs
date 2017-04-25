@@ -7,8 +7,15 @@ namespace In_Uitrit_Systeem
     {
         public InUitRitTram Tram { get; private set; }
         private InUitrijRepository _inUitrijRepository = new InUitrijRepository();
+        private User driver;
 
         public Logic(User driver)
+        {
+            this.driver = driver;
+            LoadTram();
+        }
+
+        public void LoadTram()
         {
             var tempTram = _inUitrijRepository.GetTramByDriver(driver);
             Tram = tempTram == null ? null : InUitRitTram.ToInUitRitTram(tempTram);

@@ -77,6 +77,8 @@ namespace Beheersysteem
                     }
                     else if (location == TramLocation.GoingOut)
                     {
+                        beheerTram.EditTramLocation(TramLocation.Out);
+                        repo.EditTram(beheerTram);
                         repo.WipeSectorByTramId(tram.Number);
                     }
                 }
