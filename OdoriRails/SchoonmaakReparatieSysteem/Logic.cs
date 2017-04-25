@@ -9,7 +9,7 @@ namespace SchoonmaakReparatieSysteem
     public class Logic
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
-
+        
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl,
             ComboBox usercbox)
         {
@@ -187,5 +187,56 @@ namespace SchoonmaakReparatieSysteem
 
             }
         }
+
+        public void PlanServices()
+        {
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = DateTime.Today.AddMonths(6);
+            
+
+            for (DateTime date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 6 months
+            {
+                foreach (var tram in trams)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        if (bigserviceplanned?) // check for big service in next 6 months
+                        {
+                            // no : plan service and leave loop
+                            
+                            ++i;
+                        }
+                        else
+                        {
+                            // yes : skip to second check
+                        }
+                    }
+                    
+                }
+
+                for (int i = 0; i < 3;)
+                    {
+                        foreach (var tram in trams)
+                        {
+
+                            if (smallserviceplanned?) // check for small service in 3 months
+                            {
+                                 // no : plan service and increment leave loop counter
+                            }
+                            else
+                            {
+                                // yes : next tram
+                                ++i;
+
+                            }
+                        }
+                       
+                    }
+
+                }
+
+            }
+
+        }
     }
-}
+
