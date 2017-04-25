@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Beheersysteem\Logistiek Beheersysteem.csproj">
+      <Project>{30A5D8EB-3167-41B7-8804-6D7EC8FE52D1}</Project>
+      <Name>Logistiek Beheersysteem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
       <Project>{FC6CE72A-A2F9-4E02-8888-11AEDD18C72B}</Project>
       <Name>OdoriRails</Name>

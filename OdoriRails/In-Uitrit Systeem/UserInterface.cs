@@ -4,14 +4,14 @@ using OdoriRails.BaseClasses;
 
 namespace In_Uitrit_Systeem
 {
-    public partial class FormUserInterface : Form
+    public partial class UserInterface : Form
     {
         private Logic _logic;
         private Timer _DriverTramUpdater;
         private int _timerTickIn;
         private int _timerTickOut;
 
-        public FormUserInterface(User driver)
+        public UserInterface(User driver)
         {
             InitializeComponent();
             _logic = new Logic(driver);
