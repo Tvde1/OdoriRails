@@ -128,8 +128,6 @@ namespace Beheersysteem
                 }
             }
 
-
-
             //If not successful let user place tram
             MessageBox.Show("Failure");
             return null;

@@ -40,7 +40,10 @@ namespace Beheersysteem
 
         private void btnMove_Click(object sender, EventArgs e)
         {
-
+            if (_logic.MoveTram(tbSelectedTram.Text, tbMoveToTrack.Text, tbMoveToSector.Text) == false)
+            {
+                MessageBox.Show("Failed to move the selected tram to the new location");
+            }
         }
 
         private void btnSetDisabled_Click(object sender, EventArgs e)

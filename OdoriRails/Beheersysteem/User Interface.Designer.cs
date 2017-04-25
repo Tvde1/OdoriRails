@@ -138,14 +138,14 @@
             // 
             // tbMoveToSector
             // 
-            this.tbMoveToSector.Location = new System.Drawing.Point(153, 103);
+            this.tbMoveToSector.Location = new System.Drawing.Point(152, 77);
             this.tbMoveToSector.Name = "tbMoveToSector";
             this.tbMoveToSector.Size = new System.Drawing.Size(97, 26);
             this.tbMoveToSector.TabIndex = 3;
             // 
             // tbMoveToTrack
             // 
-            this.tbMoveToTrack.Location = new System.Drawing.Point(154, 76);
+            this.tbMoveToTrack.Location = new System.Drawing.Point(152, 47);
             this.tbMoveToTrack.Name = "tbMoveToTrack";
             this.tbMoveToTrack.Size = new System.Drawing.Size(97, 26);
             this.tbMoveToTrack.TabIndex = 2;
@@ -153,7 +153,7 @@
             // lbMoveToSector
             // 
             this.lbMoveToSector.AutoSize = true;
-            this.lbMoveToSector.Location = new System.Drawing.Point(10, 106);
+            this.lbMoveToSector.Location = new System.Drawing.Point(9, 80);
             this.lbMoveToSector.Name = "lbMoveToSector";
             this.lbMoveToSector.Size = new System.Drawing.Size(127, 20);
             this.lbMoveToSector.TabIndex = 5;
@@ -162,7 +162,7 @@
             // lbMoveToTrack
             // 
             this.lbMoveToTrack.AutoSize = true;
-            this.lbMoveToTrack.Location = new System.Drawing.Point(9, 76);
+            this.lbMoveToTrack.Location = new System.Drawing.Point(8, 50);
             this.lbMoveToTrack.Name = "lbMoveToTrack";
             this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
             this.lbMoveToTrack.TabIndex = 4;
@@ -180,7 +180,7 @@
             // 
             // btnMove
             // 
-            this.btnMove.Location = new System.Drawing.Point(12, 135);
+            this.btnMove.Location = new System.Drawing.Point(7, 109);
             this.btnMove.Name = "btnMove";
             this.btnMove.Size = new System.Drawing.Size(242, 33);
             this.btnMove.TabIndex = 6;
@@ -190,19 +190,19 @@
             // 
             // tbSelectedTram
             // 
-            this.tbSelectedTram.Location = new System.Drawing.Point(8, 47);
+            this.tbSelectedTram.Location = new System.Drawing.Point(152, 18);
             this.tbSelectedTram.Name = "tbSelectedTram";
-            this.tbSelectedTram.Size = new System.Drawing.Size(243, 26);
+            this.tbSelectedTram.Size = new System.Drawing.Size(97, 26);
             this.tbSelectedTram.TabIndex = 1;
             // 
             // lbSelectedTram
             // 
             this.lbSelectedTram.AutoSize = true;
-            this.lbSelectedTram.Location = new System.Drawing.Point(9, 24);
+            this.lbSelectedTram.Location = new System.Drawing.Point(10, 21);
             this.lbSelectedTram.Name = "lbSelectedTram";
-            this.lbSelectedTram.Size = new System.Drawing.Size(184, 20);
+            this.lbSelectedTram.Size = new System.Drawing.Size(53, 20);
             this.lbSelectedTram.TabIndex = 0;
-            this.lbSelectedTram.Text = "Current Selected Tram:";
+            this.lbSelectedTram.Text = "Tram:";
             // 
             // btnSetDisabled
             // 
