@@ -51,9 +51,11 @@ namespace Beheersysteem
 
         private void btnSimulation_Click(object sender, EventArgs e)
         {
+            _logic.tramFetcher.Stop();
             Task Simulation = new Task(new Action(() => { _logic.Simulation(); } ));
             _logic.WipePreSimulation();
             Simulation.Start();
+            _logic.tramFetcher.Start();
         }
 
         private void btnChangeDisplayView_Click(object sender, EventArgs e)
@@ -63,6 +65,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
+            Console.WriteLine(".Paint."); 
             FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks);
         }
 
