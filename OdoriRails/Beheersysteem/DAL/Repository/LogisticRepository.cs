@@ -2,7 +2,7 @@
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL.Repository
+namespace Beheersysteem.DAL.Repository
 {
     public class LogisticRepository
     {

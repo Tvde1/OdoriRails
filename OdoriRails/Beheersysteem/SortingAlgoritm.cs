@@ -3,7 +3,7 @@ using OdoriRails.BaseClasses;
 using Beheersysteem.ObjectClasses;
 using System;
 using System.Windows.Forms;
-using OdoriRails.DAL.Repository;
+using Beheersysteem.DAL.Repository;
 
 namespace Beheersysteem
 {

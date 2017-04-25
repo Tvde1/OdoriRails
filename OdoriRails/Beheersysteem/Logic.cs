@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
 using System.Threading;
-using OdoriRails.DAL.Repository;
+using Beheersysteem.DAL.Repository;
 
 namespace Beheersysteem
 {
