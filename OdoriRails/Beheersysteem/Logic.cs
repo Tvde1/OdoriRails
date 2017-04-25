@@ -20,7 +20,7 @@ namespace Beheersysteem
         private LogisticRepository repo = new LogisticRepository();
         private List<BeheerTrack> _allTracks;
         private Form form;
-        private System.Windows.Forms.Timer tramFetcher;
+        public System.Windows.Forms.Timer tramFetcher;
 
         public List<BeheerTrack> AllTracks => _allTracks;
 
@@ -31,7 +31,7 @@ namespace Beheersysteem
         {
             if (testing == true)
             {
-                simulationSpeed = 25;
+                simulationSpeed = 50;
             }
 
             FetchUpdates();
@@ -163,18 +163,15 @@ namespace Beheersysteem
                             {
                                 entry.TramNumber = tram.Number;
                                 tram.EditTramDepartureTime(entry.ExitTime);
-                                form.Invalidate();
                                 break;
                             }
                             else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino)//Driver lines
                             {
                                 entry.TramNumber = tram.Number;
                                 tram.EditTramDepartureTime(entry.ExitTime);
-                                form.Invalidate();
                                 break;
                             }
                         }
-
                     }
                 }
             }
@@ -207,13 +204,14 @@ namespace Beheersysteem
                 Thread.Sleep(simulationSpeed);
             }
 
+            schema = csv.getSchema();
+
             //Sync with database:
             Update();
         }
 
         public void Lock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
 
             foreach (Track track in _allTracks)
@@ -231,7 +229,6 @@ namespace Beheersysteem
 
         public void Unlock(string tracks)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
             string[] sUnlockTracks = tracks.Split(',');
             int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
 

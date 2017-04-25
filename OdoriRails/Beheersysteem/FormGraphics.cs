@@ -12,8 +12,6 @@ namespace Beheersysteem
     {
         public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks)
         {
-            Console.WriteLine(".Redraw.");
-
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
             var blackBrush = new SolidBrush(Color.Black);

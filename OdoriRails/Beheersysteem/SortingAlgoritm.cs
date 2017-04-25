@@ -139,7 +139,6 @@ namespace Beheersysteem
         {
             sector.SetOccupyingTram(tram);
             repo.EditTram(tram);
-            Console.WriteLine(sector.ToString());
             repo.EditSector(sector);
             return sector;
         }
