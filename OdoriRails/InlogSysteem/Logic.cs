@@ -31,7 +31,7 @@ namespace LoginSystem
                     assemblyName = "UserBeheersysteem.dll";
                     break;
                 case Role.Logistic:
-                    assemblyName = "LogistiekSysteem.dll";
+                    assemblyName = "BeheerSysteem.dll";
                     break;
                 case Role.Driver:
                     assemblyName = "InUitritSysteem.dll";
