@@ -32,13 +32,14 @@ namespace Beheersysteem
         {
             if (testing == true)
             {
-                simulationSpeed = 50;
+                simulationSpeed = 25;
             }
 
             FetchUpdates();
             csv = new CSVContext();
             schema = csv.getSchema();
             this.form = form;
+
             tramFetcher = new System.Windows.Forms.Timer() { Interval = 5000 };
             tramFetcher.Tick += tramFetcher_Tick;
             tramFetcher.Start();
@@ -124,7 +125,6 @@ namespace Beheersysteem
         public void Simulation()
         {
             SortingAlgoritm sorter = new SortingAlgoritm(AllTracks, repo);
-            WipePreSimulation();
 
             //De schema moet op volgorde van eerst binnenkomende worden gesorteerd
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));
