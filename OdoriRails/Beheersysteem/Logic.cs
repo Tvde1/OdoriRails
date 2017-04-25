@@ -123,7 +123,7 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
-                _allTracks = sorter.GetSector(tram, tram.DepartureTime);
+                _allTracks = sorter.AssignTramLocation(tram, tram.DepartureTime);
             }
         }
 
