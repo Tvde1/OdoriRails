@@ -253,6 +253,34 @@ namespace Beheersysteem
             return false;
         }
 
+        public void AddTram(string _tramNumber, string _defaultLine, string _model)
+        {
+            int tramNumber = Convert.ToInt32(_tramNumber);
+            int defaultLine = Convert.ToInt32(_defaultLine);
+            Model model;
+            Enum.TryParse<Model>(_model, out model);
+
+            repo.AddTram(new Tram(tramNumber, defaultLine, model));
+        }
+
+        public void AddTrack(string _trackNumber, string _sectorAmount, string _trackType, string _defaultLine)
+        {
+            int trackNumber = Convert.ToInt32(_trackNumber);
+            int sectorAmount = Convert.ToInt32(_sectorAmount);
+            int? defaultLine = Convert.ToInt32(_defaultLine);
+
+            TrackType trackType;
+            Enum.TryParse<TrackType>(_trackType, out trackType);
+
+            List<Sector> newSectors;
+            for (int i = 0; i < sectorAmount; i++)
+            {
+                newSectors.Add(new Sector(i));
+            }
+
+            repo.AddTrack(new Track(trackNumber, defaultLine, trackType, newSectors));
+        }
+
         public void Update()
         {
             FetchUpdates();

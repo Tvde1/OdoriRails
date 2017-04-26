@@ -31,6 +31,22 @@ namespace OdoriRails.DAL.Subclasses
             return returnList;
         }
 
+        public void AddTrack(Track track)
+        {
+            var query = new SqlCommand("INSERT INTO Track (TrackPk, Line, [Type], RemiseFK) VALUES (@id, @line, @type, @remise)");
+            query.Parameters.AddWithValue("@id", track.Line);
+            if (track.Line == null) query.Parameters.AddWithValue("@line", DBNull.Value);
+            else query.Parameters.AddWithValue("@line", (int)track.Type);
+            query.Parameters.AddWithValue("@type", RemiseNumber);
+            query.Parameters.AddWithValue("@remise", 1);
+            Database.GetData(query);
+
+            foreach (Sector sector in track.Sectors)
+            {
+                AddSector(sector, track);
+            }
+        }
+
         public void EditTrack(Track track)
         {
             var query = new SqlCommand("UPDATE Track SET Line = @line, Type = @type, RemiseFk = @remise WHERE TrackPk = @id");
@@ -44,6 +60,15 @@ namespace OdoriRails.DAL.Subclasses
             {
                 EditSector(sector);
             }
+        }
+
+        public void AddSector(Sector sector, Track track)
+        {
+            var query = new SqlCommand("INSERT INTO Sector (SectorPk, TrackFk, RemiseFK) VALUES (@id, @track, @remise)");
+            query.Parameters.AddWithValue("@id", sector.Number);
+            query.Parameters.AddWithValue("@track", track.Number);
+            query.Parameters.AddWithValue("@remise", 1);
+            Database.GetData(query);
         }
 
         public void EditSector(Sector sector)

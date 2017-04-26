@@ -17,6 +17,9 @@ namespace Beheersysteem
             InitializeComponent();
             panelMain.Invalidate();
 
+            cbTramModel.DataSource = Enum.GetValues(typeof(Model));
+            cbTrackType.DataSource = Enum.GetValues(typeof(TrackType));
+
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
         }
 
@@ -84,12 +87,12 @@ namespace Beheersysteem
 
         private void btnAddTram_Click(object sender, EventArgs e)
         {
-
+            _logic.AddTram(tbTramNumber.Text, tbDefaultLine.Text, cbTramModel.SelectedText);
         }
 
         private void btnAddTrack_Click(object sender, EventArgs e)
         {
-
+            _logic.AddTrack(tbTrackNumber.Text, tbSectorAmount.Text, cbTrackType.SelectedText, tbDefaultLineTrack.Text);
         }
 
         private void btnAddSector_Click(object sender, EventArgs e)

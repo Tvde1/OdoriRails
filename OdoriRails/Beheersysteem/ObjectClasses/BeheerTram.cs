@@ -9,9 +9,6 @@ namespace Beheersysteem.ObjectClasses
 {
     class BeheerTram : Tram
     {
-        public BeheerTram(int number, Model model) : base(number, model)
-        { }
-
         public BeheerTram(int number, TramStatus status, int line, User driver, Model model, TramLocation location, DateTime? departureTime) : base(number, status, line, driver, model, location, departureTime)
         {
             Number = number;

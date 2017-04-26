@@ -114,6 +114,16 @@ namespace Beheersysteem.DAL.Repository
             TramContext.EditTram(tram);
         }
 
+        public void AddTrack(Track track)
+        {
+            TrackSectorContext.AddTrack(track);
+        }
+
+        public void AddSector(Sector sector, Track track)
+        {
+            TrackSectorContext.AddSector(sector, track);
+        }
+
         public void EditSector(Sector sector)
         {
             TrackSectorContext.EditSector(sector);

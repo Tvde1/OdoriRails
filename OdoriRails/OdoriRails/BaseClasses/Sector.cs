@@ -28,5 +28,14 @@
             OccupyingTram = tram;
             TrackNumber = trackNumber;
         }
+
+        /// <summary>
+        /// Minimale sector constuctor
+        /// </summary>
+        /// <param name="number"></param>
+        public Sector(int number)
+        {
+            Number = number;
+        }
     }
 }

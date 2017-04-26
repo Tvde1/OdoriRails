@@ -11,6 +11,10 @@ namespace OdoriRails.DAL.Subclasses
         /// <returns></returns>
         List<Track> GetTracksAndSectors();
 
+        void AddTrack(Track track);
+
+        void AddSector(Sector sector, Track track);
+
         /// <summary>
         /// Updated de track in de database met de nieuwe informatie.
         /// </summary>
