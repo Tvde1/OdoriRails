@@ -236,16 +236,18 @@ namespace Beheersysteem
             int moveTrack = Convert.ToInt32(_track);
             int moveSector = Convert.ToInt32(_sector);
 
-            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack))
+            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
             {
                 foreach (Tram tram in allTrams.Where(x => x.Number == moveTram))
                 {
                     BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
-                    beheerSector.SetOccupyingTram(tram);
-                    repo.WipeSectorByTramId(tram.Number);
-                    repo.EditSector(beheerSector);
-                    Update();
-                    return true;
+                    if (beheerSector.SetOccupyingTram(tram))
+                    {
+                        repo.WipeSectorByTramId(tram.Number);
+                        repo.EditSector(beheerSector);
+                        Update();
+                        return true;
+                    }
                 }
             }
             return false;
