@@ -272,7 +272,7 @@ namespace Beheersysteem
             TrackType trackType;
             Enum.TryParse<TrackType>(_trackType, out trackType);
 
-            List<Sector> newSectors;
+            List<Sector> newSectors = new List<Sector>();
             for (int i = 0; i < sectorAmount; i++)
             {
                 newSectors.Add(new Sector(i));
