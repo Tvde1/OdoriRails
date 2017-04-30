@@ -94,6 +94,7 @@ namespace OdoriRails.BaseClasses
         public Tram(int number, int line, Model model)
         {
             Number = number;
+            Line = line;
             Model = model;
             Status = TramStatus.Idle;
         }

@@ -1,4 +1,5 @@
-﻿using OdoriRails.BaseClasses;
+﻿using Beheersysteem.ObjectClasses;
+using OdoriRails.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +11,7 @@ namespace Beheersysteem
 {
     static class FormGraphics
     {
-        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks)
+        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks, List<BeheerTram> trams)
         {
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
@@ -20,7 +21,7 @@ namespace Beheersysteem
             var goldBrush = new SolidBrush(Color.Gold);
             var grayBrush = new SolidBrush(Color.Gray);
 
-            int baseX = 10;
+            int baseX = 70;
             int baseY = 10;
             int baseYmax = 0;
 
@@ -101,6 +102,8 @@ namespace Beheersysteem
                                 break;
                         }
                         graphics.DrawString(sector.OccupyingTram.Number.ToString(), stringFont, tramBrush, rect);
+
+                        trams.RemoveAll(tram => tram.Number == sector.OccupyingTram.Number);
                     }
                     y += 25;
 
@@ -128,6 +131,38 @@ namespace Beheersysteem
                     y = baseY;
                 }
             }
-        } 
+
+            x = 10;
+            y = 10;
+            foreach (Tram tram in trams)
+            {
+                var rect = new Rectangle(x, y, 40, 20);
+                Brush brush = new Pen(Color.LightGray).Brush; ;
+                graphics.FillRectangle(brush, rect);
+                graphics.DrawRectangle(pen, rect);
+                Brush tramBrush = null;
+                switch (tram.Status)
+                {
+                    case TramStatus.Idle:
+                        tramBrush = new Pen(Color.Black).Brush;
+                        break;
+                    case TramStatus.Cleaning:
+                        tramBrush = new Pen(Color.Blue).Brush;
+                        break;
+                    case TramStatus.CleaningMaintenance:
+                        tramBrush = new Pen(Color.Blue).Brush;
+                        break;
+                    case TramStatus.Maintenance:
+                        tramBrush = new Pen(Color.Blue).Brush;
+                        break;
+                    case TramStatus.Defect:
+                        tramBrush = new Pen(Color.Red).Brush;
+                        break;
+                }
+                graphics.DrawString(tram.Number.ToString(), stringFont, tramBrush, rect);
+            }
+            y += 25;
+        }
     }
 }
+

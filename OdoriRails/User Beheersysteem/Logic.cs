@@ -31,7 +31,6 @@ namespace User_Beheersysteem
             }
         }
 
-
         public void DeleteUser(int delIndex)
         {
             _userBeheerRepository.RemoveUser(UsersSearch[delIndex]);

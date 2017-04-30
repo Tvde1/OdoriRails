@@ -71,7 +71,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks);
+            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams);
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)
@@ -87,12 +87,12 @@ namespace Beheersysteem
 
         private void btnAddTram_Click(object sender, EventArgs e)
         {
-            _logic.AddTram(tbTramNumber.Text, tbDefaultLine.Text, cbTramModel.SelectedText);
+            _logic.AddTram(tbTramNumber.Text, tbDefaultLine.Text, cbTramModel.SelectedItem.ToString());
         }
 
         private void btnAddTrack_Click(object sender, EventArgs e)
         {
-            _logic.AddTrack(tbTrackNumber.Text, tbSectorAmount.Text, cbTrackType.SelectedText, tbDefaultLineTrack.Text);
+            _logic.AddTrack(tbTrackNumber.Text, tbSectorAmount.Text, cbTrackType.SelectedItem.ToString(), tbDefaultLineTrack.Text);
         }
 
         private void btnAddSector_Click(object sender, EventArgs e)

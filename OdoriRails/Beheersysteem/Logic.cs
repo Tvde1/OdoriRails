@@ -13,13 +13,14 @@ namespace Beheersysteem
     class Logic
     {
         public List<BeheerTrack> AllTracks { get; private set; }
+        public List<BeheerTram> AllTrams { get; private set; }
         bool testing = true;
         int simulationSpeed = 600;
 
         ICSVContext csv;
         private LogisticRepository repo = new LogisticRepository();
         private List<InUitRijSchema> schema;
-        private List<BeheerTram> allTrams;
+
         private Form form;
         public System.Windows.Forms.Timer tramFetcher;
 
@@ -50,10 +51,10 @@ namespace Beheersysteem
             {
                 AllTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
             }
-            allTrams = new List<BeheerTram>();
+            AllTrams = new List<BeheerTram>();
             foreach (Tram tram in repo.GetAllTrams())
             {
-                allTrams.Add(tram == null ? null : BeheerTram.ToBeheerTram(tram));
+                AllTrams.Add(tram == null ? null : BeheerTram.ToBeheerTram(tram));
             }
         }
 
@@ -133,7 +134,7 @@ namespace Beheersysteem
         {
             int tramNumber = Convert.ToInt32(_tram);
 
-            foreach (Tram tram in allTrams.Where(x => x.Number == tramNumber))
+            foreach (Tram tram in AllTrams.Where(x => x.Number == tramNumber))
             {
                 repo.RemoveTram(tram);
                 Update();
@@ -193,7 +194,7 @@ namespace Beheersysteem
             //Voor iedere inrijtijd een tram eraan koppellen
             foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                foreach (BeheerTram tram in allTrams.Where(x => x.DepartureTime == null && x.Line == entry.Line))
+                foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null && x.Line == entry.Line))
                 {
                     entry.TramNumber = tram.Number;
                     tram.EditTramDepartureTime(entry.ExitTime);
@@ -204,7 +205,7 @@ namespace Beheersysteem
             //Too little linebound trams to fill each entry so overflow to other types of trams
             foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                foreach (BeheerTram tram in allTrams.Where(x => x.DepartureTime == null))
+                foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null))
                 {
                     if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG)) //No driver lines
                     {
@@ -224,7 +225,7 @@ namespace Beheersysteem
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
-                BeheerTram tram = allTrams.Find(x => x.Number == entry.TramNumber);
+                BeheerTram tram = AllTrams.Find(x => x.Number == entry.TramNumber);
                 SortTram(sorter, tram);
                 form.Invalidate();
                 Thread.Sleep(simulationSpeed);
@@ -269,7 +270,7 @@ namespace Beheersysteem
         public void ToggleDisabled(string trams)
         {
             int[] iTrams = Array.ConvertAll(trams.Split(','), int.Parse);
-            foreach (BeheerTram tram in allTrams)
+            foreach (BeheerTram tram in AllTrams)
             {
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
@@ -297,7 +298,7 @@ namespace Beheersysteem
 
             foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
             {
-                foreach (Tram tram in allTrams.Where(x => x.Number == moveTram))
+                foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
                 {
                     BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
                     if (beheerSector.SetOccupyingTram(tram))
@@ -320,6 +321,7 @@ namespace Beheersysteem
             Enum.TryParse<Model>(_model, out model);
 
             repo.AddTram(new Tram(tramNumber, defaultLine, model));
+            Update();
         }
 
         public void AddTrack(string _trackNumber, string _sectorAmount, string _trackType, string _defaultLine)
