@@ -11,8 +11,10 @@ namespace Beheersysteem
 {
     static class FormGraphics
     {
-        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks, List<BeheerTram> trams)
+        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> tracks, List<BeheerTram> _trams)
         {
+            List<BeheerTram> trams = new List<BeheerTram>(_trams);
+
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
             var blackBrush = new SolidBrush(Color.Black);
@@ -132,9 +134,10 @@ namespace Beheersysteem
                 }
             }
 
+            //Print all non assigned trams 
             x = 10;
             y = 10;
-            foreach (Tram tram in trams)
+            foreach (Tram tram in trams.Where(tram => tram.Location != TramLocation.Out || tram.Location != TramLocation.GoingOut))
             {
                 var rect = new Rectangle(x, y, 40, 20);
                 Brush brush = new Pen(Color.LightGray).Brush; ;
@@ -160,8 +163,9 @@ namespace Beheersysteem
                         break;
                 }
                 graphics.DrawString(tram.Number.ToString(), stringFont, tramBrush, rect);
+                y += 25;
             }
-            y += 25;
+            
         }
     }
 }
