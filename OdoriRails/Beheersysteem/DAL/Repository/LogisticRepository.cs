@@ -129,6 +129,11 @@ namespace Beheersysteem.DAL.Repository
             TrackSectorContext.EditSector(sector);
         }
 
+        public void DeleteSectorFromTrack(Track track, Sector sector)
+        {
+            TrackSectorContext.DeleteSectorFromTrack(track, sector);
+        }
+
         public void EditTrack(Track track)
         {
             TrackSectorContext.EditTrack(track);

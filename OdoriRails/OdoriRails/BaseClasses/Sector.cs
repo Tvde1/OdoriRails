@@ -29,6 +29,13 @@
             TrackNumber = trackNumber;
         }
 
+        public Sector(int number, int trackNumber)
+        {
+            Number = number;
+            Status = SectorStatus.Open;
+            TrackNumber = trackNumber;
+        }
+
         /// <summary>
         /// Minimale sector constuctor
         /// </summary>

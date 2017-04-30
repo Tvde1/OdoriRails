@@ -47,5 +47,10 @@ namespace OdoriRails.BaseClasses
         {
             Sectors.Add(sector);
         }
+
+        public void DeleteSector()
+        {
+            Sectors.RemoveAt(Sectors.Count - 1);
+        }
     }
 }

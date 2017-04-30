@@ -56,7 +56,7 @@
             this.gbEditSectorAmount = new System.Windows.Forms.GroupBox();
             this.btnDeleteSector = new System.Windows.Forms.Button();
             this.btnAddSector = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbSectorTrack = new System.Windows.Forms.TextBox();
             this.lbTrack = new System.Windows.Forms.Label();
             this.gbNewTrack = new System.Windows.Forms.GroupBox();
             this.tbDefaultLineTrack = new System.Windows.Forms.TextBox();
@@ -343,7 +343,7 @@
             // 
             this.gbEditSectorAmount.Controls.Add(this.btnDeleteSector);
             this.gbEditSectorAmount.Controls.Add(this.btnAddSector);
-            this.gbEditSectorAmount.Controls.Add(this.textBox2);
+            this.gbEditSectorAmount.Controls.Add(this.tbSectorTrack);
             this.gbEditSectorAmount.Controls.Add(this.lbTrack);
             this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 365);
             this.gbEditSectorAmount.Margin = new System.Windows.Forms.Padding(5);
@@ -374,12 +374,12 @@
             this.btnAddSector.UseVisualStyleBackColor = true;
             this.btnAddSector.Click += new System.EventHandler(this.btnAddSector_Click);
             // 
-            // textBox2
+            // tbSectorTrack
             // 
-            this.textBox2.Location = new System.Drawing.Point(131, 18);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(118, 26);
-            this.textBox2.TabIndex = 0;
+            this.tbSectorTrack.Location = new System.Drawing.Point(131, 18);
+            this.tbSectorTrack.Name = "tbSectorTrack";
+            this.tbSectorTrack.Size = new System.Drawing.Size(118, 26);
+            this.tbSectorTrack.TabIndex = 0;
             // 
             // lbTrack
             // 
@@ -652,7 +652,7 @@
         private System.Windows.Forms.GroupBox gbEditSectorAmount;
         private System.Windows.Forms.Button btnDeleteSector;
         private System.Windows.Forms.Button btnAddSector;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbSectorTrack;
         private System.Windows.Forms.Label lbTrack;
     }
 }

@@ -99,6 +99,34 @@ namespace Beheersysteem
             }
         }
 
+        public bool AddSector(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber))
+            {
+                track.AddSector(new Sector(track.Sectors.Count));
+                repo.AddSector(track.Sectors[track.Sectors.Count - 1], track);
+                FetchUpdates();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteSector(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber && x.Sectors[x.Sectors.Count - 1].OccupyingTram == null))
+            {
+                track.DeleteSector();
+                repo.DeleteSectorFromTrack(track, track.Sectors[track.Sectors.Count - 1]);
+                FetchUpdates();
+                return true;
+            }
+            return false;
+        }
+
         public void WipePreSimulation()
         {
             repo.WipeAllDepartureTimes();
