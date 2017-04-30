@@ -107,7 +107,7 @@ namespace Beheersysteem
             {
                 track.AddSector(new Sector(track.Sectors.Count));
                 repo.AddSector(track.Sectors[track.Sectors.Count - 1], track);
-                FetchUpdates();
+                Update();
                 return true;
             }
             return false;
@@ -121,7 +121,7 @@ namespace Beheersysteem
             {
                 track.DeleteSector();
                 repo.DeleteSectorFromTrack(track, track.Sectors[track.Sectors.Count - 1]);
-                FetchUpdates();
+                Update();
                 return true;
             }
             return false;
@@ -307,6 +307,7 @@ namespace Beheersysteem
             }
 
             repo.AddTrack(new Track(trackNumber, defaultLine, trackType, newSectors));
+            Update();
         }
 
         public void Update()

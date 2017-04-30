@@ -98,13 +98,11 @@ namespace Beheersysteem
         private void btnAddSector_Click(object sender, EventArgs e)
         {
             if (!_logic.AddSector(tbSectorTrack.Text)) MessageBox.Show("Failed to add sector.");
-            panelMain.Invalidate();
         }
 
         private void btnDeleteSector_Click(object sender, EventArgs e)
         {
             if (!_logic.DeleteSector(tbSectorTrack.Text)) MessageBox.Show("Failed to delete sector.");
-            panelMain.Invalidate();
         }
     }
 }

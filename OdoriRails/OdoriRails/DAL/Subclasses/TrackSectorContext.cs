@@ -34,10 +34,10 @@ namespace OdoriRails.DAL.Subclasses
         public void AddTrack(Track track)
         {
             var query = new SqlCommand("INSERT INTO Track (TrackPk, Line, [Type], RemiseFK) VALUES (@id, @line, @type, @remise)");
-            query.Parameters.AddWithValue("@id", track.Line);
+            query.Parameters.AddWithValue("@id", track.Number);
             if (track.Line == null) query.Parameters.AddWithValue("@line", DBNull.Value);
-            else query.Parameters.AddWithValue("@line", (int)track.Type);
-            query.Parameters.AddWithValue("@type", RemiseNumber);
+            else query.Parameters.AddWithValue("@line", track.Line);
+            query.Parameters.AddWithValue("@type", (int)track.Type);
             query.Parameters.AddWithValue("@remise", 1);
             Database.GetData(query);
 
