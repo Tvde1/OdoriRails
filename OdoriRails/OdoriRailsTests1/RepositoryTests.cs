@@ -3,6 +3,7 @@ using OdoriRails.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Beheersysteem.DAL.Repository;
 
 namespace OdoriRails.DAL.Repository.Tests
 {

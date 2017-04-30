@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Beheersysteem.DAL.Repository;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Repository;
 
@@ -190,7 +191,7 @@ namespace SchoonmaakReparatieSysteem
 
         public void PlanServices()
         {
-            DateTime startdate = DateTime.Today.Subtract(TimeSpan.FromDays(365));
+            DateTime startdate = DateTime.Today.Subtract(TimeSpan.FromDays(7));
             DateTime enddate = DateTime.Today;
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
@@ -198,18 +199,13 @@ namespace SchoonmaakReparatieSysteem
 
             for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
             {
-
-
-                for (int i = 0; i < 1; i++)
-                {
                     foreach (var tram in trams)
-                    {
-                        if (!_repolog.HadBigMaintenance(tram)) // check for big service in next 6 months
+                    { 
+                        if (!_repolog.HadBigMaintenance(tram) && tram.Number != 1) // check for big service in next 6 months
                         {
                             // no : plan service and leave loop
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
-                            ++i;
                             break;
                         }
                         else
@@ -218,14 +214,12 @@ namespace SchoonmaakReparatieSysteem
                         }
                     }
 
-                }
-
-                for (int i = 0; i < 4;) // checks three times for small services, 
+                for (int i = 0; i <= 3;) // checks three times for small services, 
                 {
                     foreach (var tram in trams)
                     {
 
-                        if (!_repolog.HadSmallMaintenance(tram)) // check for small service in 3 months
+                        if (!_repolog.HadSmallMaintenance(tram) && tram.Number != 1) // check for small service in 3 months
                         {
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
