@@ -102,12 +102,12 @@ namespace Beheersysteem
 
         private void btnDeleteSector_Click(object sender, EventArgs e)
         {
-            if (!_logic.DeleteSector(tbSectorTrack.Text)) MessageBox.Show("Failed to delete sector.");
+            if (!_logic.DeleteSector(tbSectorTrack.Text)) MessageBox.Show("Failed to delete sector, make sure sector is empty");
         }
 
         private void btnDeleteTrack_Click(object sender, EventArgs e)
         {
-            if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete sector.");
+            if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");
         }
     }
 }

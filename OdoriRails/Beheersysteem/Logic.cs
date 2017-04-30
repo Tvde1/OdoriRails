@@ -133,8 +133,12 @@ namespace Beheersysteem
         {
             int trackNumber = Convert.ToInt32(_track);
 
-            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber && x.Sectors[x.Sectors.Count - 1].OccupyingTram == null))
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber))
             {
+                if (track.Sectors.Where(x => x.OccupyingTram != null).Count() > 0)
+                {
+                    return false;
+                }
                 repo.DeleteTrack(track);
                 Update();
                 return true;

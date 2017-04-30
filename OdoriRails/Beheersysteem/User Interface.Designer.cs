@@ -78,6 +78,7 @@
             this.lbTramNumber = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnDeleteTrack = new System.Windows.Forms.Button();
+            this.btnDeleteTram = new System.Windows.Forms.Button();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -346,7 +347,7 @@
             this.gbEditSectorAmount.Controls.Add(this.btnAddSector);
             this.gbEditSectorAmount.Controls.Add(this.tbSectorTrack);
             this.gbEditSectorAmount.Controls.Add(this.lbTrack);
-            this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 396);
+            this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 444);
             this.gbEditSectorAmount.Margin = new System.Windows.Forms.Padding(5);
             this.gbEditSectorAmount.Name = "gbEditSectorAmount";
             this.gbEditSectorAmount.Padding = new System.Windows.Forms.Padding(5);
@@ -403,7 +404,7 @@
             this.gbNewTrack.Controls.Add(this.btnAddTrack);
             this.gbNewTrack.Controls.Add(this.tbTrackNumber);
             this.gbNewTrack.Controls.Add(this.lbTrackNumber);
-            this.gbNewTrack.Location = new System.Drawing.Point(8, 172);
+            this.gbNewTrack.Location = new System.Drawing.Point(8, 211);
             this.gbNewTrack.Margin = new System.Windows.Forms.Padding(5);
             this.gbNewTrack.Name = "gbNewTrack";
             this.gbNewTrack.Padding = new System.Windows.Forms.Padding(5);
@@ -489,6 +490,7 @@
             // 
             // gbNewTram
             // 
+            this.gbNewTram.Controls.Add(this.btnDeleteTram);
             this.gbNewTram.Controls.Add(this.cbTramModel);
             this.gbNewTram.Controls.Add(this.tbDefaultLine);
             this.gbNewTram.Controls.Add(this.lbTramModel);
@@ -500,7 +502,7 @@
             this.gbNewTram.Margin = new System.Windows.Forms.Padding(5);
             this.gbNewTram.Name = "gbNewTram";
             this.gbNewTram.Padding = new System.Windows.Forms.Padding(5);
-            this.gbNewTram.Size = new System.Drawing.Size(259, 154);
+            this.gbNewTram.Size = new System.Drawing.Size(259, 193);
             this.gbNewTram.TabIndex = 0;
             this.gbNewTram.TabStop = false;
             this.gbNewTram.Text = "New Tram";
@@ -583,6 +585,15 @@
             this.btnDeleteTrack.Text = "Delete Track";
             this.btnDeleteTrack.UseVisualStyleBackColor = true;
             this.btnDeleteTrack.Click += new System.EventHandler(this.btnDeleteTrack_Click);
+            // 
+            // btnDeleteTram
+            // 
+            this.btnDeleteTram.Location = new System.Drawing.Point(7, 148);
+            this.btnDeleteTram.Name = "btnDeleteTram";
+            this.btnDeleteTram.Size = new System.Drawing.Size(242, 33);
+            this.btnDeleteTram.TabIndex = 7;
+            this.btnDeleteTram.Text = "Delete Tram";
+            this.btnDeleteTram.UseVisualStyleBackColor = true;
             // 
             // UserInterface
             // 
@@ -667,6 +678,7 @@
         private System.Windows.Forms.TextBox tbSectorTrack;
         private System.Windows.Forms.Label lbTrack;
         private System.Windows.Forms.Button btnDeleteTrack;
+        private System.Windows.Forms.Button btnDeleteTram;
     }
 }
 
