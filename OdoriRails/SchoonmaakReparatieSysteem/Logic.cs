@@ -99,7 +99,7 @@ namespace SchoonmaakReparatieSysteem
 
             catch
             {
-                MessageBox.Show("Er ging iets mis.");
+                MessageBox.Show("Service updated, but there are some foreign key problems with the query.");
             }
             finally
             {
@@ -191,17 +191,19 @@ namespace SchoonmaakReparatieSysteem
 
         public void PlanServices()
         {
-            DateTime startdate = DateTime.Today.Subtract(TimeSpan.FromDays(7));
-            DateTime enddate = DateTime.Today;
+            // TODO: ADD A CHECK FOR EACH DAY TO SEE IF THERE ARE ALREADY 4 SERVICES PLANNED (3 small 1 big)
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = startdate.AddDays(7);
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
             trams = _repolog.GetAllTrams();
 
             for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
             {
+
                     foreach (var tram in trams)
-                    { 
-                        if (!_repolog.HadBigMaintenance(tram) && tram.Number != 1) // check for big service in next 6 months
+                    {
+                        if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
                         {
                             // no : plan service and leave loop
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
@@ -213,18 +215,20 @@ namespace SchoonmaakReparatieSysteem
                             // yes : skip to second check
                         }
                     }
+                
 
                 for (int i = 0; i <= 3;) // checks three times for small services, 
                 {
                     foreach (var tram in trams)
                     {
 
-                        if (!_repolog.HadSmallMaintenance(tram) && tram.Number != 1) // check for small service in 3 months
+                        if (_repolog.HadSmallMaintenance(tram) == false && tram.Number != 1) // check for small service in 3 months
                         {
                             Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
-                            ++i;
+                            i++;
                             break;
+                            
                         }
                         else
                         {
