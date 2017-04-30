@@ -77,6 +77,7 @@
             this.tbTramNumber = new System.Windows.Forms.TextBox();
             this.lbTramNumber = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnDeleteTrack = new System.Windows.Forms.Button();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -345,7 +346,7 @@
             this.gbEditSectorAmount.Controls.Add(this.btnAddSector);
             this.gbEditSectorAmount.Controls.Add(this.tbSectorTrack);
             this.gbEditSectorAmount.Controls.Add(this.lbTrack);
-            this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 365);
+            this.gbEditSectorAmount.Location = new System.Drawing.Point(8, 396);
             this.gbEditSectorAmount.Margin = new System.Windows.Forms.Padding(5);
             this.gbEditSectorAmount.Name = "gbEditSectorAmount";
             this.gbEditSectorAmount.Padding = new System.Windows.Forms.Padding(5);
@@ -392,6 +393,7 @@
             // 
             // gbNewTrack
             // 
+            this.gbNewTrack.Controls.Add(this.btnDeleteTrack);
             this.gbNewTrack.Controls.Add(this.tbDefaultLineTrack);
             this.gbNewTrack.Controls.Add(this.lbDefaultLineTrack);
             this.gbNewTrack.Controls.Add(this.cbTrackType);
@@ -405,7 +407,7 @@
             this.gbNewTrack.Margin = new System.Windows.Forms.Padding(5);
             this.gbNewTrack.Name = "gbNewTrack";
             this.gbNewTrack.Padding = new System.Windows.Forms.Padding(5);
-            this.gbNewTrack.Size = new System.Drawing.Size(259, 183);
+            this.gbNewTrack.Size = new System.Drawing.Size(259, 223);
             this.gbNewTrack.TabIndex = 1;
             this.gbNewTrack.TabStop = false;
             this.gbNewTrack.Text = "New Track";
@@ -572,6 +574,16 @@
             this.tabPage3.Text = "Settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // btnDeleteTrack
+            // 
+            this.btnDeleteTrack.Location = new System.Drawing.Point(12, 181);
+            this.btnDeleteTrack.Name = "btnDeleteTrack";
+            this.btnDeleteTrack.Size = new System.Drawing.Size(242, 33);
+            this.btnDeleteTrack.TabIndex = 9;
+            this.btnDeleteTrack.Text = "Delete Track";
+            this.btnDeleteTrack.UseVisualStyleBackColor = true;
+            this.btnDeleteTrack.Click += new System.EventHandler(this.btnDeleteTrack_Click);
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -654,6 +666,7 @@
         private System.Windows.Forms.Button btnAddSector;
         private System.Windows.Forms.TextBox tbSectorTrack;
         private System.Windows.Forms.Label lbTrack;
+        private System.Windows.Forms.Button btnDeleteTrack;
     }
 }
 

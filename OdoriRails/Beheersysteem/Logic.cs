@@ -113,6 +113,8 @@ namespace Beheersysteem
             return false;
         }
 
+
+
         public bool DeleteSector(string _track)
         {
             int trackNumber = Convert.ToInt32(_track);
@@ -121,6 +123,19 @@ namespace Beheersysteem
             {
                 track.DeleteSector();
                 repo.DeleteSectorFromTrack(track, track.Sectors[track.Sectors.Count - 1]);
+                Update();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteTrack(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber && x.Sectors[x.Sectors.Count - 1].OccupyingTram == null))
+            {
+                repo.DeleteTrack(track);
                 Update();
                 return true;
             }

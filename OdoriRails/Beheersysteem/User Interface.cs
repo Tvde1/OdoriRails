@@ -104,5 +104,10 @@ namespace Beheersysteem
         {
             if (!_logic.DeleteSector(tbSectorTrack.Text)) MessageBox.Show("Failed to delete sector.");
         }
+
+        private void btnDeleteTrack_Click(object sender, EventArgs e)
+        {
+            if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete sector.");
+        }
     }
 }

@@ -139,6 +139,11 @@ namespace Beheersysteem.DAL.Repository
             TrackSectorContext.EditTrack(track);
         }
 
+        public void DeleteTrack(Track track)
+        {
+            TrackSectorContext.DeleteTrack(track);
+        }
+
         public bool HadBigMaintenance(Tram tram)
         {
             return ServiceContext.HadBigMaintenance(tram);

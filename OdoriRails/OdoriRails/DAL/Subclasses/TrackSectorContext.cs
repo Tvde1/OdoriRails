@@ -62,6 +62,13 @@ namespace OdoriRails.DAL.Subclasses
             }
         }
 
+        public void DeleteTrack(Track track)
+        {
+            var query = new SqlCommand("DELETE FROM Track WHERE TrackPK = @track");
+            query.Parameters.AddWithValue("@track", track.Number);
+            Database.GetData(query);
+        }
+
         public void AddSector(Sector sector, Track track)
         {
             var query = new SqlCommand("INSERT INTO Sector (SectorPk, TrackFk, RemiseFK) VALUES (@id, @track, @remise)");
