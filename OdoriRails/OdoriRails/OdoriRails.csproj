@@ -62,7 +62,6 @@
     <Compile Include="DAL\Database.cs" />
     <Compile Include="DAL\Repository\LoginRepository.cs" />
     <Compile Include="DAL\Repository\SchoonmaakReparatieRepository.cs" />
-    <Compile Include="DAL\Repository\UserBeheerRepository.cs" />
     <Compile Include="DAL\Subclasses\ILoginContext.cs" />
     <Compile Include="DAL\Subclasses\IServiceContext.cs" />
     <Compile Include="DAL\Subclasses\ITrackSectorContext.cs" />

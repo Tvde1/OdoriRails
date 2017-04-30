@@ -4,7 +4,6 @@ namespace Beheersysteem
 {
     class InUitRijSchema
     {
-        //TODO string van tijden naar datetime omzetten
         public DateTime ExitTime { get; private set; }
         public DateTime EntryTime { get; private set; }
         public int Line { get; private set; }
@@ -24,6 +23,5 @@ namespace Beheersysteem
         {
             return ExitTime + " " + EntryTime + " " + Line + " " + TramNumber;
         }
-
     }
 }

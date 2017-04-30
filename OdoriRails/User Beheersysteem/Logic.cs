@@ -1,6 +1,5 @@
 ﻿using OdoriRails.BaseClasses;
 using System.Collections.Generic;
-using OdoriRails.DAL.Repository;
 
 namespace User_Beheersysteem
 {
@@ -31,7 +30,6 @@ namespace User_Beheersysteem
                 UsersSearch.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername));
             }
         }
-
 
         public void DeleteUser(int delIndex)
         {

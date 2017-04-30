@@ -17,6 +17,9 @@ namespace Beheersysteem
             InitializeComponent();
             panelMain.Invalidate();
 
+            cbTramModel.DataSource = Enum.GetValues(typeof(Model));
+            cbTrackType.DataSource = Enum.GetValues(typeof(TrackType));
+
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
         }
 
@@ -68,8 +71,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            Console.WriteLine(".Paint."); 
-            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks);
+            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams, tbCutoffTracks.Text, cBoxShowEmptyTracks.Checked);
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)
@@ -85,22 +87,37 @@ namespace Beheersysteem
 
         private void btnAddTram_Click(object sender, EventArgs e)
         {
-
+            _logic.AddTram(tbTramNumber.Text, tbDefaultLine.Text, cbTramModel.SelectedItem.ToString());
         }
 
         private void btnAddTrack_Click(object sender, EventArgs e)
         {
-
+            _logic.AddTrack(tbTrackNumber.Text, tbSectorAmount.Text, cbTrackType.SelectedItem.ToString(), tbDefaultLineTrack.Text);
         }
 
         private void btnAddSector_Click(object sender, EventArgs e)
         {
-
+            if (!_logic.AddSector(tbSectorTrack.Text)) MessageBox.Show("Failed to add sector.");
         }
 
         private void btnDeleteSector_Click(object sender, EventArgs e)
         {
+            if (!_logic.DeleteSector(tbSectorTrack.Text)) MessageBox.Show("Failed to delete sector, make sure sector is empty");
+        }
 
+        private void btnDeleteTrack_Click(object sender, EventArgs e)
+        {
+            if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");
+        }
+
+        private void btnDeleteTram_Click(object sender, EventArgs e)
+        {
+            _logic.DeleteTram(tbTramNumber.Text);
+        }
+
+        private void btnUpdateSettings_Click(object sender, EventArgs e)
+        {
+            panelMain.Invalidate();
         }
     }
 }

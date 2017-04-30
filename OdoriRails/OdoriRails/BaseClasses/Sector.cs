@@ -28,5 +28,21 @@
             OccupyingTram = tram;
             TrackNumber = trackNumber;
         }
+
+        public Sector(int number, int trackNumber)
+        {
+            Number = number;
+            Status = SectorStatus.Open;
+            TrackNumber = trackNumber;
+        }
+
+        /// <summary>
+        /// Minimale sector constuctor
+        /// </summary>
+        /// <param name="number"></param>
+        public Sector(int number)
+        {
+            Number = number;
+        }
     }
 }

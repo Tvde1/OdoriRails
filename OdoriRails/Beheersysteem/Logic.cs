@@ -6,23 +6,23 @@ using System;
 using System.Windows.Forms;
 using System.Threading;
 using Beheersysteem.DAL.Repository;
+using System.Linq;
 
 namespace Beheersysteem
 {
     class Logic
     {
+        public List<BeheerTrack> AllTracks { get; private set; }
+        public List<BeheerTram> AllTrams { get; private set; }
         bool testing = true;
         int simulationSpeed = 600;
 
         ICSVContext csv;
-        private List<InUitRijSchema> schema;
-        private List<BeheerTram> allTrams;
         private LogisticRepository repo = new LogisticRepository();
-        private List<BeheerTrack> _allTracks;
+        private List<InUitRijSchema> schema;
+
         private Form form;
         public System.Windows.Forms.Timer tramFetcher;
-
-        public List<BeheerTrack> AllTracks => _allTracks;
 
         /// <summary>
         /// Constructor: Voert alles uit dat bij de launch uitgevoerd moet worden.
@@ -46,15 +46,15 @@ namespace Beheersysteem
 
         public void FetchUpdates()
         {
-            _allTracks = new List<BeheerTrack>();
+            AllTracks = new List<BeheerTrack>();
             foreach (Track track in repo.GetTracksAndSectors())
             {
-                _allTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
+                AllTracks.Add(track == null ? null : BeheerTrack.ToBeheerTrack(track));
             }
-            allTrams = new List<BeheerTram>();
+            AllTrams = new List<BeheerTram>();
             foreach (Tram tram in repo.GetAllTrams())
             {
-                allTrams.Add(tram == null ? null : BeheerTram.ToBeheerTram(tram));
+                AllTrams.Add(tram == null ? null : BeheerTram.ToBeheerTram(tram));
             }
         }
 
@@ -100,6 +100,65 @@ namespace Beheersysteem
             }
         }
 
+        public bool AddSector(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber))
+            {
+                track.AddSector(new Sector(track.Sectors.Count));
+                repo.AddSector(track.Sectors[track.Sectors.Count - 1], track);
+                Update();
+                return true;
+            }
+            return false;
+        }
+
+
+
+        public bool DeleteSector(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber && x.Sectors[x.Sectors.Count - 1].OccupyingTram == null))
+            {
+                track.DeleteSector();
+                repo.DeleteSectorFromTrack(track, track.Sectors[track.Sectors.Count - 1]);
+                Update();
+                return true;
+            }
+            return false;
+        }
+
+        public void DeleteTram(string _tram)
+        {
+            int tramNumber = Convert.ToInt32(_tram);
+
+            foreach (Tram tram in AllTrams.Where(x => x.Number == tramNumber))
+            {
+                repo.RemoveTram(tram);
+                Update();
+            }
+
+        }
+
+        public bool DeleteTrack(string _track)
+        {
+            int trackNumber = Convert.ToInt32(_track);
+
+            foreach (Track track in AllTracks.Where(x => x.Number == trackNumber))
+            {
+                if (track.Sectors.Where(x => x.OccupyingTram != null).Count() > 0)
+                {
+                    return false;
+                }
+                repo.DeleteTrack(track);
+                Update();
+                return true;
+            }
+            return false;
+        }
+
         public void WipePreSimulation()
         {
             repo.WipeAllDepartureTimes();
@@ -109,13 +168,10 @@ namespace Beheersysteem
 
         public DateTime? GetExitTime(BeheerTram tram)
         {
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.Line == tram.Line && x.TramNumber == null))
             {
-                if (tram.Line == entry.Line && entry.TramNumber == null)
-                {
-                    entry.TramNumber = tram.Number;
-                    return entry.ExitTime;
-                }
+                entry.TramNumber = tram.Number;
+                return entry.ExitTime;
             }
             return null;
         }
@@ -124,7 +180,7 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
-                _allTracks = sorter.AssignTramLocation(tram, tram.DepartureTime);
+                AllTracks = sorter.AssignTramLocation(tram);
             }
         }
 
@@ -136,44 +192,32 @@ namespace Beheersysteem
             schema.Sort((x, y) => x.EntryTime.CompareTo(y.EntryTime));
 
             //Voor iedere inrijtijd een tram eraan koppellen
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                if (entry.TramNumber == null)
+                foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null && x.Line == entry.Line))
                 {
-                    foreach (BeheerTram tram in allTrams)
-                    {
-                        if (tram.DepartureTime == null && tram.Line == entry.Line)
-                        {
-                            entry.TramNumber = tram.Number;
-                            tram.EditTramDepartureTime(entry.ExitTime);
-                            break;
-                        }
-                    }
+                    entry.TramNumber = tram.Number;
+                    tram.EditTramDepartureTime(entry.ExitTime);
+                    break;
                 }
             }
 
             //Too little linebound trams to fill each entry so overflow to other types of trams
-            foreach (InUitRijSchema entry in schema)
+            foreach (InUitRijSchema entry in schema.Where(x => x.TramNumber == null))
             {
-                if (entry.TramNumber == null)
+                foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null))
                 {
-                    foreach (BeheerTram tram in allTrams)
+                    if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG)) //No driver lines
                     {
-                        if (tram.DepartureTime == null)
-                        {
-                            if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG))//No driver lines
-                            {
-                                entry.TramNumber = tram.Number;
-                                tram.EditTramDepartureTime(entry.ExitTime);
-                                break;
-                            }
-                            else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino)//Driver lines
-                            {
-                                entry.TramNumber = tram.Number;
-                                tram.EditTramDepartureTime(entry.ExitTime);
-                                break;
-                            }
-                        }
+                        entry.TramNumber = tram.Number;
+                        tram.EditTramDepartureTime(entry.ExitTime);
+                        break;
+                    }
+                    else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino) //Driver lines
+                    {
+                        entry.TramNumber = tram.Number;
+                        tram.EditTramDepartureTime(entry.ExitTime);
+                        break;
                     }
                 }
             }
@@ -181,23 +225,20 @@ namespace Beheersysteem
             //Het schema afgaan voor de simulatie
             foreach (InUitRijSchema entry in schema)
             {
-                BeheerTram tram = allTrams.Find(x => x.Number == entry.TramNumber);
+                BeheerTram tram = AllTrams.Find(x => x.Number == entry.TramNumber);
                 SortTram(sorter, tram);
                 form.Invalidate();
                 Thread.Sleep(simulationSpeed);
             }
 
             schema = csv.getSchema();
-
-            //Sync with database:
             Update();
         }
 
         public void Lock(string tracks)
         {
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
-
-            foreach (Track track in _allTracks)
+            foreach (Track track in AllTracks)
             {
                 int pos = Array.IndexOf(lockTracks, track.Number);
                 if (pos > -1)
@@ -212,10 +253,8 @@ namespace Beheersysteem
 
         public void Unlock(string tracks)
         {
-            string[] sUnlockTracks = tracks.Split(',');
-            int[] UnlockTracks = Array.ConvertAll(sUnlockTracks, int.Parse);
-
-            foreach (Track track in _allTracks)
+            int[] UnlockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
+            foreach (Track track in AllTracks)
             {
                 int pos = Array.IndexOf(UnlockTracks, track.Number);
                 if (pos > -1)
@@ -230,11 +269,8 @@ namespace Beheersysteem
 
         public void ToggleDisabled(string trams)
         {
-            //TODO: Lock en Unlock wordt nu in de classe aangepast maar niet in de database
-            string[] sTrams = trams.Split(',');
-            int[] iTrams = Array.ConvertAll(sTrams, int.Parse);
-
-            foreach (BeheerTram tram in allTrams)
+            int[] iTrams = Array.ConvertAll(trams.Split(','), int.Parse);
+            foreach (BeheerTram tram in AllTrams)
             {
                 int pos = Array.IndexOf(iTrams, tram.Number);
                 if (pos > -1)
@@ -260,25 +296,51 @@ namespace Beheersysteem
             int moveTrack = Convert.ToInt32(_track);
             int moveSector = Convert.ToInt32(_sector);
 
-            foreach (Track track in AllTracks)
+            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
             {
-                if (track.Number == moveTrack)
+                foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
                 {
-                    foreach (Tram tram in allTrams)
+                    BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                    if (beheerSector.SetOccupyingTram(tram))
                     {
-                        if (tram.Number == moveTram)
-                        {
-                            BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
-                            beheerSector.SetOccupyingTram(tram);
-                            repo.WipeSectorByTramId(tram.Number);
-                            repo.EditSector(beheerSector);
-                            Update();
-                            return true;
-                        }
+                        repo.WipeSectorByTramId(tram.Number);
+                        repo.EditSector(beheerSector);
+                        Update();
+                        return true;
                     }
                 }
             }
             return false;
+        }
+
+        public void AddTram(string _tramNumber, string _defaultLine, string _model)
+        {
+            int tramNumber = Convert.ToInt32(_tramNumber);
+            int defaultLine = Convert.ToInt32(_defaultLine);
+            Model model;
+            Enum.TryParse<Model>(_model, out model);
+
+            repo.AddTram(new Tram(tramNumber, defaultLine, model));
+            Update();
+        }
+
+        public void AddTrack(string _trackNumber, string _sectorAmount, string _trackType, string _defaultLine)
+        {
+            int trackNumber = Convert.ToInt32(_trackNumber);
+            int sectorAmount = Convert.ToInt32(_sectorAmount);
+            int? defaultLine = Convert.ToInt32(_defaultLine);
+
+            TrackType trackType;
+            Enum.TryParse<TrackType>(_trackType, out trackType);
+
+            List<Sector> newSectors = new List<Sector>();
+            for (int i = 0; i < sectorAmount; i++)
+            {
+                newSectors.Add(new Sector(i));
+            }
+
+            repo.AddTrack(new Track(trackNumber, defaultLine, trackType, newSectors));
+            Update();
         }
 
         public void Update()

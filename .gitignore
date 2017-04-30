@@ -248,3 +248,6 @@ OdoriRails/OdoriRailsTests/bin/
 OdoriRails/User Beheersysteem/bin/
 OdoriRails/OdoriRails/bin/
 *.exe
+*.exe
+*.exe
+OdoriRails/Beheersysteem/bin/Debug/OdoriRails.exe

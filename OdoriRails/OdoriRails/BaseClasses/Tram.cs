@@ -91,9 +91,10 @@ namespace OdoriRails.BaseClasses
         /// </summary>
         /// <param name="number"></param>
         /// <param name="model"></param>
-        public Tram(int number, Model model)
+        public Tram(int number, int line, Model model)
         {
             Number = number;
+            Line = line;
             Model = model;
             Status = TramStatus.Idle;
         }

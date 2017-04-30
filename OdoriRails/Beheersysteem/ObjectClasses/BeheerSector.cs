@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OdoriRails.BaseClasses;
+using System.Windows.Forms;
 
 namespace Beheersysteem
 {
@@ -50,12 +51,16 @@ namespace Beheersysteem
         /// Zet de occupying tram. Gebruik `null` om de tram leeg te maken.
         /// </summary>
         /// <param name="tram"></param>
-        public void SetOccupyingTram(Tram tram)
+        public bool SetOccupyingTram(Tram tram)
         {
-            if (Status == SectorStatus.Locked) throw new InvalidOperationException("Can't occupy a locked sector. Please unlock it first.");
-            if (Status == SectorStatus.Occupied) throw new InvalidOperationException("Sector already Occupied");
-            Status = SectorStatus.Occupied;
-            OccupyingTram = tram;
+            if (Status == SectorStatus.Locked || Status == SectorStatus.Occupied) return false;
+            else
+            {
+                Status = SectorStatus.Occupied;
+                OccupyingTram = tram;
+                return true;
+            }
+
         }
     }
 }

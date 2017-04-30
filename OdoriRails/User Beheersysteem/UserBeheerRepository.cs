@@ -2,7 +2,7 @@
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL.Repository
+namespace User_Beheersysteem
 {
     public class UserBeheerRepository
     {

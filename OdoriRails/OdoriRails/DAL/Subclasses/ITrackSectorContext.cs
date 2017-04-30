@@ -11,6 +11,10 @@ namespace OdoriRails.DAL.Subclasses
         /// <returns></returns>
         List<Track> GetTracksAndSectors();
 
+        void AddTrack(Track track);
+
+        void AddSector(Sector sector, Track track);
+
         /// <summary>
         /// Updated de track in de database met de nieuwe informatie.
         /// </summary>
@@ -20,6 +24,10 @@ namespace OdoriRails.DAL.Subclasses
         /// Updated de sector in de database met de nieuwe informatie.
         /// </summary>
         void EditSector(Sector sector);
+
+        void DeleteSectorFromTrack(Track track, Sector sector);
+
+        void DeleteTrack(Track track);
 
         void WipeTramsFromSectors();
 

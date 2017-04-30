@@ -114,14 +114,34 @@ namespace Beheersysteem.DAL.Repository
             TramContext.EditTram(tram);
         }
 
+        public void AddTrack(Track track)
+        {
+            TrackSectorContext.AddTrack(track);
+        }
+
+        public void AddSector(Sector sector, Track track)
+        {
+            TrackSectorContext.AddSector(sector, track);
+        }
+
         public void EditSector(Sector sector)
         {
             TrackSectorContext.EditSector(sector);
         }
 
+        public void DeleteSectorFromTrack(Track track, Sector sector)
+        {
+            TrackSectorContext.DeleteSectorFromTrack(track, sector);
+        }
+
         public void EditTrack(Track track)
         {
             TrackSectorContext.EditTrack(track);
+        }
+
+        public void DeleteTrack(Track track)
+        {
+            TrackSectorContext.DeleteTrack(track);
         }
 
         public bool HadBigMaintenance(Tram tram)
