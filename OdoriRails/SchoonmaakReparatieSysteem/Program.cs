@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
 using OdoriRails.DAL.Repository;
+
 
 namespace SchoonmaakReparatieSysteem
 {
     static class Program
     {
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
         private static SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
 
         /// <summary>

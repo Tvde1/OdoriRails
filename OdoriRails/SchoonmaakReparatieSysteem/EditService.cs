@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using OdoriRails;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -23,7 +16,7 @@ namespace SchoonmaakReparatieSysteem
         {
             activeUser = activeuser;
             InitializeComponent();
-            logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
+            
 
 
 
@@ -38,6 +31,11 @@ namespace SchoonmaakReparatieSysteem
         {
             usersListBox.Items.Add(usercbox.SelectedItem);
             users.Add(availableusers.ElementAt(usercbox.SelectedIndex));
+        }
+
+        private void EditService_Load(object sender, EventArgs e)
+        {
+           availableusers = logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
         }
     }
 }

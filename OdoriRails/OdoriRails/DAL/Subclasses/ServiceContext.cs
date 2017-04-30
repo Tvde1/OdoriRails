@@ -157,19 +157,19 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
 
         public bool HadBigMaintenance(Tram tram)
         {
-            var query = new SqlCommand($@"SELECT 'Yes' AS Result
+            var query = new SqlCommand($@"SELECT * 
 FROM Repair INNER JOIN
 Service ON Repair.ServiceFk = Service.ServicePk
-WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) > 6) AND (Repair.Defect = 'Big Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
+WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) < 6) AND (Repair.Defect = 'Big Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
             return Database.GetData(query).Rows.Count > 0;
         }
 
         public bool HadSmallMaintenance(Tram tram)
         {
-            var query = new SqlCommand($@"SELECT 'Yes' AS Result
+            var query = new SqlCommand($@"SELECT * 
 FROM Repair INNER JOIN
  Service ON Repair.ServiceFk = Service.ServicePk
-WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) > 3) AND (Repair.Defect = 'Small Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
+WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) < 3) AND (Repair.Defect = 'Small Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
             return Database.GetData(query).Rows.Count > 0;
         }
 

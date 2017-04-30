@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Beheersysteem.DAL.Repository;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Repository;
 
@@ -9,7 +10,7 @@ namespace SchoonmaakReparatieSysteem
     public class Logic
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
-
+        private LogisticRepository _repolog = new LogisticRepository();
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl,
             ComboBox usercbox)
         {
@@ -53,13 +54,13 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (activeUser.Role == Role.HeadCleaner)
                 {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                     _repo.AddCleaning(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                     _repo.AddRepair(repair);
                 }
@@ -84,13 +85,13 @@ namespace SchoonmaakReparatieSysteem
             {
                 if (activeUser.Role == Role.HeadCleaner)
                 {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize) sortsrvc_cb.SelectedIndex,
+                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                     _repo.EditService(cleaning);
                 }
                 if (activeUser.Role == Role.HeadEngineer)
                 {
-                    var repair = new Repair(startdate, enddate, (RepairType) sortsrvc_cb.SelectedIndex,
+                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
                         commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
                     _repo.EditService(repair);
                 }
@@ -98,7 +99,7 @@ namespace SchoonmaakReparatieSysteem
 
             catch
             {
-                MessageBox.Show("Er ging iets mis.");
+                MessageBox.Show("Service updated, but there are some foreign key problems with the query.");
             }
             finally
             {
@@ -158,7 +159,7 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                   _repo.DeleteService(servicetofinish);
+                    _repo.DeleteService(servicetofinish);
                 }
                 catch
                 {
@@ -187,5 +188,60 @@ namespace SchoonmaakReparatieSysteem
 
             }
         }
+
+        public void PlanServices()
+        {
+            // TODO: ADD A CHECK FOR EACH DAY TO SEE IF THERE ARE ALREADY 4 SERVICES PLANNED (3 small 1 big)
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = startdate.AddDays(7);
+            List<Tram> trams;
+            List<User> emptylistusers = new List<User>();
+            trams = _repolog.GetAllTrams();
+
+            for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
+            {
+
+                    foreach (var tram in trams)
+                    {
+                        if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
+                        {
+                            // no : plan service and leave loop
+                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                            _repo.AddRepair(rep);
+                            break;
+                        }
+                        else
+                        {
+                            // yes : skip to second check
+                        }
+                    }
+                
+
+                for (int i = 0; i <= 3;) // checks three times for small services, 
+                {
+                    foreach (var tram in trams)
+                    {
+
+                        if (_repolog.HadSmallMaintenance(tram) == false && tram.Number != 1) // check for small service in 3 months
+                        {
+                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
+                            _repo.AddRepair(rep);
+                            i++;
+                            break;
+                            
+                        }
+                        else
+                        {
+                            // yes : next tram
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
     }
 }
+
