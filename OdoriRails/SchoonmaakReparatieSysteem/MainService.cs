@@ -13,15 +13,13 @@ namespace SchoonmaakReparatieSysteem
         {
             InitializeComponent();
 
-            _logic.PlanServices();
+            //_logic.PlanServices();
 
-
-            MessageBox.Show("Debug info: There was a problem with the INSERT SQL query.");
+            //MessageBox.Show("Debug info: There was a problem with the INSERT SQL query.");
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
             filtercbox.SelectedIndex = 0;
-
         }
 
         private void button1_Click(object sender, EventArgs e)
