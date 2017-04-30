@@ -109,5 +109,10 @@ namespace Beheersysteem
         {
             if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");
         }
+
+        private void btnDeleteTram_Click(object sender, EventArgs e)
+        {
+            _logic.DeleteTram(tbTramNumber.Text);
+        }
     }
 }

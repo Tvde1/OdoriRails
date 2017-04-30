@@ -594,6 +594,7 @@
             this.btnDeleteTram.TabIndex = 7;
             this.btnDeleteTram.Text = "Delete Tram";
             this.btnDeleteTram.UseVisualStyleBackColor = true;
+            this.btnDeleteTram.Click += new System.EventHandler(this.btnDeleteTram_Click);
             // 
             // UserInterface
             // 

@@ -1,6 +1,5 @@
 ﻿using OdoriRails.BaseClasses;
 using System.Collections.Generic;
-using OdoriRails.DAL.Repository;
 
 namespace User_Beheersysteem
 {

@@ -129,6 +129,18 @@ namespace Beheersysteem
             return false;
         }
 
+        public void DeleteTram(string _tram)
+        {
+            int tramNumber = Convert.ToInt32(_tram);
+
+            foreach (Tram tram in allTrams.Where(x => x.Number == tramNumber))
+            {
+                repo.RemoveTram(tram);
+                Update();
+            }
+
+        }
+
         public bool DeleteTrack(string _track)
         {
             int trackNumber = Convert.ToInt32(_track);
