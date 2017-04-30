@@ -71,7 +71,7 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams);
+            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams, tbCutoffTracks.Text, cBoxShowEmptyTracks.Checked);
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)
@@ -113,6 +113,11 @@ namespace Beheersysteem
         private void btnDeleteTram_Click(object sender, EventArgs e)
         {
             _logic.DeleteTram(tbTramNumber.Text);
+        }
+
+        private void btnUpdateSettings_Click(object sender, EventArgs e)
+        {
+            panelMain.Invalidate();
         }
     }
 }
