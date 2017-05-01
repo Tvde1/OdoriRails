@@ -75,13 +75,18 @@ namespace LoginSystem
             //var test = Activator.CreateInstance(assembly.GetType());
 
             HideForm();
-            assembly.EntryPoint.Invoke(null, new object[] { new[] { user.Username } });
+            OpenAssembly(assembly, user);
             ShowForm();
         }
 
-        private async void HideForm()
+        private async void OpenAssembly(Assembly assembly, User user)
         {
-            await Task.Delay(500);
+            await Task.Delay(2000);
+            assembly.EntryPoint.Invoke(null, new object[] { new[] { user.Username } });
+        }
+
+        private void HideForm()
+        {
             _loginScreen.WindowState = FormWindowState.Minimized;
         }
 
