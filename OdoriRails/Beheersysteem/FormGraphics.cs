@@ -11,7 +11,7 @@ namespace Beheersysteem
 {
     static class FormGraphics
     {
-        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> _tracks, List<BeheerTram> _trams, string _cutoffTracks, bool showEmptyTracks)
+        public static void DrawGraphics(Graphics graphics, List<BeheerTrack> _tracks, List<BeheerTram> _trams, int[] cutoffTracks, bool showEmptyTracks)
         {
             List<BeheerTram> trams = new List<BeheerTram>(_trams);
             List<BeheerTrack> tracks;
@@ -23,8 +23,6 @@ namespace Beheersysteem
             {
                 tracks = new List<BeheerTrack>(_tracks);
             }
-
-            int[] cutoffTracks = Array.ConvertAll(_cutoffTracks.Split(','), int.Parse);
 
             var pen = new Pen(Color.Black, 2);
             var stringFont = new Font("Arial", 11);
