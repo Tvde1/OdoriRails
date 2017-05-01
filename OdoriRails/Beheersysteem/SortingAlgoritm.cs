@@ -111,6 +111,15 @@ namespace Beheersysteem
                             return allTracks;
                         }
                     }
+                    else if (track.Sectors[i].Status == SectorStatus.Occupied && track.Sectors[0].OccupyingTram.DepartureTime == null)
+                    {
+                        if (track.Sectors[i + 1].Status == SectorStatus.Open)
+                        {
+                            BeheerSector beheerSector = track.Sectors[i + 1] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i + 1]);
+                            track.Sectors[i + 1] = Assign(beheerSector, tram);
+                            return allTracks;
+                        }
+                    }
                 }
             }
 

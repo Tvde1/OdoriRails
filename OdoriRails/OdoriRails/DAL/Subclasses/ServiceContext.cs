@@ -21,7 +21,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk = {user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk")), CreateRepair);
+WHERE ([User].UserPk = {user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Repair.ServiceFk = derivedtbl_2.ServicePk")), CreateRepair).OrderBy(x => x.StartDate).ToList();
         }
 
         public List<Cleaning> GetAllCleansFromUser(User user)
@@ -34,7 +34,7 @@ FROM Service INNER JOIN
 (SELECT ServiceUser.ServiceCk
 FROM ServiceUser INNER JOIN
 [User] ON ServiceUser.UserCk = [User].UserPk
-WHERE ([User].UserPk ={user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk")), CreateCleaning);
+WHERE ([User].UserPk ={user.Id})) AS derivedtbl_1 ON Service.ServicePk = derivedtbl_1.ServiceCk) AS derivedtbl_2 ON Clean.ServiceFk = derivedtbl_2.ServicePk")), CreateCleaning).OrderBy(x => x.StartDate).ToList();
         }
 
         public List<Repair> GetAllRepairsWithoutUsers()
@@ -44,7 +44,7 @@ FROM Repair INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
-WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk")), CreateRepair);
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Repair.ServiceFk = derivedtbl_1.ServicePk")), CreateRepair).OrderBy(x => x.StartDate).ToList();
         }
 
         public List<Cleaning> GetAllCleansWithoutUsers()
@@ -54,7 +54,7 @@ FROM Clean INNER JOIN
 (SELECT Service.ServicePk
 FROM ServiceUser RIGHT OUTER JOIN
 Service ON ServiceUser.ServiceCk = Service.ServicePk
-WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk")), CreateCleaning);
+WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derivedtbl_1.ServicePk")), CreateCleaning).OrderBy(x => x.StartDate).ToList();
         }
 
         public void EditService(Service service)
@@ -190,7 +190,7 @@ FROM Service INNER JOIN
 Repair ON Service.ServicePk = Repair.ServiceFk
 WHERE(Service.StartDate = {day}) AND(Repair.Type = 1)");
 
-            return new[] {Database.GetData(repairQuery).Rows.Count, Database.GetData(maintenanceQuery).Rows.Count};
+            return new[] { Database.GetData(repairQuery).Rows.Count, Database.GetData(maintenanceQuery).Rows.Count };
         }
 
         /// <summary>
