@@ -82,6 +82,8 @@
             this.btnUpdateSettings = new System.Windows.Forms.Button();
             this.lbCutoffTracks = new System.Windows.Forms.Label();
             this.tbCutoffTracks = new System.Windows.Forms.TextBox();
+            this.lbSelectedTrack = new System.Windows.Forms.Label();
+            this.tbSelectedTrack = new System.Windows.Forms.TextBox();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -100,7 +102,7 @@
             this.gbOther.Controls.Add(this.btnReset);
             this.gbOther.Controls.Add(this.btnChangeDisplayView);
             this.gbOther.Controls.Add(this.btnSimulation);
-            this.gbOther.Location = new System.Drawing.Point(5, 351);
+            this.gbOther.Location = new System.Drawing.Point(5, 397);
             this.gbOther.Margin = new System.Windows.Forms.Padding(5);
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
@@ -149,7 +151,7 @@
             this.gbTram.Controls.Add(this.tbSelectedTram);
             this.gbTram.Controls.Add(this.lbSelectedTram);
             this.gbTram.Controls.Add(this.btnSetDisabled);
-            this.gbTram.Location = new System.Drawing.Point(5, 144);
+            this.gbTram.Location = new System.Drawing.Point(5, 190);
             this.gbTram.Margin = new System.Windows.Forms.Padding(5);
             this.gbTram.Name = "gbTram";
             this.gbTram.Padding = new System.Windows.Forms.Padding(5);
@@ -228,6 +230,8 @@
             // 
             // gbSector
             // 
+            this.gbSector.Controls.Add(this.tbSelectedTrack);
+            this.gbSector.Controls.Add(this.lbSelectedTrack);
             this.gbSector.Controls.Add(this.tbSelectedSector);
             this.gbSector.Controls.Add(this.lbSelectedSector);
             this.gbSector.Controls.Add(this.btnOpen);
@@ -236,14 +240,14 @@
             this.gbSector.Margin = new System.Windows.Forms.Padding(5);
             this.gbSector.Name = "gbSector";
             this.gbSector.Padding = new System.Windows.Forms.Padding(5);
-            this.gbSector.Size = new System.Drawing.Size(259, 126);
+            this.gbSector.Size = new System.Drawing.Size(259, 172);
             this.gbSector.TabIndex = 0;
             this.gbSector.TabStop = false;
             this.gbSector.Text = "Sector/Track";
             // 
             // tbSelectedSector
             // 
-            this.tbSelectedSector.Location = new System.Drawing.Point(12, 47);
+            this.tbSelectedSector.Location = new System.Drawing.Point(10, 99);
             this.tbSelectedSector.Name = "tbSelectedSector";
             this.tbSelectedSector.Size = new System.Drawing.Size(239, 26);
             this.tbSelectedSector.TabIndex = 1;
@@ -251,7 +255,7 @@
             // lbSelectedSector
             // 
             this.lbSelectedSector.AutoSize = true;
-            this.lbSelectedSector.Location = new System.Drawing.Point(9, 24);
+            this.lbSelectedSector.Location = new System.Drawing.Point(11, 76);
             this.lbSelectedSector.Name = "lbSelectedSector";
             this.lbSelectedSector.Size = new System.Drawing.Size(220, 20);
             this.lbSelectedSector.TabIndex = 0;
@@ -259,7 +263,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(12, 79);
+            this.btnOpen.Location = new System.Drawing.Point(11, 131);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(117, 33);
             this.btnOpen.TabIndex = 2;
@@ -269,7 +273,7 @@
             // 
             // btnLock
             // 
-            this.btnLock.Location = new System.Drawing.Point(135, 79);
+            this.btnLock.Location = new System.Drawing.Point(134, 131);
             this.btnLock.Name = "btnLock";
             this.btnLock.Size = new System.Drawing.Size(115, 33);
             this.btnLock.TabIndex = 3;
@@ -630,6 +634,22 @@
             this.tbCutoffTracks.TabIndex = 0;
             this.tbCutoffTracks.Text = "38, 64, 77";
             // 
+            // lbSelectedTrack
+            // 
+            this.lbSelectedTrack.AutoSize = true;
+            this.lbSelectedTrack.Location = new System.Drawing.Point(11, 24);
+            this.lbSelectedTrack.Name = "lbSelectedTrack";
+            this.lbSelectedTrack.Size = new System.Drawing.Size(213, 20);
+            this.lbSelectedTrack.TabIndex = 4;
+            this.lbSelectedTrack.Text = "Current Selected Track(s): ";
+            // 
+            // tbSelectedTrack
+            // 
+            this.tbSelectedTrack.Location = new System.Drawing.Point(10, 47);
+            this.tbSelectedTrack.Name = "tbSelectedTrack";
+            this.tbSelectedTrack.Size = new System.Drawing.Size(239, 26);
+            this.tbSelectedTrack.TabIndex = 5;
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -719,6 +739,8 @@
         private System.Windows.Forms.TextBox tbCutoffTracks;
         private System.Windows.Forms.Button btnUpdateSettings;
         private System.Windows.Forms.CheckBox cBoxShowEmptyTracks;
+        private System.Windows.Forms.TextBox tbSelectedTrack;
+        private System.Windows.Forms.Label lbSelectedTrack;
     }
 }
 

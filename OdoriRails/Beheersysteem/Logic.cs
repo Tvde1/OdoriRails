@@ -235,7 +235,7 @@ namespace Beheersysteem
             Update();
         }
 
-        public void Lock(string tracks)
+        public void Lock(string tracks, string sectors)
         {
             int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
             foreach (Track track in AllTracks)
@@ -251,7 +251,7 @@ namespace Beheersysteem
             Update();
         }
 
-        public void Unlock(string tracks)
+        public void Unlock(string tracks, string sectors)
         {
             int[] UnlockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
             foreach (Track track in AllTracks)
