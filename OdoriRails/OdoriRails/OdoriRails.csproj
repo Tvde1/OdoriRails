@@ -60,6 +60,7 @@
     <Compile Include="BaseClasses\Tram.cs" />
     <Compile Include="BaseClasses\User.cs" />
     <Compile Include="DAL\Database.cs" />
+    <Compile Include="DAL\DatabaseException.cs" />
     <Compile Include="DAL\Subclasses\ILoginContext.cs" />
     <Compile Include="DAL\Subclasses\IServiceContext.cs" />
     <Compile Include="DAL\Subclasses\ITrackSectorContext.cs" />
