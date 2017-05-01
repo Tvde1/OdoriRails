@@ -43,6 +43,22 @@ namespace Beheersysteem
 
         private void btnMove_Click(object sender, EventArgs e)
         {
+            if (tbMoveToTrack.Text == "58" || tbMoveToTrack.Text == "40")
+            {
+                DialogResult dialogResult = MessageBox.Show("Warning you are trying to move a tram to an exit track, are you sure?", "Move to ExitTrack", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    moveTram();
+                }
+            }
+            else
+            {
+                moveTram();
+            }
+        }
+
+        private void moveTram()
+        {
             if (_logic.MoveTram(tbSelectedTram.Text, tbMoveToTrack.Text, tbMoveToSector.Text) == false)
             {
                 MessageBox.Show("Failed to move the selected tram to the new location");
