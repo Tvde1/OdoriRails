@@ -51,7 +51,10 @@
             this.btnEditUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.tabManageUser = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.lbTramId = new System.Windows.Forms.Label();
+            this.tbTramId = new System.Windows.Forms.TextBox();
             this.tabUsers.SuspendLayout();
             this.tabUserList.SuspendLayout();
             this.tabManageUser.SuspendLayout();
@@ -124,13 +127,6 @@
             // cbRole
             // 
             this.cbRole.FormattingEnabled = true;
-            this.cbRole.Items.AddRange(new object[] {
-            "Administrator",
-            "Logistic",
-            "Driver",
-            "Cleaner",
-            "Engineer",
-            " All"});
             this.cbRole.Location = new System.Drawing.Point(131, 231);
             this.cbRole.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbRole.Name = "cbRole";
@@ -271,14 +267,17 @@
             // 
             // tabManageUser
             // 
+            this.tabManageUser.Controls.Add(this.label1);
             this.tabManageUser.Controls.Add(this.btnSubmit);
             this.tabManageUser.Controls.Add(this.lbName);
             this.tabManageUser.Controls.Add(this.lbEmail);
+            this.tabManageUser.Controls.Add(this.lbTramId);
             this.tabManageUser.Controls.Add(this.lbManaged);
             this.tabManageUser.Controls.Add(this.tbEmail);
             this.tabManageUser.Controls.Add(this.lbRole);
             this.tabManageUser.Controls.Add(this.lbPassword);
             this.tabManageUser.Controls.Add(this.lbUserName);
+            this.tabManageUser.Controls.Add(this.tbTramId);
             this.tabManageUser.Controls.Add(this.tbPassword);
             this.tabManageUser.Controls.Add(this.cbManaged);
             this.tabManageUser.Controls.Add(this.tbUserName);
@@ -292,15 +291,42 @@
             this.tabManageUser.Text = "Manage User";
             this.tabManageUser.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(259, 323);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 20);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "(Only counts for drivers)";
+            // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(21, 318);
+            this.btnSubmit.Location = new System.Drawing.Point(21, 481);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(636, 54);
             this.btnSubmit.TabIndex = 6;
             this.btnSubmit.Text = "Submit User";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // lbTramId
+            // 
+            this.lbTramId.AutoSize = true;
+            this.lbTramId.Location = new System.Drawing.Point(17, 323);
+            this.lbTramId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbTramId.Name = "lbTramId";
+            this.lbTramId.Size = new System.Drawing.Size(71, 20);
+            this.lbTramId.TabIndex = 11;
+            this.lbTramId.Text = "Tram Id:";
+            // 
+            // tbTramId
+            // 
+            this.tbTramId.Location = new System.Drawing.Point(131, 320);
+            this.tbTramId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tbTramId.Name = "tbTramId";
+            this.tbTramId.Size = new System.Drawing.Size(120, 26);
+            this.tbTramId.TabIndex = 3;
             // 
             // UserInterface
             // 
@@ -349,6 +375,9 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ComboBox cbSearchRole;
         private System.Windows.Forms.ListView listViewUsers;
+        private System.Windows.Forms.Label lbTramId;
+        private System.Windows.Forms.TextBox tbTramId;
+        private System.Windows.Forms.Label label1;
     }
 }
 

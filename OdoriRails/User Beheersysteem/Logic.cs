@@ -1,21 +1,25 @@
 ﻿using OdoriRails.BaseClasses;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace User_Beheersysteem
 {
-    class Logic
+    internal class Logic
     {
         private readonly UserBeheerRepository _userBeheerRepository = new UserBeheerRepository();
-        public List<BeheerUser> UsersSearch { get; set; } = new List<BeheerUser>();
-        public List<BeheerUser> UsersAll { get; set; } = new List<BeheerUser>();
+        public List<BeheerUser> UsersSearch { get; } = new List<BeheerUser>();
+        public List<BeheerUser> UsersAll { get; } = new List<BeheerUser>();
 
         public void GetAllUsersFromDatabase()
         {
             UsersAll.Clear();
-            List<User> tempUsers = _userBeheerRepository.GetAllUsers();
-            foreach (User tempUser in tempUsers)
+            var tempUsers = _userBeheerRepository.GetAllUsers();
+            foreach (var tempUser in tempUsers)
             {
-                UsersAll.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername));
+                var ids = _userBeheerRepository.GetTramIdByDriverId(tempUser.Id);
+                int? tramId = null;
+                if (ids.Count > 0) tramId = ids[0];
+                UsersAll.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername, tramId));
             }
         }
 
@@ -25,9 +29,12 @@ namespace User_Beheersysteem
 
             var tempUsers = index == 7 ? _userBeheerRepository.GetAllUsers() : _userBeheerRepository.GetAllUsersWithFunction((Role)index);
 
-            foreach (User tempUser in tempUsers)
+            foreach (var tempUser in tempUsers)
             {
-                UsersSearch.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername));
+                var ids = _userBeheerRepository.GetTramIdByDriverId(tempUser.Id);
+                int? tramId = null;
+                if (ids.Count > 0) tramId = ids[0];
+                UsersSearch.Add(new BeheerUser(tempUser.Id, tempUser.Name, tempUser.Username, tempUser.Email, tempUser.Password, tempUser.Role, tempUser.ManagerUsername, tramId));
             }
         }
 
@@ -36,13 +43,18 @@ namespace User_Beheersysteem
             _userBeheerRepository.RemoveUser(UsersSearch[delIndex]);
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(User user, string tramId)
         {
+            if (tramId == null) _userBeheerRepository.SetUserToTram(user, null);
+            if (int.TryParse(tramId, out int tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
             _userBeheerRepository.UpdateUser(user);
         }
 
-        public void AddUser(User user)
+        public void AddUser(User user, string tramId)
         {
+            if (tramId == null) _userBeheerRepository.SetUserToTram(user, null);
+            if (int.TryParse(tramId, out int tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
+
             _userBeheerRepository.AddUser(user);
         }
 

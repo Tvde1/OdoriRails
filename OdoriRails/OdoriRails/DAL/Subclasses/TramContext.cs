@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace OdoriRails.DAL.Subclasses
 {
@@ -92,6 +93,27 @@ namespace OdoriRails.DAL.Subclasses
         public Tram FetchTram(Tram tram)
         {
             return CreateTram(Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {tram.Number}")).Rows[0]);
+        }
+
+        public bool DoesTramExist(int id)
+        {
+            return Database.GetData(new SqlCommand($"SELECT * FROM Tram WHERE TramPk = {id}")).Rows.Count > 0;
+        }
+
+        public void SetUserToTram(Tram tram, User user)
+        {
+            if (tram == null) return;
+            Database.GetData(new SqlCommand($"UPDATE Tram SET DriverFk = {user?.Id.ToString() ?? "null"} WHERE TramPk = {tram.Number}"));
+        }
+
+        public List<int> GetTramIdByDriverId(int driverId)
+        {
+            var returnList = new List<int>();
+            foreach (DataRow row in Database.GetData(new SqlCommand($"SELECT TramPk FROM Tram WHERE DriverFk = {driverId}")).Rows)
+            {
+                returnList.Add((int)row.ItemArray[0]);
+            }
+            return returnList;
         }
 
         private Tram CreateTram(DataRow row)

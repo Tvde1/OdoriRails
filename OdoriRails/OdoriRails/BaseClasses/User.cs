@@ -22,32 +22,34 @@
         /// <summary>
         /// Ophalen naam van User
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; }
 
         /// <summary>
         /// Ophalen emailadres van User
         /// </summary>
-        public string Email { get; protected set; }
+        public string Email { get; }
 
         /// <summary>
         /// Ophalen rol van User
         /// </summary>
-        public Role Role { get; protected set; }
+        public Role Role { get; }
 
         /// <summary>
         /// Ophalen username van User
         /// </summary>
-        public string Username { get; protected set; }
+        public string Username { get; }
 
         /// <summary>
         /// Ophalen password van User
         /// </summary>
-        public string Password { get; protected set; }
+        public string Password { get; }
 
         /// <summary>
         /// Ophalen manager van User
         /// </summary>
-        public string ManagerUsername { get; protected set; }
+        public string ManagerUsername { get; }
+
+        public int? TramId { get; protected set; }
 
         /// <summary>
         /// Toevoegen User, minimale hoeveelheid benodigde data.
@@ -68,7 +70,7 @@
         /// <summary>
         /// Toevoegen User, alle benodigde data.
         /// </summary>
-        public User(int id, string name, string username, string email, string password, Role role, string managedByUsername)
+        public User(int id, string name, string username, string email, string password, Role role, string managedByUsername, int? tramId = null)
         {
             Id = id;
             Name = name;
@@ -77,6 +79,7 @@
             Username = username;
             Password = password;
             ManagerUsername = managedByUsername;
+            TramId = tramId;
         }
 
         public void SetId(int id)

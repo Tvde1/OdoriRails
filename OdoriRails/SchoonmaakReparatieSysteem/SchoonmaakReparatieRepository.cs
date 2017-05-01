@@ -9,6 +9,7 @@ namespace SchoonmaakReparatieSysteem
     {
         private static readonly IServiceContext ServiceContext = new ServiceContext();
         private static readonly IUserContext UserContext = new UserContext();
+        private static readonly ITramContext TramContext = new TramContext();
 
         /// <summary>
         /// Haal alle reparaties op die deze user heeft.
@@ -133,6 +134,11 @@ namespace SchoonmaakReparatieSysteem
         public int[] GetAllCleansFromDay(DateTime day)
         {
             return ServiceContext.CleansForDate(day);
+        }
+
+        public bool DoesTramExist(int id)
+        {
+            return TramContext.DoesTramExist(id);
         }
     }
 }
