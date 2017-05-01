@@ -45,7 +45,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(159, 563);
+            this.button2.Location = new System.Drawing.Point(123, 512);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(192, 35);
@@ -56,17 +56,17 @@
             // 
             // commenttb
             // 
-            this.commenttb.Location = new System.Drawing.Point(250, 418);
+            this.commenttb.Location = new System.Drawing.Point(230, 387);
             this.commenttb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.commenttb.Name = "commenttb";
-            this.commenttb.Size = new System.Drawing.Size(200, 111);
+            this.commenttb.Size = new System.Drawing.Size(200, 115);
             this.commenttb.TabIndex = 24;
             this.commenttb.Text = "";
             // 
             // commentlbl
             // 
             this.commentlbl.AutoSize = true;
-            this.commentlbl.Location = new System.Drawing.Point(45, 418);
+            this.commentlbl.Location = new System.Drawing.Point(25, 390);
             this.commentlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.commentlbl.Name = "commentlbl";
             this.commentlbl.Size = new System.Drawing.Size(170, 20);
@@ -76,37 +76,37 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(56, 280);
+            this.label3.Location = new System.Drawing.Point(25, 254);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 20);
+            this.label3.Size = new System.Drawing.Size(64, 20);
             this.label3.TabIndex = 20;
-            this.label3.Text = "Date";
+            this.label3.Text = "Datum:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 218);
+            this.label2.Location = new System.Drawing.Point(25, 183);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 20);
+            this.label2.Size = new System.Drawing.Size(113, 20);
             this.label2.TabIndex = 19;
-            this.label2.Text = "Soort Service";
+            this.label2.Text = "Soort service:";
             // 
             // sortsrvc_cb
             // 
             this.sortsrvc_cb.FormattingEnabled = true;
-            this.sortsrvc_cb.Location = new System.Drawing.Point(300, 214);
+            this.sortsrvc_cb.Location = new System.Drawing.Point(230, 180);
             this.sortsrvc_cb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sortsrvc_cb.Name = "sortsrvc_cb";
-            this.sortsrvc_cb.Size = new System.Drawing.Size(150, 28);
+            this.sortsrvc_cb.Size = new System.Drawing.Size(201, 28);
             this.sortsrvc_cb.TabIndex = 18;
             // 
             // usersListBox
             // 
             this.usersListBox.FormattingEnabled = true;
             this.usersListBox.ItemHeight = 20;
-            this.usersListBox.Location = new System.Drawing.Point(249, 54);
+            this.usersListBox.Location = new System.Drawing.Point(230, 14);
             this.usersListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usersListBox.Name = "usersListBox";
             this.usersListBox.Size = new System.Drawing.Size(200, 124);
@@ -114,7 +114,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(60, 111);
+            this.button1.Location = new System.Drawing.Point(49, 76);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 35);
@@ -126,15 +126,15 @@
             // usercbox
             // 
             this.usercbox.FormattingEnabled = true;
-            this.usercbox.Location = new System.Drawing.Point(60, 54);
+            this.usercbox.Location = new System.Drawing.Point(13, 38);
             this.usercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usercbox.Name = "usercbox";
-            this.usercbox.Size = new System.Drawing.Size(175, 28);
+            this.usercbox.Size = new System.Drawing.Size(182, 28);
             this.usercbox.TabIndex = 14;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(152, 280);
+            this.dateTimePicker1.Location = new System.Drawing.Point(132, 249);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(298, 26);
@@ -143,24 +143,25 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 347);
+            this.label1.Location = new System.Drawing.Point(25, 313);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 20);
+            this.label1.Size = new System.Drawing.Size(73, 20);
             this.label1.TabIndex = 28;
-            this.label1.Text = "TRAM NR";
+            this.label1.Text = "Tram nr:";
             // 
             // tramnrtb
             // 
-            this.tramnrtb.Location = new System.Drawing.Point(300, 341);
+            this.tramnrtb.Location = new System.Drawing.Point(230, 310);
             this.tramnrtb.Name = "tramnrtb";
-            this.tramnrtb.Size = new System.Drawing.Size(149, 26);
+            this.tramnrtb.Size = new System.Drawing.Size(199, 26);
             this.tramnrtb.TabIndex = 27;
             // 
             // EditService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 626);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(444, 561);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tramnrtb);
             this.Controls.Add(this.dateTimePicker1);
@@ -177,6 +178,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EditService";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Service";
             this.Load += new System.EventHandler(this.EditService_Load);
             this.ResumeLayout(false);

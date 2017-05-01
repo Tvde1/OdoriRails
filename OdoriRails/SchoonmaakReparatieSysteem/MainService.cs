@@ -15,8 +15,6 @@ namespace SchoonmaakReparatieSysteem
 
             //_logic.PlanServices();
 
-            //MessageBox.Show("Debug info: There was a problem with the INSERT SQL query.");
-
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
             filtercbox.SelectedIndex = 0;
@@ -26,19 +24,17 @@ namespace SchoonmaakReparatieSysteem
         {
             AddService adsvc = new AddService(_activeUser);
             adsvc.Show();
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             try
-            {
+            { 
                 _logic.UpdateService(_activeUser, dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
-                _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
             }
             catch
             {
-                MessageBox.Show("select a service first my dude");
+                MessageBox.Show("Selecteer eerst een service.");
             }
         }
 
@@ -67,14 +63,13 @@ namespace SchoonmaakReparatieSysteem
             }
             catch
             {
-                MessageBox.Show("Select a service first my dude");
+                MessageBox.Show("Selecteer eerst een service.");
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
-
         }
 
         private void button3_Click(object sender, EventArgs e)

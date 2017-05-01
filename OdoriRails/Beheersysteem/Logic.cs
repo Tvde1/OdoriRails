@@ -231,37 +231,103 @@ namespace Beheersysteem
                 Thread.Sleep(simulationSpeed);
             }
 
+            foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null))
+            {
+                SortTram(sorter, tram);
+                form.Invalidate();
+                Thread.Sleep(simulationSpeed);
+            }
+
             schema = csv.getSchema();
             Update();
         }
 
-        public void Lock(string tracks)
+        public void Lock(string tracks, string sectors)
         {
-            int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
-            foreach (Track track in AllTracks)
+            int[] lockSectors = { 0 };
+            if (sectors != "")
             {
-                int pos = Array.IndexOf(lockTracks, track.Number);
-                if (pos > -1)
+                lockSectors = Array.ConvertAll(sectors.Split(','), int.Parse);
+            }
+
+            int[] lockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
+
+            if (sectors == "")
+            {
+                foreach (Track track in AllTracks)
                 {
-                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
-                    beheerTrack.LockTrack();
-                    repo.EditTrack(beheerTrack);
+                    int pos = Array.IndexOf(lockTracks, track.Number);
+                    if (pos > -1)
+                    {
+                        BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                        beheerTrack.LockTrack();
+                        repo.EditTrack(beheerTrack);
+                    }
+                }
+            }
+            else
+            {
+                foreach (BeheerTrack track in AllTracks)
+                {
+                    int pos = Array.IndexOf(lockTracks, track.Number);
+                    if (pos > -1)
+                    {
+                        for (int i = 0; i < track.Sectors.Count - 1; i++)
+                        {
+                            pos = Array.IndexOf(lockSectors, i);
+                            if (pos > -1)
+                            {
+                                BeheerSector beheerSector = track.Sectors[i] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i]);
+                                beheerSector.Lock();
+                                repo.EditSector(beheerSector);
+                            }
+                        }
+                    }
                 }
             }
             Update();
         }
 
-        public void Unlock(string tracks)
+        public void Unlock(string tracks, string sectors)
         {
-            int[] UnlockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
-            foreach (Track track in AllTracks)
+            int[] unlockSectors = { 0 };
+            if (sectors != "")
             {
-                int pos = Array.IndexOf(UnlockTracks, track.Number);
-                if (pos > -1)
+                unlockSectors = Array.ConvertAll(sectors.Split(','), int.Parse);
+            }
+            int[] unlockTracks = Array.ConvertAll(tracks.Split(','), int.Parse);
+
+            if (sectors == "")
+            {
+                foreach (Track track in AllTracks)
                 {
-                    BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
-                    beheerTrack.UnlockTrack();
-                    repo.EditTrack(beheerTrack);
+                    int pos = Array.IndexOf(unlockTracks, track.Number);
+                    if (pos > -1)
+                    {
+                        BeheerTrack beheerTrack = track == null ? null : BeheerTrack.ToBeheerTrack(track);
+                        beheerTrack.UnlockTrack();
+                        repo.EditTrack(beheerTrack);
+                    }
+                }
+            }
+            else
+            {
+                foreach (BeheerTrack track in AllTracks)
+                {
+                    int pos = Array.IndexOf(unlockTracks, track.Number);
+                    if (pos > -1)
+                    {
+                        for (int i = 0; i < track.Sectors.Count - 1; i++)
+                        {
+                            pos = Array.IndexOf(unlockSectors, i);
+                            if (pos > -1)
+                            {
+                                BeheerSector beheerSector = track.Sectors[i] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i]);
+                                beheerSector.UnLock();
+                                repo.EditSector(beheerSector);
+                            }
+                        }
+                    }
                 }
             }
             Update();

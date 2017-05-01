@@ -77,7 +77,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(32, 720);
+            this.button5.Location = new System.Drawing.Point(18, 720);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(150, 35);
@@ -107,9 +107,9 @@
             this.label1.Location = new System.Drawing.Point(481, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 20);
+            this.label1.Size = new System.Drawing.Size(75, 20);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Filter By:";
+            this.label1.Text = "Filter op:";
             // 
             // dataGridView1
             // 
@@ -142,7 +142,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(190, 720);
+            this.button3.Location = new System.Drawing.Point(176, 720);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 35);
@@ -155,7 +155,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 783);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(774, 768);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
@@ -170,6 +171,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainService";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Odorirails Service Management";
             this.Load += new System.EventHandler(this.MainService_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

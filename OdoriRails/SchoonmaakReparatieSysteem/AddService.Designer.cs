@@ -46,15 +46,15 @@
             // usercbox
             // 
             this.usercbox.FormattingEnabled = true;
-            this.usercbox.Location = new System.Drawing.Point(22, 45);
+            this.usercbox.Location = new System.Drawing.Point(13, 38);
             this.usercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usercbox.Name = "usercbox";
-            this.usercbox.Size = new System.Drawing.Size(175, 28);
+            this.usercbox.Size = new System.Drawing.Size(186, 28);
             this.usercbox.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(52, 86);
+            this.button1.Location = new System.Drawing.Point(47, 76);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 35);
@@ -67,7 +67,7 @@
             // 
             this.usersListBox.FormattingEnabled = true;
             this.usersListBox.ItemHeight = 20;
-            this.usersListBox.Location = new System.Drawing.Point(212, 18);
+            this.usersListBox.Location = new System.Drawing.Point(231, 14);
             this.usersListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usersListBox.Name = "usersListBox";
             this.usersListBox.Size = new System.Drawing.Size(200, 124);
@@ -76,31 +76,31 @@
             // sortsrvc_cb
             // 
             this.sortsrvc_cb.FormattingEnabled = true;
-            this.sortsrvc_cb.Location = new System.Drawing.Point(262, 171);
+            this.sortsrvc_cb.Location = new System.Drawing.Point(231, 171);
             this.sortsrvc_cb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sortsrvc_cb.Name = "sortsrvc_cb";
-            this.sortsrvc_cb.Size = new System.Drawing.Size(150, 28);
+            this.sortsrvc_cb.Size = new System.Drawing.Size(200, 28);
             this.sortsrvc_cb.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 183);
+            this.label2.Location = new System.Drawing.Point(34, 174);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 20);
+            this.label2.Size = new System.Drawing.Size(113, 20);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Soort Service";
+            this.label2.Text = "Soort service:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 234);
+            this.label3.Location = new System.Drawing.Point(34, 239);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 20);
+            this.label3.Size = new System.Drawing.Size(64, 20);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Date";
+            this.label3.Text = "Datum:";
             // 
             // commentlbl
             // 
@@ -108,16 +108,16 @@
             this.commentlbl.Location = new System.Drawing.Point(34, 394);
             this.commentlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.commentlbl.Name = "commentlbl";
-            this.commentlbl.Size = new System.Drawing.Size(165, 20);
+            this.commentlbl.Size = new System.Drawing.Size(170, 20);
             this.commentlbl.TabIndex = 11;
             this.commentlbl.Text = "ChangeBasedOnRole";
             // 
             // commenttb
             // 
-            this.commenttb.Location = new System.Drawing.Point(228, 394);
+            this.commenttb.Location = new System.Drawing.Point(231, 391);
             this.commenttb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.commenttb.Name = "commenttb";
-            this.commenttb.Size = new System.Drawing.Size(200, 87);
+            this.commenttb.Size = new System.Drawing.Size(200, 110);
             this.commenttb.TabIndex = 12;
             this.commenttb.Text = "";
             // 
@@ -134,7 +134,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(114, 234);
+            this.dateTimePicker1.Location = new System.Drawing.Point(133, 234);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(298, 26);
@@ -142,27 +142,28 @@
             // 
             // tramnrtb
             // 
-            this.tramnrtb.Location = new System.Drawing.Point(264, 300);
+            this.tramnrtb.Location = new System.Drawing.Point(231, 300);
             this.tramnrtb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tramnrtb.Name = "tramnrtb";
-            this.tramnrtb.Size = new System.Drawing.Size(148, 26);
+            this.tramnrtb.Size = new System.Drawing.Size(200, 26);
             this.tramnrtb.TabIndex = 15;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 305);
+            this.label1.Location = new System.Drawing.Point(34, 303);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 20);
+            this.label1.Size = new System.Drawing.Size(73, 20);
             this.label1.TabIndex = 16;
-            this.label1.Text = "TRAM NR";
+            this.label1.Text = "Tram nr:";
             // 
             // AddService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 565);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(444, 561);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tramnrtb);
             this.Controls.Add(this.dateTimePicker1);
@@ -175,10 +176,11 @@
             this.Controls.Add(this.usersListBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.usercbox);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AddService";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Service";
             this.Load += new System.EventHandler(this.AddService_Load);
             this.ResumeLayout(false);
