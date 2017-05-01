@@ -83,22 +83,22 @@ namespace In_Uitrit_Systeem
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            string defect = rtbDetails.Text;
+            string comment = rtbDetails.Text;
             if (cbCleaning.Checked && cbMaintenance.Checked)
             {
                 _logic.Tram.EditTramStatus(TramStatus.CleaningMaintenance);
-                _logic.AddRepair(defect);
-                _logic.AddCleaning();
+                _logic.AddRepair(comment);
+                _logic.AddCleaning(comment);
             }
             else if (cbCleaning.Checked)
             {
                 _logic.Tram.EditTramStatus(TramStatus.Cleaning);
-                _logic.AddCleaning();
+                _logic.AddCleaning(comment);
             }
             else if (cbMaintenance.Checked)
             {
                 _logic.Tram.EditTramStatus(TramStatus.Maintenance);
-                _logic.AddRepair(defect);
+                _logic.AddRepair(comment);
             }
 
             lblLocation.Text = "Wordt opgehaald.";

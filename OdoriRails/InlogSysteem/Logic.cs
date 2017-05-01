@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Security.Authentication;
 using OdoriRails.BaseClasses;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace LoginSystem
 {
@@ -11,7 +12,13 @@ namespace LoginSystem
     {
         private readonly LoginRepository _loginRepository = new LoginRepository();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
-        
+        private readonly LoginScreen _loginScreen;
+
+        public Logic(LoginScreen loginScreen)
+        {
+            _loginScreen = loginScreen;
+        }
+
         public void Login(string username, string password)
         {
             if (!_loginRepository.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");
@@ -58,13 +65,34 @@ namespace LoginSystem
             {
                 throw new Exception($"Het bestand {assemblyName} kan niet gevonden worden.");
             }
-            
+
             //(new ReflectionPermission(ReflectionPermissionFlag.RestrictedMemberAccess)).Assert();
 
             //_mainForm.Hide();
             //_mainForm.ShowInTaskbar = false;
 
+
+            //var test = Activator.CreateInstance(assembly.GetType());
+
+            HideForm();
+            OpenAssembly(assembly, user);
+            ShowForm();
+        }
+
+        private async void OpenAssembly(Assembly assembly, User user)
+        {
+            await Task.Delay(2000);
             assembly.EntryPoint.Invoke(null, new object[] { new[] { user.Username } });
+        }
+
+        private void HideForm()
+        {
+            _loginScreen.WindowState = FormWindowState.Minimized;
+        }
+
+        private void ShowForm()
+        {
+            _loginScreen.WindowState = FormWindowState.Normal;
         }
     }
 }
