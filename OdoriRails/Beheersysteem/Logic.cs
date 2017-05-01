@@ -231,6 +231,13 @@ namespace Beheersysteem
                 Thread.Sleep(simulationSpeed);
             }
 
+            foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null))
+            {
+                SortTram(sorter, tram);
+                form.Invalidate();
+                Thread.Sleep(simulationSpeed);
+            }
+
             schema = csv.getSchema();
             Update();
         }

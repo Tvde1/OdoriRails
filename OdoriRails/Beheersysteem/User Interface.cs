@@ -25,14 +25,14 @@ namespace Beheersysteem
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            _logic.Unlock(tbTrackSector.Text, tbSelectedSector.Text);
+            _logic.Unlock(tbSelectedTrack.Text, tbSelectedSector.Text);
             panelMain.Invalidate();
 
         }
 
         private void btnLock_Click(object sender, EventArgs e)
         {
-            _logic.Lock(tbTrackSector.Text, tbSelectedSector.Text);
+            _logic.Lock(tbSelectedTrack.Text, tbSelectedSector.Text);
             panelMain.Invalidate();
         }
 
