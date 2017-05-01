@@ -67,5 +67,11 @@ namespace OdoriRails.DAL.Subclasses
         void WipeDepartureTimes();
 
         Tram FetchTram(Tram tram);
+
+        bool DoesTramExist(int id);
+
+        void SetUserToTram(Tram tram, User user);
+
+        List<int> GetTramIdByDriverId(int driverId);
     }
 }

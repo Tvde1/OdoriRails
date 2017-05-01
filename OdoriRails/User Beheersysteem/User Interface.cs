@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
 
@@ -13,9 +6,9 @@ namespace User_Beheersysteem
 {
     public partial class UserInterface : Form
     {
-        Logic logic = new Logic();
-        int index;
-        string status;
+        readonly Logic _logic = new Logic();
+        private int _index;
+        private string _status;
 
         public UserInterface(User user)
         {
@@ -29,23 +22,26 @@ namespace User_Beheersysteem
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(1);
-            status = UserStatus.Add.ToString();
-            btnSubmit.Text = status + " User";
+            _status = UserStatus.Add.ToString();
+            btnSubmit.Text = _status + " User";
         }
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
             try
             {
+                _index = listViewUsers.SelectedIndices[0];
+                var editUser = _logic.UsersSearch[_index];
+
                 tabUsers.SelectTab(1);
-                status = UserStatus.Edit.ToString();
-                btnSubmit.Text = status + " User";
-                index = listViewUsers.SelectedIndices[0];
-                tbName.Text = logic.UsersSearch[index].Name;
-                tbUserName.Text = logic.UsersSearch[index].Username;
-                tbEmail.Text = logic.UsersSearch[index].Email;
-                cbRole.SelectedItem = logic.UsersSearch[index].Role.ToString();
-                cbManaged.SelectedItem = logic.UsersSearch[index].ManagerUsername;
+                _status = UserStatus.Edit.ToString();
+                btnSubmit.Text = _status + " User";
+                tbName.Text = editUser.Name;
+                tbUserName.Text = editUser.Username;
+                tbEmail.Text = editUser.Email;
+                cbRole.SelectedItem = editUser.Role.ToString();
+                cbManaged.SelectedItem = editUser.ManagerUsername;
+                tbTramId.Text = editUser.TramId?.ToString() ?? "";
             }
             catch
             {
@@ -57,21 +53,20 @@ namespace User_Beheersysteem
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            logic.DeleteUser(listViewUsers.SelectedIndices[0]);
+            _logic.DeleteUser(listViewUsers.SelectedIndices[0]);
             Search();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(0);
-            int test = cbRole.SelectedIndex;
             User submitUser;
-            Role role = (Role)test;
+            Role role = (Role)cbRole.SelectedIndex;
 
-            if (status == "Edit")
+            if (_status == "Edit")
             {
-                string username = logic.UsersSearch[index].Username;
-                int id = logic.GetIndex(username);
+                var username = _logic.UsersSearch[_index].Username;
+                var id = _logic.GetIndex(username);
                 if (cbManaged.SelectedText != "")
                 {
                     submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
@@ -80,7 +75,8 @@ namespace User_Beheersysteem
                 {
                     submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
                 }
-                logic.UpdateUser(submitUser);
+
+                _logic.UpdateUser(submitUser, tbTramId.Text);
                 
             }
             else
@@ -93,7 +89,7 @@ namespace User_Beheersysteem
                 {
                     submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
                 }
-                logic.AddUser(submitUser);
+                _logic.AddUser(submitUser, tbTramId.Text);
             }
             Search();
         }
@@ -105,25 +101,21 @@ namespace User_Beheersysteem
 
         private void Search()
         {
-            logic.GetAllUsersFromDatabase();
-            logic.GetSelectUsersFromDatabase(cbSearchRole.SelectedIndex);
+            _logic.GetAllUsersFromDatabase();
+            _logic.GetSelectUsersFromDatabase(cbSearchRole.SelectedIndex);
             FillLists();
         }
 
         private void InitializeListView()
         {
-            ColumnHeader Cname = new ColumnHeader();
-            Cname.Text = "Name";
-            ColumnHeader CuserName = new ColumnHeader();
-            CuserName.Text = "Username";
-            ColumnHeader Crole = new ColumnHeader();
-            Crole.Text = "Role";
-            ColumnHeader Cmanager = new ColumnHeader();
-            Cmanager.Text = "Manager";
-            listViewUsers.Columns.Add(Cname);
-            listViewUsers.Columns.Add(CuserName);
-            listViewUsers.Columns.Add(Crole);
-            listViewUsers.Columns.Add(Cmanager);
+            ColumnHeader cname = new ColumnHeader {Text = "Name"};
+            ColumnHeader cuserName = new ColumnHeader {Text = "Username"};
+            ColumnHeader crole = new ColumnHeader {Text = "Role"};
+            ColumnHeader cmanager = new ColumnHeader {Text = "Manager"};
+            listViewUsers.Columns.Add(cname);
+            listViewUsers.Columns.Add(cuserName);
+            listViewUsers.Columns.Add(crole);
+            listViewUsers.Columns.Add(cmanager);
             listViewUsers.View = View.Details;
         }
 
@@ -132,15 +124,13 @@ namespace User_Beheersysteem
         {
             listViewUsers.Items.Clear();
             cbManaged.Items.Clear();
-            foreach (BeheerUser User in logic.UsersSearch)
+            foreach (var user in _logic.UsersSearch)
             {
-                ListViewItem item = new ListViewItem(new string[4] { User.Name, User.Username, User.Role.ToString(), User.ManagerUsername });
+                ListViewItem item = new ListViewItem(new[] { user.Name, user.Username, user.Role.ToString(), user.ManagerUsername });
                 listViewUsers.Items.Add(item);
             }
-            foreach (BeheerUser User in logic.UsersAll)
-            {
-                cbManaged.Items.Add(User.Username);
-            }
+            _logic.UsersAll.ForEach(x => cbManaged.Items.Add(x.Username));
+
             foreach (ColumnHeader col in listViewUsers.Columns)
             {
                 col.Width = -2;

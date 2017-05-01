@@ -7,6 +7,7 @@ namespace User_Beheersysteem
     public class UserBeheerRepository
     {
         private static readonly IUserContext UserContext = new UserContext();
+        private static readonly ITramContext TramContext = new TramContext();
 
         /// <summary>
         /// Voegt een User toe aan de database.
@@ -80,6 +81,22 @@ namespace User_Beheersysteem
         public List<User> GetAllUsersWithFunction(Role role)
         {
             return UserContext.GetAllUsersWithFunction(role);
+        }
+
+        public bool DoesTramExist(int id)
+        {
+            return TramContext.DoesTramExist(id);
+        }
+
+        public List<int> GetTramIdByDriverId(int id)
+        {
+            return TramContext.GetTramIdByDriverId(id);
+        }
+
+        public void SetUserToTram(User user, int? tramId)
+        {
+            if (tramId != null && DoesTramExist((int)tramId)) TramContext.SetUserToTram(TramContext.GetTram((int)tramId), user);
+            else TramContext.SetUserToTram(null, user);
         }
     }
 }
