@@ -185,6 +185,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(790, 807);
             this.Name = "MainService";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Odorirails Service Management";

@@ -45,6 +45,8 @@
             // 
             // btnEditService
             // 
+            this.btnEditService.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditService.Location = new System.Drawing.Point(123, 498);
             this.btnEditService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEditService.Name = "btnEditService";
@@ -56,6 +58,7 @@
             // 
             // rtbComment
             // 
+            this.rtbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbComment.Location = new System.Drawing.Point(192, 329);
             this.rtbComment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rtbComment.Name = "rtbComment";
@@ -95,6 +98,7 @@
             // 
             // sortsrvc_cb
             // 
+            this.sortsrvc_cb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sortsrvc_cb.FormattingEnabled = true;
             this.sortsrvc_cb.Location = new System.Drawing.Point(191, 180);
             this.sortsrvc_cb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -104,6 +108,7 @@
             // 
             // usersListBox
             // 
+            this.usersListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usersListBox.FormattingEnabled = true;
             this.usersListBox.ItemHeight = 20;
             this.usersListBox.Location = new System.Drawing.Point(203, 14);
@@ -134,6 +139,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.Location = new System.Drawing.Point(132, 233);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -151,6 +157,7 @@
             // 
             // tbTramNr
             // 
+            this.tbTramNr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTramNr.Location = new System.Drawing.Point(301, 281);
             this.tbTramNr.Name = "tbTramNr";
             this.tbTramNr.Size = new System.Drawing.Size(129, 26);
@@ -175,6 +182,7 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.usercbox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
