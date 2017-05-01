@@ -30,13 +30,16 @@ namespace Beheersysteem
             //With a service needed, put on the first free slot
             if (tram.Status == TramStatus.Cleaning || tram.Status == TramStatus.Maintenance || tram.Status == TramStatus.CleaningMaintenance)
             {
-                foreach (Track tracks in allTracks.Where(x => x.Type == TrackType.Service))
+                foreach (Track track in allTracks.Where(x => x.Type == TrackType.Service))
                 {
-                    foreach (Sector tempSector in tracks.Sectors)
+                    for (int i = 0; i < track.Sectors.Count; i++)
                     {
-                        BeheerSector beheerSector = tempSector == null ? null : BeheerSector.ToBeheerSector(tempSector);
-                        Assign(beheerSector, tram);
-                        return allTracks;
+                        if (track.Sectors[i].OccupyingTram == null && track.Sectors[i].Status == SectorStatus.Open)
+                        {
+                            BeheerSector beheerSector = track.Sectors[i] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i]);
+                            track.Sectors[i] = Assign(beheerSector, tram);
+                            return allTracks;
+                        }
                     }
                 }
             }

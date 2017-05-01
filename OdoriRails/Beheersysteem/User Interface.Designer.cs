@@ -632,7 +632,7 @@
             this.tbCutoffTracks.Name = "tbCutoffTracks";
             this.tbCutoffTracks.Size = new System.Drawing.Size(272, 26);
             this.tbCutoffTracks.TabIndex = 0;
-            this.tbCutoffTracks.Text = "38, 64, 77";
+            this.tbCutoffTracks.Text = "38, 64";
             // 
             // lbSelectedTrack
             // 

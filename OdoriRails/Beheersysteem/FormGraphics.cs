@@ -156,9 +156,22 @@ namespace Beheersysteem
                 }
             }
 
+            y = baseY;
+            x = baseX - 20;
+            for (int i = -2; i < sectorMax; i++)
+            {
+                var rect = new Rectangle(x, y, 10, 20);
+                if (i >= 0)
+                {
+                    graphics.DrawString(i.ToString(), stringFont, redBrush, rect);
+                }
+                y += 25;
+            }
+
             //Print all non assigned trams 
             x = 10;
             y = 10;
+
             foreach (Tram tram in trams.Where(tram => tram.Location != TramLocation.Out || tram.Location != TramLocation.GoingOut))
             {
                 var rect = new Rectangle(x, y, 40, 20);
