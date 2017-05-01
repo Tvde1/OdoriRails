@@ -25,16 +25,17 @@ namespace SchoonmaakReparatieSysteem
             {
                 RepairToUpdate = (Repair)service; 
             }
-            
-            InitializeComponent();
 
+            InitializeComponent();
         }
+
         public EditService(User activeuser, Cleaning service)
         {
             CleaningToUpdate = service;
             activeUser = activeuser;
             InitializeComponent();
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
             if (activeUser.Role == Role.HeadCleaner)
@@ -44,9 +45,7 @@ namespace SchoonmaakReparatieSysteem
             if (activeUser.Role == Role.HeadEngineer)
             {
                 logic.UpdateRepairinDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, commenttb, users, tramnrtb, RepairToUpdate);
-
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)

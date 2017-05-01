@@ -13,7 +13,7 @@ namespace SchoonmaakReparatieSysteem
         {
             InitializeComponent();
 
-            _logic.PlanServices();
+            //_logic.PlanServices();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
@@ -24,7 +24,6 @@ namespace SchoonmaakReparatieSysteem
         {
             AddService adsvc = new AddService(_activeUser);
             adsvc.Show();
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -35,7 +34,7 @@ namespace SchoonmaakReparatieSysteem
             }
             catch
             {
-                MessageBox.Show("select a service first my dude");
+                MessageBox.Show("Selecteer eerst een service.");
             }
         }
 
@@ -64,14 +63,13 @@ namespace SchoonmaakReparatieSysteem
             }
             catch
             {
-                MessageBox.Show("Select a service first my dude");
+                MessageBox.Show("Selecteer eerst een service.");
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
-
         }
 
         private void button3_Click(object sender, EventArgs e)

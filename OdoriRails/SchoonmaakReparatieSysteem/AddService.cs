@@ -12,12 +12,11 @@ namespace SchoonmaakReparatieSysteem
         private Logic logic = new Logic();
         private List<User> users = new List<User>();
         private List<User> availableusers; 
+
         public AddService(User activeuser)
         {
-            
             activeUser = activeuser;
             InitializeComponent();
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,7 +33,6 @@ namespace SchoonmaakReparatieSysteem
         private void AddService_Load(object sender, EventArgs e)
         {
             availableusers = logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
-   
         }
     }
 }
