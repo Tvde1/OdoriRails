@@ -41,11 +41,11 @@ namespace SchoonmaakReparatieSysteem
         {
             if (serviceToUpdate.GetType().Name == "Repair")
             {
-                logic.UpdateCleaninginDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Cleaning)serviceToUpdate);
+                logic.UpdateRepairinDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Repair)serviceToUpdate);
             }
             if (serviceToUpdate.GetType().Name == "Cleaning")
             {
-                logic.UpdateRepairinDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Repair)serviceToUpdate);
+                logic.UpdateCleaninginDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Cleaning)serviceToUpdate);
             }
         }
 

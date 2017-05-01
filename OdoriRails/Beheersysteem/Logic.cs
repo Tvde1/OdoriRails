@@ -64,12 +64,12 @@ namespace Beheersysteem
             List<Tram> movingTrams = repo.GetAllTramsWithLocation(location);
             if (movingTrams.Count != 0)
             {
-                foreach (Tram tram in movingTrams)
+                for (int i = 0; i < movingTrams.Count; i++)
                 {
-                    BeheerTram beheerTram = BeheerTram.ToBeheerTram(tram);
+                    BeheerTram beheerTram = BeheerTram.ToBeheerTram(movingTrams[i]);
                     if (location == TramLocation.ComingIn)
                     {
-                        if (tram.DepartureTime == null)
+                        if (movingTrams[i].DepartureTime == null)
                         {
                             GetExitTime(beheerTram);
                         }
@@ -78,8 +78,9 @@ namespace Beheersysteem
                     else if (location == TramLocation.GoingOut)
                     {
                         beheerTram.EditTramLocation(TramLocation.Out);
-                        repo.EditTram(beheerTram);
-                        repo.WipeSectorByTramId(tram.Number);
+                        movingTrams[i] = beheerTram;
+                        repo.EditTram(movingTrams[i]);
+                        repo.WipeSectorByTramId(movingTrams[i].Number);
                     }
                 }
                 FetchUpdates();
@@ -394,7 +395,16 @@ namespace Beheersysteem
         {
             int trackNumber = Convert.ToInt32(_trackNumber);
             int sectorAmount = Convert.ToInt32(_sectorAmount);
-            int? defaultLine = Convert.ToInt32(_defaultLine);
+            int? defaultLine;
+            if (_defaultLine == "")
+            {
+                defaultLine = 0;
+            }
+            else
+            {
+                defaultLine = Convert.ToInt32(_defaultLine);
+            }
+            
 
             TrackType trackType;
             Enum.TryParse<TrackType>(_trackType, out trackType);
