@@ -10,7 +10,7 @@ namespace LoginSystem
         public LoginScreen()
         {
             InitializeComponent();
-            _loginSystem = new Logic();
+            _loginSystem = new Logic(this);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

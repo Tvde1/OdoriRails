@@ -52,10 +52,10 @@ namespace User_Beheersysteem
 
         public void AddUser(User user, string tramId)
         {
+            _userBeheerRepository.AddUser(user);
+
             if (tramId == null) _userBeheerRepository.SetUserToTram(user, null);
             if (int.TryParse(tramId, out int tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
-
-            _userBeheerRepository.AddUser(user);
         }
 
         public int GetIndex(string username)

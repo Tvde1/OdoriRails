@@ -46,18 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InlogScreen.cs">
+    <Compile Include="LoginScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InlogScreen.Designer.cs">
-      <DependentUpon>InlogScreen.cs</DependentUpon>
+    <Compile Include="LoginScreen.Designer.cs">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="InlogScreen.resx">
-      <DependentUpon>InlogScreen.cs</DependentUpon>
+    <EmbeddedResource Include="LoginScreen.resx">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
