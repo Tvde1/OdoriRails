@@ -39,9 +39,9 @@ namespace In_Uitrit_Systeem
             _inUitrijRepository.AddRepair(repair);
         }
 
-        public void AddCleaning()
+        public void AddCleaning(string comment)
         {
-            var cleaning = new Cleaning(Tram.Number);
+            var cleaning = new Cleaning(Tram.Number, comment);
             _inUitrijRepository.AddCleaning(cleaning);
         }
 
