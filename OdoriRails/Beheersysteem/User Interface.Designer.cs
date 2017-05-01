@@ -38,7 +38,6 @@
             this.tbMoveToTrack = new System.Windows.Forms.TextBox();
             this.lbMoveToSector = new System.Windows.Forms.Label();
             this.lbMoveToTrack = new System.Windows.Forms.Label();
-            this.btnAddService = new System.Windows.Forms.Button();
             this.btnMove = new System.Windows.Forms.Button();
             this.tbSelectedTram = new System.Windows.Forms.TextBox();
             this.lbSelectedTram = new System.Windows.Forms.Label();
@@ -79,10 +78,10 @@
             this.tbTramNumber = new System.Windows.Forms.TextBox();
             this.lbTramNumber = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cBoxShowEmptyTracks = new System.Windows.Forms.CheckBox();
             this.btnUpdateSettings = new System.Windows.Forms.Button();
             this.lbCutoffTracks = new System.Windows.Forms.Label();
             this.tbCutoffTracks = new System.Windows.Forms.TextBox();
-            this.cBoxShowEmptyTracks = new System.Windows.Forms.CheckBox();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -101,7 +100,7 @@
             this.gbOther.Controls.Add(this.btnReset);
             this.gbOther.Controls.Add(this.btnChangeDisplayView);
             this.gbOther.Controls.Add(this.btnSimulation);
-            this.gbOther.Location = new System.Drawing.Point(5, 397);
+            this.gbOther.Location = new System.Drawing.Point(5, 351);
             this.gbOther.Margin = new System.Windows.Forms.Padding(5);
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
@@ -146,7 +145,6 @@
             this.gbTram.Controls.Add(this.tbMoveToTrack);
             this.gbTram.Controls.Add(this.lbMoveToSector);
             this.gbTram.Controls.Add(this.lbMoveToTrack);
-            this.gbTram.Controls.Add(this.btnAddService);
             this.gbTram.Controls.Add(this.btnMove);
             this.gbTram.Controls.Add(this.tbSelectedTram);
             this.gbTram.Controls.Add(this.lbSelectedTram);
@@ -155,7 +153,7 @@
             this.gbTram.Margin = new System.Windows.Forms.Padding(5);
             this.gbTram.Name = "gbTram";
             this.gbTram.Padding = new System.Windows.Forms.Padding(5);
-            this.gbTram.Size = new System.Drawing.Size(259, 243);
+            this.gbTram.Size = new System.Drawing.Size(259, 197);
             this.gbTram.TabIndex = 1;
             this.gbTram.TabStop = false;
             this.gbTram.Text = "Tram";
@@ -191,16 +189,6 @@
             this.lbMoveToTrack.Size = new System.Drawing.Size(120, 20);
             this.lbMoveToTrack.TabIndex = 4;
             this.lbMoveToTrack.Text = "Move to Track:";
-            // 
-            // btnAddService
-            // 
-            this.btnAddService.Location = new System.Drawing.Point(7, 198);
-            this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(242, 33);
-            this.btnAddService.TabIndex = 7;
-            this.btnAddService.Text = "Add Service";
-            this.btnAddService.UseVisualStyleBackColor = true;
-            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
             // 
             // btnMove
             // 
@@ -605,6 +593,16 @@
             this.tabPage3.Text = "Settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cBoxShowEmptyTracks
+            // 
+            this.cBoxShowEmptyTracks.AutoSize = true;
+            this.cBoxShowEmptyTracks.Location = new System.Drawing.Point(6, 83);
+            this.cBoxShowEmptyTracks.Name = "cBoxShowEmptyTracks";
+            this.cBoxShowEmptyTracks.Size = new System.Drawing.Size(239, 24);
+            this.cBoxShowEmptyTracks.TabIndex = 8;
+            this.cBoxShowEmptyTracks.Text = "Show tracks without sectors";
+            this.cBoxShowEmptyTracks.UseVisualStyleBackColor = true;
+            // 
             // btnUpdateSettings
             // 
             this.btnUpdateSettings.Location = new System.Drawing.Point(6, 113);
@@ -631,16 +629,6 @@
             this.tbCutoffTracks.Size = new System.Drawing.Size(272, 26);
             this.tbCutoffTracks.TabIndex = 0;
             this.tbCutoffTracks.Text = "38, 64, 77";
-            // 
-            // cBoxShowEmptyTracks
-            // 
-            this.cBoxShowEmptyTracks.AutoSize = true;
-            this.cBoxShowEmptyTracks.Location = new System.Drawing.Point(6, 83);
-            this.cBoxShowEmptyTracks.Name = "cBoxShowEmptyTracks";
-            this.cBoxShowEmptyTracks.Size = new System.Drawing.Size(239, 24);
-            this.cBoxShowEmptyTracks.TabIndex = 8;
-            this.cBoxShowEmptyTracks.Text = "Show tracks without sectors";
-            this.cBoxShowEmptyTracks.UseVisualStyleBackColor = true;
             // 
             // UserInterface
             // 
@@ -691,7 +679,6 @@
         private System.Windows.Forms.Label lbSelectedTram;
         private System.Windows.Forms.TextBox tbSelectedSector;
         private System.Windows.Forms.Label lbSelectedSector;
-        private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Button btnChangeDisplayView;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.TextBox tbMoveToSector;

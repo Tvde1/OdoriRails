@@ -23,11 +23,6 @@ namespace Beheersysteem
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });
         }
 
-        private void btnAddService_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnOpen_Click(object sender, EventArgs e)
         {
             _logic.Unlock(tbSelectedSector.Text);
@@ -67,8 +62,12 @@ namespace Beheersysteem
 
         private void btnSetDisabled_Click(object sender, EventArgs e)
         {
-            _logic.ToggleDisabled(tbSelectedTram.Text);
-            panelMain.Invalidate();
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to set this tram as disabled?", "Set Tram as Disabled", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                _logic.ToggleDisabled(tbSelectedTram.Text);
+                panelMain.Invalidate();
+            }
         }
 
         private void btnSimulation_Click(object sender, EventArgs e)
@@ -97,8 +96,12 @@ namespace Beheersysteem
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            _logic.WipePreSimulation();
-            panelMain.Invalidate();
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to reset the remise?", "Reset Remise", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                _logic.WipePreSimulation();
+                panelMain.Invalidate();
+            }
         }
 
         private void btnAddTram_Click(object sender, EventArgs e)
@@ -123,12 +126,20 @@ namespace Beheersysteem
 
         private void btnDeleteTrack_Click(object sender, EventArgs e)
         {
-            if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this track?", "Delete Track", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");
+            }
         }
 
         private void btnDeleteTram_Click(object sender, EventArgs e)
         {
-            _logic.DeleteTram(tbTramNumber.Text);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this tram?", "Delete Tram", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                _logic.DeleteTram(tbTramNumber.Text);
+            }
         }
 
         private void btnUpdateSettings_Click(object sender, EventArgs e)
