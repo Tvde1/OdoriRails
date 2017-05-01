@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditService));
             this.btnEditService = new System.Windows.Forms.Button();
-            this.commenttb = new System.Windows.Forms.RichTextBox();
+            this.rtbComment = new System.Windows.Forms.RichTextBox();
             this.commentlbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,7 +40,7 @@
             this.usercbox = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
-            this.tramnrtb = new System.Windows.Forms.TextBox();
+            this.tbTramNr = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnEditService
@@ -54,14 +54,14 @@
             this.btnEditService.UseVisualStyleBackColor = true;
             this.btnEditService.Click += new System.EventHandler(this.btnEditService_Click);
             // 
-            // commenttb
+            // rtbComment
             // 
-            this.commenttb.Location = new System.Drawing.Point(192, 329);
-            this.commenttb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.commenttb.Name = "commenttb";
-            this.commenttb.Size = new System.Drawing.Size(239, 159);
-            this.commenttb.TabIndex = 24;
-            this.commenttb.Text = "";
+            this.rtbComment.Location = new System.Drawing.Point(192, 329);
+            this.rtbComment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rtbComment.Name = "rtbComment";
+            this.rtbComment.Size = new System.Drawing.Size(239, 159);
+            this.rtbComment.TabIndex = 24;
+            this.rtbComment.Text = "";
             // 
             // commentlbl
             // 
@@ -149,12 +149,12 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "Tram nr:";
             // 
-            // tramnrtb
+            // tbTramNr
             // 
-            this.tramnrtb.Location = new System.Drawing.Point(301, 281);
-            this.tramnrtb.Name = "tramnrtb";
-            this.tramnrtb.Size = new System.Drawing.Size(129, 26);
-            this.tramnrtb.TabIndex = 27;
+            this.tbTramNr.Location = new System.Drawing.Point(301, 281);
+            this.tbTramNr.Name = "tbTramNr";
+            this.tbTramNr.Size = new System.Drawing.Size(129, 26);
+            this.tbTramNr.TabIndex = 27;
             // 
             // EditService
             // 
@@ -163,10 +163,10 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(444, 561);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tramnrtb);
+            this.Controls.Add(this.tbTramNr);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnEditService);
-            this.Controls.Add(this.commenttb);
+            this.Controls.Add(this.rtbComment);
             this.Controls.Add(this.commentlbl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -184,12 +184,13 @@
             this.Load += new System.EventHandler(this.EditService_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
         private System.Windows.Forms.Button btnEditService;
-        private System.Windows.Forms.RichTextBox commenttb;
+        private System.Windows.Forms.RichTextBox rtbComment;
         private System.Windows.Forms.Label commentlbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -199,6 +200,6 @@
         private System.Windows.Forms.ComboBox usercbox;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tramnrtb;
+        private System.Windows.Forms.TextBox tbTramNr;
     }
 }

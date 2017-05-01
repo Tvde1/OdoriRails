@@ -23,11 +23,12 @@ namespace SchoonmaakReparatieSysteem
                     usercbox.Items.Add(user.Name);
                 }
 
-                commentlbl.Text = "Defect omschrijving";
+                commentlbl.Text = "Omschrijving:";
                 sortsrvc_cb.Items.Add(RepairType.Maintenance);
                 sortsrvc_cb.Items.Add(RepairType.Repair);
                 return availableusers;
             }
+
             if (activeUser.Role == Role.HeadCleaner)
             {
                 availableusers = _repo.GetAllUsersWithFunction(Role.Cleaner);
@@ -36,7 +37,7 @@ namespace SchoonmaakReparatieSysteem
                     usercbox.Items.Add(user.Name);
                 }
 
-                commentlbl.Text = "Opmerkingen";
+                commentlbl.Text = "Opmerkingen:";
                 sortsrvc_cb.Items.Add(CleaningSize.Big);
                 sortsrvc_cb.Items.Add(CleaningSize.Small);
                 return availableusers;
@@ -104,9 +105,7 @@ namespace SchoonmaakReparatieSysteem
                 var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
                     repairtoupdate.Defect, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
                 repair.SetId(repairtoupdate.Id);
-
                 _repo.EditService(repair);
-
             }
             catch (Exception e)
             {

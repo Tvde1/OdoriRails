@@ -113,7 +113,7 @@ namespace SchoonmaakReparatieSysteem
 
         public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
         {
-            return ServiceContext.GetAllCeCleaningsFromTram(tram);
+            return ServiceContext.GetAllCleaningsFromTram(tram);
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace OdoriRails.DAL.Subclasses
 
         List<Repair> GetAllRepairsFromTram(Tram tram);
 
-        List<Cleaning> GetAllCeCleaningsFromTram(Tram tram);
+        List<Cleaning> GetAllCleaningsFromTram(Tram tram);
 
         bool HadBigMaintenance(Tram tram);
 

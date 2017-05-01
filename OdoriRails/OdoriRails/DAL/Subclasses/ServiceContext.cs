@@ -149,7 +149,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Repair WHERE TramFk = {tram.Number}")), CreateRepair);
         }
 
-        public List<Cleaning> GetAllCeCleaningsFromTram(Tram tram)
+        public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
         {
             return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Cleaning WHERE TramFk = {tram.Number}")), CreateCleaning);
         }
