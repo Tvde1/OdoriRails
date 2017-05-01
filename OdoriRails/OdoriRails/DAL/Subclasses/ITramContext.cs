@@ -73,5 +73,7 @@ namespace OdoriRails.DAL.Subclasses
         void SetUserToTram(Tram tram, User user);
 
         List<int> GetTramIdByDriverId(int driverId);
+
+        void SetStatusToIdle(int tramId);
     }
 }
