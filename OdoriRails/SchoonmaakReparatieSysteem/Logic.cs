@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Beheersysteem.DAL.Repository;
 using OdoriRails.BaseClasses;
@@ -16,6 +17,7 @@ namespace SchoonmaakReparatieSysteem
             if (activeUser.Role == Role.HeadEngineer)
             {
                 availableusers = _repo.GetAllUsersWithFunction(Role.Engineer);
+                availableusers.AddRange(_repo.GetAllUsersWithFunction(Role.HeadEngineer));
                 foreach (User user in availableusers)
                 {
                     usercbox.Items.Add(user.Name);
