@@ -214,8 +214,9 @@ namespace SchoonmaakReparatieSysteem
         {
             // TODO: ADD A CHECK FOR EACH DAY TO SEE IF THERE ARE ALREADY 4 SERVICES PLANNED (3 small 1 big)
             
-            DateTime enddate = DateTime.Today;
-            DateTime startdate = enddate.Subtract(TimeSpan.FromDays(30));
+            
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = startdate.AddDays(7);
 
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
