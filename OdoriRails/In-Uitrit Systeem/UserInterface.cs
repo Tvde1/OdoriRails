@@ -35,6 +35,7 @@ namespace In_Uitrit_Systeem
                 {
                     case TramLocation.In:
                         btnLeave.Enabled = true;
+                        rtbDetails.Text = "";
                         lblLocation.Text = _logic.GetAssingedTramLocation() ?? "Niet bekend";
                         break;
                     case TramLocation.ComingIn:
@@ -102,7 +103,6 @@ namespace In_Uitrit_Systeem
             }
 
             lblLocation.Text = "Wordt opgehaald.";
-            rtbDetails.Text = "";
             cbCleaning.Checked = false;
             cbMaintenance.Checked = false;
 
