@@ -80,30 +80,20 @@ namespace SchoonmaakReparatieSysteem
             ComboBox sortsrvc_cb, RichTextBox commenttb,
             List<User> users, TextBox tramnrtb)
         {
-            try
+            if (activeUser.Role == Role.HeadCleaner)
             {
-                if (activeUser.Role == Role.HeadCleaner)
-                {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.EditService(cleaning);
-                }
-                if (activeUser.Role == Role.HeadEngineer)
-                {
-                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.EditService(repair);
-                }
+                var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
+                    commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                _repo.EditService(cleaning);
+            }
+            if (activeUser.Role == Role.HeadEngineer)
+            {
+                var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
+                    commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+                _repo.EditService(repair);
             }
 
-            catch
-            {
-                MessageBox.Show("Service updated, but there are some foreign key problems with the query.");
-            }
-            finally
-            {
-                targetform.Close();
-            }
+            targetform.Close();
         }
 
         public void RefreshDatagridView(User ActiveUser, ComboBox filtercbox, DataGridView dataGridView)
@@ -200,21 +190,21 @@ namespace SchoonmaakReparatieSysteem
             for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
             {
 
-                    foreach (var tram in trams)
+                foreach (var tram in trams)
+                {
+                    if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
                     {
-                        if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
-                        {
-                            // no : plan service and leave loop
-                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
-                            _repo.AddRepair(rep);
-                            break;
-                        }
-                        else
-                        {
-                            // yes : skip to second check
-                        }
+                        // no : plan service and leave loop
+                        Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                        _repo.AddRepair(rep);
+                        break;
                     }
-                
+                    else
+                    {
+                        // yes : skip to second check
+                    }
+                }
+
 
                 for (int i = 0; i <= 3;) // checks three times for small services, 
                 {
@@ -227,7 +217,7 @@ namespace SchoonmaakReparatieSysteem
                             _repo.AddRepair(rep);
                             i++;
                             break;
-                            
+
                         }
                         else
                         {
