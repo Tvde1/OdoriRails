@@ -13,7 +13,7 @@ namespace SchoonmaakReparatieSysteem
         {
             InitializeComponent();
 
-            _logic.PlanServices();
+            //_logic.PlanServices();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
