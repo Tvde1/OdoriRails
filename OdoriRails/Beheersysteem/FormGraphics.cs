@@ -170,7 +170,7 @@ namespace Beheersysteem
             x = 10;
             y = 10;
 
-            foreach (Tram tram in trams.Where(tram => tram.Location != TramLocation.Out || tram.Location != TramLocation.GoingOut))
+            foreach (Tram tram in trams.Where(tram => tram.Location != TramLocation.Out && tram.Location != TramLocation.GoingOut))
             {
                 var rect = new Rectangle(x, y, 40, 20);
                 graphics.FillRectangle(lightGrayBrush, rect);
