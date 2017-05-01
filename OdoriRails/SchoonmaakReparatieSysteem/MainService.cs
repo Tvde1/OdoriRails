@@ -13,9 +13,7 @@ namespace SchoonmaakReparatieSysteem
         {
             InitializeComponent();
 
-            //_logic.PlanServices();
-
-            //MessageBox.Show("Debug info: There was a problem with the INSERT SQL query.");
+            _logic.PlanServices();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
@@ -32,9 +30,8 @@ namespace SchoonmaakReparatieSysteem
         private void button2_Click(object sender, EventArgs e)
         {
             try
-            {
+            { 
                 _logic.UpdateService(_activeUser, dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
-                _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
             }
             catch
             {

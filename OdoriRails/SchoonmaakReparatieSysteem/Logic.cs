@@ -75,25 +75,18 @@ namespace SchoonmaakReparatieSysteem
                 targetform.Close();
             }
         }
-
-        public void UpdateServiceinDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+        public void UpdateCleaninginDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
             ComboBox sortsrvc_cb, RichTextBox commenttb,
-            List<User> users, TextBox tramnrtb)
+            List<User> users, TextBox tramnrtb, Cleaning toupdatecleaning)
         {
             try
             {
-                if (activeUser.Role == Role.HeadCleaner)
-                {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.EditService(cleaning);
-                }
-                if (activeUser.Role == Role.HeadEngineer)
-                {
-                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.EditService(repair);
-                }
+
+                var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
+                    commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                cleaning.SetId(toupdatecleaning.Id);
+                _repo.EditService(cleaning);
+
             }
 
             catch
@@ -105,7 +98,30 @@ namespace SchoonmaakReparatieSysteem
                 targetform.Close();
             }
         }
+        public void UpdateRepairinDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+            ComboBox sortsrvc_cb, RichTextBox commenttb,
+            List<User> users, TextBox tramnrtb, Repair repairtoupdate)
+        {
+            try
+            {
+                var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
+                    repairtoupdate.Defect ,commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+                repair.SetId(repairtoupdate.Id);
+               
+                _repo.EditService(repair);
+    
+            }
 
+            catch
+            {
+                MessageBox.Show("Service updated, but there are some foreign key problems with the query.");
+            }
+            finally
+            {
+                targetform.Close();
+            }
+        }
+        //REFRESH THE DATAGRIDVIEW
         public void RefreshDatagridView(User ActiveUser, ComboBox filtercbox, DataGridView dataGridView)
         {
 
@@ -168,22 +184,28 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void UpdateService(User ActiveUser, DataGridView datagridview, Service servicetofinish)
+        public void UpdateService(User ActiveUser, DataGridView datagridview, Service servicetoupdate)
         {
             if (datagridview.SelectedRows.Count != 0)
             {
-                try
+                  servicetoupdate = (Service)datagridview.CurrentRow.DataBoundItem;
+                    if (ActiveUser.Role == Role.HeadEngineer)
+                    {
+                        Repair rep = (Repair) servicetoupdate;
+                        var edsrvc = new EditService(ActiveUser, rep);
+                        edsrvc.Show();
+                    }
+                    if (ActiveUser.Role == Role.HeadCleaner)
+                    {
+                        Cleaning clean = (Cleaning)servicetoupdate;
+                        var edsrvc = new EditService(ActiveUser, clean);
+                        edsrvc.Show();
+                    }
 
-                {
-                    var servicetoupdate = (Service)datagridview.CurrentRow.DataBoundItem;
-                    var edsrvc = new EditService(ActiveUser, servicetoupdate);
-                    edsrvc.Show();
 
-                }
-                catch
-                {
-                    MessageBox.Show("Something went wrong with deleting the service");
-                }
+
+               
+               
 
             }
         }
@@ -191,8 +213,10 @@ namespace SchoonmaakReparatieSysteem
         public void PlanServices()
         {
             // TODO: ADD A CHECK FOR EACH DAY TO SEE IF THERE ARE ALREADY 4 SERVICES PLANNED (3 small 1 big)
-            DateTime startdate = DateTime.Today;
-            DateTime enddate = startdate.AddDays(7);
+            
+            DateTime enddate = DateTime.Today;
+            DateTime startdate = enddate.Subtract(TimeSpan.FromDays(30));
+
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
             trams = _repolog.GetAllTrams();
