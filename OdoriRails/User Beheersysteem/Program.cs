@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL.Repository;
 
 namespace User_Beheersysteem
 {

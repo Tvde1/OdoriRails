@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Beheersysteem.DAL.Repository;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL.Repository;
 
 namespace SchoonmaakReparatieSysteem
 {

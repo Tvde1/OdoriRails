@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL.Repository
+namespace SchoonmaakReparatieSysteem
 {
     public class SchoonmaakReparatieRepository
     {
