@@ -34,7 +34,6 @@ namespace In_Uitrit_Systeem
                 Application.SetCompatibleTextRenderingDefault(false);
             }
 
-
             new UserInterface(user).ShowDialog();
         }
     }
