@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL.Subclasses
@@ -36,5 +37,19 @@ namespace OdoriRails.DAL.Subclasses
         bool HadBigMaintenance(Tram tram);
 
         bool HadSmallMaintenance(Tram tram);
+
+        /// <summary>
+        /// Returnt een int[] met Repairs,Queries
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        int[] RepairsForDate(DateTime day);
+
+        /// <summary>
+        /// Returnt een int[] met bigclean, smallclean
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        int[] CleansForDate(DateTime day);
     }
 }

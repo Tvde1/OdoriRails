@@ -1,7 +1,7 @@
 ﻿using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
-namespace OdoriRails.DAL.Repository
+namespace LoginSystem
 {
     public class LoginRepository
     {

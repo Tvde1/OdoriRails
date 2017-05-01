@@ -10,7 +10,6 @@ namespace OdoriRails.DAL.Subclasses
     public class ServiceContext : IServiceContext
     {
         private static readonly UserContext UserContext = new UserContext();
-        private static readonly TramContext TramContext = new TramContext();
 
         public List<Repair> GetAllRepairsFromUser(User user)
         {
@@ -90,7 +89,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             query.Parameters.AddWithValue("@id", service.Id);
 
             Database.GetData(query);
-            SetUsersToServices(service.AssignedUsers, service);
+            SetUsersToServices(service);
         }
 
         public void DeleteService(Service service)
@@ -117,8 +116,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             Database.GetData(cleaningQuery);
 
             cleaning.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
-
-            SetUsersToServices(cleaning.AssignedUsers, cleaning);
+            SetUsersToServices(cleaning);
 
             return cleaning;
         }
@@ -141,8 +139,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             Database.GetData(repairQuery);
 
             repair.SetId(Convert.ToInt32((decimal)data.Rows[0].ItemArray[0]));
-
-            SetUsersToServices(repair.AssignedUsers, repair);
+            SetUsersToServices(repair);
 
             return repair;
         }
@@ -173,6 +170,47 @@ FROM Repair INNER JOIN
  Service ON Repair.ServiceFk = Service.ServicePk
 WHERE (DATEDIFF(m, Service.StartDate, GETDATE()) < 3) AND (Repair.Defect = 'Small Planned Maintenance') AND (Service.TramFk = {tram.Number}) AND (Repair.Type = 0)");
             return Database.GetData(query).Rows.Count > 0;
+        }
+
+
+        /// <summary>
+        /// Returnt een int[] met Repairs,Queries
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public int[] RepairsForDate(DateTime day)
+        {
+            var maintenanceQuery = new SqlCommand($@"SELECT TOP (4) Service.ServicePk
+FROM Service INNER JOIN
+Repair ON Service.ServicePk = Repair.ServiceFk
+WHERE(Service.StartDate = {day}) AND(Repair.Type = 0)");
+
+            var repairQuery = new SqlCommand($@"SELECT TOP(4) Service.ServicePk
+FROM Service INNER JOIN
+Repair ON Service.ServicePk = Repair.ServiceFk
+WHERE(Service.StartDate = {day}) AND(Repair.Type = 1)");
+
+            return new[] {Database.GetData(repairQuery).Rows.Count, Database.GetData(maintenanceQuery).Rows.Count};
+        }
+
+        /// <summary>
+        /// Returnt een int[] met bigclean, smallclean
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public int[] CleansForDate(DateTime day)
+        {
+            var bigCleanQuery = new SqlCommand($@"SELECT TOP (4) Service.ServicePk
+FROM Service INNER JOIN
+Cleaning ON Service.ServicePk = Cleaning.ServiceFk
+WHERE(Service.StartDate = {day}) AND(Cleaning.Size = 0)");
+
+            var smallCleanQuery = new SqlCommand($@"SELECT TOP (4) Service.ServicePk
+FROM Service INNER JOIN
+Cleaning ON Service.ServicePk = Cleaning.ServiceFk
+WHERE(Service.StartDate = {day}) AND(Cleaning.Size = 1)");
+
+            return new[] { Database.GetData(bigCleanQuery).Rows.Count, Database.GetData(smallCleanQuery).Rows.Count };
         }
 
 
@@ -221,18 +259,18 @@ WHERE (Service.ServicePk = {serviceId})");
             return Database.GenerateListWithFunction(Database.GetData(command), UserContext.CreateUser);
         }
 
-        private static void SetUsersToServices(List<User> users, Service service)
+        private static void SetUsersToServices(Service service)
         {
-            if (users == null) return;
+            if (service.AssignedUsers == null) return;
             foreach (DataRow dataRow in Database.GetData(new SqlCommand($"SELECT UserCk FROM ServiceUser WHERE ServiceCk = {service.Id}")).Rows)
             {
-                if (users.All(x => x.Id != (int)dataRow.ItemArray[0]))
+                if (service.AssignedUsers.All(x => x.Id != (int)dataRow.ItemArray[0]))
                 {
                     Database.GetData(new SqlCommand($"DELETE FROM ServiceUser WHERE ServiceCk = {service.Id} AND UserCk = {(int)dataRow.ItemArray[0]}"));
                 }
             }
 
-            foreach (var user in users)
+            foreach (var user in service.AssignedUsers)
             {
                 if (Database.GetData(new SqlCommand($"SELECT * FROM ServiceUser WHERE UserCk = {user.Id} AND ServiceCk = {service.Id}")).Rows.Count < 1)
                 {

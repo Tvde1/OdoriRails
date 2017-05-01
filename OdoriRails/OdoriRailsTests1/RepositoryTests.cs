@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OdoriRails.BaseClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Beheersysteem.DAL.Repository;
+using LoginSystem;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OdoriRails.BaseClasses;
 
-namespace OdoriRails.DAL.Repository.Tests
+namespace OdoriRailsTests1
 {
     [TestClass()]
     public class LoginRepositoryTest

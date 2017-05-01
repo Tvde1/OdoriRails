@@ -2,10 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Security.Authentication;
-using System.Security.Permissions;
 using OdoriRails.BaseClasses;
 using System.Windows.Forms;
-using OdoriRails.DAL.Repository;
 
 namespace LoginSystem
 {
@@ -13,14 +11,7 @@ namespace LoginSystem
     {
         private readonly LoginRepository _loginRepository = new LoginRepository();
         private readonly string _dataLocation = Application.StartupPath + @"\Systems\";
-        private readonly LoginScreen _mainForm;
-
-        public Logic(LoginScreen mainForm)
-        {
-            _mainForm = mainForm;
-        }
-
-
+        
         public void Login(string username, string password)
         {
             if (!_loginRepository.ValidateUsername(username)) throw new AuthenticationException("Gebruiker bestaat niet.");

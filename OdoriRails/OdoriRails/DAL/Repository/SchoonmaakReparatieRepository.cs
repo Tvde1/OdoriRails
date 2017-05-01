@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
@@ -112,6 +113,26 @@ namespace OdoriRails.DAL.Repository
         public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
         {
             return ServiceContext.GetAllCeCleaningsFromTram(tram);
+        }
+
+        /// <summary>
+        /// Returnt een int[] met Repairs,Queries
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public int[] GetAllRepairsForDay(DateTime day)
+        {
+            return ServiceContext.RepairsForDate(day);
+        }
+
+        /// <summary>
+        /// Returnt een int[] met bigclean, smallclean
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public int[] GetAllCleansFromDay(DateTime day)
+        {
+            return ServiceContext.CleansForDate(day);
         }
     }
 }
