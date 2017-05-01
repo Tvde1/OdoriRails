@@ -29,80 +29,86 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainService));
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.filtercbox = new System.Windows.Forms.ComboBox();
+            this.btnAddService = new System.Windows.Forms.Button();
+            this.btnEditService = new System.Windows.Forms.Button();
+            this.btnDeleteService = new System.Windows.Forms.Button();
+            this.btnDone = new System.Windows.Forms.Button();
+            this.cboxFilter = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.usernamelbl = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnAddService
             // 
-            this.button1.Location = new System.Drawing.Point(524, 720);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 35);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Add Service";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddService.Location = new System.Drawing.Point(524, 719);
+            this.btnAddService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAddService.Name = "btnAddService";
+            this.btnAddService.Size = new System.Drawing.Size(112, 35);
+            this.btnAddService.TabIndex = 2;
+            this.btnAddService.Text = "Add Service";
+            this.btnAddService.UseVisualStyleBackColor = true;
+            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
             // 
-            // button2
+            // btnEditService
             // 
-            this.button2.Location = new System.Drawing.Point(646, 720);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 35);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Edit Service";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnEditService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditService.Location = new System.Drawing.Point(646, 719);
+            this.btnEditService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnEditService.Name = "btnEditService";
+            this.btnEditService.Size = new System.Drawing.Size(112, 35);
+            this.btnEditService.TabIndex = 3;
+            this.btnEditService.Text = "Edit Service";
+            this.btnEditService.UseVisualStyleBackColor = true;
+            this.btnEditService.Click += new System.EventHandler(this.btnEditService_Click);
             // 
-            // button4
+            // btnDeleteService
             // 
-            this.button4.Location = new System.Drawing.Point(388, 720);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(128, 35);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Delete Service";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnDeleteService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteService.Location = new System.Drawing.Point(388, 719);
+            this.btnDeleteService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeleteService.Name = "btnDeleteService";
+            this.btnDeleteService.Size = new System.Drawing.Size(128, 35);
+            this.btnDeleteService.TabIndex = 5;
+            this.btnDeleteService.Text = "Delete Service";
+            this.btnDeleteService.UseVisualStyleBackColor = true;
+            this.btnDeleteService.Click += new System.EventHandler(this.btnDeleteService_Click);
             // 
-            // button5
+            // btnDone
             // 
-            this.button5.Location = new System.Drawing.Point(18, 720);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 35);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Mark as Done";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDone.Location = new System.Drawing.Point(22, 719);
+            this.btnDone.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(146, 35);
+            this.btnDone.TabIndex = 6;
+            this.btnDone.Text = "Mark as done";
+            this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
-            // filtercbox
+            // cboxFilter
             // 
-            this.filtercbox.DisplayMember = "0";
-            this.filtercbox.FormattingEnabled = true;
-            this.filtercbox.Items.AddRange(new object[] {
+            this.cboxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboxFilter.DisplayMember = "0";
+            this.cboxFilter.FormattingEnabled = true;
+            this.cboxFilter.Items.AddRange(new object[] {
             "My Services",
             "Unassigned Services"});
-            this.filtercbox.Location = new System.Drawing.Point(578, 42);
-            this.filtercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.filtercbox.Name = "filtercbox";
-            this.filtercbox.Size = new System.Drawing.Size(180, 28);
-            this.filtercbox.TabIndex = 7;
-            this.filtercbox.ValueMember = "0";
-            this.filtercbox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cboxFilter.Location = new System.Drawing.Point(578, 42);
+            this.cboxFilter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cboxFilter.Name = "cboxFilter";
+            this.cboxFilter.Size = new System.Drawing.Size(180, 28);
+            this.cboxFilter.TabIndex = 7;
+            this.cboxFilter.ValueMember = "0";
+            this.cboxFilter.SelectedIndexChanged += new System.EventHandler(this.cboxFilter_SelectedIndexChanged);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(481, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -111,17 +117,22 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Filter op:";
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(18, 91);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(740, 598);
-            this.dataGridView1.TabIndex = 9;
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(18, 91);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(740, 607);
+            this.dataGridView.TabIndex = 9;
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 45);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -132,6 +143,8 @@
             // 
             // usernamelbl
             // 
+            this.usernamelbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.usernamelbl.AutoSize = true;
             this.usernamelbl.Location = new System.Drawing.Point(124, 45);
             this.usernamelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -140,16 +153,17 @@
             this.usernamelbl.TabIndex = 11;
             this.usernamelbl.Text = "Username";
             // 
-            // button3
+            // btnRefresh
             // 
-            this.button3.Location = new System.Drawing.Point(176, 720);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 35);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Refresh";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRefresh.Location = new System.Drawing.Point(176, 719);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(79, 35);
+            this.btnRefresh.TabIndex = 12;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // MainService
             // 
@@ -157,16 +171,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(774, 768);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.filtercbox);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cboxFilter);
+            this.Controls.Add(this.btnDone);
+            this.Controls.Add(this.btnDeleteService);
+            this.Controls.Add(this.btnEditService);
+            this.Controls.Add(this.btnAddService);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -174,23 +188,22 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Odorirails Service Management";
             this.Load += new System.EventHandler(this.MainService_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.ComboBox filtercbox;
+        private System.Windows.Forms.Button btnAddService;
+        private System.Windows.Forms.Button btnEditService;
+        private System.Windows.Forms.Button btnDeleteService;
+        private System.Windows.Forms.Button btnDone;
+        private System.Windows.Forms.ComboBox cboxFilter;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label usernamelbl;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

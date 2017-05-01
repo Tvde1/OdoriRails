@@ -19,12 +19,12 @@ namespace SchoonmaakReparatieSysteem
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnAddService_Click(object sender, EventArgs e)
         {
             logic.AddServicetoDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, commenttb, users, tramnrtb);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void btnAdd_Click_1(object sender, EventArgs e)
         {
             usersListBox.Items.Add(usercbox.SelectedItem);
             users.Add(availableusers.ElementAt(usercbox.SelectedIndex));

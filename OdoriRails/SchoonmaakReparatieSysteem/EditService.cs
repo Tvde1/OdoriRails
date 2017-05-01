@@ -14,6 +14,7 @@ namespace SchoonmaakReparatieSysteem
         private Logic logic = new Logic();
         private List<User> users = new List<User>();
         private List<User> availableusers = new List<User>();
+
         public EditService(User activeuser, Service service)
         {
             activeUser = activeuser;
@@ -36,7 +37,7 @@ namespace SchoonmaakReparatieSysteem
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnEditService_Click(object sender, EventArgs e)
         {
             if (activeUser.Role == Role.HeadCleaner)
             {
@@ -48,7 +49,7 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             usersListBox.Items.Add(usercbox.SelectedItem);
             users.Add(availableusers.ElementAt(usercbox.SelectedIndex));

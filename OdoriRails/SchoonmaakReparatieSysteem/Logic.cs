@@ -160,6 +160,7 @@ namespace SchoonmaakReparatieSysteem
                 }
             }
         }
+
         public void DeleteService(DataGridView datagridview, Service servicetofinish)
         {
             if (datagridview.SelectedRows.Count != 0)
@@ -175,26 +176,6 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void UpdateService(User ActiveUser, DataGridView datagridview, Service servicetoupdate)
-        {
-            if (datagridview.SelectedRows.Count != 0)
-            {
-                servicetoupdate = (Service)datagridview.CurrentRow.DataBoundItem;
-                if (ActiveUser.Role == Role.HeadEngineer)
-                {
-                    Repair rep = (Repair)servicetoupdate;
-                    var edsrvc = new EditService(ActiveUser, rep);
-                    edsrvc.Show();
-                }
-                if (ActiveUser.Role == Role.HeadCleaner)
-                {
-                    Cleaning clean = (Cleaning)servicetoupdate;
-                    var edsrvc = new EditService(ActiveUser, clean);
-                    edsrvc.Show();
-                }
-            }
-        }
-
         public void PlanServices()
         {
             DateTime startdate = DateTime.Today;
@@ -204,7 +185,7 @@ namespace SchoonmaakReparatieSysteem
             List<User> emptylistusers = new List<User>();
             trams = _repolog.GetAllTrams();
 
-            for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate tru next 15 days
+            for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate through the next 15 days
             {
                 foreach (var tram in trams)
                 {

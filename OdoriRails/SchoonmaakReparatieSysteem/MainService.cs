@@ -12,54 +12,64 @@ namespace SchoonmaakReparatieSysteem
         public MainService(User user)
         {
             InitializeComponent();
-
             //_logic.PlanServices();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
-            filtercbox.SelectedIndex = 0;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddService adsvc = new AddService(_activeUser);
-            adsvc.Show();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            try
-            { 
-                _logic.UpdateService(_activeUser, dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
-            }
-            catch
-            {
-                MessageBox.Show("Selecteer eerst een service.");
-            }
+            cboxFilter.SelectedIndex = 0;
         }
 
         private void MainService_Load(object sender, EventArgs e)
         {
-            _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
 
             if (_activeUser.Role == Role.HeadEngineer || _activeUser.Role == Role.HeadCleaner)
             {
-                button1.Visible = true;
-                button2.Visible = true;
+                btnAddService.Visible = true;
+                btnEditService.Visible = true;
             }
             else
             {
-                button1.Visible = false;
-                button2.Visible = false;
+                btnAddService.Visible = false;
+                btnEditService.Visible = false;
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnAddService_Click(object sender, EventArgs e)
+        {
+            AddService addService = new AddService(_activeUser);
+            addService.ShowDialog();
+        }
+
+        private void btnEditService_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentRow.DataBoundItem != null && dataGridView.SelectedRows.Count != 0)
+            {
+                if (_activeUser.Role == Role.HeadEngineer)
+                {
+                    Repair rep = (Repair)dataGridView.CurrentRow.DataBoundItem;
+                    var editService = new EditService(_activeUser, rep);
+                    editService.ShowDialog();
+                }
+                if (_activeUser.Role == Role.HeadCleaner)
+                {
+                    Cleaning clean = (Cleaning)dataGridView.CurrentRow.DataBoundItem;
+                    var editService = new EditService(_activeUser, clean);
+                    editService.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecteer eerst een service.");
+            }
+        }
+
+        private void btnDeleteService_Click(object sender, EventArgs e)
         {
             try
             {
-                _logic.DeleteService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
-                _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
+                _logic.DeleteService(dataGridView, (Service)dataGridView.CurrentRow.DataBoundItem);
+                _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
             }
             catch
             {
@@ -67,19 +77,19 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboxFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
-            _logic.RefreshDatagridView(_activeUser, filtercbox, dataGridView1);
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnDone_Click(object sender, EventArgs e)
         {
-            _logic.FinishService(dataGridView1, (Service)dataGridView1.CurrentRow.DataBoundItem);
+            _logic.FinishService(dataGridView, (Service)dataGridView.CurrentRow.DataBoundItem);
         }
     }
 }
