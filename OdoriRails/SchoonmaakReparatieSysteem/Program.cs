@@ -7,7 +7,7 @@ namespace SchoonmaakReparatieSysteem
 {
     static class Program
     {
-        private static readonly bool _gebruikInlogSysteem = true;
+        private static readonly bool _gebruikInlogSysteem = false;
         private static SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
 
         /// <summary>
