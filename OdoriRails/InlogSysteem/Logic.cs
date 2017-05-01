@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Security.Authentication;
 using OdoriRails.BaseClasses;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace LoginSystem
 {
@@ -78,8 +79,9 @@ namespace LoginSystem
             ShowForm();
         }
 
-        private void HideForm()
+        private async void HideForm()
         {
+            await Task.Delay(500);
             _loginScreen.WindowState = FormWindowState.Minimized;
         }
 
