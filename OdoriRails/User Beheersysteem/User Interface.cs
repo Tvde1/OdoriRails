@@ -53,7 +53,15 @@ namespace User_Beheersysteem
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            _logic.DeleteUser(listViewUsers.SelectedIndices[0]);
+            if (listViewUsers.SelectedIndices.Count != 0)
+            {
+                _logic.DeleteUser(listViewUsers.SelectedIndices[0]);
+            }
+            else
+            {
+                MessageBox.Show("Geen User Geselecteerd");
+            }
+
             Search();
         }
 
@@ -77,7 +85,7 @@ namespace User_Beheersysteem
                 }
 
                 _logic.UpdateUser(submitUser, tbTramId.Text);
-                
+
             }
             else
             {
@@ -108,10 +116,10 @@ namespace User_Beheersysteem
 
         private void InitializeListView()
         {
-            ColumnHeader cname = new ColumnHeader {Text = "Name"};
-            ColumnHeader cuserName = new ColumnHeader {Text = "Username"};
-            ColumnHeader crole = new ColumnHeader {Text = "Role"};
-            ColumnHeader cmanager = new ColumnHeader {Text = "Manager"};
+            ColumnHeader cname = new ColumnHeader { Text = "Name" };
+            ColumnHeader cuserName = new ColumnHeader { Text = "Username" };
+            ColumnHeader crole = new ColumnHeader { Text = "Role" };
+            ColumnHeader cmanager = new ColumnHeader { Text = "Manager" };
             listViewUsers.Columns.Add(cname);
             listViewUsers.Columns.Add(cuserName);
             listViewUsers.Columns.Add(crole);

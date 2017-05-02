@@ -45,8 +45,9 @@ namespace User_Beheersysteem
 
         public void UpdateUser(User user, string tramId)
         {
+            int tramIdResult;
             if (tramId == null) _userBeheerRepository.SetUserToTram(user, null);
-            if (int.TryParse(tramId, out int tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
+            if (int.TryParse(tramId, out tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
             _userBeheerRepository.UpdateUser(user);
         }
 
@@ -54,8 +55,9 @@ namespace User_Beheersysteem
         {
             _userBeheerRepository.AddUser(user);
 
+            int tramIdResult;
             if (tramId == null) _userBeheerRepository.SetUserToTram(user, null);
-            if (int.TryParse(tramId, out int tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
+            if (int.TryParse(tramId, out tramIdResult)) _userBeheerRepository.SetUserToTram(user, tramIdResult);
         }
 
         public int GetIndex(string username)
