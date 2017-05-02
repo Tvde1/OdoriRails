@@ -279,9 +279,21 @@ namespace Beheersysteem
                                 pos = Array.IndexOf(lockSectors, i);
                                 if (pos > -1)
                                 {
+                                    bool lockTrack = true;
                                     BeheerSector beheerSector = track.Sectors[i] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[i]);
-                                    beheerSector.Lock();
-                                    repo.EditSector(beheerSector);
+                                    if (beheerSector.OccupyingTram != null)
+                                    {
+                                        DialogResult dialogResult = MessageBox.Show("There are trams on the location you are trying to lock, are you sure?", "Warning", MessageBoxButtons.YesNo);
+                                        if (dialogResult == DialogResult.No)
+                                        {
+                                            lockTrack = false;
+                                        }
+                                    }
+                                    if (lockTrack == true)
+                                    {
+                                        beheerSector.Lock();
+                                        repo.EditSector(beheerSector);
+                                    }
                                 }
                             }
                         }
@@ -370,17 +382,36 @@ namespace Beheersysteem
             int moveTrack = ToInt(_track);
             int moveSector = ToInt(_sector);
 
-            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
+            bool confirmMove = true;
+
+            foreach (Tram tram in AllTrams.Where(x => (x.Number == moveTram) && (x.Status == TramStatus.Cleaning || x.Status == TramStatus.Maintenance || x.Status == TramStatus.CleaningMaintenance)))
             {
-                foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
+                confirmMove = false;
+            }
+
+            if (confirmMove == false)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to move this tram, it is still in service", "Move Tram", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
-                    if (beheerSector.SetOccupyingTram(tram))
+                    confirmMove = true;
+                }
+            }
+
+            if (confirmMove == true)
+            {
+                foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
+                {
+                    foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
                     {
-                        repo.WipeSectorByTramId(tram.Number);
-                        repo.EditSector(beheerSector);
-                        Update();
-                        return true;
+                        BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                        if (beheerSector.SetOccupyingTram(tram))
+                        {
+                            repo.WipeSectorByTramId(tram.Number);
+                            repo.EditSector(beheerSector);
+                            Update();
+                            return true;
+                        }
                     }
                 }
             }

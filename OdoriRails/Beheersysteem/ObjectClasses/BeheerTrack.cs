@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OdoriRails.BaseClasses;
+using System.Windows.Forms;
 
 namespace Beheersysteem
 {
@@ -24,11 +25,32 @@ namespace Beheersysteem
         /// </summary>
         public void LockTrack()
         {
-            for (int i = 0; i < Sectors.Count; i++)
+            bool occupied = false;
+            foreach (BeheerSector sector in BeheerSectors)
             {
-                BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
-                beheerSector.Lock();
-                Sectors[i] = beheerSector;
+                if (sector.OccupyingTram != null)
+                {
+                    occupied = true;
+                }
+            }
+
+            if (occupied == true)
+            {
+                DialogResult dialogResult = MessageBox.Show("There are trams on the location you are trying to lock, are you sure?", "Warning", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    occupied = false;
+                }
+            }
+
+            if (occupied == false)
+            {
+                for (int i = 0; i < Sectors.Count; i++)
+                {
+                    BeheerSector beheerSector = Sectors[i] == null ? null : BeheerSector.ToBeheerSector(Sectors[i]);
+                    beheerSector.Lock();
+                    Sectors[i] = beheerSector;
+                }
             }
         }
 

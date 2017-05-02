@@ -31,11 +31,15 @@ namespace Beheersysteem
         /// </summary>
         public void UnLock()
         {
-
-            Status = SectorStatus.Locked;
-
-            Status = SectorStatus.Open;
-       }
+            if (OccupyingTram == null)
+            {
+                Status = SectorStatus.Open;
+            }
+            else
+            {
+                Status = SectorStatus.Occupied;
+            }
+        }
 
         /// <summary>
         /// Zet de status van de tram naar open.
