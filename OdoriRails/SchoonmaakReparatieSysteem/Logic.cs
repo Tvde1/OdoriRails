@@ -152,6 +152,7 @@ namespace SchoonmaakReparatieSysteem
                 {
                     servicetofinish.EndDate = DateTime.Now;
                     _repo.EditService(servicetofinish);
+
                 }
                 catch (Exception e)
                 {
@@ -175,10 +176,10 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void PlanServices()
+        public void PlanServices(DateTime startdateinput, int daystoenddate)
         {
-            DateTime startdate = DateTime.Today;
-            DateTime enddate = startdate.AddDays(7);
+            DateTime startdate = startdateinput;
+            DateTime enddate = startdate.AddDays(daystoenddate);
 
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
@@ -218,8 +219,10 @@ namespace SchoonmaakReparatieSysteem
                         }
                     }
                 }
+
             }
         }
+
     }
 }
 

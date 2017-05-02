@@ -28,6 +28,7 @@ namespace OdoriRails.BaseClasses
 
         public Cleaning(int tramId, string comments) : base(null, null, DateTime.Now, null, tramId)
         {
+            Size = CleaningSize.Small;
             Comments = comments;
         }
     }

@@ -32,6 +32,7 @@ namespace OdoriRails.BaseClasses
         public Repair(int tramId, string defect) : base(null, null, DateTime.Now, null, tramId)
         {
             Defect = defect;
+            Type = RepairType.Repair;
         }
     }
 }
