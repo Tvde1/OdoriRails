@@ -43,24 +43,28 @@ namespace SchoonmaakReparatieSysteem
 
         private void btnEditService_Click(object sender, EventArgs e)
         {
-            if (dataGridView.CurrentRow.DataBoundItem != null && dataGridView.SelectedRows.Count != 0)
+            try
             {
-                if (_activeUser.Role == Role.HeadEngineer)
+                if (dataGridView.CurrentRow.DataBoundItem != null && dataGridView.SelectedRows.Count != 0)
                 {
-                    Repair rep = (Repair)dataGridView.CurrentRow.DataBoundItem;
-                    var editService = new EditService(_activeUser, rep);
-                    editService.ShowDialog();
+                    if (_activeUser.Role == Role.HeadEngineer)
+                    {
+                        Repair rep = (Repair) dataGridView.CurrentRow.DataBoundItem;
+                        var editService = new EditService(_activeUser, rep);
+                        editService.ShowDialog();
+                    }
+                    if (_activeUser.Role == Role.HeadCleaner)
+                    {
+                        Cleaning clean = (Cleaning) dataGridView.CurrentRow.DataBoundItem;
+                        var editService = new EditService(_activeUser, clean);
+                        editService.ShowDialog();
+                    }
                 }
-                if (_activeUser.Role == Role.HeadCleaner)
-                {
-                    Cleaning clean = (Cleaning)dataGridView.CurrentRow.DataBoundItem;
-                    var editService = new EditService(_activeUser, clean);
-                    editService.ShowDialog();
-                }
+              
             }
-            else
+            catch
             {
-                MessageBox.Show("Selecteer eerst een service.");
+                MessageBox.Show("Selecteer een service eerst");
             }
         }
 
