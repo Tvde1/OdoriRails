@@ -130,7 +130,7 @@ namespace Beheersysteem
 
         private void btnDeleteTrack_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this track?", "Delete Track", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this track?", "Delete Track", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
                 if (!_logic.DeleteTrack(tbTrackNumber.Text)) MessageBox.Show("Failed to delete track, make sure track is empty");

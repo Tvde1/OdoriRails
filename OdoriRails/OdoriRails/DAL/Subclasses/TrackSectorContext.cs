@@ -94,7 +94,7 @@ namespace OdoriRails.DAL.Subclasses
         {
             var query = new SqlCommand("DELETE FROM Sector WHERE TrackFk = @track AND SectorPK = @sector");
             query.Parameters.AddWithValue("@track", track.Number);
-            query.Parameters.AddWithValue("@sector", sector.Number);
+            query.Parameters.AddWithValue("@sector", sector.Number + 1);
             Database.GetData(query);
         }
 
