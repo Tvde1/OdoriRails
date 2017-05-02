@@ -140,5 +140,14 @@ namespace SchoonmaakReparatieSysteem
         {
             return TramContext.DoesTramExist(id);
         }
+
+        /// <summary>
+        /// Sets the tram's status to idle (when service is finished).
+        /// </summary>
+        /// <param name="tramId"></param>
+        public void SetTramStatusToIdle(int tramId)
+        {
+            TramContext.SetStatusToIdle(tramId);
+        }
     }
 }

@@ -116,6 +116,11 @@ namespace OdoriRails.DAL.Subclasses
             return returnList;
         }
 
+        public void SetStatusToIdle(int tramId)
+        {
+            Database.GetData(new SqlCommand($"UPDATE Tram SET Status = 0 WHERE TramFk = {tramId}"));
+        }
+
         private Tram CreateTram(DataRow row)
         {
             //Pk, Line, Status, Driver, Model, Remise, Location, Depart

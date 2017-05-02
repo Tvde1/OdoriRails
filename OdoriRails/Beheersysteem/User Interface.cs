@@ -73,7 +73,7 @@ namespace Beheersysteem
         private void btnSimulation_Click(object sender, EventArgs e)
         {
             _logic.tramFetcher.Stop();
-            Task Simulation = new Task(new Action(() => { _logic.Simulation(); } ));
+            Task Simulation = new Task(new Action(() => { _logic.Simulation(); }));
             _logic.WipePreSimulation();
             Simulation.Start();
             _logic.tramFetcher.Start();
@@ -86,7 +86,11 @@ namespace Beheersysteem
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-            FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams, tbCutoffTracks.Text, cBoxShowEmptyTracks.Checked);
+            int[] cutoffTracks = _logic.Parse(tbCutoffTracks.Text);
+            if (cutoffTracks[0] != -1)
+            {
+                FormGraphics.DrawGraphics(e.Graphics, _logic.AllTracks, _logic.AllTrams, cutoffTracks, cBoxShowEmptyTracks.Checked);
+            }
         }
 
         private void UserInterface_Paint(object sender, PaintEventArgs e)

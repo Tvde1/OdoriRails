@@ -6,7 +6,7 @@ namespace OdoriRails.BaseClasses
     public abstract class Service
     {
         public int Id { get; private set; }
-        public List<User> AssignedUsers { get; protected set; }  
+        public List<User> AssignedUsers { get; }  
         public DateTime StartDate { get; private set; }
         public DateTime? EndDate { get; set; }
         public int TramId { get; private set; }

@@ -73,10 +73,7 @@ namespace OdoriRails.DAL.Subclasses
         void SetUserToTram(Tram tram, User user);
 
         List<int> GetTramIdByDriverId(int driverId);
-        /// <summary>
-        /// Sets tram to IDLE after repairs or cleaning
-        /// </summary>
-        /// <param name="id"></param>
-        void SetTramIdle(int id);
+
+        void SetStatusToIdle(int tramId);
     }
 }
