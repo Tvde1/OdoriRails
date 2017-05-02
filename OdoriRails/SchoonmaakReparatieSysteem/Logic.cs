@@ -176,10 +176,10 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void PlanServices(DateTime startdateinput, int daystoenddate)
+        public void PlanServices(int daystoenddate)
         {
-            DateTime startdate = startdateinput;
-            DateTime enddate = startdate.AddDays(daystoenddate);
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = DateTime.Today.AddDays(daystoenddate);
 
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
@@ -223,6 +223,52 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
+        public void PlanServicesTestData(int daystoenddate)
+        {
+            DateTime enddate = DateTime.Today;
+            DateTime startdate = enddate.Subtract(TimeSpan.FromDays(daystoenddate));
+           
+            List<Tram> trams;
+            List<User> emptylistusers = new List<User>();
+            trams = _repolog.GetAllTrams();
+
+            for (var date = startdate; date <= enddate; date = date.AddDays(1)) // iterate through the next 15 days
+            {
+                foreach (var tram in trams)
+                {
+                    if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
+                    {
+                        // no : plan service and leave loop
+                        Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                        _repo.AddRepair(rep);
+                        break;
+                    }
+                    else
+                    {
+                        // yes : skip to second check
+                    }
+                }
+
+                for (int i = 0; i <= 3;) // checks three times for small services, 
+                {
+                    foreach (var tram in trams)
+                    {
+                        if (_repolog.HadSmallMaintenance(tram) == false && tram.Number != 1) // check for small service in 3 months
+                        {
+                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
+                            _repo.AddRepair(rep);
+                            i++;
+                            break;
+                        }
+                        else
+                        {
+                            // yes : next tram
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }
 

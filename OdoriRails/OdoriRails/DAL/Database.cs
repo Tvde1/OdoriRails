@@ -26,6 +26,7 @@ namespace OdoriRails.DAL
             }
             catch (Exception ex)
             {
+
                 throw new DatabaseException("Something went wrong while communicating with the database.");
             }
         }

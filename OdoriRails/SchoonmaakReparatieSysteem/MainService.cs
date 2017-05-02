@@ -8,11 +8,11 @@ namespace SchoonmaakReparatieSysteem
     {
         private Logic _logic = new Logic();
         private readonly User _activeUser;
-
+        
         public MainService(User user)
         {
             InitializeComponent();
-            _logic.PlanServices(new DateTime(28/4/2017), 7);
+            
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
@@ -89,7 +89,27 @@ namespace SchoonmaakReparatieSysteem
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            _logic.FinishService(dataGridView, (Service)dataGridView.CurrentRow.DataBoundItem);
+            try
+            {
+                _logic.FinishService(dataGridView, (Service)dataGridView.CurrentRow.DataBoundItem);
+            }
+            catch
+            {
+                MessageBox.Show("Selecteer een service eerst");
+            }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _logic.PlanServicesTestData(7);
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
+        }
+
+        private void datatestbtn_Click(object sender, EventArgs e)
+        {
+            _logic.PlanServices(7);
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
     }
 }
