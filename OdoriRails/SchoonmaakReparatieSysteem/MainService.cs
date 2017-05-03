@@ -60,7 +60,6 @@ namespace SchoonmaakReparatieSysteem
                         editService.ShowDialog();
                     }
                 }
-              
             }
             catch
             {
@@ -101,26 +100,25 @@ namespace SchoonmaakReparatieSysteem
             catch
             {
                 MessageBox.Show("Selecteer eerst een service.");
-            }
-            
+            }            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnPlanServices_Click(object sender, EventArgs e)
         {
             _logic.PlanServicesTestData(7);
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
 
-        private void datatestbtn_Click(object sender, EventArgs e)
+        private void btnMakeTestData_Click(object sender, EventArgs e)
         {
             _logic.PlanServices(7);
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
 
-        private void tramlogsbtn_Click(object sender, EventArgs e)
+        private void btnTramLogs_Click(object sender, EventArgs e)
         {
             TramHistoryFilter trm = new TramHistoryFilter();
-            trm.Show();
+            trm.ShowDialog();
         }
     }
 }

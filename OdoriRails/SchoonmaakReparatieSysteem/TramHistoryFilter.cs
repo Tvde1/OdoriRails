@@ -21,7 +21,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void zoekbtn_Click(object sender, EventArgs e)
         {
-            _logic.ZoekPerTramNummer(Convert.ToInt32(numericUpDown1.Value), dataGridView1);
+            _logic.ZoekPerTramNummer(Convert.ToInt32(numericUpDown1.Value), dataGridView);
         }
     }
 }
