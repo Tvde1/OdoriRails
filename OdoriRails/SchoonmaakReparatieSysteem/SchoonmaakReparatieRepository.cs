@@ -149,5 +149,15 @@ namespace SchoonmaakReparatieSysteem
         {
             TramContext.SetStatusToIdle(tramId);
         }
+
+        public void GetRepairsFromTram(Tram tram)
+        {
+            ServiceContext.GetAllRepairsFromTram(tram);
+        }
+
+        public void GetCleansFromTram(Tram tram)
+        {
+            ServiceContext.GetAllRepairsFromTram(tram);
+        }
     }
 }
