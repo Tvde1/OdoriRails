@@ -153,7 +153,7 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                    Markasdone mrk = new Markasdone(servicetofinish);
+                    MarkAsDone mrk = new MarkAsDone(servicetofinish);
                     mrk.Show();
                 }
                 catch (Exception e)

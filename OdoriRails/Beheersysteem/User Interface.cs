@@ -17,7 +17,7 @@ namespace Beheersysteem
             InitializeComponent();
             panelMain.Invalidate();
 
-            cbTramModel.DataSource = Enum.GetValues(typeof(Model));
+            cbTramModel.DataSource = Enum.GetValues(typeof(TramModel));
             cbTrackType.DataSource = Enum.GetValues(typeof(TrackType));
 
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelMain, new object[] { true });

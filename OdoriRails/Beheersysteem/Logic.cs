@@ -206,13 +206,13 @@ namespace Beheersysteem
             {
                 foreach (BeheerTram tram in AllTrams.Where(x => x.DepartureTime == null))
                 {
-                    if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == Model.Dubbel_Kop_Combino || tram.Model == Model.TwaalfG)) //No driver lines
+                    if ((entry.Line == 5 || entry.Line == 1624) && (tram.Model == TramModel.Dubbel_Kop_Combino || tram.Model == TramModel.TwaalfG)) //No driver lines
                     {
                         entry.TramNumber = tram.Number;
                         tram.EditTramDepartureTime(entry.ExitTime);
                         break;
                     }
-                    else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == Model.Combino) //Driver lines
+                    else if ((entry.Line != 5 || entry.Line != 1624) && tram.Model == TramModel.Combino) //Driver lines
                     {
                         entry.TramNumber = tram.Number;
                         tram.EditTramDepartureTime(entry.ExitTime);
@@ -425,8 +425,8 @@ namespace Beheersysteem
 
             if (tramNumber != -1 && defaultLine != -1)
             {
-                Model model;
-                Enum.TryParse<Model>(_model, out model);
+                TramModel model;
+                Enum.TryParse<TramModel>(_model, out model);
 
                 repo.AddTram(new Tram(tramNumber, defaultLine, model));
                 Update();
