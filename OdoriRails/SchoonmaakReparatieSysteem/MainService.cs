@@ -12,13 +12,18 @@ namespace SchoonmaakReparatieSysteem
         public MainService(User user)
         {
             InitializeComponent();
-            
+            Timer timer = new Timer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = 60000;
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
             cboxFilter.SelectedIndex = 0;
         }
-
+        void timer_Tick(object sender, EventArgs e)
+        {
+            
+        }
         private void MainService_Load(object sender, EventArgs e)
         {
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);

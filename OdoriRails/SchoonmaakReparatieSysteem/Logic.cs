@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Beheersysteem.DAL.Repository;
-using In_Uitrit_Systeem;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL.Subclasses;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -13,7 +10,6 @@ namespace SchoonmaakReparatieSysteem
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
         private LogisticRepository _repolog = new LogisticRepository();
-        private InUitrijRepository _repotram = new InUitrijRepository();
 
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl, ComboBox usercbox)
         {
