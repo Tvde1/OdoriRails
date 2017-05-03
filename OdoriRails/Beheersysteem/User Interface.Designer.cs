@@ -43,6 +43,8 @@
             this.lbSelectedTram = new System.Windows.Forms.Label();
             this.btnSetDisabled = new System.Windows.Forms.Button();
             this.gbSector = new System.Windows.Forms.GroupBox();
+            this.tbSelectedTrack = new System.Windows.Forms.TextBox();
+            this.lbSelectedTrack = new System.Windows.Forms.Label();
             this.tbSelectedSector = new System.Windows.Forms.TextBox();
             this.lbSelectedSector = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -82,8 +84,7 @@
             this.btnUpdateSettings = new System.Windows.Forms.Button();
             this.lbCutoffTracks = new System.Windows.Forms.Label();
             this.tbCutoffTracks = new System.Windows.Forms.TextBox();
-            this.lbSelectedTrack = new System.Windows.Forms.Label();
-            this.tbSelectedTrack = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.gbOther.SuspendLayout();
             this.gbTram.SuspendLayout();
             this.gbSector.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // gbOther
             // 
+            this.gbOther.Controls.Add(this.btnRefresh);
             this.gbOther.Controls.Add(this.btnReset);
             this.gbOther.Controls.Add(this.btnChangeDisplayView);
             this.gbOther.Controls.Add(this.btnSimulation);
@@ -106,7 +108,7 @@
             this.gbOther.Margin = new System.Windows.Forms.Padding(5);
             this.gbOther.Name = "gbOther";
             this.gbOther.Padding = new System.Windows.Forms.Padding(5);
-            this.gbOther.Size = new System.Drawing.Size(259, 148);
+            this.gbOther.Size = new System.Drawing.Size(259, 184);
             this.gbOther.TabIndex = 2;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Other";
@@ -244,6 +246,22 @@
             this.gbSector.TabIndex = 0;
             this.gbSector.TabStop = false;
             this.gbSector.Text = "Sector/Track";
+            // 
+            // tbSelectedTrack
+            // 
+            this.tbSelectedTrack.Location = new System.Drawing.Point(10, 47);
+            this.tbSelectedTrack.Name = "tbSelectedTrack";
+            this.tbSelectedTrack.Size = new System.Drawing.Size(239, 26);
+            this.tbSelectedTrack.TabIndex = 5;
+            // 
+            // lbSelectedTrack
+            // 
+            this.lbSelectedTrack.AutoSize = true;
+            this.lbSelectedTrack.Location = new System.Drawing.Point(11, 24);
+            this.lbSelectedTrack.Name = "lbSelectedTrack";
+            this.lbSelectedTrack.Size = new System.Drawing.Size(213, 20);
+            this.lbSelectedTrack.TabIndex = 4;
+            this.lbSelectedTrack.Text = "Current Selected Track(s): ";
             // 
             // tbSelectedSector
             // 
@@ -634,21 +652,15 @@
             this.tbCutoffTracks.TabIndex = 0;
             this.tbCutoffTracks.Text = "38, 64";
             // 
-            // lbSelectedTrack
+            // btnRefresh
             // 
-            this.lbSelectedTrack.AutoSize = true;
-            this.lbSelectedTrack.Location = new System.Drawing.Point(11, 24);
-            this.lbSelectedTrack.Name = "lbSelectedTrack";
-            this.lbSelectedTrack.Size = new System.Drawing.Size(213, 20);
-            this.lbSelectedTrack.TabIndex = 4;
-            this.lbSelectedTrack.Text = "Current Selected Track(s): ";
-            // 
-            // tbSelectedTrack
-            // 
-            this.tbSelectedTrack.Location = new System.Drawing.Point(10, 47);
-            this.tbSelectedTrack.Name = "tbSelectedTrack";
-            this.tbSelectedTrack.Size = new System.Drawing.Size(239, 26);
-            this.tbSelectedTrack.TabIndex = 5;
+            this.btnRefresh.Location = new System.Drawing.Point(14, 143);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(236, 33);
+            this.btnRefresh.TabIndex = 3;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // UserInterface
             // 
@@ -741,6 +753,7 @@
         private System.Windows.Forms.CheckBox cBoxShowEmptyTracks;
         private System.Windows.Forms.TextBox tbSelectedTrack;
         private System.Windows.Forms.Label lbSelectedTrack;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
