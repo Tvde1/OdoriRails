@@ -9,7 +9,6 @@
         Engineer,
         HeadEngineer,
         HeadCleaner
-
     }
 
     public class User
