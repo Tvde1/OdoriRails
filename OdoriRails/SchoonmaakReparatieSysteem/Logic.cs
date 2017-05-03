@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Beheersysteem.DAL.Repository;
+using In_Uitrit_Systeem;
 using OdoriRails.BaseClasses;
+using OdoriRails.DAL.Subclasses;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -11,6 +13,7 @@ namespace SchoonmaakReparatieSysteem
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
         private LogisticRepository _repolog = new LogisticRepository();
+        private InUitrijRepository _repotram = new InUitrijRepository();
 
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl, ComboBox usercbox)
         {
@@ -150,15 +153,21 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                    servicetofinish.EndDate = DateTime.Now;
-                    _repo.EditService(servicetofinish);
-
+                    Markasdone mrk = new Markasdone(servicetofinish);
+                    mrk.Show();
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
                 }
             }
+        }
+
+        public void AddSolution(Repair repair, string solution)
+        {
+            _repo.AddSolution(repair, solution);
+            repair.EndDate = DateTime.Now;
+            _repo.EditService(repair);
         }
 
         public void DeleteService(DataGridView datagridview, Service servicetofinish)

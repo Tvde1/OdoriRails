@@ -42,16 +42,6 @@ namespace Beheersysteem
         }
 
         /// <summary>
-        /// Zet de status van de tram naar open.
-        /// </summary>
-        public void UnOccupy()
-        {
-            if (Status != SectorStatus.Occupied) throw new InvalidOperationException("Can't unoccupy a sector with a state other than Occupied. Current state is " + Status + ".");
-            Status = SectorStatus.Open;
-            OccupyingTram = null;
-        }
-
-        /// <summary>
         /// Zet de occupying tram. Gebruik `null` om de tram leeg te maken.
         /// </summary>
         /// <param name="tram"></param>

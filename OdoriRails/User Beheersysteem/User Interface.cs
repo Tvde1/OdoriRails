@@ -48,7 +48,6 @@ namespace User_Beheersysteem
                 tabUsers.SelectTab(0);
                 MessageBox.Show("Geen User Geselecteerd");
             }
-            Search();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
@@ -61,7 +60,6 @@ namespace User_Beheersysteem
             {
                 MessageBox.Show("Geen User Geselecteerd");
             }
-
             Search();
         }
 
