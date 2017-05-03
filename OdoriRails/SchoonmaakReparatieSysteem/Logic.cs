@@ -79,7 +79,7 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void UpdateCleaninginDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+        public void UpdateCleaninginDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                             ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb, Cleaning toupdatecleaning)
         {
             try
@@ -100,7 +100,7 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void UpdateRepairinDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+        public void UpdateRepairinDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                             ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb, Repair repairtoupdate)
         {
             try
@@ -165,9 +165,10 @@ namespace SchoonmaakReparatieSysteem
 
         public void AddSolution(Repair repair, string solution)
         {
-            _repo.AddSolution(repair, solution);
+            
             repair.EndDate = DateTime.Now;
             _repo.EditService(repair);
+            _repo.AddSolution(repair, solution);
         }
 
         public void DeleteService(DataGridView datagridview, Service servicetofinish)
