@@ -67,11 +67,11 @@
     <Compile Include="MainService.Designer.cs">
       <DependentUpon>MainService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Markasdone.cs">
+    <Compile Include="MarkAsDone.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Markasdone.Designer.cs">
-      <DependentUpon>Markasdone.cs</DependentUpon>
+    <Compile Include="MarkAsDone.Designer.cs">
+      <DependentUpon>MarkAsDone.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,8 +86,8 @@
     <EmbeddedResource Include="MainService.resx">
       <DependentUpon>MainService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Markasdone.resx">
-      <DependentUpon>Markasdone.cs</DependentUpon>
+    <EmbeddedResource Include="MarkAsDone.resx">
+      <DependentUpon>MarkAsDone.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
