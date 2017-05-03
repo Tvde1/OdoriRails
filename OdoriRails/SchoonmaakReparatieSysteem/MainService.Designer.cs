@@ -41,6 +41,7 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.plansrvcbtn = new System.Windows.Forms.Button();
             this.datatestbtn = new System.Windows.Forms.Button();
+            this.tramlogsbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,12 +190,25 @@
             this.datatestbtn.UseVisualStyleBackColor = true;
             this.datatestbtn.Click += new System.EventHandler(this.datatestbtn_Click);
             // 
+            // tramlogsbtn
+            // 
+            this.tramlogsbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tramlogsbtn.Location = new System.Drawing.Point(263, 719);
+            this.tramlogsbtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tramlogsbtn.Name = "tramlogsbtn";
+            this.tramlogsbtn.Size = new System.Drawing.Size(117, 35);
+            this.tramlogsbtn.TabIndex = 15;
+            this.tramlogsbtn.Text = "Tram Logs";
+            this.tramlogsbtn.UseVisualStyleBackColor = true;
+            this.tramlogsbtn.Click += new System.EventHandler(this.tramlogsbtn_Click);
+            // 
             // MainService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(774, 768);
+            this.Controls.Add(this.tramlogsbtn);
             this.Controls.Add(this.datatestbtn);
             this.Controls.Add(this.plansrvcbtn);
             this.Controls.Add(this.btnRefresh);
@@ -234,6 +248,7 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button plansrvcbtn;
         private System.Windows.Forms.Button datatestbtn;
+        private System.Windows.Forms.Button tramlogsbtn;
     }
 }
 

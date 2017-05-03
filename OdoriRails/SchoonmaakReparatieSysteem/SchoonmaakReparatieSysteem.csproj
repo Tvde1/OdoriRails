@@ -77,6 +77,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="SchoonmaakReparatieRepository.cs" />
+    <Compile Include="TramHistoryFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TramHistoryFilter.Designer.cs">
+      <DependentUpon>TramHistoryFilter.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddService.resx">
       <DependentUpon>AddService.cs</DependentUpon>
     </EmbeddedResource>
@@ -98,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TramHistoryFilter.resx">
+      <DependentUpon>TramHistoryFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

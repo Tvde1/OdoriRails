@@ -12,9 +12,16 @@ namespace SchoonmaakReparatieSysteem
 {
     public partial class TramHistoryFilter : Form
     {
+        private Logic _logic;
         public TramHistoryFilter()
         {
+            _logic = new Logic();
             InitializeComponent();
+        }
+
+        private void zoekbtn_Click(object sender, EventArgs e)
+        {
+            _logic.ZoekPerTramNummer(Convert.ToInt32(numericUpDown1.Value), dataGridView1);
         }
     }
 }
