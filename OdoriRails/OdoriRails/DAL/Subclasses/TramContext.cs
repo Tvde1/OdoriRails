@@ -129,7 +129,7 @@ namespace OdoriRails.DAL.Subclasses
             var line = (int)array[1];
             var status = (TramStatus)array[2];
             var driver = array[3] == DBNull.Value ? null : UserContext.GetUser((int)array[3]);
-            var model = (Model)array[4];
+            var model = (TramModel)array[4];
             var location = (TramLocation)array[6];
             DateTime? depart = null;
             if (array[7] != DBNull.Value) depart = (DateTime)array[7];

@@ -11,7 +11,7 @@ namespace OdoriRails.BaseClasses
         Defect
     }
     
-    public enum Model
+    public enum TramModel
     {
         Other,
         Combino,
@@ -54,7 +54,7 @@ namespace OdoriRails.BaseClasses
         /// <summary>
         /// Ophalen model van de tram
         /// </summary>
-        public Model Model { get; protected set; }
+        public TramModel Model { get; protected set; }
 
         /// <summary>
         /// De departure time.
@@ -75,7 +75,7 @@ namespace OdoriRails.BaseClasses
         /// <param name="line"></param>
         /// <param name="driver"></param>
         /// <param name="model"></param>
-        public Tram(int number, TramStatus status, int line, User driver, Model model, TramLocation location, DateTime? departureTime)
+        public Tram(int number, TramStatus status, int line, User driver, TramModel model, TramLocation location, DateTime? departureTime)
         {
             Number = number;
             Status = status;
@@ -91,17 +91,12 @@ namespace OdoriRails.BaseClasses
         /// </summary>
         /// <param name="number"></param>
         /// <param name="model"></param>
-        public Tram(int number, int line, Model model)
+        public Tram(int number, int line, TramModel model)
         {
             Number = number;
             Line = line;
             Model = model;
             Status = TramStatus.Idle;
-        }
-
-        public void SetId(int id)
-        {
-            Number = id;
         }
     }
 }

@@ -39,9 +39,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.usernamelbl = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.plansrvcbtn = new System.Windows.Forms.Button();
-            this.datatestbtn = new System.Windows.Forms.Button();
-            this.tramlogsbtn = new System.Windows.Forms.Button();
+            this.btnPlanServices = new System.Windows.Forms.Button();
+            this.btnMakeTestData = new System.Windows.Forms.Button();
+            this.btnTramLogs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,37 +170,37 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // plansrvcbtn
+            // btnPlanServices
             // 
-            this.plansrvcbtn.Location = new System.Drawing.Point(321, 51);
-            this.plansrvcbtn.Name = "plansrvcbtn";
-            this.plansrvcbtn.Size = new System.Drawing.Size(136, 32);
-            this.plansrvcbtn.TabIndex = 13;
-            this.plansrvcbtn.Text = "Plan Services";
-            this.plansrvcbtn.UseVisualStyleBackColor = true;
-            this.plansrvcbtn.Click += new System.EventHandler(this.button1_Click);
+            this.btnPlanServices.Location = new System.Drawing.Point(321, 51);
+            this.btnPlanServices.Name = "btnPlanServices";
+            this.btnPlanServices.Size = new System.Drawing.Size(136, 32);
+            this.btnPlanServices.TabIndex = 13;
+            this.btnPlanServices.Text = "Plan Services";
+            this.btnPlanServices.UseVisualStyleBackColor = true;
+            this.btnPlanServices.Click += new System.EventHandler(this.btnPlanServices_Click);
             // 
-            // datatestbtn
+            // btnMakeTestData
             // 
-            this.datatestbtn.Location = new System.Drawing.Point(321, 12);
-            this.datatestbtn.Name = "datatestbtn";
-            this.datatestbtn.Size = new System.Drawing.Size(136, 37);
-            this.datatestbtn.TabIndex = 14;
-            this.datatestbtn.Text = "Make TestData";
-            this.datatestbtn.UseVisualStyleBackColor = true;
-            this.datatestbtn.Click += new System.EventHandler(this.datatestbtn_Click);
+            this.btnMakeTestData.Location = new System.Drawing.Point(321, 12);
+            this.btnMakeTestData.Name = "btnMakeTestData";
+            this.btnMakeTestData.Size = new System.Drawing.Size(136, 37);
+            this.btnMakeTestData.TabIndex = 14;
+            this.btnMakeTestData.Text = "Make TestData";
+            this.btnMakeTestData.UseVisualStyleBackColor = true;
+            this.btnMakeTestData.Click += new System.EventHandler(this.btnMakeTestData_Click);
             // 
-            // tramlogsbtn
+            // btnTramLogs
             // 
-            this.tramlogsbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tramlogsbtn.Location = new System.Drawing.Point(263, 719);
-            this.tramlogsbtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tramlogsbtn.Name = "tramlogsbtn";
-            this.tramlogsbtn.Size = new System.Drawing.Size(117, 35);
-            this.tramlogsbtn.TabIndex = 15;
-            this.tramlogsbtn.Text = "Tram Logs";
-            this.tramlogsbtn.UseVisualStyleBackColor = true;
-            this.tramlogsbtn.Click += new System.EventHandler(this.tramlogsbtn_Click);
+            this.btnTramLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTramLogs.Location = new System.Drawing.Point(263, 719);
+            this.btnTramLogs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTramLogs.Name = "btnTramLogs";
+            this.btnTramLogs.Size = new System.Drawing.Size(117, 35);
+            this.btnTramLogs.TabIndex = 15;
+            this.btnTramLogs.Text = "Tram Logs";
+            this.btnTramLogs.UseVisualStyleBackColor = true;
+            this.btnTramLogs.Click += new System.EventHandler(this.btnTramLogs_Click);
             // 
             // MainService
             // 
@@ -208,9 +208,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(774, 768);
-            this.Controls.Add(this.tramlogsbtn);
-            this.Controls.Add(this.datatestbtn);
-            this.Controls.Add(this.plansrvcbtn);
+            this.Controls.Add(this.btnTramLogs);
+            this.Controls.Add(this.btnMakeTestData);
+            this.Controls.Add(this.btnPlanServices);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
@@ -246,9 +246,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label usernamelbl;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button plansrvcbtn;
-        private System.Windows.Forms.Button datatestbtn;
-        private System.Windows.Forms.Button tramlogsbtn;
+        private System.Windows.Forms.Button btnPlanServices;
+        private System.Windows.Forms.Button btnMakeTestData;
+        private System.Windows.Forms.Button btnTramLogs;
     }
 }
 
