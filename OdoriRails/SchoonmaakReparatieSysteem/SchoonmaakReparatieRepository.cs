@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using OdoriRails.BaseClasses;
 using OdoriRails.DAL.Subclasses;
 
@@ -106,7 +107,7 @@ namespace SchoonmaakReparatieSysteem
             return UserContext.GetAllUsersWithFunction(role);
         }
 
-        public List<Repair> GetAllRepairsFromTram(int tramId)
+        public DataTable GetAllRepairsFromTram(int tramId)
         {
             return ServiceContext.GetAllRepairsFromTram(tramId);
         }

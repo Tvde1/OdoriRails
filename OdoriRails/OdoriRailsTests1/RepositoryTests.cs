@@ -44,7 +44,7 @@ namespace OdoriRailsTests1
         {
             bool working = false;
             User user = new User(1, "Driver", "Driver", "Driver@Remise.nl", "123", Role.Driver, "HeadClean");
-            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
+            Tram tram = new Tram(1, TramStatus.Idle, 5, user, TramModel.TwaalfG, TramLocation.In, DateTime.Now);
 
             logisticRepository.AddTram(tram);
 
@@ -77,7 +77,7 @@ namespace OdoriRailsTests1
         {
             Tram tram = logisticRepository.GetTram(809);
 
-            Assert.AreEqual(tram.Model, Model.Opleidingstram);
+            Assert.AreEqual(tram.Model, TramModel.Opleidingstram);
         }
 
         [TestMethod()]
@@ -93,7 +93,7 @@ namespace OdoriRailsTests1
         public void HadBigMaintenanceTest()
         {
             User user = new User(7, "Driver", "Driver", "Driver@Remise.nl", "123", Role.Driver, "HeadClean");
-            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
+            Tram tram = new Tram(1, TramStatus.Idle, 5, user, TramModel.TwaalfG, TramLocation.In, DateTime.Now);
             Repair repair = new Repair(1, DateTime.Parse("18-1-2016"), DateTime.Now, RepairType.Maintenance, "Big Planned Maintenance", "-", new List<User>(), 1);
 
             logisticRepository.AddTram(tram);
@@ -109,7 +109,7 @@ namespace OdoriRailsTests1
         public void GetAllRepairsFromUser()
         {
             User user = logisticRepository.GetUser("Driver");
-            Tram tram = new Tram(1, TramStatus.Idle, 5, user, Model.TwaalfG, TramLocation.In, DateTime.Now);
+            Tram tram = new Tram(1, TramStatus.Idle, 5, user, TramModel.TwaalfG, TramLocation.In, DateTime.Now);
 
             List<User> listUsers = new List<User>();
             listUsers.Add(user);

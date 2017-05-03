@@ -12,13 +12,19 @@ namespace SchoonmaakReparatieSysteem
         public MainService(User user)
         {
             InitializeComponent();
-            
+            Timer timer = new Timer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = 60000;
+            timer.Start();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
             cboxFilter.SelectedIndex = 0;
         }
-
+        void timer_Tick(object sender, EventArgs e)
+        {
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
+        }
         private void MainService_Load(object sender, EventArgs e)
         {
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
@@ -60,7 +66,6 @@ namespace SchoonmaakReparatieSysteem
                         editService.ShowDialog();
                     }
                 }
-              
             }
             catch
             {
@@ -101,20 +106,25 @@ namespace SchoonmaakReparatieSysteem
             catch
             {
                 MessageBox.Show("Selecteer eerst een service.");
-            }
-            
+            }            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnPlanServices_Click(object sender, EventArgs e)
         {
             _logic.PlanServicesTestData(7);
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
 
-        private void datatestbtn_Click(object sender, EventArgs e)
+        private void btnMakeTestData_Click(object sender, EventArgs e)
         {
             _logic.PlanServices(7);
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
+        }
+
+        private void btnTramLogs_Click(object sender, EventArgs e)
+        {
+            TramHistoryFilter trm = new TramHistoryFilter();
+            trm.ShowDialog();
         }
     }
 }

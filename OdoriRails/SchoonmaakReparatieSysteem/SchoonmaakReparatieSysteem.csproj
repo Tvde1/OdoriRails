@@ -67,16 +67,22 @@
     <Compile Include="MainService.Designer.cs">
       <DependentUpon>MainService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Markasdone.cs">
+    <Compile Include="MarkAsDone.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Markasdone.Designer.cs">
-      <DependentUpon>Markasdone.cs</DependentUpon>
+    <Compile Include="MarkAsDone.Designer.cs">
+      <DependentUpon>MarkAsDone.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="SchoonmaakReparatieRepository.cs" />
+    <Compile Include="TramHistoryFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TramHistoryFilter.Designer.cs">
+      <DependentUpon>TramHistoryFilter.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddService.resx">
       <DependentUpon>AddService.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,8 +92,8 @@
     <EmbeddedResource Include="MainService.resx">
       <DependentUpon>MainService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Markasdone.resx">
-      <DependentUpon>Markasdone.cs</DependentUpon>
+    <EmbeddedResource Include="MarkAsDone.resx">
+      <DependentUpon>MarkAsDone.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TramHistoryFilter.resx">
+      <DependentUpon>TramHistoryFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

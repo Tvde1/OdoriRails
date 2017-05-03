@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="In_Uitrit_Systeem.InUitrijRepository">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAEAAAAAAAAEgAIAAAABAEAABAAEAAAIAAAAAA=</HashCode>
+      <FileName>InUitrijRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="In_Uitrit_Systeem.InUitRitTram">
+    <Position X="7.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABBAAAAAAAAAAAAAAAEAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>InUitRitTram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="In_Uitrit_Systeem.Logic">
+    <Position X="4" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAEABAAACAAAGAAAAAAQgAAAAAAAA=</HashCode>
+      <FileName>Logic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

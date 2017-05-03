@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Beheersysteem.DAL.Repository;
-using In_Uitrit_Systeem;
 using OdoriRails.BaseClasses;
-using OdoriRails.DAL.Subclasses;
 
 namespace SchoonmaakReparatieSysteem
 {
@@ -13,7 +10,6 @@ namespace SchoonmaakReparatieSysteem
     {
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
         private LogisticRepository _repolog = new LogisticRepository();
-        private InUitrijRepository _repotram = new InUitrijRepository();
 
         public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl, ComboBox usercbox)
         {
@@ -153,7 +149,7 @@ namespace SchoonmaakReparatieSysteem
             {
                 try
                 {
-                    Markasdone mrk = new Markasdone(servicetofinish);
+                    MarkAsDone mrk = new MarkAsDone(servicetofinish);
                     mrk.Show();
                 }
                 catch (Exception e)
@@ -278,6 +274,11 @@ namespace SchoonmaakReparatieSysteem
                 }
 
             }
+        }
+
+        public void ZoekPerTramNummer(int tramnr, DataGridView dgv)
+        {
+            dgv.DataSource = _repo.GetAllRepairsFromTram(tramnr);
         }
     }
 }

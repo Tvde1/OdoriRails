@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using OdoriRails.BaseClasses;
 
 namespace OdoriRails.DAL.Subclasses
@@ -30,7 +32,7 @@ namespace OdoriRails.DAL.Subclasses
 
         Repair AddRepair(Repair repair);
 
-        List<Repair> GetAllRepairsFromTram(int tramId);
+        DataTable GetAllRepairsFromTram(int tramId);
 
         List<Cleaning> GetAllCleaningsFromTram(int tramId);
 
