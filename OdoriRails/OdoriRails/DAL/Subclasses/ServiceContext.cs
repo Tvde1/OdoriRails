@@ -144,14 +144,14 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             return repair;
         }
 
-        public List<Repair> GetAllRepairsFromTram(Tram tram)
+        public List<Repair> GetAllRepairsFromTram(int tramId)
         {
-            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Repair WHERE TramFk = {tram.Number}")), CreateRepair);
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Repair WHERE TramFk = {tramId}")), CreateRepair);
         }
 
-        public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
+        public List<Cleaning> GetAllCleaningsFromTram(int tramId)
         {
-            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Cleaning WHERE TramFk = {tram.Number}")), CreateCleaning);
+            return Database.GenerateListWithFunction(Database.GetData(new SqlCommand($"SELECT * FROM Cleaning WHERE TramFk = {tramId}")), CreateCleaning);
         }
 
         public bool HadBigMaintenance(Tram tram)
