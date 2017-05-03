@@ -106,14 +106,14 @@ namespace SchoonmaakReparatieSysteem
             return UserContext.GetAllUsersWithFunction(role);
         }
 
-        public List<Repair> GetAllRepairsFromTram(Tram tram)
+        public List<Repair> GetAllRepairsFromTram(int tramId)
         {
-            return ServiceContext.GetAllRepairsFromTram(tram);
+            return ServiceContext.GetAllRepairsFromTram(tramId);
         }
 
-        public List<Cleaning> GetAllCleaningsFromTram(Tram tram)
+        public List<Cleaning> GetAllCleaningsFromTram(int tramId)
         {
-            return ServiceContext.GetAllCleaningsFromTram(tram);
+            return ServiceContext.GetAllCleaningsFromTram(tramId);
         }
 
         /// <summary>
@@ -150,14 +150,14 @@ namespace SchoonmaakReparatieSysteem
             TramContext.SetStatusToIdle(tramId);
         }
 
-        public void GetRepairsFromTram(Tram tram)
+        public void GetRepairsFromTram(int tramId)
         {
-            ServiceContext.GetAllRepairsFromTram(tram);
+            ServiceContext.GetAllRepairsFromTram(tramId);
         }
 
-        public void GetCleansFromTram(Tram tram)
+        public void GetCleansFromTram(int tramId)
         {
-            ServiceContext.GetAllRepairsFromTram(tram);
+            ServiceContext.GetAllRepairsFromTram(tramId);
         }
 
         public void AddSolution(Repair repair, string solution)
