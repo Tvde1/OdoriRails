@@ -15,6 +15,7 @@ namespace SchoonmaakReparatieSysteem
             Timer timer = new Timer();
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = 60000;
+            timer.Start();
 
             _activeUser = user;
             usernamelbl.Text = _activeUser.Username;
@@ -22,7 +23,7 @@ namespace SchoonmaakReparatieSysteem
         }
         void timer_Tick(object sender, EventArgs e)
         {
-            
+            _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
         private void MainService_Load(object sender, EventArgs e)
         {
