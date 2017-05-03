@@ -279,6 +279,11 @@ namespace SchoonmaakReparatieSysteem
 
             }
         }
+
+        public void ZoekPerTramNummer(int tramnr, DataGridView dgv)
+        {
+            dgv.DataSource = _repo.GetAllRepairsFromTram(tramnr);
+        }
     }
 }
 

@@ -116,5 +116,11 @@ namespace SchoonmaakReparatieSysteem
             _logic.PlanServices(7);
             _logic.RefreshDatagridView(_activeUser, cboxFilter, dataGridView);
         }
+
+        private void tramlogsbtn_Click(object sender, EventArgs e)
+        {
+            TramHistoryFilter trm = new TramHistoryFilter();
+            trm.Show();
+        }
     }
 }
