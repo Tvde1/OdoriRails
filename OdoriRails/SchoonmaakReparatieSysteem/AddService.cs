@@ -32,6 +32,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void AddService_Load(object sender, EventArgs e)
         {
+            sortsrvc_cb.SelectedIndex = 0;
             availableusers = logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
         }
     }

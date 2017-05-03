@@ -96,10 +96,11 @@ namespace SchoonmaakReparatieSysteem
             try
             {
                 _logic.FinishService(dataGridView, (Service)dataGridView.CurrentRow.DataBoundItem);
+                
             }
             catch
             {
-                MessageBox.Show("Selecteer een service eerst");
+                MessageBox.Show("Selecteer eerst een service.");
             }
             
         }

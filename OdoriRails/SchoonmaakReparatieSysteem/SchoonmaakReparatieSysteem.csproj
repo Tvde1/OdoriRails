@@ -67,6 +67,12 @@
     <Compile Include="MainService.Designer.cs">
       <DependentUpon>MainService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Markasdone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Markasdone.Designer.cs">
+      <DependentUpon>Markasdone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic.cs" />
@@ -79,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainService.resx">
       <DependentUpon>MainService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Markasdone.resx">
+      <DependentUpon>Markasdone.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -106,6 +115,10 @@
     <ProjectReference Include="..\Beheersysteem\Logistiek Beheersysteem.csproj">
       <Project>{30A5D8EB-3167-41B7-8804-6D7EC8FE52D1}</Project>
       <Name>Logistiek Beheersysteem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\In-Uitrit Systeem\In-Uitrit Systeem.csproj">
+      <Project>{59824247-11C9-4084-A959-69F2358EC142}</Project>
+      <Name>In-Uitrit Systeem</Name>
     </ProjectReference>
     <ProjectReference Include="..\OdoriRails\OdoriRails.csproj">
       <Project>{fc6ce72a-a2f9-4e02-8888-11aedd18c72b}</Project>
