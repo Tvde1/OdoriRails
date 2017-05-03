@@ -74,9 +74,9 @@ namespace LoginSystem
 
             //var test = Activator.CreateInstance(assembly.GetType());
 
-            HideForm();
+            //HideForm();
             OpenAssembly(assembly, user);
-            ShowForm();
+            //ShowForm();
         }
 
         private async void OpenAssembly(Assembly assembly, User user)
