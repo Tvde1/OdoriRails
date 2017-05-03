@@ -41,11 +41,11 @@ namespace SchoonmaakReparatieSysteem
         {
             if (serviceToUpdate.GetType().Name == "Repair")
             {
-                logic.UpdateRepairinDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Repair)serviceToUpdate);
+                logic.UpdateRepairinDatabase(activeUser, this, dateTimePicker1.Value, null , sortsrvc_cb, rtbComment, users, tbTramNr, (Repair)serviceToUpdate);
             }
             if (serviceToUpdate.GetType().Name == "Cleaning")
             {
-                logic.UpdateCleaninginDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, rtbComment, users, tbTramNr, (Cleaning)serviceToUpdate);
+                logic.UpdateCleaninginDatabase(activeUser, this, dateTimePicker1.Value, null, sortsrvc_cb, rtbComment, users, tbTramNr, (Cleaning)serviceToUpdate);
             }
         }
 
@@ -57,8 +57,9 @@ namespace SchoonmaakReparatieSysteem
 
         private void EditService_Load(object sender, EventArgs e)
         {
-            sortsrvc_cb.SelectedIndex = 0;
+            
             availableUsers = logic.FillAnnexForms(activeUser, availableUsers, sortsrvc_cb, commentlbl, usercbox);
+            sortsrvc_cb.SelectedIndex = 0;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SchoonmaakReparatieSysteem
         
         public Markasdone(Service service)
         {
-           
+            _logic = new Logic();
             servicetofinish = service;
             InitializeComponent();
         }

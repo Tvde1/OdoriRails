@@ -20,7 +20,7 @@ namespace OdoriRails.BaseClasses
             Comments = comments;
         }
 
-        public Cleaning(DateTime startDate, DateTime endDate, CleaningSize size, string comments, List<User> users, int tramId) : base(users, startDate, endDate, tramId)
+        public Cleaning(DateTime startDate, DateTime? endDate, CleaningSize size, string comments, List<User> users, int tramId) : base(users, startDate, endDate, tramId)
         {
             Size = size;
             Comments = comments;

@@ -20,7 +20,7 @@ namespace OdoriRails.BaseClasses
             TramId = tramId ?? -1;
         }
 
-        protected Service(List<User> assignedUsers, DateTime startDate, DateTime endDate, int tramId)
+        protected Service(List<User> assignedUsers, DateTime startDate, DateTime? endDate, int tramId)
         {
             AssignedUsers = assignedUsers;
             StartDate = startDate;
