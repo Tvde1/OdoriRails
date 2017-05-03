@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph DataVirtualized="True" FilterState="CodeMap_TestAsset" GraphDirection="TopToBottom" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph DataVirtualized="True" FilterState="CodeMap_TestAsset" GraphDirection="BottomToTop" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="(@1)" Category="CodeSchema_Assembly" Bounds="-29.3296415473597,103.747558224806,242.403333333333,25" CodeSchemaProperty_StrongName="SchoonmaakReparatieSysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(d16e11c4-9389-4abb-a71a-bc28bfc90cc2.OutputPath)" Group="Collapsed" Label="SchoonmaakReparatieSysteem.exe" UseManualLocation="True" />
-    <Node Id="(@2)" Category="CodeSchema_Assembly" Bounds="433.357225119307,103.747558224806,187.356666666667,25.0000000000001" CodeSchemaProperty_StrongName="User Beheersysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(89cf7e5c-3c27-4b95-93a6-1dfb36e0c183.OutputPath)" Group="Collapsed" Label="User Beheersysteem.exe" />
-    <Node Id="(@3)" Category="CodeSchema_Assembly" Bounds="243.073791785974,103.747558224806,160.283333333333,25" CodeSchemaProperty_StrongName="Beheersysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(30a5d8eb-3167-41b7-8804-6d7ec8fe52d1.OutputPath)" Group="Collapsed" Label="Beheersysteem.exe" />
-    <Node Id="(@6)" Category="CodeSchema_Assembly" Bounds="650.713991785973,103.747558224806,147.706666666667,25.0000000000001" CodeSchemaProperty_StrongName="LoginSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(3d58b85f-d1a1-4442-a09c-5a325ae386a2.OutputPath)" Group="Collapsed" Label="LoginSystem.exe" />
+    <Node Id="(@1)" Category="CodeSchema_Assembly" Bounds="605.618438009014,110,242.403333333333,25" CodeSchemaProperty_StrongName="SchoonmaakReparatieSysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(d16e11c4-9389-4abb-a71a-bc28bfc90cc2.OutputPath)" Group="Collapsed" Label="SchoonmaakReparatieSysteem.exe" UseManualLocation="True" />
+    <Node Id="(@2)" Category="CodeSchema_Assembly" Bounds="178.611326168921,110,187.356666666667,25.0000000000001" CodeSchemaProperty_StrongName="User Beheersysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(89cf7e5c-3c27-4b95-93a6-1dfb36e0c183.OutputPath)" Group="Collapsed" Label="User Beheersysteem.exe" />
+    <Node Id="(@3)" Category="CodeSchema_Assembly" Bounds="395.967992835587,110,160.283333333333,25.0000000000001" CodeSchemaProperty_StrongName="Beheersysteem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(30a5d8eb-3167-41b7-8804-6d7ec8fe52d1.OutputPath)" Group="Collapsed" Label="Beheersysteem.exe" />
+    <Node Id="(@6)" Category="CodeSchema_Assembly" Bounds="0.904659502253637,110,147.706666666667,25.0000000000001" CodeSchemaProperty_StrongName="LoginSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(3d58b85f-d1a1-4442-a09c-5a325ae386a2.OutputPath)" Group="Collapsed" Label="LoginSystem.exe" />
     <Node Id="@10" Category="CodeSchema_Namespace" Bounds="-17.993156845223,-575.70937175293,837.633775450389,689.77313111433" DelayedChildNodesState="Incomplete" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="5" Group="Expanded" Label="In_Uitrit_Systeem" UseManualLocation="True" />
     <Node Id="@12" Category="CodeSchema_Class" Bounds="57.9082514352887,-131.656358702509,287.983333333333,225.72" CodeSchemaProperty_IsPublic="True" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="12" Group="Expanded" Label="InUitrijRepository" LayoutSettings="List" UseManualLocation="True" />
     <Node Id="@14" Category="CodeSchema_Class" Bounds="537.275742074477,-112.150144563194,155.73,169.800202059937" CodeSchemaProperty_IsPublic="True" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="5" Group="Expanded" Label="InUitRitTram" LayoutSettings="List" UseManualLocation="True" />
@@ -36,7 +36,7 @@
     <Node Id="@47" Category="CodeSchema_Method" Bounds="181.371584768622,-21.7763587025093,127.45,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsSpecialName="True" DelayedCrossGroupLinksState="Fetched" Label="InUitrijRepository" />
     <Node Id="@48" Category="CodeSchema_Field" Bounds="326.273994256207,-509.709110717773,142.516666666667,25.96" CodeSchemaProperty_IsPrivate="True" DelayedCrossGroupLinksState="Fetched" Label="_DriverTramUpdater" />
     <Node Id="@49" Category="CodeSchema_Field" Bounds="8.00715766385088,-467.055707890187,133.143333333333,25.96" CodeSchemaProperty_IsPrivate="True" DelayedCrossGroupLinksState="Fetched" Label="_inUitrijRepository" UseManualLocation="True" />
-    <Node Id="@5" Category="CodeSchema_Assembly" Bounds="325.646407484638,48.6659000486152,170.846666666667,24.9999999999999" CodeSchemaProperty_StrongName="In_Uitrit_Systeem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Incomplete" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="2" FilePath="$(59824247-11c9-4084-a959-69f2358ec142.OutputPath)" Group="Collapsed" Label="In_Uitrit_Systeem.exe" UseManualLocation="True" />
+    <Node Id="@5" Category="CodeSchema_Assembly" Bounds="-210.942007164413,110,170.846666666667,24.9999999999999" CodeSchemaProperty_StrongName="In_Uitrit_Systeem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Incomplete" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="2" FilePath="$(59824247-11c9-4084-a959-69f2358ec142.OutputPath)" Group="Collapsed" Label="In_Uitrit_Systeem.exe" UseManualLocation="True" />
     <Node Id="@50" Category="CodeSchema_Field" Bounds="326.27389761721,-481.749149780273,67.4333333333333,25.96" CodeSchemaProperty_IsPrivate="True" DelayedCrossGroupLinksState="Fetched" Label="_logic" />
     <Node Id="@51" Category="CodeSchema_Field" Bounds="326.273938510765,-453.78924987793,100.423333333333,25.96" CodeSchemaProperty_IsPrivate="True" DelayedCrossGroupLinksState="Fetched" Label="_timerTickIn" />
     <Node Id="@52" Category="CodeSchema_Field" Bounds="326.273868930686,-425.829227905273,110.343333333333,25.96" CodeSchemaProperty_IsPrivate="True" DelayedCrossGroupLinksState="Fetched" Label="_timerTickOut" />
@@ -65,27 +65,27 @@
     <Node Id="@75" Category="CodeSchema_Field" Bounds="63.9082514352887,-77.6963587025092,104.026666666667,25.96" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" DelayedCrossGroupLinksState="Fetched" Label="TramContext" />
     <Node Id="@76" Category="CodeSchema_Method" Bounds="183.600535597353,-473.809788208008,100.673333333333,25.96" CodeSchemaProperty_IsPublic="True" DelayedCrossGroupLinksState="Fetched" Label="UpdateTram" UseManualLocation="True" />
     <Node Id="@77" Category="CodeSchema_Field" Bounds="63.9082514352887,-49.7363587025092,101.953333333333,25.96" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" DelayedCrossGroupLinksState="Fetched" Label="UserContext" />
-    <Node Id="@8" Category="CodeSchema_Assembly" Bounds="343.819534750205,158.747558360006,135.073333333333,25" CodeSchemaProperty_StrongName="OdoriRails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(fc6ce72a-a2f9-4e02-8888-11aedd18c72b.OutputPath)" Group="Collapsed" Label="OdoriRails.exe" UseManualLocation="True" />
+    <Node Id="@8" Category="CodeSchema_Assembly" Bounds="206.982535038577,5,135.073333333333,25" CodeSchemaProperty_StrongName="OdoriRails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(fc6ce72a-a2f9-4e02-8888-11aedd18c72b.OutputPath)" Group="Collapsed" Label="OdoriRails.exe" UseManualLocation="True" />
   </Nodes>
   <Links>
-    <Link Source="(@1)" Target="@8" Category="References" Bounds="164.479293697247,128.665900048615,172.243035214641,29.6520725952673" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="148">
+    <Link Source="(@1)" Target="@8" Category="References" Bounds="337.131415369963,32.0351963518527,335.843343713998,77.9648036481473" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="148">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
       <Category Ref="CodeSchema_ReturnTypeLink" />
     </Link>
-    <Link Source="(@2)" Target="@8" Category="References" Bounds="445.77224664528,128.665900048615,54.9697773549972,26.1354912832012" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="71">
-      <Category Ref="CodeMap_ProjectReference" />
-      <Category Ref="CodeSchema_Calls" />
-      <Category Ref="CodeSchema_ReturnTypeLink" />
-      <Category Ref="InheritsFrom" />
-    </Link>
-    <Link Source="(@3)" Target="@8" Category="References" Bounds="343.244674000278,128.665900048615,40.4413428573395,25.2354890314676" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="345">
+    <Link Source="(@2)" Target="@8" Category="References" Bounds="272.555081193086,38.9979717640195,1.50763827095199,71.0020282359805" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="71">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
       <Category Ref="CodeSchema_ReturnTypeLink" />
       <Category Ref="InheritsFrom" />
     </Link>
-    <Link Source="(@6)" Target="@8" Category="References" Bounds="485.7454932308,128.488422626841,168.645403357375,29.6141976841217" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
+    <Link Source="(@3)" Target="@8" Category="References" Bounds="306.50021186169,34.1575645649272,145.61058361711,75.8424354350727" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="345">
+      <Category Ref="CodeMap_ProjectReference" />
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="InheritsFrom" />
+    </Link>
+    <Link Source="(@6)" Target="@8" Category="References" Bounds="98.5390891295937,34.1874239173303,144.232493769494,75.8125760826697" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
       <Category Ref="CodeSchema_ReturnTypeLink" />
