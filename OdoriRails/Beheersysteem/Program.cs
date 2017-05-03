@@ -5,14 +5,19 @@ namespace Beheersysteem
 {
     static class Program
     {
+        private static readonly bool UseLoginSystem = true;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            if (!UseLoginSystem)
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+            }
             new UserInterface().ShowDialog();
         }
     }
