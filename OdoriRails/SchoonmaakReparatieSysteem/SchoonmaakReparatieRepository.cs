@@ -159,5 +159,11 @@ namespace SchoonmaakReparatieSysteem
         {
             ServiceContext.GetAllRepairsFromTram(tram);
         }
+
+        public void AddSolution(Repair repair, string solution)
+        {
+            var newRepair = new Repair(repair.Id, repair.StartDate, (DateTime)repair.EndDate, repair.Type, repair.Defect, solution, repair.AssignedUsers, repair.TramId);
+            ServiceContext.EditService(newRepair);
+        }
     }
 }
