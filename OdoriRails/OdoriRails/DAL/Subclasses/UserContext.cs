@@ -34,8 +34,8 @@ namespace OdoriRails.DAL.Subclasses
 
         public void RemoveUser(User user)
         {
-            Database.GetData(new SqlCommand($"DELETE FROM [User] WHERE UserPk = {user.Id}"));
             Database.GetData(new SqlCommand($"UPDATE [User] SET ManagedBy = null WHERE ManagedBy = {user.Id}"));
+            Database.GetData(new SqlCommand($"DELETE FROM [User] WHERE UserPk = {user.Id}"));
         }
 
         public void UpdateUser(User user)
