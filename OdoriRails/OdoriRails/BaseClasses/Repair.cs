@@ -22,7 +22,7 @@ namespace OdoriRails.BaseClasses
             Solution = solution;
         }
 
-        public Repair(int id, DateTime startDate, DateTime endDate, RepairType type, string defect, string solution, List<User> users, int tramId) : base(id, users, startDate, endDate, tramId)
+        public Repair(int id, DateTime startDate, DateTime? endDate, RepairType type, string defect, string solution, List<User> users, int tramId) : base(id, users, startDate, endDate, tramId)
         {
             Type = type;
             Defect = defect;
