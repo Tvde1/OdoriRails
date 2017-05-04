@@ -84,7 +84,8 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
             }
             var query = new SqlCommand("UPDATE Service SET StartDate = @startdate, EndDate = @enddate, TramFk = @tramfk WHERE ServicePk = @id");
             query.Parameters.AddWithValue("@startdate", service.StartDate);
-            query.Parameters.AddWithValue("@enddate", service.EndDate);
+            if (service.EndDate == null)    query.Parameters.AddWithValue("@enddate", DBNull.Value);
+            else query.Parameters.AddWithValue("@enddate", service.EndDate);
             query.Parameters.AddWithValue("@tramfk", service.TramId);
             query.Parameters.AddWithValue("@id", service.Id);
 

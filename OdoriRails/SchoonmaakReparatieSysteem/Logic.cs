@@ -47,7 +47,7 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void AddServicetoDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+        public void AddServicetoDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                         ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb)
         {
             try
@@ -163,6 +163,7 @@ namespace SchoonmaakReparatieSysteem
         {
             
             repair.EndDate = DateTime.Now;
+            _repo.SetTramStatusToIdle(repair.TramId);
             _repo.EditService(repair);
             _repo.AddSolution(repair, solution);
         }
