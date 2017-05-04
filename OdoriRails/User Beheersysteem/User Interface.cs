@@ -66,38 +66,18 @@ namespace User_Beheersysteem
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             tabUsers.SelectTab(0);
-            User submitUser;
-            Role role = (Role)cbRole.SelectedIndex;
+            var role = (Role)cbRole.SelectedIndex;
 
             if (_status == "Edit")
             {
                 var username = _logic.UsersSearch[_index].Username;
                 var id = _logic.GetIndex(username);
-                if (cbManaged.SelectedText != "")
-                {
-                    submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
-                }
-                else
-                {
-                    submitUser = new User(id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
-                }
-
-                _logic.UpdateUser(submitUser, tbTramId.Text);
-
+                if (_logic.EditUser(username, id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText == "" ? null : cbManaged.Text, tbTramId.Text)) Search();
             }
             else
             {
-                if (cbManaged.SelectedText != "")
-                {
-                    submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText);
-                }
-                else
-                {
-                    submitUser = new User(999, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, null);
-                }
-                _logic.AddUser(submitUser, tbTramId.Text);
+                if (_logic.AddUser(tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.Text, tbTramId.Text)) Search();
             }
-            Search();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

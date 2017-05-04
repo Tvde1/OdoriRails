@@ -8,6 +8,7 @@ namespace User_Beheersysteem
     {
         private static readonly IUserContext UserContext = new UserContext();
         private static readonly ITramContext TramContext = new TramContext();
+        private static readonly ILoginContext LoginContext = new LoginContext();
 
         /// <summary>
         /// Voegt een User toe aan de database.
@@ -97,6 +98,16 @@ namespace User_Beheersysteem
         {
             if (tramId != null && DoesTramExist((int)tramId)) TramContext.SetUserToTram(TramContext.GetTram((int)tramId), user);
             else TramContext.SetUserToTram(null, user);
+        }
+
+        /// <summary>
+        /// Returns true if there already is an user with such name.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public bool DoesUserExist(string userName)
+        {
+            return LoginContext.ValidateUsername(userName);
         }
     }
 }
