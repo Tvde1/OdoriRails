@@ -20,6 +20,7 @@ namespace LoginSystem
                 _loginSystem.Login(tbUsername.Text, tbPassword.Text);
                 tbUsername.Text = "";
                 tbPassword.Text = "";
+                lbError.Text = "";
             }
             catch (Exception ex)
             {
