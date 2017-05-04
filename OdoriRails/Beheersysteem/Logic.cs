@@ -12,6 +12,7 @@ namespace Beheersysteem
 {
     class Logic
     {
+        public List<BeheerTrack> BackupAllTracks;
         public List<BeheerTrack> AllTracks { get; private set; }
         public List<BeheerTram> AllTrams { get; private set; }
         bool testing = true;
@@ -179,7 +180,13 @@ namespace Beheersysteem
         {
             if (tram != null)
             {
+                BackupAllTracks = AllTracks;
                 AllTracks = sorter.AssignTramLocation(tram);
+
+                if (AllTracks == null)
+                {
+                    AllTracks = BackupAllTracks;
+                }
             }
         }
 
@@ -239,6 +246,7 @@ namespace Beheersysteem
 
             schema = csv.getSchema();
             Update();
+            MessageBox.Show("The simulation has finished");
         }
 
         public void Lock(string tracks, string sectors)
