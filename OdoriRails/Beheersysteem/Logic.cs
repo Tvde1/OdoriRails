@@ -246,7 +246,9 @@ namespace Beheersysteem
 
             schema = csv.getSchema();
             Update();
-            MessageBox.Show("The simulation has finished");
+
+            MessageBox.Show("The simulation has finished, if there are some unassigned trams these could not be assigned a location without hindering standard activities. Please assign these by hand.");
+
         }
 
         public void Lock(string tracks, string sectors)
