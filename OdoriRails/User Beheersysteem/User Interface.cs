@@ -65,19 +65,20 @@ namespace User_Beheersysteem
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            tabUsers.SelectTab(0);
             var role = (Role)cbRole.SelectedIndex;
 
             if (_status == "Edit")
             {
                 var username = _logic.UsersSearch[_index].Username;
                 var id = _logic.GetIndex(username);
-                if (_logic.EditUser(username, id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText == "" ? null : cbManaged.Text, tbTramId.Text)) Search();
+                if (!_logic.EditUser(username, id, tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.SelectedText == "" ? null : cbManaged.Text, tbTramId.Text)) return;
             }
             else
             {
-                if (_logic.AddUser(tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.Text, tbTramId.Text)) Search();
+                if (!_logic.AddUser(tbName.Text, tbUserName.Text, tbEmail.Text, tbPassword.Text, role, cbManaged.Text, tbTramId.Text)) return;
             }
+            tabUsers.SelectTab(0);
+            Search();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

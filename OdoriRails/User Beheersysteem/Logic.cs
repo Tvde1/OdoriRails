@@ -71,6 +71,11 @@ namespace User_Beheersysteem
         internal bool AddUser(string name, string userName, string email, string password, Role role, string managedName, string tramId)
         {
             int tramIdResult = -1;
+            if (userName == "")
+            {
+                MessageBox.Show("De username kan niet leeg zijn.");
+                return false;
+            }
             if (_userBeheerRepository.DoesUserExist(userName))
             {
                 MessageBox.Show("Deze username is al in gebruik.");
