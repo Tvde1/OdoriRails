@@ -163,6 +163,7 @@ namespace SchoonmaakReparatieSysteem
         {
             
             repair.EndDate = DateTime.Now;
+            _repo.SetTramStatusToIdle(repair.TramId);
             _repo.EditService(repair);
             _repo.AddSolution(repair, solution);
         }
