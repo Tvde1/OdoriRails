@@ -16,7 +16,7 @@ namespace OdoriRails.BaseClasses
             Id = id ?? -1;
             AssignedUsers = assignedUsers;
             StartDate = startDate;
-            EndDate = endDate ?? DateTime.MinValue;
+            EndDate = endDate;
             TramId = tramId ?? -1;
         }
 

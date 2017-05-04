@@ -21,7 +21,7 @@ namespace SchoonmaakReparatieSysteem
 
         private void btnAddService_Click(object sender, EventArgs e)
         {
-            logic.AddServicetoDatabase(activeUser, this, dateTimePicker1.Value, DateTime.MaxValue, sortsrvc_cb, commenttb, users, tramnrtb);
+            logic.AddServicetoDatabase(activeUser, this, dateTimePicker1.Value, null, sortsrvc_cb, commenttb, users, tramnrtb);
         }
 
         private void btnAdd_Click_1(object sender, EventArgs e)

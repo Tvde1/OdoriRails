@@ -103,7 +103,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", cleaning.StartDate);
-            if (cleaning.EndDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (cleaning.EndDate == null) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", cleaning.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", cleaning.TramId);
 
@@ -125,7 +125,7 @@ WHERE (ServiceUser.UserCk IS NULL)) AS derivedtbl_1 ON Clean.ServiceFk = derived
         {
             var serviceQuery = new SqlCommand(@"INSERT INTO Service (StartDate, EndDate, TramFk) VALUES (@startdate, @enddate, @tramfk); SELECT SCOPE_IDENTITY();");
             serviceQuery.Parameters.AddWithValue("@startdate", repair.StartDate);
-            if (repair.EndDate == DateTime.MinValue) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
+            if (repair.EndDate == null) serviceQuery.Parameters.AddWithValue("@enddate", DBNull.Value);
             else serviceQuery.Parameters.AddWithValue("@enddate", repair.EndDate);
             serviceQuery.Parameters.AddWithValue("@tramfk", repair.TramId);
 
@@ -221,7 +221,7 @@ WHERE(Service.StartDate = {day}) AND(Cleaning.Size = 1)");
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
-            var endDate = service[2] == DBNull.Value ? DateTime.MinValue : (DateTime)service[2];
+            var endDate = service[2] == DBNull.Value ? (DateTime?)null : (DateTime)service[2];
             var tramId = (int)service[3];
 
             var type = (CleaningSize)array[1];
@@ -238,7 +238,7 @@ WHERE(Service.StartDate = {day}) AND(Cleaning.Size = 1)");
 
             var id = (int)service[0];
             var startDate = (DateTime)service[1];
-            var endDate = service[2] == DBNull.Value ? DateTime.MinValue : (DateTime)service[2];
+            var endDate = service[2] == DBNull.Value ? (DateTime?)null : (DateTime)service[2];
             var tramId = (int)service[3];
 
             var solution = (string)array[1];

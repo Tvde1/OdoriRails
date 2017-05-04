@@ -47,7 +47,7 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void AddServicetoDatabase(User activeUser, Form targetform, DateTime startdate, DateTime enddate,
+        public void AddServicetoDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                         ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb)
         {
             try
@@ -198,7 +198,7 @@ namespace SchoonmaakReparatieSysteem
                     if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
                     {
                         // no : plan service and leave loop
-                        Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                        Repair rep = new Repair(date, null, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
                         _repo.AddRepair(rep);
                         break;
                     }
@@ -214,7 +214,7 @@ namespace SchoonmaakReparatieSysteem
                     {
                         if (_repolog.HadSmallMaintenance(tram) == false && tram.Number != 1) // check for small service in 3 months
                         {
-                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
+                            Repair rep = new Repair(date, null, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
                             i++;
                             break;
@@ -245,7 +245,7 @@ namespace SchoonmaakReparatieSysteem
                     if (_repolog.HadBigMaintenance(tram) == false && tram.Number != 1) // check for big service in next 7 days
                     {
                         // no : plan service and leave loop
-                        Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
+                        Repair rep = new Repair(date, null, RepairType.Maintenance, "Big Planned Maintenance", "", emptylistusers, tram.Number);
                         _repo.AddRepair(rep);
                         break;
                     }
@@ -261,7 +261,7 @@ namespace SchoonmaakReparatieSysteem
                     {
                         if (_repolog.HadSmallMaintenance(tram) == false && tram.Number != 1) // check for small service in 3 months
                         {
-                            Repair rep = new Repair(date, DateTime.MinValue, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
+                            Repair rep = new Repair(date, null, RepairType.Maintenance, "Small Planned Maintenance", "", emptylistusers, tram.Number);
                             _repo.AddRepair(rep);
                             i++;
                             break;
