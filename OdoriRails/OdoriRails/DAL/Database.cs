@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace OdoriRails.DAL
 {
@@ -25,7 +26,8 @@ namespace OdoriRails.DAL
             }
             catch (Exception)
             {
-                throw new DatabaseException("Something went wrong while communicating with the database.");
+                MessageBox.Show("Lost connection to the database.");
+                return null;
             }
         }
 
