@@ -10,7 +10,6 @@ namespace OdoriRails.DAL
     {
         private const string ConnectionString = @"Data Source=192.168.20.189;Initial Catalog=OdoriRails;User ID=sa;Password=OdoriRails123;";
 
-
         public static DataTable GetData(SqlCommand command)
         {
             try
@@ -24,9 +23,8 @@ namespace OdoriRails.DAL
                     return dataTable;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 throw new DatabaseException("Something went wrong while communicating with the database.");
             }
         }
