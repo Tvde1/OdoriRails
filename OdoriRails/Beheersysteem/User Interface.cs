@@ -27,7 +27,7 @@ namespace Beheersysteem
         {
             _logic.Unlock(tbSelectedTrack.Text, tbSelectedSector.Text);
             panelMain.Invalidate();
-      }
+        }
 
         private void btnLock_Click(object sender, EventArgs e)
         {
@@ -53,9 +53,13 @@ namespace Beheersysteem
 
         private void moveTram()
         {
-            if (_logic.MoveTram(tbSelectedTram.Text, tbMoveToTrack.Text, tbMoveToSector.Text) == false)
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to move this tram?", "Move Tram", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Failed to move the selected tram to the new location");
+                if (_logic.MoveTram(tbSelectedTram.Text, tbMoveToTrack.Text, tbMoveToSector.Text) == false)
+                {
+                    MessageBox.Show("Failed to move the selected tram to the new location");
+                }
             }
         }
 

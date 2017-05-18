@@ -246,9 +246,6 @@ namespace Beheersysteem
 
             schema = csv.getSchema();
             Update();
-
-            MessageBox.Show("The simulation has finished, if there are some unassigned trams these could not be assigned a location without hindering standard activities. Please assign these by hand.");
-
         }
 
         public void Lock(string tracks, string sectors)
@@ -401,36 +398,17 @@ namespace Beheersysteem
             int moveTrack = ToInt(_track);
             int moveSector = ToInt(_sector) - 1;
 
-            bool confirmMove = true;
-
-            foreach (Tram tram in AllTrams.Where(x => (x.Number == moveTram) && (x.Status == TramStatus.Cleaning || x.Status == TramStatus.Maintenance || x.Status == TramStatus.CleaningMaintenance)))
+            foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
             {
-                confirmMove = false;
-            }
-
-            if (confirmMove == false)
-            {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to move this tram, it is still in service", "Move Tram", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
                 {
-                    confirmMove = true;
-                }
-            }
-
-            if (confirmMove == true)
-            {
-                foreach (Track track in AllTracks.Where(x => x.Number == moveTrack && x.Sectors.Count > moveSector))
-                {
-                    foreach (Tram tram in AllTrams.Where(x => x.Number == moveTram))
+                    BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
+                    if (beheerSector.SetOccupyingTram(tram))
                     {
-                        BeheerSector beheerSector = track.Sectors[moveSector] == null ? null : BeheerSector.ToBeheerSector(track.Sectors[moveSector]);
-                        if (beheerSector.SetOccupyingTram(tram))
-                        {
-                            repo.WipeSectorByTramId(tram.Number);
-                            repo.EditSector(beheerSector);
-                            Update();
-                            return true;
-                        }
+                        repo.WipeSectorByTramId(tram.Number);
+                        repo.EditSector(beheerSector);
+                        Update();
+                        return true;
                     }
                 }
             }
@@ -496,9 +474,9 @@ namespace Beheersysteem
             {
                 array = Array.ConvertAll(_string.Split(','), int.Parse);
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show("Couldn't process the input, please check if input is correct", "Error");
+                //TODO: Hier een fatsoenlijke trycatch van maken dat een waarschuwing in ASP.NET geeft.
             }
 
             return array;
@@ -512,9 +490,9 @@ namespace Beheersysteem
             {
                 integer = Convert.ToInt32(_string);
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show("Couldn't process the input, please check if input is correct", "Error");
+                //TODO: Hier een fatsoenlijke trycatch van maken dat een waarschuwing in ASP.NET geeft.
             }
 
             return integer;
