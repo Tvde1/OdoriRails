@@ -27,8 +27,7 @@ namespace Beheersysteem
         {
             _logic.Unlock(tbSelectedTrack.Text, tbSelectedSector.Text);
             panelMain.Invalidate();
-
-        }
+      }
 
         private void btnLock_Click(object sender, EventArgs e)
         {

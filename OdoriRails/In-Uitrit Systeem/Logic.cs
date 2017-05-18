@@ -25,7 +25,7 @@ namespace In_Uitrit_Systeem
             Sector sector = _inUitrijRepository.GetAssignedSector(Tram);
             if (sector != null)
             {
-                return string.Format("Track: {0}, Sector: {1}", sector.TrackNumber, sector.Number);
+                return string.Format("Track: {0}, Sector: {1}", sector.TrackNumber, sector.Number + 1);
             }
             else
             {
