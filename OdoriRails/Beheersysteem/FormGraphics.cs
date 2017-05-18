@@ -137,7 +137,7 @@ namespace Beheersysteem
                         var rect = new Rectangle(x, y, 10, 20);
                         if (i >= 0)
                         {
-                            graphics.DrawString(i.ToString(), stringFont, redBrush, rect);
+                            graphics.DrawString((i + 1).ToString(), stringFont, redBrush, rect);
                         }
                         y += 25;
                     }
@@ -161,7 +161,7 @@ namespace Beheersysteem
                 var rect = new Rectangle(x, y, 10, 20);
                 if (i >= 0)
                 {
-                    graphics.DrawString(i.ToString(), stringFont, redBrush, rect);
+                    graphics.DrawString((i + 1).ToString(), stringFont, redBrush, rect);
                 }
                 y += 25;
             }

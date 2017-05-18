@@ -108,7 +108,7 @@ namespace Beheersysteem
 
             foreach (Track track in AllTracks.Where(x => x.Number == trackNumber))
             {
-                track.AddSector(new Sector(track.Sectors.Count));
+                track.AddSector(new Sector(track.Sectors.Count + 1));
                 repo.AddSector(track.Sectors[track.Sectors.Count - 1], track);
                 Update();
                 return true;
@@ -259,7 +259,12 @@ namespace Beheersysteem
             if (sectors != "")
             {
                 lockSectors = Parse(sectors);
+                for (int i = 0; i < lockSectors.Length; i++)
+                {
+                    lockSectors[i] -= 1;
+                }
             }
+
             lockTracks = Parse(tracks);
 
             if (lockTracks[0] != -1)
@@ -321,6 +326,10 @@ namespace Beheersysteem
             if (sectors != "")
             {
                 unlockSectors = Parse(sectors);
+                for (int i = 0; i < unlockSectors.Length; i++)
+                {
+                    unlockSectors[i] -= 1;
+                }
             }
             unlockTracks = Parse(tracks);
 
@@ -390,7 +399,7 @@ namespace Beheersysteem
         {
             int moveTram = ToInt(_tram);
             int moveTrack = ToInt(_track);
-            int moveSector = ToInt(_sector);
+            int moveSector = ToInt(_sector) - 1;
 
             bool confirmMove = true;
 
@@ -465,7 +474,7 @@ namespace Beheersysteem
                 List<Sector> newSectors = new List<Sector>();
                 for (int i = 0; i < sectorAmount; i++)
                 {
-                    newSectors.Add(new Sector(i));
+                    newSectors.Add(new Sector(i + 1));
                 }
 
                 repo.AddTrack(new Track(trackNumber, defaultLine, trackType, newSectors));

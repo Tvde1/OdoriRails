@@ -14,6 +14,7 @@ namespace OdoriRails.BaseClasses
         public List<Sector> Sectors { get; } = new List<Sector>();
 
         public int Number { get; private set; }
+
         public int? Line { get; private set; }
 
         public TrackType Type { get; private set; }
