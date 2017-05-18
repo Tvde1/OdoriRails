@@ -11,30 +11,69 @@ namespace SchoonmaakReparatieSysteem
         private User activeUser;
         private Logic logic = new Logic();
         private List<User> users = new List<User>();
-        private List<User> availableusers; 
+        private List<User> availableUsers; 
 
-        public AddService(User activeuser)
+        public AddService(User activeUser)
         {
-            activeUser = activeuser;
             InitializeComponent();
+            this.activeUser = activeUser;
+            availableUsers = FillAnnexForms();
+            sortsrvc_cb.SelectedIndex = 0;
         }
 
         private void btnAddService_Click(object sender, EventArgs e)
         {
-            logic.AddServicetoDatabase(activeUser, this, dateTimePicker1.Value, null, sortsrvc_cb, commenttb, users, tramnrtb);
+            int tramNr = (int)nudTramNr.Value;
+            if (logic.AddServicetoDatabase(activeUser, dateTimePicker1.Value, null, sortsrvc_cb, commenttb.Text, users, tramNr))
+            {
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Onjuist tram nummer.");
+            }
         }
 
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
-            usersListBox.Items.Add(usercbox.SelectedItem);
-            users.Add(availableusers.ElementAt(usercbox.SelectedIndex));
+            usersListBox.Items.Add(cbUsers.SelectedItem);
+            users.Add(availableUsers.ElementAt(cbUsers.SelectedIndex));
         }
 
-        private void AddService_Load(object sender, EventArgs e)
+        public List<User> FillAnnexForms()
         {
-            
-            availableusers = logic.FillAnnexForms(activeUser, availableusers, sortsrvc_cb, commentlbl, usercbox);
-            sortsrvc_cb.SelectedIndex = 0;
+            if (activeUser.Role == Role.HeadEngineer)
+            {
+                availableUsers = logic.GetAllUsersWithFunction(Role.Engineer);
+                availableUsers.AddRange(logic.GetAllUsersWithFunction(Role.HeadEngineer));
+                foreach (User user in availableUsers)
+                {
+                    cbUsers.Items.Add(user.Name);
+                }
+
+                commentlbl.Text = "Omschrijving:";
+                sortsrvc_cb.Items.Add(RepairType.Maintenance);
+                sortsrvc_cb.Items.Add(RepairType.Repair);
+                return availableUsers;
+            }
+
+            else if (activeUser.Role == Role.HeadCleaner)
+            {
+                availableUsers = logic.GetAllUsersWithFunction(Role.Cleaner);
+                foreach (User user in availableUsers)
+                {
+                    cbUsers.Items.Add(user.Name);
+                }
+
+                commentlbl.Text = "Opmerkingen:";
+                sortsrvc_cb.Items.Add(CleaningSize.Big);
+                sortsrvc_cb.Items.Add(CleaningSize.Small);
+                return availableUsers;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

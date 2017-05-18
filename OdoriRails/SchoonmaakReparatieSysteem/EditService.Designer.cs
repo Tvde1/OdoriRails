@@ -99,6 +99,7 @@
             // sortsrvc_cb
             // 
             this.sortsrvc_cb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortsrvc_cb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sortsrvc_cb.FormattingEnabled = true;
             this.sortsrvc_cb.Location = new System.Drawing.Point(191, 180);
             this.sortsrvc_cb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -130,6 +131,7 @@
             // 
             // usercbox
             // 
+            this.usercbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.usercbox.FormattingEnabled = true;
             this.usercbox.Location = new System.Drawing.Point(13, 38);
             this.usercbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -158,6 +160,7 @@
             // tbTramNr
             // 
             this.tbTramNr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTramNr.Enabled = false;
             this.tbTramNr.Location = new System.Drawing.Point(301, 281);
             this.tbTramNr.Name = "tbTramNr";
             this.tbTramNr.Size = new System.Drawing.Size(129, 26);
@@ -189,7 +192,6 @@
             this.Name = "EditService";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Service";
-            this.Load += new System.EventHandler(this.EditService_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

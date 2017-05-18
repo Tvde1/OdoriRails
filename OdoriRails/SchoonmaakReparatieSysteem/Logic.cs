@@ -11,109 +11,46 @@ namespace SchoonmaakReparatieSysteem
         private SchoonmaakReparatieRepository _repo = new SchoonmaakReparatieRepository();
         private LogisticRepository _repolog = new LogisticRepository();
 
-        public List<User> FillAnnexForms(User activeUser, List<User> availableusers, ComboBox sortsrvc_cb, Label commentlbl, ComboBox usercbox)
+        public bool AddServicetoDatabase(User activeUser, DateTime startdate, DateTime? enddate,
+                                        ComboBox sortsrvc_cb, string comment, List<User> users, int tramNr)
         {
-            if (activeUser.Role == Role.HeadEngineer)
+            if (activeUser.Role == Role.HeadCleaner && _repo.DoesTramExist(tramNr))
             {
-                availableusers = _repo.GetAllUsersWithFunction(Role.Engineer);
-                availableusers.AddRange(_repo.GetAllUsersWithFunction(Role.HeadEngineer));
-                foreach (User user in availableusers)
-                {
-                    usercbox.Items.Add(user.Name);
-                }
-
-                commentlbl.Text = "Omschrijving:";
-                sortsrvc_cb.Items.Add(RepairType.Maintenance);
-                sortsrvc_cb.Items.Add(RepairType.Repair);
-                return availableusers;
+                var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
+                    comment, users, tramNr);
+                _repo.AddCleaning(cleaning);
+                return true;
             }
-
-            if (activeUser.Role == Role.HeadCleaner)
+            else if (activeUser.Role == Role.HeadEngineer && _repo.DoesTramExist(tramNr))
             {
-                availableusers = _repo.GetAllUsersWithFunction(Role.Cleaner);
-                foreach (User user in availableusers)
-                {
-                    usercbox.Items.Add(user.Name);
-                }
-
-                commentlbl.Text = "Opmerkingen:";
-                sortsrvc_cb.Items.Add(CleaningSize.Big);
-                sortsrvc_cb.Items.Add(CleaningSize.Small);
-                return availableusers;
+                var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
+                    comment, "", users, tramNr);
+                _repo.AddRepair(repair);
+                return true;
             }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void AddServicetoDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
-                                        ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb)
-        {
-            try
-            {
-                if (activeUser.Role == Role.HeadCleaner)
-                {
-                    var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.AddCleaning(cleaning);
-                }
-                if (activeUser.Role == Role.HeadEngineer)
-                {
-                    var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
-                        commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
-                    _repo.AddRepair(repair);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
-            }
-            finally
-            {
-                targetform.Close();
-            }
+            return false;
         }
 
         public void UpdateCleaninginDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                             ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb, Cleaning toupdatecleaning)
         {
-            try
-            {
-                var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
-                    commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                cleaning.SetId(toupdatecleaning.Id);
-                _repo.EditService(cleaning);
+            var cleaning = new Cleaning(startdate, enddate, (CleaningSize)sortsrvc_cb.SelectedIndex,
+                commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
+            cleaning.SetId(toupdatecleaning.Id);
+            _repo.EditService(cleaning);
 
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
-            }
-            finally
-            {
-                targetform.Close();
-            }
+            targetform.Close();
         }
 
         public void UpdateRepairinDatabase(User activeUser, Form targetform, DateTime startdate, DateTime? enddate,
                                             ComboBox sortsrvc_cb, RichTextBox commenttb, List<User> users, TextBox tramnrtb, Repair repairtoupdate)
         {
-            try
-            {
-                var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
-                    repairtoupdate.Defect, commenttb.Text, users, Convert.ToInt32(tramnrtb.Text));
-                repair.SetId(repairtoupdate.Id);
-                _repo.EditService(repair);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
-            }
-            finally
-            {
-                targetform.Close();
-            }
+            var repair = new Repair(startdate, enddate, (RepairType)sortsrvc_cb.SelectedIndex,
+                commenttb.Text, "", users, Convert.ToInt32(tramnrtb.Text));
+            repair.SetId(repairtoupdate.Id);
+            _repo.EditService(repair);
+
+            targetform.Close();
         }
 
         //REFRESH THE DATAGRIDVIEW
@@ -143,43 +80,38 @@ namespace SchoonmaakReparatieSysteem
             }
         }
 
-        public void FinishService(DataGridView datagridview, Service servicetofinish)
+        public bool FinishService(DataGridView datagridview, Service servicetofinish)
         {
             if (datagridview.SelectedRows.Count != 0)
             {
-                try
-                {
-                    MarkAsDone mrk = new MarkAsDone(servicetofinish);
-                    mrk.Show();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
-                }
+                MarkAsDone mrk = new MarkAsDone(servicetofinish);
+                mrk.ShowDialog();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public void AddSolution(Repair repair, string solution)
         {
-            
             repair.EndDate = DateTime.Now;
             _repo.SetTramStatusToIdle(repair.TramId);
             _repo.EditService(repair);
             _repo.AddSolution(repair, solution);
         }
 
-        public void DeleteService(DataGridView datagridview, Service servicetofinish)
+        public bool DeleteService(DataGridView datagridview, Service servicetofinish)
         {
             if (datagridview.SelectedRows.Count != 0)
             {
-                try
-                {
-                    _repo.DeleteService(servicetofinish);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Er ging iets mis." + Environment.NewLine + "Error: " + e.Message);
-                }
+                _repo.DeleteService(servicetofinish);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -226,7 +158,6 @@ namespace SchoonmaakReparatieSysteem
                         }
                     }
                 }
-
             }
         }
 
@@ -234,7 +165,7 @@ namespace SchoonmaakReparatieSysteem
         {
             DateTime enddate = DateTime.Today;
             DateTime startdate = enddate.Subtract(TimeSpan.FromDays(daystoenddate));
-           
+
             List<Tram> trams;
             List<User> emptylistusers = new List<User>();
             trams = _repolog.GetAllTrams();
@@ -273,7 +204,6 @@ namespace SchoonmaakReparatieSysteem
                         }
                     }
                 }
-
             }
         }
 
@@ -281,6 +211,10 @@ namespace SchoonmaakReparatieSysteem
         {
             dgv.DataSource = _repo.GetAllRepairsFromTram(tramnr);
         }
+
+        public List<User> GetAllUsersWithFunction(Role role)
+        {
+            return _repo.GetAllUsersWithFunction(role);
+        }
     }
 }
-

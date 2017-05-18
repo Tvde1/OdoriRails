@@ -38,7 +38,6 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.usernamelbl = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnPlanServices = new System.Windows.Forms.Button();
             this.btnMakeTestData = new System.Windows.Forms.Button();
             this.btnTramLogs = new System.Windows.Forms.Button();
@@ -158,18 +157,6 @@
             this.usernamelbl.TabIndex = 11;
             this.usernamelbl.Text = "Username";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRefresh.Location = new System.Drawing.Point(176, 719);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(79, 35);
-            this.btnRefresh.TabIndex = 12;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // btnPlanServices
             // 
             this.btnPlanServices.Location = new System.Drawing.Point(321, 51);
@@ -193,7 +180,7 @@
             // btnTramLogs
             // 
             this.btnTramLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTramLogs.Location = new System.Drawing.Point(263, 719);
+            this.btnTramLogs.Location = new System.Drawing.Point(220, 719);
             this.btnTramLogs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTramLogs.Name = "btnTramLogs";
             this.btnTramLogs.Size = new System.Drawing.Size(117, 35);
@@ -211,7 +198,6 @@
             this.Controls.Add(this.btnTramLogs);
             this.Controls.Add(this.btnMakeTestData);
             this.Controls.Add(this.btnPlanServices);
-            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.usernamelbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView);
@@ -245,7 +231,6 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label usernamelbl;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnPlanServices;
         private System.Windows.Forms.Button btnMakeTestData;
         private System.Windows.Forms.Button btnTramLogs;
